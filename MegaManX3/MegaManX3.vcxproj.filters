@@ -81,6 +81,9 @@
     <ClInclude Include="QuadTree.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="ConstStruct.h">
+      <Filter>Library\Constaint</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

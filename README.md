@@ -18,7 +18,7 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 ## Authors
 * **Vi Chi Thien** - [yeutham212](https://github.com/yeutham212)
 * **Nguyen Duy Cuong** - [ndc07](https://github.com/ndc07)
-* **Le Van Phuoc**
+* **Le Van Phuoc** - [TokumeiShi](https://github.com/TokumeiShi)
 
 See also the list of [contributors](https://github.com/yeutham212/MegaMan3/contributors) who participated in this project.
 
