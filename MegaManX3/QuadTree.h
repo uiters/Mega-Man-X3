@@ -52,7 +52,7 @@ public:
 private:
 	void getObjectsInNode(list<Object*>* list, bool isStatic);
 	void getObjectsInNode(list<Object*>* staticList, list<Object*>* activeList);
-
+	 
 };
 
 
