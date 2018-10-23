@@ -1,7 +1,12 @@
 #include "Game.h"
 Game* Game::__instance = NULL;
 
-void Game::Init(HWND hWnd) {
+HWND CreateGameWindow(int nCmdShow);
+
+void Game::Init(int nCmdShow) {
+
+	HWND hWnd =  CreateGameWindow(nCmdShow);
+
 	this->d3d = Direct3DCreate9(D3D_SDK_VERSION);
 	this->hWnd = hWnd;
 
@@ -22,8 +27,6 @@ void Game::Init(HWND hWnd) {
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 
 }
-
-
 
 Game::Game()
 {
@@ -249,3 +252,46 @@ Game::~Game()
 	if (d3ddv != NULL) d3ddv->Release();
 	if (d3d != NULL) d3d->Release();
 }
+
+
+HRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+	switch (message) {
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+
+	return 0;
+}
+
+HWND CreateGameWindow(int nCmdShow) {
+	WNDCLASSEX wc;
+	wc.cbSize = sizeof(WNDCLASSEX);
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.hInstance = G_hInstance;
+
+	wc.lpfnWndProc = (WNDPROC)WinProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	//wc.hIcon = 0;//LoadIcon(0, MB_ICONINFORMATION);
+	HICON icon = (HICON)LoadImage(NULL, HLOGO, IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+	wc.hIcon = icon;//
+	wc.hCursor = LoadCursor(0, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wc.lpszMenuName = 0;
+	wc.lpszClassName = CLASS_NAME;
+	wc.hIconSm = icon;// LoadIcon(0, IDI_QUESTION);
+
+
+	RegisterClassEx(&wc);
+
+	HWND hWnd = CreateWindow(CLASS_NAME, TITLE, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, WD_WIDTH, WD_HEIGHT, NULL, NULL, G_hInstance, NULL);
+
+	if (!hWnd) return 0;
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
+	return hWnd;
+}
+

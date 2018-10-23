@@ -122,10 +122,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h" />
+    <ClInclude Include="ConstGlobals.h" />
     <ClInclude Include="ConstStruct.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Debugs.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="KeyEvent.h" />
     <ClInclude Include="KeyEventHander.h" />
     <ClInclude Include="Map.h" />
@@ -134,6 +136,8 @@
     <ClInclude Include="Textures.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ConstGlobals.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="KeyEvent.cpp" />

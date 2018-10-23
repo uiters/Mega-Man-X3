@@ -52,6 +52,9 @@
     <Filter Include="Lib\Abstract">
       <UniqueIdentifier>{f823ae48-1c16-4e93-8bc5-e007cfaecfb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Camera">
+      <UniqueIdentifier>{8bc14e06-a487-4c43-8e45-26e67af23d8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEvent.h">
@@ -64,9 +67,6 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="KeyEventHander.h">
@@ -87,13 +87,19 @@
     <ClInclude Include="Debugs.h">
       <Filter>Lib</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstGlobals.h">
+      <Filter>Lib\Constaint</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Lib\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sprite.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="KeyEvent.cpp">
@@ -110,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
       <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstGlobals.cpp">
+      <Filter>Lib\Constaint</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Lib\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
