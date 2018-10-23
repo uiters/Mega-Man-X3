@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Library">
-      <UniqueIdentifier>{493712ec-be8c-4bfa-b8ed-6f911b7461e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Constaint">
-      <UniqueIdentifier>{e2200cd1-d88e-4448-9e52-31185b6f4d8b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{2cef8b38-fbf7-41e5-a0ea-dba9c934716f}</UniqueIdentifier>
     </Filter>
@@ -37,9 +31,6 @@
     <Filter Include="Game\Terrain">
       <UniqueIdentifier>{9434cd9d-65b1-4467-b3ab-5da015be7ed0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Abstract">
-      <UniqueIdentifier>{f823ae48-1c16-4e93-8bc5-e007cfaecfb3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Images\Textures">
       <UniqueIdentifier>{8c71204b-bc04-4de4-9583-aabd24ddc7b0}</UniqueIdentifier>
     </Filter>
@@ -52,51 +43,75 @@
     <Filter Include="Resource Files\Images\Icons">
       <UniqueIdentifier>{095437b8-a4d8-405f-9da2-df609ec6f769}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{493712ec-be8c-4bfa-b8ed-6f911b7461e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Constaint">
+      <UniqueIdentifier>{e2200cd1-d88e-4448-9e52-31185b6f4d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Abstract">
+      <UniqueIdentifier>{f823ae48-1c16-4e93-8bc5-e007cfaecfb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEvent.h">
       <Filter>Game\Controls</Filter>
     </ClInclude>
     <ClInclude Include="ConstColor.h">
-      <Filter>Library\Constaint</Filter>
+      <Filter>Lib\Constaint</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="KeyEventHander.h">
-      <Filter>Library\Abstract</Filter>
+      <Filter>Lib\Abstract</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sprite.cpp">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="KeyEvent.cpp">
       <Filter>Game\Controls</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Library</Filter>
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Lib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">
       <Filter>Resource Files\Images\Icons</Filter>
+    </Image>
+    <Image Include="map1.png">
+      <Filter>Resource Files\Images\Textures</Filter>
     </Image>
   </ItemGroup>
 </Project>

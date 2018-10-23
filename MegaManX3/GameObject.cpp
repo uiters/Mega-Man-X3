@@ -1,6 +1,9 @@
 #include "GameObject.h"
 #include "Game.h"
-GameObject::GameObject(LPCWSTR path, float x, float y, float width , float height) {
+
+//GameObject::_count = 0;
+
+GameObject::GameObject(LPCWSTR path, float x, float y, UINT width , UINT height) {
 	this->x = x;
 	this->y = y;
 	D3DXIMAGE_INFO info;
@@ -15,13 +18,14 @@ GameObject::GameObject(LPCWSTR path, float x, float y, float width , float heigh
 	this->width = width <= 0 ? info.Width : width;
 	this->height = height <= 0 ? info.Height : height;
 
+
 	LPDIRECT3DDEVICE9 d3ddv = Game::GetInstance()->GetDirect3DDevice();
 
 	result = D3DXCreateTextureFromFileEx
 	(
 		d3ddv,								// Pointer to Direct3D device object
 		path,						// Path to the image to load
-		this->width,							// Texture width
+		this->width,							// Texture width	
 		this->height,						// Texture height
 		1,
 		D3DUSAGE_DYNAMIC,
@@ -39,7 +43,6 @@ GameObject::GameObject(LPCWSTR path, float x, float y, float width , float heigh
 		return;
 	}
 }
-
 
 GameObject::~GameObject()
 {

@@ -11,6 +11,7 @@
 #define TITLE L"Mega Man X3"
 
 #define HLOGO L"icon.ico"
+#define MAP L"map1.log"
 
 #define WD_WIDTH 1240
 #define WD_HEIGHT 700

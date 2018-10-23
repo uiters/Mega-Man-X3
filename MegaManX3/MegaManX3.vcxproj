@@ -126,6 +126,8 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="KeyEvent.h" />
     <ClInclude Include="KeyEventHander.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Textures.h" />
   </ItemGroup>
@@ -134,11 +136,14 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="KeyEvent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />
+    <Image Include="map1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
