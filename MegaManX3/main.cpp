@@ -1,21 +1,9 @@
-#include <Windows.h>
-#include <d3d9.h>
-#include <d3dx9.h>
+
 
 #include "Game.h"
 #include "ConstColor.h"
 #include "KeyEvent.h"
 #include "Sprite.h"
-
-#define CLASS_NAME L"MegaManX3"
-#define TITLE L"Mega Man X3"
-
-#define HLOGO L"icon.ico"
-#define MAP L"map1.log"
-
-#define WD_WIDTH 1240
-#define WD_HEIGHT 700
-
 
 Game *game;
 KeyEvent *key;
@@ -95,56 +83,16 @@ void Run() {
 	}
 }
 
-HRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	switch (message) {
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	}
-
-	return 0;
-}
-
-HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow) {
-	WNDCLASSEX wc;
-	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.hInstance = hInstance;
-
-	wc.lpfnWndProc = (WNDPROC)WinProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	//wc.hIcon = 0;//LoadIcon(0, MB_ICONINFORMATION);
-	HICON icon = (HICON)LoadImage(NULL, HLOGO, IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
-	wc.hIcon = icon;//
-	wc.hCursor = LoadCursor(0, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = 0;
-	wc.lpszClassName = CLASS_NAME;
-	wc.hIconSm = icon;// LoadIcon(0, IDI_QUESTION);
 
 
-	RegisterClassEx(&wc);
 
-	HWND hWnd = CreateWindow(CLASS_NAME, TITLE, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, WD_WIDTH, WD_HEIGHT, NULL, NULL, hInstance, NULL);
-
-	if (!hWnd) return 0;
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
-	return hWnd;
-}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nCmdShow) {
-	HWND hWnd = CreateGameWindow(hInstance, nCmdShow);
-	//SetWindowPos(hWnd, 0, 0, 0, WD_WIDTH * 2, WD_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 	game = Game::GetInstance();
-	game->Init(hWnd);
+	game->Init(nCmdShow);
 	LoadResource();
 
-	//key = new KeyEvent(brick[0]); //key
-	//game->InitKeyboard(key); //key
+
 
 	Run();
 	return 0;
