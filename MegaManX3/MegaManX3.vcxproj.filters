@@ -82,7 +82,10 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="ConstStruct.h">
-      <Filter>Library\Constaint</Filter>
+      <Filter>Lib\Constaint</Filter>
+    </ClInclude>
+    <ClInclude Include="Debugs.h">
+      <Filter>Lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
