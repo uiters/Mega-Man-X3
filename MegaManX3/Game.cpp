@@ -23,33 +23,24 @@ void Game::Init(HWND hWnd) {
 
 }
 
-void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, D3DCOLOR colorBrush) {
-	D3DXVECTOR3 p(x, y, 0);
-	spriteHandler->Draw(texture, NULL, NULL, &p, colorBrush);
-}
-void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DCOLOR colorBrush)
-{
-	D3DXVECTOR3 p(x, y, 0);
-	RECT r;
-	r.left = left;
-	r.top = top;
-	r.right = right;
-	r.bottom = bottom;
-	spriteHandler->Draw(texture, &r, NULL, &p, colorBrush);
-}
+
+
 Game::Game()
 {
 }
+
 int Game::IsKeyDown(int KeyCode)
 {
 	return (keyStates[KeyCode] & 0x80) > 0;
 }
+
 void Game::ProcessKeyboard()
 {
+	if (keyHandler == NULL) return;
 	HRESULT hr;
 
 	// Collect all key states first
-	hr = didv->GetDeviceState(sizeof(keyStates), keyStates);
+	hr = didv->GetDeviceState(sizeof(keyStates),(LPVOID) & keyStates);
 	if (FAILED(hr))
 	{
 		// If the keyboard lost focus or was not acquired then try to get control back.
@@ -135,11 +126,7 @@ void Game::InitKeyboard(LPKeyEventHandler handler)
 
 }
 
-void Game::SweptAABB(
-	float ml, float mt, float mr, float mb,
-	float dx, float dy,
-	float sl, float st, float sr, float sb,
-	float &t, float &nx, float &ny)
+void Game::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny)
 {
 
 	float dx_entry, dx_exit, tx_entry, tx_exit;
@@ -230,7 +217,29 @@ void Game::SweptAABB(
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
+}
 
+
+Game *Game::GetInstance()
+{
+	if (__instance == NULL) __instance = new Game();
+	return __instance;
+}
+
+void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, D3DCOLOR colorBrush) {
+	D3DXVECTOR3 p(x, y, 0);
+	spriteHandler->Draw(texture, NULL, NULL, &p, colorBrush);
+}
+
+void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DCOLOR colorBrush)
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT r;
+	r.left = left;
+	r.top = top;
+	r.right = right;
+	r.bottom = bottom;
+	spriteHandler->Draw(texture, &r, NULL, &p, colorBrush);
 }
 
 Game::~Game()
@@ -239,10 +248,4 @@ Game::~Game()
 	if (backBuffer != NULL) backBuffer->Release();
 	if (d3ddv != NULL) d3ddv->Release();
 	if (d3d != NULL) d3d->Release();
-}
-
-Game *Game::GetInstance()
-{
-	if (__instance == NULL) __instance = new Game();
-	return __instance;
 }
