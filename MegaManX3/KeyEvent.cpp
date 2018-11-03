@@ -1,47 +1,27 @@
 #include "KeyEvent.h"
-void KeyEvent::OnKeyUp(int keyCode)
+
+
+
+
+
+
+KeyEvent::KeyEvent(GameObject * obj) : CKey(obj)
 {
 
-	//code here--------------------------------------
-
-
-
-	//------------------------------------------------
 }
-void KeyEvent::OnKeyDown(int keyCode)
-{
-
-	//code here--------------------------------------
-	if (keyCode == 205)
-		main->x -= 100;
-	else if(keyCode == 203)
-	{
-		main->x += 100;
-	}
-	else if(keyCode == 200)
-	{
-		main->y += 100;
-	}
-	else if(keyCode == 208)
-	{
-		main->y -= 100;
-	}
-
-
-	//------------------------------------------------
-}
-void KeyEvent::KeyState(BYTE* states)
-{
-
-	//code here--------------------------------------
-
-
-
-	//------------------------------------------------
-}
-
-
 
 KeyEvent::~KeyEvent()
+{
+}
+
+void KeyEvent::keyState(BYTE* state)
+{
+}
+
+void KeyEvent::onKeyDown(int keyCode)
+{
+}
+
+void KeyEvent::onKeyUp(int keyCode)
 {
 }

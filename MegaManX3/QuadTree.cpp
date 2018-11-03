@@ -58,7 +58,7 @@ QuadTree** QuadTree::getChildNodeFromChildRect(char childRectType)
 void QuadTree::add(Object* obj, bool isStatic)
 {
 	if (obj == NULL) return;
-	char childRectType = checkInChildRect(obj->getBound());
+	char childRectType = checkInChildRect(obj->getBoundingBox());
 	if (childRectType == 0 || level >= MAX_LEVEL)			//Nếu không thể chứa vào hình chữ nhật con
 	{
 		if (isStatic == true)
@@ -178,7 +178,7 @@ RECT QuadTree::getChildRect(RECT rect, int typeRect)
 bool QuadTree::IsContainable(Object* obj)
 {
 	//RECT của Object thuộc Rect của Quadtree nhưng không thuộc rect con thì return true
-	if (rectInRect(obj->getBound(), region) && checkInChildRect(obj->getBound()) == TR_NONE)
+	if (rectInRect(obj->getBoundingBox(), region) && checkInChildRect(obj->getBoundingBox()) == TR_NONE)
 		return true;
 	else return false;
 }

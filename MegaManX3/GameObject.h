@@ -5,29 +5,46 @@
 #include "Sprites.h"
 #include "QuadTree.h"
 #include "Textures.h"
+#include "Graphics.h"
 
 class QuadTree;
 class CTextures;
 
-
 class GameObject
 {
 protected:
-	int _id;
-	UINT width, height;
+	UINT _id;
+	float width, height;
 	LPDIRECT3DTEXTURE9 texture;
+	int state;
+	vector<LPANIMATION> animations;
 
 public:
 	float x, y;
-	GameObject(UINT idTexture, float x = 0, float y = 0, UINT width = 0, UINT height = 0);
+	float dx; // dx = vx * dt
+	float dy; // dy = vy * dt
+	Speed speed;
+	DWORD dt;
 	QuadTree* currentNode;
-	LPDIRECT3DTEXTURE9 GetTexture() { return texture; }
-	void SetPosition(float x, float y) { this->x = x; this->y = y; }
-	void getSize(float &width, float &height);
 
-	virtual void Update(DWORD dt) {}
-	virtual void Render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) { Game::GetInstance()->Draw(x, y, texture, colorBrush); }
-	virtual RECT getBound();
+public:
+	GameObject(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0, float width = 0, float height = 0);
+
+	// get
+	LPDIRECT3DTEXTURE9 getTexture() { return texture; }
+	void getSize(float &width, float &height);
+	int getState() { return state; }
+
+	void addAnimation(UINT animationId);
+
+	void renderBoundingBox(); // for test
+
+
+	virtual void getBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+	virtual RECT getBoundingBox();
+	virtual void setState(UINT state) { this->state = state; }
+	virtual void update(DWORD dt, vector<LPObject> *coObjects = 0);
+	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}
 	~GameObject();
 };
 

@@ -3,6 +3,7 @@
 #include <d3dx9.h>
 #include <unordered_map>
 #include"ConstColor.h"
+#include "Graphics.h"
 using namespace std;
 
 class CSprite
@@ -18,7 +19,7 @@ class CSprite
 public: 
 	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 texure);
 
-	void Draw(float x, float y, D3DCOLOR colorBrush = WHITE(255));
+	void draw(float x, float y, D3DCOLOR colorBrush = WHITE(255));
 };
 
 typedef CSprite * LPSPRITE;
@@ -33,8 +34,8 @@ class CSprites
 	unordered_map<int, LPSPRITE> sprites;
 
 public:
-	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 texture);
-	LPSPRITE Get(int id);
+	void add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 texture);
+	LPSPRITE get(int id);
 
 	static CSprites * GetInstance();
 };
@@ -49,8 +50,9 @@ class CAnimationFrame
 
 public:
 	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
-	DWORD GetTime() { return time; }
-	LPSPRITE GetSprite() { return sprite; }
+
+	DWORD getTime() { return time; }
+	LPSPRITE getSprite() { return sprite; }
 };
 
 typedef CAnimationFrame *LPANIMATION_FRAME;
@@ -63,8 +65,8 @@ class CAnimation
 	vector<LPANIMATION_FRAME> frames;
 public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
-	void Add(int spriteId, DWORD time = 0);
-	void Render(float x, float y, D3DCOLOR colorBrush = WHITE(255));
+	void add(int spriteId, DWORD time = 0);
+	void render(float x, float y, D3DCOLOR colorBrush = WHITE(255));
 };
 
 typedef CAnimation *LPANIMATION;
@@ -76,9 +78,9 @@ class CAnimations
 	unordered_map<int, LPANIMATION> animations;
 
 public:
-	void Add(int id, LPANIMATION ani);
-	LPANIMATION Get(int id);
+	void add(int id, LPANIMATION ani);
+	LPANIMATION get(int id);
 
-	static CAnimations * GetInstance();
+	static CAnimations * getInstance();
 };
 

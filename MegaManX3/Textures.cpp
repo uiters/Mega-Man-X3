@@ -9,13 +9,13 @@
 CTextures * CTextures::__instance = NULL;
 
 
-CTextures *CTextures::GetInstance()
+CTextures *CTextures::getInstance()
 {
 	if (__instance == NULL) __instance = new CTextures();
 	return __instance;
 }
 
-void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
+void CTextures::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
 	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
@@ -24,7 +24,7 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 		return;
 	}
 
-	LPDIRECT3DDEVICE9 d3ddv = Game::GetInstance()->GetDirect3DDevice();
+	LPDIRECT3DDEVICE9 d3ddv = gameGlobal->getDirect3DDevice();
 	LPDIRECT3DTEXTURE9 texture;
 
 	result = D3DXCreateTextureFromFileEx(
@@ -54,25 +54,25 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 
 }
 
-LPDIRECT3DTEXTURE9 CTextures::GetTexture(unsigned int i)
+LPDIRECT3DTEXTURE9 CTextures::getTexture(unsigned int i)
 {
 	return textures[i].texture;
 }
 
-void CTextures::GetSize(UINT id, float & width, float & height)
+void CTextures::getSize(UINT id, float & width, float & height)
 {
 	height = textures[id].height;
 	width = textures[id].width;
 }
 
 
-void CTextures::DelTexture(UINT id)
+void CTextures::delTexture(UINT id)
 {
 	textures[id].texture->Release();
 	textures.erase(id);
 }
 
-void CTextures::Clear()
+void CTextures::clear()
 {
 	for (auto i : textures)
 	{

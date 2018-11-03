@@ -19,36 +19,35 @@ CSprites *CSprites::GetInstance()
 	return __instance;
 }
 
-void CSprite::Draw(float x, float y, D3DCOLOR colorBrush)
+void CSprite::draw(float x, float y, D3DCOLOR colorBrush)
 {
-	Game * game = Game::GetInstance();
-	game->Draw(x, y, texture, left, top, right, bottom, colorBrush);
+	::draw(x, y, texture, left, top, right, bottom, colorBrush);
 }
 
-void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+void CSprites::add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
 	sprites[id] = s;
 }
 
-LPSPRITE CSprites::Get(int id)
+LPSPRITE CSprites::get(int id)
 {
 	return sprites[id];
 }
 
 
 
-void CAnimation::Add(int spriteId, DWORD time)
+void CAnimation::add(int spriteId, DWORD time)
 {
 	int t = time;
 	if (time == 0) t = this->defaultTime;
 
-	LPSPRITE sprite = CSprites::GetInstance()->Get(spriteId);
+	LPSPRITE sprite = CSprites::GetInstance()->get(spriteId);
 	LPANIMATION_FRAME frame = new CAnimationFrame(sprite, t);
 	frames.push_back(frame);
 }
 
-void CAnimation::Render(float x, float y, D3DCOLOR colorBrush)
+void CAnimation::render(float x, float y, D3DCOLOR colorBrush)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -58,7 +57,7 @@ void CAnimation::Render(float x, float y, D3DCOLOR colorBrush)
 	}
 	else
 	{
-		DWORD t = frames[currentFrame]->GetTime();
+		DWORD t = frames[currentFrame]->getTime();
 		if (now - lastFrameTime > t)
 		{
 			currentFrame++;
@@ -68,23 +67,23 @@ void CAnimation::Render(float x, float y, D3DCOLOR colorBrush)
 
 	}
 
-	frames[currentFrame]->GetSprite()->Draw(x, y, colorBrush);
+	frames[currentFrame]->getSprite()->draw(x, y, colorBrush);
 }
 
 CAnimations * CAnimations::__instance = NULL;
 
-CAnimations * CAnimations::GetInstance()
+CAnimations * CAnimations::getInstance()
 {
 	if (__instance == NULL) __instance = new CAnimations();
 	return __instance;
 }
 
-void CAnimations::Add(int id, LPANIMATION ani)
+void CAnimations::add(int id, LPANIMATION ani)
 {
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::Get(int id)
+LPANIMATION CAnimations::get(int id)
 {
 	return animations[id];
 }

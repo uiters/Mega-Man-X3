@@ -1,17 +1,15 @@
 #pragma once
-#include "KeyEventHander.h"
-#include "GameObject.h"
-
-class KeyEvent: public KeyEventHandler
+#include "CKey.h"
+class KeyEvent :
+	public CKey
 {
-private:
-	GameObject* main = NULL;
 public:
-	KeyEvent(GameObject* mainGame) : main(mainGame){}
-	virtual void KeyState(BYTE *states);
-	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode);
+	KeyEvent(GameObject* obj = 0);
 	~KeyEvent();
-};
 
+public:
+	void keyState(BYTE*) override;
+	void onKeyDown(int) override;
+	void onKeyUp(int) override;
+};
 

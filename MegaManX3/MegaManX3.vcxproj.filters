@@ -49,43 +49,37 @@
     <Filter Include="Lib\Constaint">
       <UniqueIdentifier>{e2200cd1-d88e-4448-9e52-31185b6f4d8b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Lib\Abstract">
-      <UniqueIdentifier>{f823ae48-1c16-4e93-8bc5-e007cfaecfb3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lib\Camera">
       <UniqueIdentifier>{8bc14e06-a487-4c43-8e45-26e67af23d8a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Lib\Collision">
       <UniqueIdentifier>{00f08798-19c3-4be1-8e0d-98ba48b8807b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Draw">
+      <UniqueIdentifier>{e9d5c165-b667-4199-a093-84557f3a9ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Debugs">
+      <UniqueIdentifier>{f3e29f1f-a19d-4942-9f65-6a1743a76489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Sprites">
+      <UniqueIdentifier>{cdd47de0-a38a-4f38-8b07-97ec0a82e341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Map">
+      <UniqueIdentifier>{124ca459-830b-4082-8f58-914111e4e624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Key">
+      <UniqueIdentifier>{031158ed-6960-440b-ba7f-37592e9be318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Game">
+      <UniqueIdentifier>{113e50ab-6ad9-421e-bf6c-165fbcb1e5fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KeyEvent.h">
-      <Filter>Game\Controls</Filter>
-    </ClInclude>
     <ClInclude Include="ConstColor.h">
       <Filter>Lib\Constaint</Filter>
     </ClInclude>
-    <ClInclude Include="KeyEventHander.h">
-      <Filter>Lib\Abstract</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="ConstStruct.h">
       <Filter>Lib\Constaint</Filter>
-    </ClInclude>
-    <ClInclude Include="Debugs.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="ConstGlobals.h">
       <Filter>Lib\Constaint</Filter>
@@ -93,49 +87,83 @@
     <ClInclude Include="Camera.h">
       <Filter>Lib\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Megaman.h" />
     <ClInclude Include="CollisionEvent.h">
       <Filter>Lib\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Lib\Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="Debugs.h">
+      <Filter>Lib\Debugs</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Lib\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Lib\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Lib\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Lib\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Lib\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CKey.h">
+      <Filter>Lib\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="Game1.h">
+      <Filter>Game\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEvent.h">
+      <Filter>Game\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="KeyEvent.cpp">
-      <Filter>Game\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="QuadTree.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
     <ClCompile Include="ConstGlobals.cpp">
       <Filter>Lib\Constaint</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Lib\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Megaman.cpp" />
-    <ClCompile Include="SweptAABB.h">
-      <Filter>Lib\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionEvent.cpp">
+      <Filter>Lib\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Lib\Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Lib\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Lib\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Lib\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Lib\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Lib\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CKey.cpp">
+      <Filter>Lib\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="Game1.cpp">
+      <Filter>Game\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyEvent.cpp">
+      <Filter>Game\Controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

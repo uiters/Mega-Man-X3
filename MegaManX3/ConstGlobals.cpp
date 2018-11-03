@@ -1,5 +1,9 @@
 #include "ConstGlobals.h"
 
-HINSTANCE G_hInstance;
-
-
+HWND hWndGlobal;
+HINSTANCE hInstanceGlobal;
+Game* gameGlobal;
+CKey* keyGlobal;
+CTextures* texturesGlobal;
+CSprites* spritesGlobal;
+CAnimations* animationsGlobal;

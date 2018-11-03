@@ -9,7 +9,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-void DebugOut(wchar_t *fmt, ...)
+void debugOut(wchar_t *fmt, ...)
 {
 	va_list argp;
 	va_start(argp, fmt);

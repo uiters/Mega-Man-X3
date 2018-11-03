@@ -1,14 +1,28 @@
 #include "Game.h"
-Game* Game::__instance = NULL;
 
 HWND CreateGameWindow(int nCmdShow);
+HRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-void Game::Init(int nCmdShow) {
+void Game::superRender(DWORD dt)
+{
+	if (d3ddv->BeginScene())
+	{
+		d3ddv->ColorFill(backBuffer, NULL, WHITE(255));
+		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+		render(dt);
+		spriteHandler->End();
+		d3ddv->EndScene();
+	}
+
+	d3ddv->Present(NULL, NULL, NULL, NULL);
+}
+
+void Game::init(int nCmdShow) {
 
 	HWND hWnd =  CreateGameWindow(nCmdShow);
 
 	this->d3d = Direct3DCreate9(D3D_SDK_VERSION);
-	this->hWnd = hWnd;
+	hWndGlobal = hWnd;
 
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -26,166 +40,58 @@ void Game::Init(int nCmdShow) {
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 
+	loadResource();
+	initOption();
+	initGolbals();
 }
 
-Game::Game()
+void Game::initGolbals()
 {
+
 }
 
-int Game::IsKeyDown(int KeyCode)
+void Game::run()
 {
-	return (keyStates[KeyCode] & 0x80) > 0;
-}
-
-void Game::ProcessKeyboard()
-{
-	if (keyHandler == NULL) return;
-	HRESULT hr;
-
-	// Collect all key states first
-	hr = didv->GetDeviceState(sizeof(keyStates),(LPVOID) & keyStates);
-	if (FAILED(hr))
-	{
-		// If the keyboard lost focus or was not acquired then try to get control back.
-		if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
+	MSG msg;
+	int done = 0;
+	DWORD timeStart = GetTickCount();
+	DWORD timePerFarme = 16;
+	while (!done) {
+		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
 		{
-			HRESULT h = didv->Acquire();
-			if (h != DI_OK)
-				return;
+			if (msg.message == WM_QUIT) done = 1;
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		DWORD now = GetTickCount();
+		DWORD dt = now - timeStart;
+		if (dt >= timePerFarme) {
+			timeStart = now;
+
+			update(dt);
+			superRender(dt);
+
 		}
 		else
-		{
-			return;
-		}
-	}
-
-	keyHandler->KeyState((BYTE *)&keyStates);
-
-
-
-	// Collect all buffered events
-	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
-	hr = didv->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), keyEvents, &dwElements, 0);
-	if (FAILED(hr))
-	{
-		return;
-	}
-
-	// Scan through all buffered events, check if the key is pressed or released
-	for (DWORD i = 0; i < dwElements; i++)
-	{
-		int KeyCode = keyEvents[i].dwOfs;
-		int KeyState = keyEvents[i].dwData;
-		if ((KeyState & 0x80) > 0)
-			keyHandler->OnKeyDown(KeyCode);
-		else
-			keyHandler->OnKeyUp(KeyCode);
+			Sleep(timePerFarme - dt);
 	}
 }
 
-void Game::InitKeyboard(LPKeyEventHandler handler)
+LPDIRECT3DDEVICE9 Game::getDirect3DDevice()
 {
-	HRESULT
-		hr = DirectInput8Create
-		(
-		(HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE),
-			DIRECTINPUT_VERSION,
-			IID_IDirectInput8, (VOID**)&di, NULL
-		);
-
-	if (hr != DI_OK)
-	{
-		return;
-	}
-	hr = di->CreateDevice(GUID_SysKeyboard, &didv, NULL);
-
-	if (hr != DI_OK) {
-		return;
-	}
-
-
-
-
-
-
-
-	hr = didv->SetDataFormat(&c_dfDIKeyboard);
-
-	hr = didv->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-
-	DIPROPDWORD dipdw;
-
-	dipdw.diph.dwSize = sizeof(DIPROPDWORD);
-	dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
-	dipdw.diph.dwObj = 0;
-	dipdw.diph.dwHow = DIPH_DEVICE;
-	dipdw.dwData = KEYBOARD_BUFFER_SIZE; // Arbitary buffer size
-
-	hr = didv->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
-
-	hr = didv->Acquire();
-	if (hr != DI_OK)
-	{
-		return;
-	}
-
-	this->keyHandler = handler;
-
-
+	return d3ddv;
 }
 
-
-
-
-Game *Game::GetInstance()
+LPDIRECT3DSURFACE9 Game::getBackBuffer()
 {
-	if (__instance == NULL) __instance = new Game();
-	return __instance;
+	return backBuffer;
 }
 
-void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, D3DCOLOR colorBrush) {
-	D3DXVECTOR3 p(x, y, 0);
-	spriteHandler->Draw(texture, NULL, NULL, &p, colorBrush);
-}
-
-void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DCOLOR colorBrush)
+LPD3DXSPRITE Game::getSpriteHandler()
 {
-	D3DXVECTOR3 p(x, y, 0);
-	RECT r;
-	r.left = left;
-	r.top = top;
-	r.right = right;
-	r.bottom = bottom;
-	spriteHandler->Draw(texture, &r, NULL, &p, colorBrush);
+	return spriteHandler;
 }
-
-void Game::DrawFlipX(int x, int y,LPDIRECT3DTEXTURE9 texture, float width, float height, D3DCOLOR colorBrush)
-{
-	D3DXMATRIX oldMt;
-	spriteHandler->GetTransform(&oldMt);
-
-	D3DXMATRIX newMt;
-	D3DXVECTOR2 center = D3DXVECTOR2(x + width / 2, y + height / 2);
-	D3DXVECTOR2 rotate = D3DXVECTOR2(-1, 1);
-
-	D3DXMatrixTransformation2D(&newMt, &center, 0.0f, &rotate, NULL, 0.0f, NULL);
-	D3DXMATRIX finalMt = newMt * oldMt;
-	spriteHandler->SetTransform(&finalMt);
-
-	x += width;
-	Draw(x, y, texture, colorBrush);
-
-	spriteHandler->SetTransform(&oldMt);
-}
-
-Game::~Game()
-{
-	if (spriteHandler != NULL) spriteHandler->Release();
-	if (backBuffer != NULL) backBuffer->Release();
-	if (d3ddv != NULL) d3ddv->Release();
-	if (d3d != NULL) d3d->Release();
-}
-
 
 HRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {
@@ -203,7 +109,7 @@ HWND CreateGameWindow(int nCmdShow) {
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.hInstance = G_hInstance;
+	wc.hInstance = hInstanceGlobal;
 
 	wc.lpfnWndProc = (WNDPROC)WinProc;
 	wc.cbClsExtra = 0;
@@ -220,7 +126,7 @@ HWND CreateGameWindow(int nCmdShow) {
 
 	RegisterClassEx(&wc);
 
-	HWND hWnd = CreateWindow(CLASS_NAME, TITLE, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, WD_WIDTH, WD_HEIGHT, NULL, NULL, G_hInstance, NULL);
+	HWND hWnd = CreateWindow(CLASS_NAME, TITLE, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, WD_WIDTH, WD_HEIGHT, NULL, NULL, hInstanceGlobal, NULL);
 
 	if (!hWnd) return 0;
 	ShowWindow(hWnd, nCmdShow);
