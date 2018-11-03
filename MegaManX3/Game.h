@@ -36,7 +36,7 @@ public:
 
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, D3DCOLOR colorBrush = WHITE(255));
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DCOLOR colorBrush = WHITE(255));
-
+	void DrawFlipX(int x, int y, LPDIRECT3DTEXTURE9 texture, float width, float height, D3DCOLOR colorBrush = WHITE(255));
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return spriteHandler; }

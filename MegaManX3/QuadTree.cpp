@@ -1,6 +1,21 @@
 ﻿#include "QuadTree.h"
 
 
+QuadTree::QuadTree(UINT id, int level, int x, int y, int size)
+{
+	region = { x , y , x + size, y + size };
+	this->level = level;
+	this->nodeID = id;
+	topLeft = topRight = bottomLeft = bottomRight = NULL;
+}
+
+QuadTree::QuadTree(UINT id, int level, RECT region)
+{
+	this->nodeID = id;
+	this->level = level;
+	this->region = region;
+}
+
 QuadTree::~QuadTree()
 {
 	if (topLeft != NULL) delete topLeft;
@@ -43,7 +58,7 @@ QuadTree** QuadTree::getChildNodeFromChildRect(char childRectType)
 void QuadTree::add(Object* obj, bool isStatic)
 {
 	if (obj == NULL) return;
-	char childRectType = checkInChildRect(obj->getRect());
+	char childRectType = checkInChildRect(obj->getBound());
 	if (childRectType == 0 || level >= MAX_LEVEL)			//Nếu không thể chứa vào hình chữ nhật con
 	{
 		if (isStatic == true)
@@ -54,13 +69,12 @@ void QuadTree::add(Object* obj, bool isStatic)
 	}
 	else
 	{
-		RECT* r;
+		RECT r;
 		QuadTree** qChild = getChildNodeFromChildRect(childRectType);
 		if (*qChild == NULL)
 		{
 			r = getChildRect(region, childRectType);
-			(*qChild) = new QuadTree(level + 1, r->left, r->top, r->right - r->left);
-			delete r;
+			(*qChild) = new QuadTree(nodeID *10, level + 1, r.left, r.top, r.right - r.left);
 		}
 		(*qChild)->add(obj, isStatic);
 	}
@@ -108,28 +122,23 @@ void QuadTree::deleteObject(Object* obj, bool isStatic)
 
 int QuadTree::checkInChildRect(RECT rInner)
 {
-	RECT* r = getChildRect(region, TR_TL);
-	if (rectInRect(rInner, *r)) {
-		delete r;
+	RECT r = getChildRect(region, TR_TL);
+	if (rectInRect(rInner, r)) {
 		return TR_TL;
 	}
 	r = getChildRect(region, TR_TR);
-	if (rectInRect(rInner, *r)) {
-		delete r;
+	if (rectInRect(rInner, r)) {
 		return TR_TR;
 	}
 	r = getChildRect(region, TR_BL);
-	if (rectInRect(rInner, *r)) {
-		delete r;
+	if (rectInRect(rInner, r)) {
 		return TR_BL;
 	}
 	r = getChildRect(region, TR_BR);
-	if (rectInRect(rInner, *r)) {
-		delete r;
+	if (rectInRect(rInner, r)) {
 		return TR_BR;
 	}
 	else {
-		delete r;
 		return TR_NONE;
 	}
 }
@@ -147,33 +156,29 @@ bool QuadTree::rectInRect(RECT rInner, RECT outerRect)
 		&&rInner.top >= outerRect.top&&rInner.bottom <= outerRect.bottom);
 }
 
-RECT*  QuadTree::getChildRect(RECT rect, int typeRect)
+RECT QuadTree::getChildRect(RECT rect, int typeRect)
 {
 	int vCenterLine = (rect.left + rect.right) / 2;
 	int hCenterLine = (rect.top + rect.bottom) / 2;
-	RECT* r = new RECT();
 	switch (typeRect)
 	{
-	case 1:			
-		r->left = rect.left; r->top = rect.top; r->right = vCenterLine; r->bottom = hCenterLine;
-		return r;
+	case 1:
+		return { rect.left, rect.top, vCenterLine, hCenterLine };
 	case 2:
-		r->left = vCenterLine; r->top = rect.top; r->right = rect.right; r->bottom = hCenterLine;
-		return r;
+		return { vCenterLine, rect.top, rect.right, hCenterLine };
 	case 3:
-		r->left = rect.left; r->top = hCenterLine; r->right = vCenterLine; r->bottom = rect.bottom;
-		return r;
+		return { rect.left, hCenterLine , vCenterLine, rect.bottom };
 	case 4:
-		r->left = vCenterLine; r->top = hCenterLine; r->right = rect.right; r->bottom = rect.bottom;
-		return r;
-	default : return r;
+		return { vCenterLine, hCenterLine, rect.right, rect.bottom };
+	default: 
+		return { 0, 0, 0, 0 };
 	}
 }
 
 bool QuadTree::IsContainable(Object* obj)
 {
 	//RECT của Object thuộc Rect của Quadtree nhưng không thuộc rect con thì return true
-	if (rectInRect(obj->getRect(), region) && checkInChildRect(obj->getRect()) == TR_NONE)
+	if (rectInRect(obj->getBound(), region) && checkInChildRect(obj->getBound()) == TR_NONE)
 		return true;
 	else return false;
 }

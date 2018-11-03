@@ -55,6 +55,9 @@
     <Filter Include="Lib\Camera">
       <UniqueIdentifier>{8bc14e06-a487-4c43-8e45-26e67af23d8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Collision">
+      <UniqueIdentifier>{00f08798-19c3-4be1-8e0d-98ba48b8807b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEvent.h">
@@ -62,12 +65,6 @@
     </ClInclude>
     <ClInclude Include="ConstColor.h">
       <Filter>Lib\Constaint</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="KeyEventHander.h">
       <Filter>Lib\Abstract</Filter>
@@ -96,17 +93,21 @@
     <ClInclude Include="Camera.h">
       <Filter>Lib\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Megaman.h" />
+    <ClInclude Include="CollisionEvent.h">
+      <Filter>Lib\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
     <ClCompile Include="KeyEvent.cpp">
       <Filter>Game\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Lib</Filter>
@@ -125,6 +126,16 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Lib\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Megaman.cpp" />
+    <ClCompile Include="SweptAABB.h">
+      <Filter>Lib\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

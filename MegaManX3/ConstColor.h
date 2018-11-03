@@ -1,7 +1,6 @@
 #ifndef _COLORS_H_
 #define _COLORS_H_
 
-#pragma once
 
 #include <d3d9.h>
 
@@ -23,5 +22,6 @@
 #define DARKGRAY(alpha)      D3DCOLOR_ARGB(alpha, 73, 73, 73)
 #define DARKERGRAY(alpha)    D3DCOLOR_ARGB(alpha, 31, 31, 31)
 #define BACKGROUND_COLOR	 D3DCOLOR_XRGB(255, 255, 255)
+//#define BLACK				 D3DCOLOR_XRGB(255, 255, 255)
 
 #endif /* _COLORS_H_ */

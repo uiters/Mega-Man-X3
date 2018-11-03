@@ -85,29 +85,33 @@ void Game::ProcessKeyboard()
 
 void Game::InitKeyboard(LPKeyEventHandler handler)
 {
-	HRESULT hr = DirectInput8Create
-	(
+	HRESULT
+		hr = DirectInput8Create
+		(
 		(HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE),
 			DIRECTINPUT_VERSION,
 			IID_IDirectInput8, (VOID**)&di, NULL
-	);
+		);
 
 	if (hr != DI_OK)
 	{
 		return;
 	}
-
 	hr = di->CreateDevice(GUID_SysKeyboard, &didv, NULL);
 
-	if (hr != DI_OK)
-	{
+	if (hr != DI_OK) {
 		return;
 	}
+
+
+
+
+
+
 
 	hr = didv->SetDataFormat(&c_dfDIKeyboard);
 
 	hr = didv->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-
 
 	DIPROPDWORD dipdw;
 
@@ -115,7 +119,7 @@ void Game::InitKeyboard(LPKeyEventHandler handler)
 	dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
 	dipdw.diph.dwObj = 0;
 	dipdw.diph.dwHow = DIPH_DEVICE;
-	dipdw.dwData = KEYBOARD_BUFFER_SIZE; 
+	dipdw.dwData = KEYBOARD_BUFFER_SIZE; // Arbitary buffer size
 
 	hr = didv->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
 
@@ -127,100 +131,10 @@ void Game::InitKeyboard(LPKeyEventHandler handler)
 
 	this->keyHandler = handler;
 
+
 }
 
-void Game::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny)
-{
 
-	float dx_entry, dx_exit, tx_entry, tx_exit;
-	float dy_entry, dy_exit, ty_entry, ty_exit;
-
-	float t_entry;
-	float t_exit;
-
-	t = -1.0f;			// no collision
-	nx = ny = 0;
-
-	//
-	// Broad-phase test 
-	//
-
-	float bl = dx > 0 ? ml : ml + dx;
-	float bt = dy > 0 ? mt : mt + dy;
-	float br = dx > 0 ? mr + dx : mr;
-	float bb = dy > 0 ? mb + dy : mb;
-
-	if (br < sl || bl > sr || bb < st || bt > sb) return;
-
-
-	if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
-
-	if (dx > 0)
-	{
-		dx_entry = sl - mr;
-		dx_exit = sr - ml;
-	}
-	else if (dx < 0)
-	{
-		dx_entry = sr - ml;
-		dx_exit = sl - mr;
-	}
-
-
-	if (dy > 0)
-	{
-		dy_entry = st - mb;
-		dy_exit = sb - mt;
-	}
-	else if (dy < 0)
-	{
-		dy_entry = sb - mt;
-		dy_exit = st - mb;
-	}
-
-	if (dx == 0)
-	{
-		tx_entry = -99999999999;
-		tx_exit = 99999999999;
-	}
-	else
-	{
-		tx_entry = dx_entry / dx;
-		tx_exit = dx_exit / dx;
-	}
-
-	if (dy == 0)
-	{
-		ty_entry = -99999999999;
-		ty_exit = 99999999999;
-	}
-	else
-	{
-		ty_entry = dy_entry / dy;
-		ty_exit = dy_exit / dy;
-	}
-
-
-	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
-
-	t_entry = max(tx_entry, ty_entry);
-	t_exit = min(tx_exit, ty_exit);
-
-	if (t_entry > t_exit) return;
-
-	t = t_entry;
-
-	if (tx_entry > ty_entry)
-	{
-		ny = 0.0f;
-		dx > 0 ? nx = -1.0f : nx = 1.0f;
-	}
-	else
-	{
-		nx = 0.0f;
-		dy > 0 ? ny = -1.0f : ny = 1.0f;
-	}
-}
 
 
 Game *Game::GetInstance()
@@ -243,6 +157,25 @@ void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top,
 	r.right = right;
 	r.bottom = bottom;
 	spriteHandler->Draw(texture, &r, NULL, &p, colorBrush);
+}
+
+void Game::DrawFlipX(int x, int y,LPDIRECT3DTEXTURE9 texture, float width, float height, D3DCOLOR colorBrush)
+{
+	D3DXMATRIX oldMt;
+	spriteHandler->GetTransform(&oldMt);
+
+	D3DXMATRIX newMt;
+	D3DXVECTOR2 center = D3DXVECTOR2(x + width / 2, y + height / 2);
+	D3DXVECTOR2 rotate = D3DXVECTOR2(-1, 1);
+
+	D3DXMatrixTransformation2D(&newMt, &center, 0.0f, &rotate, NULL, 0.0f, NULL);
+	D3DXMATRIX finalMt = newMt * oldMt;
+	spriteHandler->SetTransform(&finalMt);
+
+	x += width;
+	Draw(x, y, texture, colorBrush);
+
+	spriteHandler->SetTransform(&oldMt);
 }
 
 Game::~Game()

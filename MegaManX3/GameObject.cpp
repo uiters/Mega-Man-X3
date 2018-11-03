@@ -1,50 +1,30 @@
 #include "GameObject.h"
 #include "Game.h"
-
 //GameObject::_count = 0;
-
-GameObject::GameObject(LPCWSTR path, float x, float y, UINT width , UINT height) {
+GameObject::GameObject(UINT idTexture, float x, float y, UINT width , UINT height) {
 	this->x = x;
 	this->y = y;
-	D3DXIMAGE_INFO info;
-	HRESULT result = D3DXGetImageInfoFromFile(path, &info);
 
+	this->width = width;
+	this->height = height;
+	this->_id = idTexture;
 
-	if (result != D3D_OK)
-	{
-		return;
-	}
+	//this->texture = CTextures::GetInstance()->Get(idTexture);
 
-	this->width = width <= 0 ? info.Width : width;
-	this->height = height <= 0 ? info.Height : height;
+}
 
+void GameObject::getSize(float & width, float & height)
+{
+	width = this->width;
+	height = this->height;
+}
 
-	LPDIRECT3DDEVICE9 d3ddv = Game::GetInstance()->GetDirect3DDevice();
-
-	result = D3DXCreateTextureFromFileEx
-	(
-		d3ddv,								// Pointer to Direct3D device object
-		path,						// Path to the image to load
-		this->width,							// Texture width	
-		this->height,						// Texture height
-		1,
-		D3DUSAGE_DYNAMIC,
-		D3DFMT_UNKNOWN,
-		D3DPOOL_DEFAULT,
-		D3DX_DEFAULT,
-		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 255, 255),			// Transparent color
-		&info,
-		NULL,
-		&texture);								// Created texture pointer
-
-	if (result != D3D_OK)
-	{
-		return;
-	}
+RECT GameObject::getBound()
+{
+	return { (long)x, (long)y, (long)(x + width), (long)(y + height) };
 }
 
 GameObject::~GameObject()
 {
-	if (texture != NULL) texture->Release();
+	//if (texture != NULL) texture->Release();
 }

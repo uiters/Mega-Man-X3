@@ -48,13 +48,37 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 		return;
 	}
 
-	textures[id] = texture;
+
+
+	textures[id] = { texture,(float) info.Width,(float) info.Height };
 
 }
 
-LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int i)
+LPDIRECT3DTEXTURE9 CTextures::GetTexture(unsigned int i)
 {
-	return textures[i];
+	return textures[i].texture;
+}
+
+void CTextures::GetSize(UINT id, float & width, float & height)
+{
+	height = textures[id].height;
+	width = textures[id].width;
+}
+
+
+void CTextures::DelTexture(UINT id)
+{
+	textures[id].texture->Release();
+	textures.erase(id);
+}
+
+void CTextures::Clear()
+{
+	for (auto i : textures)
+	{
+		i.second.texture->Release();
+		textures.erase(i.first);
+	}
 }
 
 

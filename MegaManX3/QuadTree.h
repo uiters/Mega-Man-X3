@@ -1,21 +1,27 @@
 #pragma once
 #include "GameObject.h"
 #include <d3dx9.h>
-#define MAX_LEVEL 5
 
 class GameObject;
 
-#define Object GameObject
 
+#define Object GameObject
 enum TYPE_RECT { TR_NONE, TR_TL, TR_TR, TR_BL, TR_BR };
+
 
 class QuadTree
 {
+private:
+	UINT nodeID;
+
 private:
 	int checkInChildRect(RECT rInner);
 	QuadTree** getChildNodeFromChildRect(char childRectType);
 	bool IsExistActive( Object * obj);
 	bool IsContainable( Object * obj);
+
+	void getObjectsInNode(list<Object*>* list, bool isStatic);
+	void getObjectsInNode(list<Object*>* staticList, list<Object*>* activeList);
 
 public:
 	int level;
@@ -28,13 +34,8 @@ public:
 	QuadTree* bottomLeft;
 	QuadTree* bottomRight;
 
-	QuadTree(int level, int x, int y, int size) {
-		RECT r = { x,y,x + size,y + size };
-		region = r;
-		this->level = level;
-		topLeft = topRight = bottomLeft = bottomRight = NULL;
-	}
-	QuadTree(int level, RECT region) : level(level), region(region) {}
+	QuadTree(UINT id, int level, int x, int y, int size);
+	QuadTree(UINT id, int level, RECT region);
 
 	~QuadTree();
 
@@ -47,11 +48,8 @@ public:
 	void Update(list<Object*> list);
 
 	static bool rectInRect(RECT a, RECT b);
-	RECT* getChildRect(RECT rect, int typeRect);
+	RECT getChildRect(RECT rect, int typeRect);
 
-private:
-	void getObjectsInNode(list<Object*>* list, bool isStatic);
-	void getObjectsInNode(list<Object*>* staticList, list<Object*>* activeList);
 	 
 };
 

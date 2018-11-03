@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="ConstColor.h" />
     <ClInclude Include="ConstGlobals.h" />
     <ClInclude Include="ConstStruct.h" />
@@ -131,8 +132,9 @@
     <ClInclude Include="KeyEvent.h" />
     <ClInclude Include="KeyEventHander.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Megaman.h" />
     <ClInclude Include="QuadTree.h" />
-    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +145,10 @@
     <ClCompile Include="KeyEvent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Megaman.cpp" />
     <ClCompile Include="QuadTree.cpp" />
-    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="SweptAABB.h" />
     <ClCompile Include="Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
