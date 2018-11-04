@@ -1,5 +1,7 @@
 #include "Game.h"
-
+#include "Sprites.h"
+#include "Textures.h"
+#include "KeyEvent.h"
 HWND CreateGameWindow(int nCmdShow);
 HRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -39,15 +41,17 @@ void Game::init(int nCmdShow) {
 	if (!d3ddv) return;
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 	D3DXCreateSprite(d3ddv, &spriteHandler);
-
+	initGolbals();
 	loadResource();
 	initOption();
-	initGolbals();
 }
 
 void Game::initGolbals()
 {
-
+	keyGlobal = new KeyEvent();
+	texturesGlobal = CTextures::getInstance();
+	spritesGlobal = CSprites::getInstance();
+	animationsGlobal = CAnimations::getInstance();
 }
 
 void Game::run()

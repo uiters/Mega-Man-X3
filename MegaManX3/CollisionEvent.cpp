@@ -78,6 +78,27 @@ void filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
+ColllisionDirect GetCollisionDirect(float normalx, float normaly)
+{
+	if (normalx == 0 && normaly == 1)
+	{
+		return ColllisionDirect::Bottom;
+	}
+	if (normalx == 0 && normaly == -1)
+	{
+		return ColllisionDirect::Top;
+	}
+	if (normalx == 1 && normaly == 0)
+	{
+		return ColllisionDirect::Left;
+	}
+	if (normalx == -1 && normaly == 0)
+	{
+		return ColllisionDirect::Right;
+	}
+	return ColllisionDirect::Nome;
+}
+
 void sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny)
 {
 

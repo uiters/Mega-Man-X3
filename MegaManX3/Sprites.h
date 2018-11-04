@@ -37,7 +37,7 @@ public:
 	void add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 texture);
 	LPSPRITE get(int id);
 
-	static CSprites * GetInstance();
+	static CSprites * getInstance();
 };
 
 /*

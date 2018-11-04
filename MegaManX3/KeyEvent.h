@@ -1,5 +1,8 @@
 #pragma once
 #include "CKey.h"
+#include "GameObject.h"
+
+
 class KeyEvent :
 	public CKey
 {

@@ -1,43 +1,61 @@
 #include "Camera.h"
-Camera::Camera()
+Camera::Camera() :viewport(0, 0, WD_WIDTH, WD_HEIGHT)
 {
-	viewport.x = 1;
-	viewport.y = WD_HEIGHT;
-}
-void Camera::SetSize(float max, float min) {
-	right = max;
-	left = min;
 }
 
-D3DXVECTOR2 Camera::Transform(float x, float y) {
+Camera::Camera(float x, float y, float width, float height): viewport(x, y, width, height)
+{
+
+}
+
+void Camera::setSizeWorld(float left, float top, float right, float bottom)
+{
+	world.left = left;
+	world.right = right;
+	world.top = top;
+	world.bottom = bottom;
+}
+
+void Camera::setSizeWorld(float right, float bottom)
+{
+	world.left = 0;
+	world.top = 0;
+	world.right = right;
+	world.bottom = bottom;
+}
+
+
+
+D3DXVECTOR3 Camera::transformToViewport(float x, float y) {
 	D3DXVECTOR3 pos3(x, y, 1); // ma tran x
 	D3DXMATRIX matrix; // 
 	D3DXVECTOR4 matrixResult; // ma tran ket qua
-
 	D3DXMatrixIdentity(&matrix);
-	matrix._22 = -1;
+
+	matrix._22 = -1.0f;
 	matrix._41 = -viewport.x;
 	matrix._42 = viewport.y;
+
 	D3DXVec3Transform(&matrixResult, &pos3, &matrix);
-	D3DXVECTOR2 result = D3DXVECTOR2(matrixResult.x, matrixResult.y);
-	return result;
+
+	return D3DXVECTOR3(matrixResult.x, matrixResult.y, 0);
 }
 
-void Camera::Update(float x)
+void Camera::update(float x, float y)
 {
-	if (x > viewport.x + WD_WIDTH || x < viewport.x)
+	//Camera don't show out of viewport
+	float centerScreenX = WD_WIDTH / 2;
+	float right = viewport.right();
+	if (x > right || x < viewport.x)
 	{
-		viewport.x = x - WD_WIDTH / 2;
+		viewport.x = x - centerScreenX; // hold character center of camera
 	}
-	if (x < right - WD_WIDTH / 2)
-		viewport.x = x - WD_WIDTH / 2;
+	if (x < right - centerScreenX)
+		viewport.x = x - centerScreenX;
 
-
-	// viewport left == left
-	if (viewport.x < left)
-		viewport.x = left;
-
-	// viewport right = right
-	if (viewport.x + WD_WIDTH > right)
-		viewport.x = right - WD_WIDTH;
+	//hold viewport don't out worldview
+	if (viewport.x < world.left)
+		viewport.x = world.left;
+	else if (right > world.right)
+		viewport.setRight(world.right);
 }

@@ -13,7 +13,7 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 
 CSprites * CSprites::__instance = NULL;
 
-CSprites *CSprites::GetInstance()
+CSprites *CSprites::getInstance()
 {
 	if (__instance == NULL) __instance = new CSprites();
 	return __instance;
@@ -42,7 +42,7 @@ void CAnimation::add(int spriteId, DWORD time)
 	int t = time;
 	if (time == 0) t = this->defaultTime;
 
-	LPSPRITE sprite = CSprites::GetInstance()->get(spriteId);
+	LPSPRITE sprite = CSprites::getInstance()->get(spriteId);
 	LPANIMATION_FRAME frame = new CAnimationFrame(sprite, t);
 	frames.push_back(frame);
 }

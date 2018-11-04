@@ -16,6 +16,11 @@ void draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int r
 	gameGlobal->getSpriteHandler()->Draw(texture, &r, NULL, &p, colorBrush);
 }
 
+void draw(LPDIRECT3DTEXTURE9 texture, RECT* srect, D3DXVECTOR3* center, D3DXVECTOR3 pos, D3DCOLOR colorBrush)
+{
+	gameGlobal->getSpriteHandler()->Draw(texture, srect, center, &pos, colorBrush);
+}
+
 void drawFlipX(int x, int y, LPDIRECT3DTEXTURE9 texture, float width, float height, D3DCOLOR colorBrush)
 {
 	LPD3DXSPRITE spriteHandler = gameGlobal->getSpriteHandler();

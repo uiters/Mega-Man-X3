@@ -11,13 +11,14 @@ void Game1::initOption()
 	keyGlobal->initKeyboard();
 }
 
-void Game1::update(DWORD)
+void Game1::update(DWORD dt)
 {
 	keyGlobal->processKeyboard();
 
-}
 
-void Game1::render(DWORD)
+}	
+
+void Game1::render(DWORD dt)
 {
 
 }

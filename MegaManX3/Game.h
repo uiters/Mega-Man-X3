@@ -14,10 +14,10 @@ protected:
 	LPD3DXSPRITE spriteHandler = 0;
 
 	void superRender(DWORD);
+	void initGolbals();
 
 public:
 	void init(int nCmdShow);
-	void initGolbals();
 	void run();
 
 	LPDIRECT3DDEVICE9 getDirect3DDevice();

@@ -1,26 +1,60 @@
 #include "GameObject.h"
 #include "Game.h"
-GameObject::GameObject(UINT idTexture, float x, float y, float vx, float vy, float width, float height) :speed( vx , vy ) {
+
+GameObject::GameObject(UINT idTexture, float x, float y, float vx, float vy) :speed( vx , vy ) {
 	this->x = x;
 	this->y = y;
 
-	this->width = width;
-	this->height = height;
-	this->_id = idTexture;
 
-	this->texture = CTextures::getInstance()->getTexture(idTexture);
+	this->_id = idTexture;
+	STexture* stexture = texturesGlobal->getSTexture(idTexture);
+	if (stexture == 0)
+	{
+		debugOut(L"[FAILED] load texture id = %l", idTexture);
+		this->_texture = 0;
+		this->_width = this->_height = 0;
+		return;
+	}
+	this->_texture = stexture->texture;
+	this->_width = stexture->width;
+	this->_height = stexture->height;
+}
+
+LPDIRECT3DTEXTURE9 GameObject::getTexture()
+{
+	return _texture;
 }
 
 void GameObject::getSize(float & width, float & height)
 {
-	width = this->width;
-	height = this->height;
+	width = this->_width;
+	height = this->_height;
+}
+
+int GameObject::getState()
+{
+	return _state;
+}
+
+bool GameObject::canReset()
+{
+	return _canReset;
+}
+
+bool GameObject::canRemove()
+{
+	return _canRemove;
+}
+
+bool GameObject::canDamage()
+{
+	return _canDamage;
 }
 
 void GameObject::addAnimation(UINT animationId)
 {
-	LPANIMATION ani = CAnimations::getInstance()->get(animationId);
-	animations.push_back(ani);
+	LPANIMATION ani = animationsGlobal->get(animationId);
+	_animations.push_back(ani);
 }
 
 void GameObject::renderBoundingBox()
@@ -29,7 +63,7 @@ void GameObject::renderBoundingBox()
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
-	LPDIRECT3DTEXTURE9 bbox = CTextures::getInstance()->getTexture(ID_TEX_BBOX);
+	//LPDIRECT3DTEXTURE9 bbox = texturesGlobal->getTexture(ID_TEX_BBOX);
 
 	float l, t, r, b;
 
@@ -39,13 +73,33 @@ void GameObject::renderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	draw(x, y, NULL, rect.left, rect.top, rect.right, rect.bottom, 32);
+}
+
+ObjectType GameObject::getType()
+{
+	return type;
 }
 
 
+
+
+void GameObject::getBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	left = x;
+	top = y;
+	right = x + _width;
+	bottom = y + _height;
+}
+
 RECT GameObject::getBoundingBox()
 {
-	return {};
+	return { (long)x, (long)y, (long)(x + _width), (long)(y + _height) };
+}
+
+void GameObject::setState(UINT state)
+{
+	_state = state;
 }
 
 void GameObject::update(DWORD dt, vector<LPObject>* coObjects)
@@ -57,7 +111,7 @@ void GameObject::update(DWORD dt, vector<LPObject>* coObjects)
 
 GameObject::~GameObject()
 {
-	texture = 0;
-	animations.clear();
+	//_texture = 0;
+	//_animations.clear();
 	//if (texture != NULL) texture->Release();
 }

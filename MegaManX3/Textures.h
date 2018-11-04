@@ -20,12 +20,13 @@ class CTextures
 {
 	static CTextures * __instance;
 
-	unordered_map<int, STexture> textures;
+	unordered_map<int, STexture*> textures;
 
 public:
-	void add(int id, LPCWSTR filePath, D3DCOLOR transparentColor = BLACK(0));
-	LPDIRECT3DTEXTURE9 getTexture(unsigned int i);
+	void add(int id, LPCWSTR filePath, float width = 0, float height = 0, D3DCOLOR transparentColor = BLACK(0));
+	LPDIRECT3DTEXTURE9 getTexture(unsigned int id);
 	void getSize(UINT id, float &width, float &height);
+	STexture* getSTexture(unsigned int id);
 	void delTexture(UINT id);
 	void clear();
 

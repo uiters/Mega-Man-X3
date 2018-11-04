@@ -16,21 +16,6 @@
     <Filter Include="Game\Controls">
       <UniqueIdentifier>{085fc946-9ea6-4ae7-b8b1-611ff6851d8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Enemies">
-      <UniqueIdentifier>{a3bb6a7a-2481-43e0-944b-9209bcddba75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Items">
-      <UniqueIdentifier>{c0169299-957b-4b00-bc69-19671464f32b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Others">
-      <UniqueIdentifier>{45118ec0-06bd-4d41-8e11-1f50806d4064}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scemes">
-      <UniqueIdentifier>{e1584af4-a5d5-4100-aa4a-4fe2cbfc80cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Terrain">
-      <UniqueIdentifier>{9434cd9d-65b1-4467-b3ab-5da015be7ed0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Images\Textures">
       <UniqueIdentifier>{8c71204b-bc04-4de4-9583-aabd24ddc7b0}</UniqueIdentifier>
     </Filter>
@@ -45,9 +30,6 @@
     </Filter>
     <Filter Include="Lib">
       <UniqueIdentifier>{493712ec-be8c-4bfa-b8ed-6f911b7461e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lib\Constaint">
-      <UniqueIdentifier>{e2200cd1-d88e-4448-9e52-31185b6f4d8b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Lib\Camera">
       <UniqueIdentifier>{8bc14e06-a487-4c43-8e45-26e67af23d8a}</UniqueIdentifier>
@@ -73,25 +55,61 @@
     <Filter Include="Lib\Game">
       <UniqueIdentifier>{113e50ab-6ad9-421e-bf6c-165fbcb1e5fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Sound">
+      <UniqueIdentifier>{45a8e78f-08bd-44e0-9d2d-838e091f35a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject">
+      <UniqueIdentifier>{144f9798-02e2-4217-abfc-75c6cf148b14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Static Object">
+      <UniqueIdentifier>{d101fd20-9043-419d-88f2-419dd8bb04b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Static Object\Scenes">
+      <UniqueIdentifier>{e1584af4-a5d5-4100-aa4a-4fe2cbfc80cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Static Object\Terrain">
+      <UniqueIdentifier>{9434cd9d-65b1-4467-b3ab-5da015be7ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Static Object\Others">
+      <UniqueIdentifier>{45118ec0-06bd-4d41-8e11-1f50806d4064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Static Object\Items">
+      <UniqueIdentifier>{c0169299-957b-4b00-bc69-19671464f32b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\DynamicObject">
+      <UniqueIdentifier>{84c6c352-3c5f-4c26-b5d5-ebd374c818e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\DynamicObject\Enemies">
+      <UniqueIdentifier>{a3bb6a7a-2481-43e0-944b-9209bcddba75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\DynamicObject\Boss">
+      <UniqueIdentifier>{6bf70a95-5613-4c2b-96c5-fedec1c0b22f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\DynamicObject\Player">
+      <UniqueIdentifier>{c544bad8-b550-4189-b216-33bf632a3367}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\DynamicObject\Weapon">
+      <UniqueIdentifier>{a29bff71-b49c-48a6-9940-0bcb04a2f1c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Constaint">
+      <UniqueIdentifier>{e2200cd1-d88e-4448-9e52-31185b6f4d8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
-      <Filter>Lib\Constaint</Filter>
+      <Filter>Game\Constaint</Filter>
     </ClInclude>
     <ClInclude Include="ConstStruct.h">
-      <Filter>Lib\Constaint</Filter>
+      <Filter>Game\Constaint</Filter>
     </ClInclude>
     <ClInclude Include="ConstGlobals.h">
-      <Filter>Lib\Constaint</Filter>
+      <Filter>Game\Constaint</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Lib\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CollisionEvent.h">
       <Filter>Lib\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Lib\Draw</Filter>
@@ -123,17 +141,38 @@
     <ClInclude Include="KeyEvent.h">
       <Filter>Game\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="dsutil.h">
+      <Filter>Lib\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="dxsound.h">
+      <Filter>Lib\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="dxutil.h">
+      <Filter>Lib\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Game\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObject.h">
+      <Filter>Game\GameObject\Static Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstEnum.h">
+      <Filter>Game\Constaint</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicObject.h">
+      <Filter>Game\GameObject\DynamicObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ConstGlobals.cpp">
-      <Filter>Lib\Constaint</Filter>
+      <Filter>Game\Constaint</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Lib\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="CollisionEvent.cpp">
       <Filter>Lib\Collision</Filter>
@@ -164,6 +203,30 @@
     </ClCompile>
     <ClCompile Include="KeyEvent.cpp">
       <Filter>Game\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Debugs.cpp">
+      <Filter>Lib\Debugs</Filter>
+    </ClCompile>
+    <ClCompile Include="dsutil.cpp">
+      <Filter>Lib\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="dxsound.cpp">
+      <Filter>Lib\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>Lib\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Game\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObject.cpp">
+      <Filter>Game\GameObject\Static Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicObject.cpp">
+      <Filter>Game\GameObject\DynamicObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

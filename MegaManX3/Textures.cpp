@@ -15,7 +15,8 @@ CTextures *CTextures::getInstance()
 	return __instance;
 }
 
-void CTextures::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
+
+void CTextures::add(int id, LPCWSTR filePath, float width, float height, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
 	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
@@ -23,6 +24,8 @@ void CTextures::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 	{
 		return;
 	}
+	width = width > 0 ? width : info.Width;
+	height = height > 0 ? height : info.Height;
 
 	LPDIRECT3DDEVICE9 d3ddv = gameGlobal->getDirect3DDevice();
 	LPDIRECT3DTEXTURE9 texture;
@@ -30,8 +33,8 @@ void CTextures::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 	result = D3DXCreateTextureFromFileEx(
 		d3ddv,								// Pointer to Direct3D device object
 		filePath,							// Path to the image to load
-		info.Width,							// Texture width
-		info.Height,						// Texture height
+		width,							// Texture width
+		height,						// Texture height
 		1,
 		D3DUSAGE_DYNAMIC,
 		D3DFMT_UNKNOWN,
@@ -50,25 +53,32 @@ void CTextures::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 
 
 
-	textures[id] = { texture,(float) info.Width,(float) info.Height };
-
+	textures[id] = new STexture{ texture, width, height };
 }
 
 LPDIRECT3DTEXTURE9 CTextures::getTexture(unsigned int i)
 {
-	return textures[i].texture;
+	if (textures[i] == NULL)
+		return 0;
+	else 
+		return textures[i]->texture;
 }
 
 void CTextures::getSize(UINT id, float & width, float & height)
 {
-	height = textures[id].height;
-	width = textures[id].width;
+	height = textures[id]->height;
+	width = textures[id]->width;
+}
+
+STexture* CTextures::getSTexture(unsigned int id)
+{
+	return textures[id];
 }
 
 
 void CTextures::delTexture(UINT id)
 {
-	textures[id].texture->Release();
+	textures[id]->texture->Release();
 	textures.erase(id);
 }
 
@@ -76,7 +86,7 @@ void CTextures::clear()
 {
 	for (auto i : textures)
 	{
-		i.second.texture->Release();
+		i.second->texture->Release();
 		textures.erase(i.first);
 	}
 }

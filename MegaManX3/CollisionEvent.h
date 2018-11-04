@@ -6,6 +6,7 @@
 #include <algorithm>
 
 using namespace std;
+
 class GameObject;
 typedef GameObject * LPObject;
 
@@ -40,6 +41,7 @@ void filterCollision(vector<LPCollisionEvent> &coEvents, vector<LPCollisionEvent
 	float &min_ty,
 	float &nx,
 	float &ny);
+ColllisionDirect GetCollisionDirect(float normalx, float normaly);
 
 
 

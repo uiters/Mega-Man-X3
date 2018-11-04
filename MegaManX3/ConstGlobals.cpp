@@ -7,3 +7,4 @@ CKey* keyGlobal;
 CTextures* texturesGlobal;
 CSprites* spritesGlobal;
 CAnimations* animationsGlobal;
+Camera* cameraGlobal;

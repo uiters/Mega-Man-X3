@@ -1,5 +1,5 @@
 #include "KeyEvent.h"
-
+#include "Camera.h"
 
 
 
@@ -20,6 +20,7 @@ void KeyEvent::keyState(BYTE* state)
 
 void KeyEvent::onKeyDown(int keyCode)
 {
+
 }
 
 void KeyEvent::onKeyUp(int keyCode)
