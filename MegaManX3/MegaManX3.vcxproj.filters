@@ -37,9 +37,6 @@
     <Filter Include="Lib\Collision">
       <UniqueIdentifier>{00f08798-19c3-4be1-8e0d-98ba48b8807b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Lib\Draw">
-      <UniqueIdentifier>{e9d5c165-b667-4199-a093-84557f3a9ea4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lib\Debugs">
       <UniqueIdentifier>{f3e29f1f-a19d-4942-9f65-6a1743a76489}</UniqueIdentifier>
     </Filter>
@@ -88,11 +85,20 @@
     <Filter Include="Game\GameObject\DynamicObject\Player">
       <UniqueIdentifier>{c544bad8-b550-4189-b216-33bf632a3367}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\DynamicObject\Weapon">
-      <UniqueIdentifier>{a29bff71-b49c-48a6-9940-0bcb04a2f1c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Constaint">
       <UniqueIdentifier>{e2200cd1-d88e-4448-9e52-31185b6f4d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Animation">
+      <UniqueIdentifier>{6a81cd30-a783-4c95-a427-74a3ce0f5369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Weapon">
+      <UniqueIdentifier>{a29bff71-b49c-48a6-9940-0bcb04a2f1c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Action">
+      <UniqueIdentifier>{5b6e3724-a0fe-49a6-a932-495b894254ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\State">
+      <UniqueIdentifier>{0c2f7f65-b4fa-442f-8127-faa249bac674}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -110,9 +116,6 @@
     </ClInclude>
     <ClInclude Include="CollisionEvent.h">
       <Filter>Lib\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>Lib\Draw</Filter>
     </ClInclude>
     <ClInclude Include="Debugs.h">
       <Filter>Lib\Debugs</Filter>
@@ -136,9 +139,6 @@
       <Filter>Lib\Key</Filter>
     </ClInclude>
     <ClInclude Include="Game1.h">
-      <Filter>Game\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEvent.h">
       <Filter>Game\Controls</Filter>
     </ClInclude>
     <ClInclude Include="dsutil.h">
@@ -165,6 +165,45 @@
     <ClInclude Include="DynamicObject.h">
       <Filter>Game\GameObject\DynamicObject</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Lib\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Lib\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Game\GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="MegamanX.h">
+      <Filter>Game\GameObject\DynamicObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Zero.h">
+      <Filter>Game\GameObject\DynamicObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Maoh.h">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Mac.h">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Helit.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Caterkiller.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Hangerter.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBanger.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunner.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GansekiCarrier.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -176,9 +215,6 @@
     </ClCompile>
     <ClCompile Include="CollisionEvent.cpp">
       <Filter>Lib\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Lib\Draw</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Lib\Sprites</Filter>
@@ -199,9 +235,6 @@
       <Filter>Lib\Key</Filter>
     </ClCompile>
     <ClCompile Include="Game1.cpp">
-      <Filter>Game\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyEvent.cpp">
       <Filter>Game\Controls</Filter>
     </ClCompile>
     <ClCompile Include="Debugs.cpp">
@@ -227,6 +260,42 @@
     </ClCompile>
     <ClCompile Include="DynamicObject.cpp">
       <Filter>Game\GameObject\DynamicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Lib\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Game\GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanX.cpp">
+      <Filter>Game\GameObject\DynamicObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Zero.cpp">
+      <Filter>Game\GameObject\DynamicObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Maoh.cpp">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Mac.cpp">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Helit.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Caterkiller.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Hangerter.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBanger.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunner.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GansekiCarrier.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

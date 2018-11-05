@@ -1,42 +1,45 @@
+#ifndef __GameObject_H__
+#define __GameObject_H__
 #pragma once
+
 #include <Windows.h>
 #include <d3dx9.h>
 #include <vector>
 
 
-#include "Game.h"
 #include "Sprites.h"
 #include "QuadTree.h"
 #include "Textures.h"
 #include "Graphics.h"
 #include "Debugs.h"
-
+#include "Animation.h"
 class QuadTree;
 class CTextures;
 
 class GameObject
 {
 protected:
-	UINT _id;
-	int _state;
-	long _width, _height;
-	bool _canReset;
-	bool _canRemove;
-	bool _canDamage;
+	UINT _id = 0;
+	UINT _state = 0;
+	long _width = -1;
+	long _height = -1;
+	bool _canReset = true;
+	bool _canRemove = false;
 
 	vector<LPANIMATION> _animations;
 	LPDIRECT3DTEXTURE9 _texture;
 
 
 public:
-	float x, y;
-	float dx; // dx = vx * dt
-	float dy; // dy = vy * dt
-	bool visible;
+	float x = 0, y = 0;
+	float dx = 0; // dx = vx * dt
+	float dy = 0; // dy = vy * dt
+	bool visible = true;
+	bool canAttack = false;
 
 	Speed speed;
-	DWORD dt;
-	QuadTree* currentNode;
+	DWORD dt = 0;
+	QuadTree* currentNode = 0;
 	ObjectType type;
 
 public:
@@ -53,7 +56,6 @@ public:
 	int	 getState();
 	bool canReset();
 	bool canRemove();
-	bool canDamage();
 
 	ObjectType getType();
 	LPDIRECT3DTEXTURE9 getTexture();
@@ -67,3 +69,4 @@ public:
 	virtual void remove() {}
 };
 
+#endif //! _GameObject_H

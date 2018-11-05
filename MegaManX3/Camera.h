@@ -1,5 +1,5 @@
-#ifndef _Camera_H_
-#define _Camera_H_
+#ifndef _Camera_H
+#define _Camera_H
 
 #include "ConstGlobals.h"
 #include <d3d9.h>

@@ -126,6 +126,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Caterkiller.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="ConstColor.h" />
@@ -141,17 +143,28 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Debugs.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GansekiCarrier.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="KeyEvent.h" />
+    <ClInclude Include="Hangerter.h" />
+    <ClInclude Include="HeadGunner.h" />
+    <ClInclude Include="Helit.h" />
+    <ClInclude Include="Mac.h" />
+    <ClInclude Include="Maoh.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MegamanX.h" />
+    <ClInclude Include="NotorBanger.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="Zero.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Caterkiller.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CollisionEvent.cpp" />
     <ClCompile Include="ConstGlobals.cpp" />
@@ -163,15 +176,23 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game1.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="KeyEvent.cpp" />
+    <ClCompile Include="GansekiCarrier.cpp" />
+    <ClCompile Include="Hangerter.cpp" />
+    <ClCompile Include="HeadGunner.cpp" />
+    <ClCompile Include="Helit.cpp" />
+    <ClCompile Include="Mac.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maoh.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MegamanX.cpp" />
+    <ClCompile Include="NotorBanger.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Zero.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />

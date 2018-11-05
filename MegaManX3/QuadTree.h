@@ -5,7 +5,7 @@
 class GameObject;
 
 
-#define Object GameObject
+typedef GameObject Object;
 enum TYPE_RECT { TR_NONE, TR_TL, TR_TR, TR_BL, TR_BR };
 
 

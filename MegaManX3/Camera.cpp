@@ -44,18 +44,26 @@ D3DXVECTOR3 Camera::transformToViewport(float x, float y) {
 void Camera::update(float x, float y)
 {
 	//Camera don't show out of viewport
-	float centerScreenX = WD_WIDTH / 2;
+	float centerScreenX = viewport.width / 2;
+	float centerScreenY = viewport.y / 2;
+
 	float right = viewport.right();
-	if (x > right || x < viewport.x)
-	{
+	float bottom = viewport.bottom();
+
+	if (x > right || x < viewport.x || x < right - centerScreenX)
 		viewport.x = x - centerScreenX; // hold character center of camera
+
+	if (y < viewport.y || y > bottom || y < bottom - centerScreenY) {
+		viewport.y = y - centerScreenY;
 	}
-	if (x < right - centerScreenX)
-		viewport.x = x - centerScreenX;
 
 	//hold viewport don't out worldview
 	if (viewport.x < world.left)
 		viewport.x = world.left;
 	else if (right > world.right)
 		viewport.setRight(world.right);
+	if (viewport.y < world.top)
+		viewport.y = world.top;
+	else if (bottom > world.bottom)
+		viewport.setBottom(world.bottom);
 }

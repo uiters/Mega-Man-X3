@@ -1,10 +1,8 @@
 #include "GameObject.h"
-#include "Game.h"
 
 GameObject::GameObject(UINT idTexture, float x, float y, float vx, float vy) :speed( vx , vy ) {
 	this->x = x;
 	this->y = y;
-
 
 	this->_id = idTexture;
 	STexture* stexture = texturesGlobal->getSTexture(idTexture);
@@ -46,10 +44,6 @@ bool GameObject::canRemove()
 	return _canRemove;
 }
 
-bool GameObject::canDamage()
-{
-	return _canDamage;
-}
 
 void GameObject::addAnimation(UINT animationId)
 {
@@ -73,7 +67,7 @@ void GameObject::renderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	draw(x, y, NULL, rect.left, rect.top, rect.right, rect.bottom, 32);
+//	draw(x, y, NULL, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
 ObjectType GameObject::getType()

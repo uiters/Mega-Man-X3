@@ -27,9 +27,10 @@ public:
 	LPDIRECT3DTEXTURE9 getTexture(unsigned int id);
 	void getSize(UINT id, float &width, float &height);
 	STexture* getSTexture(unsigned int id);
-	void delTexture(UINT id);
+	void deleteAt(UINT id);
 	void clear();
 
 	static CTextures * getInstance();
+
 };
 

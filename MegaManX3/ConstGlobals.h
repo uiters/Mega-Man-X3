@@ -6,7 +6,7 @@
 #include "ConstStruct.h"
 #include "ConstColor.h"
 #include "ConstEnum.h"
-
+#include "dinput.h"
 
 #define CLASS_NAME L"MegaManX3"
 #define TITLE L"Mega Man X3"
@@ -20,7 +20,7 @@
 #define WIDTH_QUADTREE 177;
 #define HEIGHT_QUATREE 175;
 #define MAX_LEVEL 5
-
+#define FPS 60
 
 class GameObject;
 typedef GameObject* LPObject;
@@ -32,13 +32,16 @@ class CSprites;
 class CAnimations;
 class Camera;
 
-extern HINSTANCE hInstanceGlobal;
-extern Game* gameGlobal;
-extern HWND hWndGlobal;
-extern CKey* keyGlobal;
-extern CTextures* texturesGlobal;
-extern CSprites* spritesGlobal;
-extern CAnimations* animationsGlobal;
-extern Camera* cameraGlobal;
+extern HINSTANCE			hInstanceGlobal;
+extern Game*				gameGlobal;
+extern HWND					hWndGlobal;
+extern CKey*				keyGlobal;
+extern CTextures*			texturesGlobal;
+extern CSprites*			spritesGlobal;
+extern CAnimations*			animationsGlobal;
+extern Camera*				cameraGlobal;
+extern Viewport*			viewPortGlobal;
+extern LPDIRECTINPUTDEVICE8 didvGlobal;
+extern LPDIRECTINPUT8       dinputGlobal;
 #endif // _ConstGlobals_
 

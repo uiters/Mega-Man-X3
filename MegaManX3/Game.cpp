@@ -1,7 +1,5 @@
 #include "Game.h"
-#include "Sprites.h"
-#include "Textures.h"
-#include "KeyEvent.h"
+
 HWND CreateGameWindow(int nCmdShow);
 HRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -41,25 +39,62 @@ void Game::init(int nCmdShow) {
 	if (!d3ddv) return;
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 	D3DXCreateSprite(d3ddv, &spriteHandler);
+
+	initKeyboard();
 	initGolbals();
 	loadResource();
 	initOption();
 }
 
-void Game::initGolbals()
+void Game::initKeyboard()
 {
-	keyGlobal = new KeyEvent();
-	texturesGlobal = CTextures::getInstance();
-	spritesGlobal = CSprites::getInstance();
-	animationsGlobal = CAnimations::getInstance();
+	HRESULT
+		hr = DirectInput8Create
+		(
+		(HINSTANCE)GetWindowLong(hWndGlobal, GWL_HINSTANCE),
+			DIRECTINPUT_VERSION,
+			IID_IDirectInput8, (VOID**)&dinputGlobal, NULL
+		);
+
+	if (hr != DI_OK)
+	{
+		debugOut(L"[FAILED] Create Input8");
+		return;
+	}
+	hr = dinputGlobal->CreateDevice(GUID_SysKeyboard, &didvGlobal, NULL);
+
+	if (hr != DI_OK) {
+		debugOut(L"[FAILED] Create Key");
+		return;
+	}
+	hr = didvGlobal->SetDataFormat(&c_dfDIKeyboard);
+
+	hr = didvGlobal->SetCooperativeLevel(hWndGlobal, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+
+	DIPROPDWORD dipdw;
+
+	dipdw.diph.dwSize = sizeof(DIPROPDWORD);
+	dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
+	dipdw.diph.dwObj = 0;
+	dipdw.diph.dwHow = DIPH_DEVICE;
+	dipdw.dwData = KEYBOARD_BUFFER_SIZE; // Arbitary buffer size
+
+	hr = didvGlobal->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
+
+	hr = didvGlobal->Acquire();
+	if (hr != DI_OK)
+	{
+		debugOut(L"[FAILED] Require Key");
+		return;
+	}
 }
+
 
 void Game::run()
 {
 	MSG msg;
 	int done = 0;
 	DWORD timeStart = GetTickCount();
-	DWORD timePerFarme = 16;
 	while (!done) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
 		{

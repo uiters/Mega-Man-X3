@@ -1,5 +1,5 @@
-#ifndef _CollisionEvent_H_
-#define _CollisionEvent_H_
+#ifndef _CollisionEvent_H
+#define _CollisionEvent_H
 
 
 #include "GameObject.h"

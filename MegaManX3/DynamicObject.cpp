@@ -1,31 +1,36 @@
 #include "DynamicObject.h"
 
-void DynamicObject::addDamage(int damage)
+
+
+void DynamicObject::addWeapon(WeaponID idWeapon)
 {
-	_levelDamage += 1;
-	_damage.push_back(damage);
+	_weapon.push_back(idWeapon);
 }
 
-void DynamicObject::setLevelDamage(int level)
+DynamicObject::DynamicObject()
 {
-	_levelDamage = level;
+	_death = false;
+	_canReset = true;
+	_currentWeapon = 0;
+	canAttack = true;
+}
+
+void DynamicObject::setWeapon(WeaponID idWeapon)
+{
+	_currentWeapon = idWeapon;
 }
 
 int DynamicObject::getDamage()
 {
-	return _damage.at(_levelDamage);
+	return baseDamage;
 }
 
-int DynamicObject::getMaxLevelDamage()
+int DynamicObject::getMaxWeapon()
 {
-	return _max - 1;
+	return _weapon.size();
 }
 
 
-void DynamicObject::setCanDamage(bool canDamage)
-{
-	_canDamage = canDamage;
-}
 
 bool DynamicObject::isDeath()
 {
@@ -47,6 +52,6 @@ void DynamicObject::reset()
 		hp = _hp;
 		_death = false;
 		visible = true;
-		_levelDamage = 0;
+		_currentWeapon = 0;
 	}
 }

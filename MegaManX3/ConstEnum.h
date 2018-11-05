@@ -27,4 +27,7 @@ enum ColllisionDirect {
 	Bottom
 };
 
+enum WeaponID {
+
+};
 #endif // !_ConstEnum_H_

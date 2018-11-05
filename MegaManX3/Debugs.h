@@ -1,5 +1,5 @@
-#ifndef _debug_h_
-#define _debug_h_
+#ifndef _debug_H
+#define _debug_H
 #include <Windows.h>
 #include <signal.h>
 #include <string.h>

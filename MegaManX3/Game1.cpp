@@ -1,6 +1,16 @@
 #include "Game1.h"
 
 
+void Game1::initGolbals()
+{
+	texturesGlobal = CTextures::getInstance();
+	spritesGlobal = CSprites::getInstance();
+	animationsGlobal = CAnimations::getInstance();
+	cameraGlobal = new Camera(0, 700, 1024, 2048);
+	viewPortGlobal = &cameraGlobal->viewport;
+	
+}
+
 void Game1::loadResource()
 {
 
@@ -8,7 +18,7 @@ void Game1::loadResource()
 
 void Game1::initOption()
 {
-	keyGlobal->initKeyboard();
+	
 }
 
 void Game1::update(DWORD dt)

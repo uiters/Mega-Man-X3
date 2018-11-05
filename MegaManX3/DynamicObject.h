@@ -1,31 +1,31 @@
-#ifndef _DynamicObject_H_
-#define _DynamicObject_H_
+#ifndef _DynamicObject_H
+#define _DynamicObject_H
 #include "GameObject.h"
-
+#include "Weapon.h"
 class DynamicObject
 	:public GameObject
 {
 protected:
-	bool _death;
-	vector<int> _damage;
+	bool _death = false;
+	vector<WeaponID> _weapon;//animation weapon
 
-	int _hp; //for reset
-	int _levelDamage;
-	int _max;
+	int _hp = 0; //for reset
+	int _currentWeapon;
+	int baseDamage;
 
-	void addDamage(int damage);
-
-public:
-	int hp;
-	bool canMove;
-	bool canControl;
+	void addWeapon(WeaponID idWeapon);
 
 public:
-	void setLevelDamage(int level);
+	int hp = 0;
+	bool canMove = true;
+	bool canControl = false;
+
+public:
+	DynamicObject();
+	void setWeapon(WeaponID idWeapon);
 	int getDamage();
-	int getMaxLevelDamage();
+	int getMaxWeapon();
 
-	void setCanDamage(bool canDamage);
 	bool isDeath();
 
 public:
@@ -33,4 +33,4 @@ public:
 	virtual void reset();
 };
 
-#endif // !_DynamicObject_H_
+#endif // !_DynamicObject_H
