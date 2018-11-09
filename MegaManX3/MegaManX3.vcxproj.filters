@@ -100,6 +100,9 @@
     <Filter Include="Game\State">
       <UniqueIdentifier>{0c2f7f65-b4fa-442f-8127-faa249bac674}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Font">
+      <UniqueIdentifier>{f49db845-eb7e-485f-9f21-27a0d8fefe04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -204,6 +207,7 @@
     <ClInclude Include="GansekiCarrier.h">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Font.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -297,6 +301,7 @@
     <ClCompile Include="GansekiCarrier.cpp">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

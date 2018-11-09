@@ -1,6 +1,6 @@
 #include "CollisionEvent.h"
 
-LPCollisionEvent sweptAABBEx(LPObject objectMove, LPObject objectCollision)
+LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision)
 {
 	float sl, st, sr, sb;		// static object bbox
 	float ml, mt, mr, mb;		// moving object bbox
@@ -10,11 +10,11 @@ LPCollisionEvent sweptAABBEx(LPObject objectMove, LPObject objectCollision)
 
 	// deal with moving object: m speed = original m speed - collide object speed
 	float svx, svy;
-	svx = objectMove->speed.vx;
-	svy = objectMove->speed.vy;
+	svx = objectCollision->speed.vx;
+	svy = objectCollision->speed.vy;
 
-	float sdx = svx * objectMove->dt;
-	float sdy = svy * objectMove->dt;
+	float sdx = svx * dt;
+	float sdy = svy * dt;
 
 	float dx = objectMove->dx - sdx;
 	float dy = objectMove->dy - sdy;
@@ -32,12 +32,12 @@ LPCollisionEvent sweptAABBEx(LPObject objectMove, LPObject objectCollision)
 	return e;
 }
 
-vector<LPCollisionEvent> findCollisions(LPObject objectMove, vector<LPObject>* Objects)
+vector<LPCollisionEvent> findCollisions(DWORD dt, LPObject objectMove, vector<LPObject>* Objects)
 {
 	vector<LPCollisionEvent> coEvents;
 	for (UINT i = 0; i < Objects->size(); i++)
 	{
-		LPCollisionEvent e = sweptAABBEx(objectMove, Objects->at(i));
+		LPCollisionEvent e = sweptAABBEx(dt, objectMove, Objects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
@@ -78,7 +78,7 @@ void filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
-ColllisionDirect GetCollisionDirect(float normalx, float normaly)
+ColllisionDirect getCollisionDirect(float normalx, float normaly)
 {
 	if (normalx == 0 && normaly == 1)
 	{
@@ -96,7 +96,7 @@ ColllisionDirect GetCollisionDirect(float normalx, float normaly)
 	{
 		return ColllisionDirect::Right;
 	}
-	return ColllisionDirect::Nome;
+	return ColllisionDirect::None;
 }
 
 void sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny)

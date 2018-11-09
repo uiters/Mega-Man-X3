@@ -28,11 +28,11 @@ struct CollisionEvent
 void sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny);
 
 // ex sweptAABB
-LPCollisionEvent sweptAABBEx(LPObject objectMove, LPObject objectCollision);
+LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision);
 
 // find all collision objectMove with another Objects
 // waring !!!
-vector<LPCollisionEvent> findCollisions(LPObject objectMove, vector<LPObject> *Objects);
+vector<LPCollisionEvent> findCollisions(DWORD dt, LPObject objectMove, vector<LPObject> *Objects);
 
 
 // Filter Collision
@@ -41,7 +41,7 @@ void filterCollision(vector<LPCollisionEvent> &coEvents, vector<LPCollisionEvent
 	float &min_ty,
 	float &nx,
 	float &ny);
-ColllisionDirect GetCollisionDirect(float normalx, float normaly);
+ColllisionDirect getCollisionDirect(float normalx, float normaly);
 
 
 

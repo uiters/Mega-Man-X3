@@ -16,12 +16,12 @@ void Camera::setSizeWorld(float left, float top, float right, float bottom)
 	world.bottom = bottom;
 }
 
-void Camera::setSizeWorld(float right, float bottom)
+void Camera::setSizeWorld(float right, float top)
 {
 	world.left = 0;
-	world.top = 0;
+	world.top = top;
 	world.right = right;
-	world.bottom = bottom;
+	world.bottom = 0;
 }
 
 
@@ -41,29 +41,23 @@ D3DXVECTOR3 Camera::transformToViewport(float x, float y) {
 	return D3DXVECTOR3(matrixResult.x, matrixResult.y, 0);
 }
 
-void Camera::update(float x, float y)
+void Camera::update(float x, float y, float height) //center x, center y
 {
-	//Camera don't show out of viewport
 	float centerScreenX = viewport.width / 2;
-	float centerScreenY = viewport.y / 2;
+	float centerScreenY = viewport.height / 2;
 
-	float right = viewport.right();
-	float bottom = viewport.bottom();
+	viewport.x = x - centerScreenX; // hold character center of camera
+	viewport.y = y + centerScreenY;
 
-	if (x > right || x < viewport.x || x < right - centerScreenX)
-		viewport.x = x - centerScreenX; // hold character center of camera
-
-	if (y < viewport.y || y > bottom || y < bottom - centerScreenY) {
-		viewport.y = y - centerScreenY;
-	}
-
-	//hold viewport don't out worldview
 	if (viewport.x < world.left)
 		viewport.x = world.left;
-	else if (right > world.right)
+
+	if (viewport.right() > world.right)
 		viewport.setRight(world.right);
-	if (viewport.y < world.top)
+
+	if (viewport.y > world.top)
 		viewport.y = world.top;
-	else if (bottom > world.bottom)
-		viewport.setBottom(world.bottom);
+
+	if (viewport.bottom() < world.bottom - height / 4)
+		viewport.setBottom(world.bottom - height / 4);
 }

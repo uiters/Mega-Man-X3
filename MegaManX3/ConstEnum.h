@@ -1,7 +1,7 @@
 #ifndef _ConstEnum_H_
 #define _ConstEnum_H_
 
-enum ObjectType
+enum class ObjectType
 {
 	None,
 	Item,
@@ -12,15 +12,15 @@ enum ObjectType
 	Other
 };
 
-enum ObjectID {
+enum class ObjectID {
 	Brick,
 	Wall,
 	Door,
 
 };
 
-enum ColllisionDirect {
-	Nome,
+enum class ColllisionDirect {
+	None,
 	Left,
 	Top,
 	Right,
@@ -30,4 +30,5 @@ enum ColllisionDirect {
 enum WeaponID {
 
 };
+
 #endif // !_ConstEnum_H_

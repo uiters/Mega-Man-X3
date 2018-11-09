@@ -23,7 +23,7 @@ void Game1::initOption()
 
 void Game1::update(DWORD dt)
 {
-	keyGlobal->processKeyboard();
+	//keyGlobal->processKeyboard();
 
 
 }	

@@ -12,7 +12,7 @@ public:
 
 	Camera();
 	Camera(float x, float y, float width, float height);
-	void update(float x, float y);
+	void update(float x, float y, float height = 0);
 
 	void setSizeWorld(float left, float top, float right, float bottom);
 	void setSizeWorld(float right, float bottom);
