@@ -1,9 +1,3 @@
-#include <Windows.h>
-
-#include <d3d9.h>
-#include <d3dx9.h>
-
-#include "Game.h"
 #include "textures.h"
 
 CTextures * CTextures::__instance = NULL;
@@ -55,18 +49,18 @@ void CTextures::add(int id, LPCWSTR filePath, float width, float height, D3DCOLO
 	textures[id] = new STexture{ texture, width, height };
 }
 
-LPDIRECT3DTEXTURE9 CTextures::getTexture(unsigned int id)
+LPDIRECT3DTEXTURE9 CTextures::getTexture(int id)
 {
 	if (textures[id] == NULL)
 	{
 		debugOut(L"[FAILED] get texture id= %ld", id);
 		return 0;
 	}
-	else 
+	else
 		return textures[id]->texture;
 }
 
-void CTextures::getSize(UINT id, float & width, float & height)
+void CTextures::getSize(int id, int& width, int& height)
 {
 	if (textures[id] == 0) {
 		debugOut(L"[FAILED] getSize id= %ld", id);
@@ -77,13 +71,13 @@ void CTextures::getSize(UINT id, float & width, float & height)
 	width = textures[id]->width;
 }
 
-STexture* CTextures::getSTexture(unsigned int id)
+STexture* CTextures::getSTexture(int id)
 {
 	return textures[id];
 }
 
 
-void CTextures::deleteAt(UINT id)
+void CTextures::deleteAt(int id)
 {
 	if (textures[id] == 0)
 	{
@@ -103,6 +97,3 @@ void CTextures::clear()
 	}
 	textures.clear();
 }
-
-
-

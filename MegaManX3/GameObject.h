@@ -8,7 +8,6 @@
 
 
 #include "Sprites.h"
-#include "QuadTree.h"
 #include "Textures.h"
 #include "Graphics.h"
 #include "Debugs.h"
@@ -21,6 +20,7 @@ class GameObject
 protected:
 	UINT _id = 0;
 	UINT _state = 0;
+
 	long _width = -1;
 	long _height = -1;
 	bool _canReset = true;
@@ -43,7 +43,7 @@ public:
 	ObjectType type;
 
 public:
-	GameObject(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
+	GameObject(UINT idTexture, int x = 0, int y = 0, float vx = 0, float vy = 0);
 	GameObject() {}
 	~GameObject();
 
@@ -52,7 +52,7 @@ public:
 	void renderBoundingBox(); // for test
 
 	void setState(UINT state);
-	void getSize(float &width, float &height);
+	void getSize(int &width, int &height);
 	int	 getState();
 	bool canReset();
 	bool canRemove();
@@ -61,7 +61,7 @@ public:
 	LPDIRECT3DTEXTURE9 getTexture();
 
 public:
-	virtual void getBoundingBox(float &left, float &top, float &right, float &bottom);
+	virtual void getBoundingBox(int &left, int &top, int &right, int &bottom);
 	virtual RECT getBoundingBox();
 	virtual void update(DWORD dt, vector<LPObject> *coObjects = 0);
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}

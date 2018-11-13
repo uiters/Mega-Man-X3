@@ -19,7 +19,7 @@ void Game::superRender(DWORD dt)
 
 void Game::init(int nCmdShow) {
 
-	HWND hWnd =  CreateGameWindow(nCmdShow);
+	HWND hWnd = CreateGameWindow(nCmdShow);
 
 	this->d3d = Direct3DCreate9(D3D_SDK_VERSION);
 	hWndGlobal = hWnd;

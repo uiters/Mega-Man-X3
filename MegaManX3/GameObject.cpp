@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-GameObject::GameObject(UINT idTexture, float x, float y, float vx, float vy) :speed( vx , vy ) {
+GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed( vx , vy ) {
 	this->x = x;
 	this->y = y;
 
@@ -23,7 +23,7 @@ LPDIRECT3DTEXTURE9 GameObject::getTexture()
 	return _texture;
 }
 
-void GameObject::getSize(float & width, float & height)
+void GameObject::getSize(int & width, int & height)
 {
 	width = this->_width;
 	height = this->_height;
@@ -59,7 +59,7 @@ void GameObject::renderBoundingBox()
 
 	//LPDIRECT3DTEXTURE9 bbox = texturesGlobal->getTexture(ID_TEX_BBOX);
 
-	float l, t, r, b;
+	int l, t, r, b;
 
 	getBoundingBox(l, t, r, b);
 	rect.left = 0;
@@ -78,7 +78,7 @@ ObjectType GameObject::getType()
 
 
 
-void GameObject::getBoundingBox(float & left, float & top, float & right, float & bottom)
+void GameObject::getBoundingBox(int & left, int & top, int & right, int & bottom)
 {
 	left = x;
 	top = y;

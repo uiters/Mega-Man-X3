@@ -79,8 +79,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
@@ -131,9 +133,11 @@
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="ConstColor.h" />
+    <ClInclude Include="ConstDefine.h" />
     <ClInclude Include="ConstEnum.h" />
     <ClInclude Include="ConstGlobals.h" />
     <ClInclude Include="ConstStruct.h" />
+    <ClInclude Include="CTreeObject.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
@@ -151,14 +155,15 @@
     <ClInclude Include="Helit.h" />
     <ClInclude Include="Mac.h" />
     <ClInclude Include="Maoh.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="MegamanX.h" />
     <ClInclude Include="NotorBanger.h" />
-    <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="QNode.h" />
+    <ClInclude Include="ScenceController.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Zero.h" />
   </ItemGroup>
@@ -169,6 +174,7 @@
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CollisionEvent.cpp" />
     <ClCompile Include="ConstGlobals.cpp" />
+    <ClCompile Include="CTreeObject.cpp" />
     <ClCompile Include="Debugs.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxsound.cpp" />
@@ -185,14 +191,15 @@
     <ClCompile Include="Mac.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maoh.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MegamanX.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
-    <ClCompile Include="QuadTree.cpp" />
+    <ClCompile Include="QNode.cpp" />
+    <ClCompile Include="ScenceController.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Zero.cpp" />
   </ItemGroup>

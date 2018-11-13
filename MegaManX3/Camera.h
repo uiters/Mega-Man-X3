@@ -2,8 +2,7 @@
 #define _Camera_H
 
 #include "ConstGlobals.h"
-#include <d3d9.h>
-#include <d3dx9.h>
+#include "Game.h"
 
 class Camera {
 public:
@@ -11,13 +10,14 @@ public:
 	Rect world;
 
 	Camera();
-	Camera(float x, float y, float width, float height);
-	void update(float x, float y, float height = 0);
+	Camera(int x, int y, int width, int height);
+	void update(int x, int y, int height = 0);
 
-	void setSizeWorld(float left, float top, float right, float bottom);
-	void setSizeWorld(float right, float bottom);
+	void setSizeWorld(int left, int top, int right, int bottom);
+	void setSizeWorld(int right, int bottom);
 
-	D3DXVECTOR3 transformToViewport(float x, float y);// transform to viewport
+	D3DXVECTOR3 transformToViewport(int x, int y);// transform to viewport
 };
+
 #endif // _Camera_H_
 

@@ -1,7 +1,6 @@
 #include "CKey.h"
 
 
-
 int CKey::isKeyDown(int keyCode)
 {
 	return (keyStates[keyCode] & 0x80) > 0;

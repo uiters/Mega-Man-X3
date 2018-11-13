@@ -1,7 +1,5 @@
-#include "Game1.h"
-#include "Camera.h"
-#include "CKey.h"
 
+#include "Game1.h"
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nCmdShow) {
 	hInstanceGlobal = hInstance;
 

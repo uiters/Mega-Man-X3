@@ -1,5 +1,25 @@
 #include "Animation.h"
 
+void CAnimation::_updateFrame()
+{
+	DWORD now = GetTickCount();
+	if (currentFrame == -1)
+	{
+		currentFrame = 0;
+		lastFrameTime = now;
+	}
+	else
+	{
+		DWORD t = frames[currentFrame]->getTime();
+		if (now - lastFrameTime > t)
+		{
+			++currentFrame;
+			lastFrameTime = now;
+			if (currentFrame == frames.size()) currentFrame = 0;
+		}
+	}
+}
+
 void CAnimation::add(int spriteId, DWORD time)
 {
 	int t = time;
@@ -10,50 +30,22 @@ void CAnimation::add(int spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-void CAnimation::render(float x, float y, D3DCOLOR colorBrush)
+void CAnimation::render(int x, int y, bool center, D3DCOLOR colorBrush)
 {
-	DWORD now = GetTickCount();
-	if (currentFrame == -1)
-	{
-		currentFrame = 0;
-		lastFrameTime = now;
-	}
-	else
-	{
-		DWORD t = frames[currentFrame]->getTime();
-		if (now - lastFrameTime > t)
-		{
-			++currentFrame;
-			lastFrameTime = now;
-			if (currentFrame == frames.size()) currentFrame = 0;
-		}
-
-	}
-
-	frames[currentFrame]->getSprite()->draw(x, y, colorBrush);
+	_updateFrame();
+	if (center)
+		frames[currentFrame]->getSprite()->drawCenter(x, y, colorBrush);
+	else frames[currentFrame]->getSprite()->draw(x, y, colorBrush);
 }
 
-void CAnimation::renderFlip(int x, int y, bool isLeft, float width, float height, D3DCOLOR colorBrush)
+void CAnimation::renderFlip(int x, int y, bool isX, bool center, D3DCOLOR colorBrush)
 {
-	DWORD now = GetTickCount();
-	if (currentFrame == -1)
-	{
-		currentFrame = 0;
-		lastFrameTime = now;
-	}
-	else
-	{
-		DWORD t = frames[currentFrame]->getTime();
-		if (now - lastFrameTime > t)
-		{
-			++currentFrame;
-			lastFrameTime = now;
-			if (currentFrame == frames.size()) currentFrame = 0;
-		}
-	}
-
-	frames[currentFrame]->getSprite()->drawFlip(x, y, isLeft, width, height, colorBrush);
+	_updateFrame();
+	if (center)
+		frames[currentFrame]->getSprite()->drawFlipCenter(x, y, isX, colorBrush);
+	else frames[currentFrame]->getSprite()->drawFlip(x, y, isX, colorBrush);
 }
+
 
 void CAnimation::reset()
 {

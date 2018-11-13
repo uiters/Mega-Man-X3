@@ -1,16 +1,12 @@
 #pragma once
 #include "Game.h"
 
+#include "ScenceController.h"
 #include "Camera.h"
-#include "Graphics.h"
-#include "Animation.h"
-#include "Textures.h"
-#include "Sprites.h"
-#include "MegamanX.h"
 class Game1 :
 	public Game
 {
-
+	ScenceController* control;
 public:
 	void initGolbals() override; // call first
 	void loadResource() override; // 2

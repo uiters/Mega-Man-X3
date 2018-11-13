@@ -1,12 +1,12 @@
 #include "Game1.h"
-
+#include "Animation.h"
 
 void Game1::initGolbals()
 {
 	texturesGlobal = CTextures::getInstance();
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
-	cameraGlobal = new Camera(0, 700, 1024, 2048);
+	cameraGlobal = new Camera(0, 754, 1024, 2048);
 	viewPortGlobal = &cameraGlobal->viewport;
 	
 }
@@ -18,19 +18,19 @@ void Game1::loadResource()
 
 void Game1::initOption()
 {
-	
+	control = new ScenceController(1);
 }
 
 void Game1::update(DWORD dt)
 {
 	//keyGlobal->processKeyboard();
-
+	control->update(viewPortGlobal);
 
 }	
 
 void Game1::render(DWORD dt)
 {
-
+	control->render(dt);
 }
 
 

@@ -1,10 +1,8 @@
-#pragma once
-#include <Windows.h>
-#include <d3d9.h>
-#include <d3dx9.h>
-#include <dinput.h>
+//#ifndef _Game_H_
+//#define _Game_H_
 
-#include "ConstGlobals.h"
+#pragma once
+
 #include "Sprites.h"
 #include "Textures.h"
 #include "CKey.h"
@@ -39,3 +37,4 @@ public:
 	virtual void render(DWORD) = 0;
 };
 
+//#endif // !_Game_H_

@@ -1,14 +1,15 @@
 #include "Camera.h"
+
 Camera::Camera() :viewport(0, 0, WD_WIDTH, WD_HEIGHT)
 {
 }
 
-Camera::Camera(float x, float y, float width, float height): viewport(x, y, width, height)
+Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, height)
 {
 
 }
 
-void Camera::setSizeWorld(float left, float top, float right, float bottom)
+void Camera::setSizeWorld(int left, int top, int right, int bottom)
 {
 	world.left = left;
 	world.right = right;
@@ -16,7 +17,7 @@ void Camera::setSizeWorld(float left, float top, float right, float bottom)
 	world.bottom = bottom;
 }
 
-void Camera::setSizeWorld(float right, float top)
+void Camera::setSizeWorld(int top, int right)
 {
 	world.left = 0;
 	world.top = top;
@@ -26,7 +27,7 @@ void Camera::setSizeWorld(float right, float top)
 
 
 
-D3DXVECTOR3 Camera::transformToViewport(float x, float y) {
+D3DXVECTOR3 Camera::transformToViewport(int x, int y) {
 	D3DXVECTOR3 pos3(x, y, 1); // ma tran x
 	D3DXMATRIX matrix; // 
 	D3DXVECTOR4 matrixResult; // ma tran ket qua
@@ -41,10 +42,10 @@ D3DXVECTOR3 Camera::transformToViewport(float x, float y) {
 	return D3DXVECTOR3(matrixResult.x, matrixResult.y, 0);
 }
 
-void Camera::update(float x, float y, float height) //center x, center y
+void Camera::update(int x, int y, int height) //center x, center y
 {
-	float centerScreenX = viewport.width / 2;
-	float centerScreenY = viewport.height / 2;
+	int centerScreenX = viewport.width / 2;
+	int centerScreenY = viewport.height / 2;
 
 	viewport.x = x - centerScreenX; // hold character center of camera
 	viewport.y = y + centerScreenY;

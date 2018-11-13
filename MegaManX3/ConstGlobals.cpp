@@ -1,5 +1,4 @@
 #include "ConstGlobals.h"
-
 HWND					hWndGlobal;
 HINSTANCE				hInstanceGlobal;
 Game*					gameGlobal;
@@ -8,6 +7,6 @@ CTextures*				texturesGlobal;
 CSprites*				spritesGlobal;
 CAnimations*			animationsGlobal;
 Camera*					cameraGlobal;
-Viewport*				viewPortGlobal;  
+Viewport*				viewPortGlobal;
 LPDIRECTINPUTDEVICE8	didvGlobal;
 LPDIRECTINPUT8			dinputGlobal;

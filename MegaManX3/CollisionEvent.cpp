@@ -1,9 +1,8 @@
 #include "CollisionEvent.h"
-
 LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision)
 {
-	float sl, st, sr, sb;		// static object bbox
-	float ml, mt, mr, mb;		// moving object bbox
+	int sl, st, sr, sb;		// static object bbox
+	int ml, mt, mr, mb;		// moving object bbox
 	float t, nx, ny;
 
 	objectCollision->getBoundingBox(sl, st, sr, sb);
