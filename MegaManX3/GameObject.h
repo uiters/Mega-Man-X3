@@ -12,21 +12,19 @@
 #include "Graphics.h"
 #include "Debugs.h"
 #include "Animation.h"
-class QuadTree;
+class CTreeObject;
 class CTextures;
 
 class GameObject
 {
 protected:
 	UINT _id = 0;
-	UINT _state = 0;
-
-	long _width = -1;
-	long _height = -1;
+	
+	CRectangle box;
 	bool _canReset = true;
 	bool _canRemove = false;
 
-	vector<LPANIMATION> _animations;
+	unordered_map<UINT, LPANIMATION> _animations;
 	LPDIRECT3DTEXTURE9 _texture;
 
 
@@ -34,12 +32,13 @@ public:
 	float x = 0, y = 0;
 	float dx = 0; // dx = vx * dt
 	float dy = 0; // dy = vy * dt
+
 	bool visible = true;
 	bool canAttack = false;
-
+	UINT state = 0;
 	Speed speed;
 	DWORD dt = 0;
-	QuadTree* currentNode = 0;
+	CTreeObject* currentNode = 0;
 	ObjectType type;
 
 public:
@@ -49,20 +48,19 @@ public:
 
 
 	void addAnimation(UINT animationId);
-	void renderBoundingBox(); // for test
+	//void renderBoundingBox(); // for test
 
-	void setState(UINT state);
 	void getSize(int &width, int &height);
-	int	 getState();
 	bool canReset();
 	bool canRemove();
 
-	ObjectType getType();
+	ObjectType getType();	
 	LPDIRECT3DTEXTURE9 getTexture();
 
 public:
-	virtual void getBoundingBox(int &left, int &top, int &right, int &bottom);
-	virtual RECT getBoundingBox();
+	void getBoundingBox(int & left, int & top, int & right, int & bottom);
+	virtual CRectangle* getBoundingBox();
+	virtual void updateBox();
 	virtual void update(DWORD dt, vector<LPObject> *coObjects = 0);
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}
 	virtual void reset() {}

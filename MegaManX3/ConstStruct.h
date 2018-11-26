@@ -37,7 +37,6 @@ struct Point
 
 typedef struct Rectangle
 {
-	static const Rectangle empty;
 	int x = 0;
 	int y = 0;
 	int width = 0;
@@ -65,7 +64,7 @@ typedef struct Rectangle
 	int centerY() { return y + height / 2; }
 	void setRight(int right) { x = right - width; }
 	void setBottom(int bottom) { y = bottom - height; }
-
+	Size getSize() { return { width, height }; }
 #pragma region contains
 	bool contains(Point pt)
 	{
@@ -106,7 +105,7 @@ typedef struct Rectangle
 		int right = min(this->right(), rect->right());
 		if (bottom > top && right > left)
 		{
-			return Rectangle::empty;
+			return { 0,0,0,0 };
 		}
 		else return Rectangle::fromLTRB(left, top, right, bottom);
 	}

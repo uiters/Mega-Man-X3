@@ -19,18 +19,18 @@
 #pragma endregion
 
 #pragma region File Level
-#define LEVEL1 L"Resource\\Images\\Map\\txt\\level1.txt"
-#define LEVEL2 L"Resource\\Images\\Map\\txt\\level2.txt"
-#define LEVEL3 L"Resource\\Images\\Map\\txt\\level3.txt"
-#define LEVEL4 L"Resource\\Images\\Map\\txt\\level4.txt"
-#define LEVEL5 L"Resource\\Images\\Map\\txt\\level5.txt"
+#define LEVEL1 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level1.txt"
+#define LEVEL2 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level2.txt"
+//#define LEVEL3 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\"
+#define LEVEL4 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level4.txt"
+//#define LEVEL5 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\"
 
-#define IMAGE_LEVEL1 L"Resource\\Images\\Map\\img\\level1.bmp"
-#define IMAGE_LEVEL2 L"Resource\\Images\\Map\\img\\level2.bmp"
-#define IMAGE_LEVEL3 L"Resource\\Images\\Map\\img\\level3.bmp"
-#define IMAGE_LEVEL4 L"Resource\\Images\\Map\\img\\level4.bmp"
-#define IMAGE_LEVEL5 L"Resource\\Images\\Map\\img\\level5.bmp"
-
+#define IMAGE_LEVEL1 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level1.png"
+#define IMAGE_LEVEL2 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level2.png"
+#define IMAGE_LEVEL3 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level3.png"
+#define IMAGE_LEVEL4 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level4.png"
+#define IMAGE_LEVEL5 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level5.png"
+#define IMAGE_LEVEL6 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level6.png"
 #pragma endregion
 
 

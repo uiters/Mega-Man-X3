@@ -20,7 +20,7 @@ void CAnimation::_updateFrame()
 	}
 }
 
-void CAnimation::add(int spriteId, DWORD time)
+void CAnimation::add(UINT spriteId, DWORD time)
 {
 	int t = time;
 	if (time == 0) t = this->defaultTime;
@@ -33,23 +33,30 @@ void CAnimation::add(int spriteId, DWORD time)
 void CAnimation::render(int x, int y, bool center, D3DCOLOR colorBrush)
 {
 	_updateFrame();
-	if (center)
-		frames[currentFrame]->getSprite()->drawCenter(x, y, colorBrush);
-	else frames[currentFrame]->getSprite()->draw(x, y, colorBrush);
+	frames[currentFrame]->getSprite()->draw(x, y, center, colorBrush);
 }
 
-void CAnimation::renderFlip(int x, int y, bool isX, bool center, D3DCOLOR colorBrush)
+void CAnimation::renderFlipX(int x, int y, bool center, D3DCOLOR colorBrush)
 {
 	_updateFrame();
-	if (center)
-		frames[currentFrame]->getSprite()->drawFlipCenter(x, y, isX, colorBrush);
-	else frames[currentFrame]->getSprite()->drawFlip(x, y, isX, colorBrush);
+	frames[currentFrame]->getSprite()->drawFlipX(x, y, center, colorBrush);
+}
+
+void CAnimation::renderFlipY(int x, int y, bool center, D3DCOLOR colorBrush)
+{
+	_updateFrame();
+	frames[currentFrame]->getSprite()->drawFlipY(x, y, center, colorBrush);
 }
 
 
 void CAnimation::reset()
 {
 	currentFrame = -1;
+}
+
+Size CAnimation::getSize()
+{
+	return frames[currentFrame]->getSprite()->getSize();
 }
 
 CAnimations * CAnimations::__instance = NULL;
@@ -60,12 +67,12 @@ CAnimations * CAnimations::getInstance()
 	return __instance;
 }
 
-void CAnimations::add(int id, LPANIMATION ani)
+void CAnimations::add(UINT id, LPANIMATION ani)
 {
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::get(int id)
+LPANIMATION CAnimations::get(UINT id)
 {
 	return animations[id];
 }

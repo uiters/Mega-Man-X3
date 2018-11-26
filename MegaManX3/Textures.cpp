@@ -1,4 +1,4 @@
-#include "textures.h"
+#include "Textures.h"
 
 CTextures * CTextures::__instance = NULL;
 
@@ -10,7 +10,7 @@ CTextures *CTextures::getInstance()
 }
 
 
-void CTextures::add(int id, LPCWSTR filePath, float width, float height, D3DCOLOR transparentColor)
+void CTextures::add(UINT id, LPCWSTR filePath, UINT width, UINT height, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
 	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
@@ -49,41 +49,25 @@ void CTextures::add(int id, LPCWSTR filePath, float width, float height, D3DCOLO
 	textures[id] = new STexture{ texture, width, height };
 }
 
-LPDIRECT3DTEXTURE9 CTextures::getTexture(int id)
+LPDIRECT3DTEXTURE9 CTextures::getTexture(UINT id)
 {
-	if (textures[id] == NULL)
-	{
-		debugOut(L"[FAILED] get texture id= %ld", id);
-		return 0;
-	}
-	else
-		return textures[id]->texture;
+	return textures[id]->texture;
 }
 
-void CTextures::getSize(int id, int& width, int& height)
+void CTextures::getSize(UINT id, UINT& width, UINT& height)
 {
-	if (textures[id] == 0) {
-		debugOut(L"[FAILED] getSize id= %ld", id);
-		height = width = -1;
-		return;
-	}
 	height = textures[id]->height;
 	width = textures[id]->width;
 }
 
-STexture* CTextures::getSTexture(int id)
+STexture* CTextures::getSTexture(UINT id)
 {
 	return textures[id];
 }
 
 
-void CTextures::deleteAt(int id)
+void CTextures::deleteAt(UINT id)
 {
-	if (textures[id] == 0)
-	{
-		debugOut(L"[FAILED] delete texture %ld", id);
-		return;
-	}
 	textures[id]->texture->Release();
 	textures.erase(id);
 }

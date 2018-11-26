@@ -1,12 +1,13 @@
 #include "CTreeObject.h"
 
-template<class T>
-CTreeObject<T>::CTreeObject(T object, CRectangle * region)
+
+CTreeObject::CTreeObject(LPObject object, CRectangle* region)
 {
 	this->object = object;
-	this->region = region;
+	this->region = *region;
+	delete region;
 }
-template<class T>
-CTreeObject<T>::~CTreeObject()
+
+CTreeObject::~CTreeObject()
 {
 }

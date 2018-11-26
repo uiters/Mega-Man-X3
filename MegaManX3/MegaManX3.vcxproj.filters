@@ -332,8 +332,5 @@
     <Image Include="icon.ico">
       <Filter>Resource Files\Images\Icons</Filter>
     </Image>
-    <Image Include="map1.png">
-      <Filter>Resource Files\Images\Textures</Filter>
-    </Image>
   </ItemGroup>
 </Project>

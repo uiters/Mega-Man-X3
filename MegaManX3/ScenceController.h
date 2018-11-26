@@ -15,13 +15,17 @@ protected:
 	int totalFarme;
 	int rows;
 	int cols;
-	int width = 64;
-	int height = 64;
+	int width = 128;
+	int height = 128;
+	int rowStart = 0;
+	int rowEnd = 0;
+	int colStart = 0;
+	int colEnd = 0;
 
 	Tile* ** _tiles; // list scence
 	LPDIRECT3DTEXTURE9 _texture;
 public:
-	ScenceController(int level, int width = 64, int height = 64);
+	ScenceController(int level, int width = 128, int height = 128);
 	~ScenceController();
 public:
 	void update(Viewport *viewport);

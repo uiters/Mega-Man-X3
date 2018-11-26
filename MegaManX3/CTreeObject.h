@@ -2,13 +2,13 @@
 #define _CTreeObject_H_
 
 #include "ConstGlobals.h"
-template <typename T>
 class CTreeObject
 {
 public:
-	CRectangle* region;
-	T object;
-	CTreeObject<T>(T object, CRectangle* region);
+	CRectangle region;
+	LPObject object;
+	bool isdel = false;
+	CTreeObject(LPObject object, CRectangle* region);
 	~CTreeObject();
 };
 
