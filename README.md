@@ -1,26 +1,43 @@
-# MegaMan3
-🎮 MegaMan3 with C++, Directx.
+# Mega Man X3
 
-![6-tua-game-sieu-kho-thu-thach-ban-phan-1-1](https://user-images.githubusercontent.com/34389409/46876660-18eeef00-ce69-11e8-86f9-bd415c581452.jpg)
+🎮 Mega Man X3 with C++, Directx.
 
-## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+![a3183065863_5](https://user-images.githubusercontent.com/34389409/49020554-4eeef500-f1c3-11e8-823a-9fe46a35faf2.jpg)
 
-## Usage
+## Contents
+
+* [Introduction](#introduction)
+* [Installation](#installation)
+* [Documents](#documents)
+* [Build with](#build-with)
+* [Some Screens](#some-screens)
+* [Bugs and Issues](#bugs-and-issues)
+* [Authors](#authors)
+* [License](#license)
+
+## Introduction
+
+Mega Man X3, known as Rockman X3 (ロックマンX3) in Japan, is a video game released by Capcom for the Super Nintendo Entertainment System (SNES). The game was originally released in Japan on December 1, 1995 and later in North American and PAL regions in 1996. It is the third game in the Mega Man X series and the last to appear on the SNES. Mega Man X3 takes place in a fictional future in which the world is populated by humans and intelligent robots called "Reploids". Like their human creators, some Reploids involve themselves in destructive crime and are labelled as "Mavericks". After twice defeating the Maverick leader Sigma, the heroes Mega Man X and Zero must battle a Reploid scientist named Dr. Doppler and his utopia of Maverick followers.
+
+Click [here](https://en.wikipedia.org/wiki/Mega_Man_X3) for more details.
+
+## Installation
 
 ## Documents
+
 * [DirectxTutorial](http://www.directxtutorial.com/)
 * [gamedev-intro-tutorials](https://github.com/Dungdna2000/gamedev-intro-tutorials)
 
 ## Bugs and Issues
+
 Have a bug or an issue with this project? [Open a new issue](https://github.com/tvc12/Mega-Man-X3/issues) here on GitHub.
 
 ## Authors
+
 * **Vi Chi Thien** - [tvc12](https://github.com/tvc12)
 * **Nguyen Duy Cuong** - [ndc07](https://github.com/ndc07)
 * **Le Van Phuoc** - [TokumeiShi](https://github.com/TokumeiShi)
 
-See also the list of [contributors](https://github.com/tvc12/Mega-Man-X3/graphs/contributors) who participated in this project.
-
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/tvc12/Mega-Man-X3/blob/master/LICENSE) file for details
+
+[MIT](https://github.com/tvc12/Mega-Man-X3/blob/master/LICENSE)
