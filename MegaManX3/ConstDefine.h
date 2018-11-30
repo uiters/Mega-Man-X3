@@ -9,8 +9,8 @@
 #define HLOGO L"icon.ico"
 #define MAP L"map1.log"
 
-#define WD_WIDTH 1240
-#define WD_HEIGHT 700
+#define WD_WIDTH 515
+#define WD_HEIGHT 450
 
 #define WIDTH_QUADTREE 150
 #define HEIGHT_QUATREE 150

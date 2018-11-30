@@ -6,7 +6,8 @@ void Game1::initGolbals()
 	texturesGlobal = CTextures::getInstance();
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
-	cameraGlobal = new Camera(0, 754, WD_WIDTH, WD_HEIGHT);
+	cameraGlobal = new Camera(0, 512, 256, 222);
+	cameraGlobal->setSizeWorld(2304, 1024);
 	viewPortGlobal = &cameraGlobal->viewport;
 }
 
@@ -26,7 +27,7 @@ void Game1::update(DWORD dt)
 {
 	keyGlobal->processKeyboard();
 	control->update(viewPortGlobal);
-
+	//cameraGlobal->update
 }	
 
 void Game1::render(DWORD dt)

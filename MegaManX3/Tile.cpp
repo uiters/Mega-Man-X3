@@ -8,7 +8,7 @@ Tile::Tile(UINT id, LPDIRECT3DTEXTURE9 texture, int x, int y, UINT width, UINT h
 	//this->frame.y = ;
 	this->x = x;
 	this->y = y;
-	debugOut(L"[%i, %i] [%u %u]\n", x, y, width, height);
+	//debugOut(L"[%i, %i] [%u %u]\n", x, y, width, height);
 }
 
 Tile::~Tile()

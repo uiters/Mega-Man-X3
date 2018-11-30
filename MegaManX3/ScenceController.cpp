@@ -61,6 +61,7 @@ ScenceController::ScenceController(int level, int width, int height)
 		{
 			input >> id;
 			_tiles[i][j] = new Tile(id, _texture, j * width, h - i * height, width, height);
+			debugOut(L"[%i %i]\n", j * width, h - i * height);// , width, height);
 		}
 	}
 
@@ -82,21 +83,31 @@ ScenceController::~ScenceController()
 void ScenceController::update(Viewport * viewport)
 {
 	colStart = viewport->x / width;
-	rowEnd = rows - viewport->y / height;
-	rowEnd = rowEnd > rows ? rows : rowEnd;
+	colStart = colStart > cols ? cols : colStart;
 
-	colEnd = viewport->right() / width;
+	colEnd = viewport->right() / width + 1;
 	colEnd = colEnd > cols ? cols : colEnd;
 
-	rowStart = rows - (viewport->y - viewport->height) / height;
+	rowStart = (rows - viewport->y / width) - 1;
+	rowStart = rowStart < 0 ? 0 : rowStart;
+	rowEnd = rows - viewport->bottom() / height;
+
+	rowEnd = rowEnd > rows ? rows : rowEnd;
+
+
+
+	//colEnd = viewport->right() / width;
 	
-	debugOut(L"[%i %i %i % i]\n", viewport->x, viewport->y, viewport->right(), viewport->y - viewport->height);
-	//debugOut(L"[%i %i %i % i]\n",
+
+	//rowStart = rows - (viewport->y - viewport->height) / height;
+	
+	//debugOut(L"[%i -> %i %i -> % i]\n", rowStart, rowEnd, colStart, colEnd);
+	//debugOut(L"[%i %i ]\n", viewport->x, viewport->y);
 }
 
 void ScenceController::render(DWORD dt)
 {
 	for (int i = rowStart; i < rowEnd; ++i)
 		for (int j = colStart; j < colEnd; ++j)
-			_tiles[i][j]->draw(true);
+			_tiles[i][j]->draw(false);
 }

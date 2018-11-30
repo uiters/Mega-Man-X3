@@ -6,7 +6,7 @@ struct Point;
 struct Retangle;
 struct Speed;
 struct Rect;
-
+struct Viewport;
 typedef Speed* LPSpeed;
 typedef Rect* LPRect;
 
@@ -127,9 +127,33 @@ typedef struct Rectangle
 	RECT getRECT() {
 		return { x, y, x + width, y + height };
 	}
-} Viewport, CRectangle;
+} CRectangle;
 
+typedef struct Viewport {
+	int x = 0;
+	int y = 0;
+	int width = 0;
+	int height = 0;
 
+	Viewport(int x, int y, int width, int height) {
+		this->x = x;
+		this->y = y;
+		this->width = width;
+		this->height = height;
+	}
+
+	int left() { return x; }
+	int right() { return x + width; }
+	int top() { return y; }
+	int bottom() { return y - height; }
+
+	CRectangle getRectangle() {
+		return { x, y - height, x + width,  y };
+	}
+
+	void setRight(int right) { x = right - width; }
+	void setBottom(int bottom) { y = bottom + height; }
+};
 
 
 

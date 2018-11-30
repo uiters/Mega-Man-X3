@@ -94,7 +94,7 @@ void QNode::insert(LPObject object, int x, int y, UINT width, UINT height, bool 
 
 void QNode::getObjectsIn(Viewport * viewport, unordered_set<CTreeObject*>* objs, bool isStatic)
 {
-	this->getObjects(viewport, objs, isStatic);
+	this->getObjects(&viewport->getRectangle(), objs, isStatic);
 }
 
 void QNode::getCollision(CRectangle * rect, unordered_set<CTreeObject*>* objs, bool isStatic)

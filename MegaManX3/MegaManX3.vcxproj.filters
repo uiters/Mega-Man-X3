@@ -109,6 +109,9 @@
     <Filter Include="Game\Controls\Scence">
       <UniqueIdentifier>{5ebf49d0-b6b6-44be-939d-207a76897259}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\CTime">
+      <UniqueIdentifier>{32410854-48fb-4bb2-8b82-472188ba17b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -225,6 +228,7 @@
     <ClInclude Include="CTreeObject.h">
       <Filter>Lib\Map</Filter>
     </ClInclude>
+    <ClInclude Include="CTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -327,6 +331,7 @@
     <ClCompile Include="CTreeObject.cpp">
       <Filter>Lib\Map</Filter>
     </ClCompile>
+    <ClCompile Include="CTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">
