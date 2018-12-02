@@ -35,7 +35,7 @@ protected:
 	vector<LPANIMATION_FRAME> frames;
 	void _updateFrame();
 public:
-	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
+	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = 0; }
 	void add(UINT spriteId, DWORD time = 0);
 
 	//center is draw center

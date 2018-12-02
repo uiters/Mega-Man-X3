@@ -51,7 +51,7 @@ void CAnimation::renderFlipY(int x, int y, bool center, D3DCOLOR colorBrush)
 
 void CAnimation::reset()
 {
-	currentFrame = -1;
+	currentFrame = 0;
 }
 
 Size CAnimation::getSize()

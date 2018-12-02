@@ -75,6 +75,14 @@ void CSprites::add(UINT id, UINT idTexture, UINT left, UINT top, UINT right, UIN
 	sprites[id] = s;
 }
 
+void CSprites::addSprite(UINT id, UINT idTexture, UINT x, UINT y, UINT width, UINT height)
+{
+	CRectangle rect(x, y, width, height);
+	LPSPRITE s = new CSprite(id, rect.left(), rect.top(), rect.right(), rect.bottom(), texturesGlobal->getTexture(idTexture));
+
+	sprites[id] = s;
+}
+
 LPSPRITE CSprites::get(UINT id)
 {
 	return sprites[id];

@@ -39,6 +39,7 @@ private:
 
 public:
 	void add(UINT id, UINT idTexture, UINT left, UINT top, UINT right, UINT bottom);
+	void addSprite(UINT id, UINT idTexture, UINT x, UINT y, UINT width, UINT height);
 	LPSPRITE get(UINT id);
 	void deleteAt(UINT id);
 	void clear();

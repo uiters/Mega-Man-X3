@@ -15,6 +15,8 @@ void Game1::loadResource()
 {
 	main = new MegamanX();
 	keyGlobal = main;
+	notorBanger = new NotorBanger();
+	notorBanger->loadResources();
 }
 
 void Game1::initOption()
@@ -27,12 +29,14 @@ void Game1::update(DWORD dt)
 {
 	keyGlobal->processKeyboard();
 	control->update(viewPortGlobal);
+	notorBanger->update(dt);
 	//cameraGlobal->update
 }	
 
 void Game1::render(DWORD dt)
 {
 	control->render(dt);
+	notorBanger->render(dt);
 }
 
 

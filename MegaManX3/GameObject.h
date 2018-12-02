@@ -6,7 +6,6 @@
 #include <d3dx9.h>
 #include <vector>
 
-
 #include "Sprites.h"
 #include "Textures.h"
 #include "Graphics.h"
