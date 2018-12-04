@@ -1,3 +1,4 @@
+
 #include "ConstGlobals.h"
 #ifndef _CTime_H_
 #define _CTime_H_
@@ -12,7 +13,7 @@ enum ETime
 class CTime
 {
 private:
-	unsigned long time;
+	unsigned long timeStart;
 	unsigned long timeOff;
 
 	ETime status;

@@ -21,6 +21,7 @@ public:
 	bool canControl = false;
 
 public:
+	DynamicObject(UINT idTexture, float x, float y, float vx, float vy);
 	DynamicObject();
 	void setWeapon(WeaponID idWeapon);
 	int getDamage();

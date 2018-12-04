@@ -228,7 +228,15 @@
     <ClInclude Include="CTreeObject.h">
       <Filter>Lib\Map</Filter>
     </ClInclude>
-    <ClInclude Include="CTime.h" />
+    <ClInclude Include="CTime.h">
+      <Filter>Lib\CTime</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Game\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game\GameObject\Static Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -331,7 +339,15 @@
     <ClCompile Include="CTreeObject.cpp">
       <Filter>Lib\Map</Filter>
     </ClCompile>
-    <ClCompile Include="CTime.cpp" />
+    <ClCompile Include="CTime.cpp">
+      <Filter>Lib\CTime</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Game\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game\GameObject\Static Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

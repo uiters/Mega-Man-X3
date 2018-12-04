@@ -31,6 +31,9 @@
 #define IMAGE_LEVEL4 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level4.png"
 #define IMAGE_LEVEL5 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level5.png"
 #define IMAGE_LEVEL6 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level6.png"
+
+#define OBJECT_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1.txt"
+#define QUADTREE_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_static.txt"
 #pragma endregion
 
 

@@ -6,31 +6,28 @@ CTime::CTime()
 {
 	status = ETime::Stop;
 	this->timeOff = 0;
-	this->time = 0;
+	this->timeStart = 0;
 }
+
 
 CTime::CTime(unsigned long timeOff)
 {
 	status = ETime::Stop;
 	this->timeOff = timeOff;
-	this->time = 0;
+	this->timeStart = 0;
 }
 
 void CTime::update()
 {
 	if (status != 1) return;
+	else
 	{
-		time += GetTickCount();
+		DWORD now = GetTickCount();
 		if (timeOff == 0) return;
-		if (timeOff < time) {
+		if (now - timeStart >= timeOff) {
 			stop();
 		}
 	}
-}
-
-void CTime::setTimeOff(unsigned long timeOff)
-{
-	this->timeOff = timeOff;
 }
 
 unsigned long CTime::getTimeOff()
@@ -40,18 +37,19 @@ unsigned long CTime::getTimeOff()
 
 unsigned long CTime::getTime()
 {
-	return time;
+	return GetTickCount() - timeStart;
 }
 
 void CTime::stop()
 {
 	status = ETime::Stop;
-	this->time = 0;
+	this->timeStart = GetTickCount();
 }
 
 void CTime::start()
 {
 	status = ETime::Run;
+	this->timeStart = GetTickCount();
 }
 
 void CTime::pause()
@@ -80,6 +78,10 @@ bool CTime::isStop()
 	return status == ETime::Stop;
 }
 
+void CTime::setTimeOff(unsigned long timeOff)
+{
+	this->timeOff = timeOff;
+}
 
 CTime::~CTime()
 {

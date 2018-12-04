@@ -38,14 +38,14 @@ ScenceController::ScenceController(int level, int width, int height)
 		file = LEVEL1;
 		break;
 	}
-
-	texturesGlobal->add(-10, fileImage);
-	_texture = texturesGlobal->getTexture(-10);
+	level *= -1;
+	texturesGlobal->add(level, fileImage);
+	_texture = texturesGlobal->getTexture(level);
 	ifstream input;
 	input.open(file, ifstream::in);
 	if (!input.good())
 	{
-		debugOut(L"[Failed] Load File %w", file);
+		debugOut(L"[Failed] Load File ");
 		return;
 	}
 	input >> totalFarme >> rows >> cols;
@@ -61,7 +61,7 @@ ScenceController::ScenceController(int level, int width, int height)
 		{
 			input >> id;
 			_tiles[i][j] = new Tile(id, _texture, j * width, h - i * height, width, height);
-			debugOut(L"[%i %i]\n", j * width, h - i * height);// , width, height);
+			//debugOut(L"[%i %i]\n", j * width, h - i * height);// , width, height);
 		}
 	}
 

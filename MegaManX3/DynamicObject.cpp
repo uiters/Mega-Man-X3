@@ -7,6 +7,11 @@ void DynamicObject::addWeapon(WeaponID idWeapon)
 	_weapon.push_back(idWeapon);
 }
 
+DynamicObject::DynamicObject(UINT idTexture, float x, float y, float vx, float vy): GameObject(idTexture, x, y, vx, vy)
+{
+
+}
+
 DynamicObject::DynamicObject()
 {
 	_death = false;

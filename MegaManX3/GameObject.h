@@ -24,10 +24,10 @@ protected:
 	bool _canReset = true;
 	bool _canRemove = false;
 
-	unordered_map<UINT, LPANIMATION> _animations;
+	
 	LPDIRECT3DTEXTURE9 _texture;
 
-
+	static unordered_map<UINT, LPANIMATION> _animations;
 public:
 	float x = 0, y = 0;
 	float dx = 0; // dx = vx * dt
@@ -65,6 +65,7 @@ public:
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}
 	virtual void reset() {}
 	virtual void remove() {}
+	virtual void loadResource() {}
 };
 
 #endif //! _GameObject_H

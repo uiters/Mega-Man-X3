@@ -4,12 +4,14 @@
 #include "ScenceController.h"
 #include "Camera.h"
 #include "MegamanX.h"
+#include "Factory.h"
 class Game1 :
 	public Game
 {
 	ScenceController* control;
-	QNode* node;
+	QNode* root;
 	MegamanX* main;
+
 public:
 	void initGolbals() override; // call first
 	void loadResource() override; // 2

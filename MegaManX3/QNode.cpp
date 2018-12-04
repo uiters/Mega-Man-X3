@@ -103,6 +103,28 @@ void QNode::getCollision(CRectangle * rect, unordered_set<CTreeObject*>* objs, b
 	this->getObjects(rect, objs, isStatic);
 }
 
+void QNode::build(unordered_map<int, QNode*>& node)
+{
+	if (topLeft == NULL) {
+		if (node[_id * 10 + 1] != NULL) {
+			topLeft = node[_id * 10 + 1];
+			topRight = node[_id * 10 + 2];
+			bottomLeft = node[_id * 10 + 3];
+			bottomRight = node[_id * 10 + 4];
+		}
+		else return;
+	}
+		topLeft->build(node);
+		topRight->build(node);
+		bottomLeft->build(node);
+		bottomRight->build(node);
+}
+
+void QNode::add(vector<CTreeObject*>* objs, bool isStatic)
+{
+	isStatic ? staticObjects = *objs : dynamicObjects = *objs;
+}
+
 
 
 

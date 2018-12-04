@@ -33,6 +33,8 @@ public:
 	void insert(LPObject object, int x, int y, UINT width, UINT height, bool isStatic);
 	void getObjectsIn(Viewport* viewport, unordered_set<CTreeObject*>* objs, bool isStatic);
 	void getCollision(CRectangle* rect, unordered_set<CTreeObject*>* objs, bool isStatic);
+	void build(unordered_map<int, QNode*>& node);
+	void add(vector<CTreeObject*>* objs, bool isStatic);
 	~QNode() {}
 
 public: 

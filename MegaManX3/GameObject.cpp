@@ -1,4 +1,5 @@
 #include "GameObject.h"
+unordered_map<UINT, LPANIMATION> GameObject::_animations;
 
 GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed( vx , vy ) {
 	this->x = x;
@@ -47,25 +48,6 @@ void GameObject::addAnimation(UINT animationId)
 	_animations[animationId] = ani;
 }
 
-//void GameObject::renderBoundingBox()
-//{
-//
-//	D3DXVECTOR3 p(x, y, 0);
-//	RECT rect;
-//
-//	//LPDIRECT3DTEXTURE9 bbox = texturesGlobal->getTexture(ID_TEX_BBOX);
-//
-//	int l, t, r, b;
-//
-//	getBoundingBox(l, t, r, b);
-//	rect.left = 0;
-//	rect.top = 0;
-//	rect.right = (int)r - (int)l;
-//	rect.bottom = (int)b - (int)t;
-//
-////	draw(x, y, NULL, rect.left, rect.top, rect.right, rect.bottom, 32);
-//}
-
 ObjectType GameObject::getType()
 {
 	return type;
@@ -87,7 +69,7 @@ void GameObject::updateBox()
 {
 	this->box.x = this->x;
 	this->box.y = this->y;
-	if (_animations.size() != 0)
+	if (_animations.size() != 0 && state > -1)
 	{
 		Size size = _animations[state]->getSize();
 		this->box.width = size.width;

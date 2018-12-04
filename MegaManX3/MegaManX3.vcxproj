@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Brick.h" />
     <ClInclude Include="Caterkiller.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CollisionEvent.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="DynamicObject.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game1.h" />
@@ -170,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Caterkiller.cpp" />
     <ClCompile Include="CKey.cpp" />
@@ -182,6 +185,7 @@
     <ClCompile Include="dxsound.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
+    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game1.cpp" />
