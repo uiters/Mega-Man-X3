@@ -2,7 +2,9 @@
 
 🎮 Mega Man X3 with C++, Directx.
 
-![a3183065863_5](https://user-images.githubusercontent.com/34389409/49020554-4eeef500-f1c3-11e8-823a-9fe46a35faf2.jpg)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/34389409/49020554-4eeef500-f1c3-11e8-823a-9fe46a35faf2.jpg" width="500"/>
+</p>
 
 ## Contents
 
