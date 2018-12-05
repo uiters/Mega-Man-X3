@@ -1,6 +1,4 @@
 #include "MegamanX.h"
-#include "GameObject.h"
-#include "CTime.h"
 
 
 
@@ -23,17 +21,10 @@ void MegamanX::update(DWORD dt, vector<LPObject>* coObjects)
 
 	this->dt = dt;
 
-	if (y < 495)
-	{
-		onAir = false;
-		y = 495;
-		speed.vy = 0;
-	}
-
-	dx = speed.vx*dt;
+	dx = speed.vx * dt;
 	x += dx;
-	dy = speed.vy*dt;
-	y += dy;
+	dy = speed.vy * dt;
+	y += dy + 0.05f * dt;
 
 
 	if (countTimeX.isStop())
@@ -72,7 +63,7 @@ void MegamanX::update(DWORD dt, vector<LPObject>* coObjects)
 	case run_shoot:
 		(isFlipX) ? speed.vx = -0.1 : speed.vx = 0.1;
 		(isKeyDown(DIK_X)) ? state = jump : state = run;
-		(isKeyDown(DIK_X)) ? speed.vy = 0.15 : speed.vy = 0;
+		(isKeyDown(DIK_X)) ? speed.vy = -0.15 : speed.vy = 0;
 		break;
 	case dash:
 	case dash_shoot:
@@ -80,12 +71,12 @@ void MegamanX::update(DWORD dt, vector<LPObject>* coObjects)
 		speed.vy = 0;
 		break;
 	case jump:
-		speed.vy = 0.15;
+		speed.vy = -0.15;
 		(isKeyDown(DIK_LEFTARROW) || isKeyDown(DIK_RIGHTARROW)) ? ((isFlipX) ? speed.vx = -0.1 : speed.vx - 0.1) : speed.vx = 0;
 		break;
 	case fall:
 	case fall_shoot:
-		speed.vy = -0.15;
+		speed.vy = 0.15;
 		(isKeyDown(DIK_LEFTARROW) || isKeyDown(DIK_RIGHTARROW)) ? ((isFlipX) ? speed.vx = -0.05 : speed.vx - 0.05) : speed.vx = 0;
 		break;
 	case shock:
@@ -96,12 +87,17 @@ void MegamanX::update(DWORD dt, vector<LPObject>* coObjects)
 		break;
 	}
 
-
+	if (y >= 660)
+	{
+		onAir = false;
+		y = 660;
+		//speed.vy = 0;
+	}
 }
-#include "Camera.h";
+
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	auto center = cameraGlobal->transformToViewport(x, y);
+	auto center = cameraGlobal->transform(x, y);
 	if (isFlipX)
 		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
 	else
@@ -110,9 +106,10 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 
 void MegamanX::onKeyDown(int keyCode)
 {
-	debugOut(L"key down \n");
+	//debugOut(L"key down \n");
 	switch (keyCode)
 	{
+
 	case DIK_LEFTARROW:
 		isFlipX = true;
 		break;
@@ -120,7 +117,7 @@ void MegamanX::onKeyDown(int keyCode)
 		isFlipX = false;
 		break;
 	case DIK_UPARROW:
-
+		y + 10;
 		break;
 	case DIK_DOWNARROW:
 

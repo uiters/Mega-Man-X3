@@ -1,10 +1,10 @@
 #include "CTreeObject.h"
 
 
-CTreeObject::CTreeObject(LPObject object, CRectangle* region)
+CTreeObject::CTreeObject(LPObject object, CRectangle& region)
 {
 	this->object = object;
-	this->region = *region;
+	this->region = region;
 	//delete region;
 }
 

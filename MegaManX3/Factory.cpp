@@ -25,7 +25,7 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 	unordered_map<UINT, GameObject*>*objs = new unordered_map<UINT, GameObject*>();
 	ifstream input;
 	input.open(file, ifstream::in);
-	UINT id, idNameObject, idTypeObject, x, y, right, bottom;
+	UINT id, idNameObject, idTypeObject, x, y, width, height;
 	GameObject *obj;
 	if (!input.good())
 	{
@@ -34,8 +34,8 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 	}
 	while (input)
 	{
-		input >> id >> idNameObject >> idTypeObject >> x >> y >> right >> bottom;
-		obj = new Brick(id, x, y, right, bottom);
+		input >> id >> idNameObject >> idTypeObject >> x >> y >> width >> height;
+		obj = new Brick(id, x, y, width, height);
 		(*objs)[id] = obj;
 	}
 	input.close();
@@ -59,7 +59,7 @@ QNode * Factory::createQuadTree(wchar_t* fileQuadtree, unordered_map<UINT, GameO
 	vector<CTreeObject*>* listObject = getObject(&input, numObjects, objects);
 	root = new QNode(id, x, y, width, height);
 
-	root->add(listObject, true);
+	root->add(*listObject);
 	delete listObject;
 
 	if (numNode == 0) return root;
@@ -67,7 +67,7 @@ QNode * Factory::createQuadTree(wchar_t* fileQuadtree, unordered_map<UINT, GameO
 		input >> id >> x >> y >> width >> height >> numNode >> numObjects;
 		listObject = getObject(&input, numObjects, objects);
 		node[id] = new QNode(id, x, y, width, height);
-		node[id]->add(listObject, true);
+		node[id]->add(*listObject);
 		delete listObject;
 	}
 	root->build(node);
@@ -80,7 +80,7 @@ vector<CTreeObject*>* Factory::getObject(ifstream  *input, int numObjects, unord
 	for (int i = 0; i < numObjects; ++i)
 	{
 		(*input) >> id;
-		CTreeObject *cObject = new CTreeObject(objects[id], objects[id]->getBoundingBox());
+		CTreeObject *cObject = new CTreeObject(objects[id], *objects[id]->getBoundingBox());
 		vObjects->push_back(cObject);
 	}
 	return vObjects;

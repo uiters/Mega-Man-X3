@@ -25,7 +25,7 @@ protected:
 	Tile* ** _tiles; // list scence
 	LPDIRECT3DTEXTURE9 _texture;
 public:
-	ScenceController(int level, int width = 128, int height = 128);
+	ScenceController(int level);
 	~ScenceController();
 public:
 	void update(Viewport *viewport);

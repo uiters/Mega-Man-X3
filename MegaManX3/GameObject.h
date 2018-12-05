@@ -43,6 +43,8 @@ public:
 
 public:
 	GameObject(UINT idTexture, int x = 0, int y = 0, float vx = 0, float vy = 0);
+	GameObject(UINT id, UINT idTexture, int x = 0, int y = 0, float vx = 0, float vy = 0);
+
 	GameObject() {}
 	~GameObject();
 
@@ -56,7 +58,7 @@ public:
 
 	ObjectType getType();	
 	LPDIRECT3DTEXTURE9 getTexture();
-
+	UINT getID() { return _id; }
 public:
 	void getBoundingBox(int & left, int & top, int & right, int & bottom);
 	virtual CRectangle* getBoundingBox();

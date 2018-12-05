@@ -2,7 +2,7 @@
 #include "Debugs.h"
 #include "Textures.h"
 
-ScenceController::ScenceController(int level, int width, int height)
+ScenceController::ScenceController(int level)
 {
 	this->width = width;
 	this->height = height;
@@ -48,20 +48,17 @@ ScenceController::ScenceController(int level, int width, int height)
 		debugOut(L"[Failed] Load File ");
 		return;
 	}
-	input >> totalFarme >> rows >> cols;
+	input >> totalFarme >> rows >> cols >> width >> height;
 	int id = 0;
 	_tiles = new Tile**[rows];
-	int h = height * rows;
-	int w = width * cols;
 
-	for (int i = 0; i < rows; ++i)
+	for (int row = 0; row < rows; ++row)
 	{
-		_tiles[i] = new Tile*[cols];
-		for (int j = 0; j < cols; ++j)
+		_tiles[row] = new Tile*[cols];
+		for (int col = 0; col < cols; ++col)
 		{
 			input >> id;
-			_tiles[i][j] = new Tile(id, _texture, j * width, h - i * height, width, height);
-			//debugOut(L"[%i %i]\n", j * width, h - i * height);// , width, height);
+			_tiles[row][col] = new Tile(id, _texture, col * width, row * height, width, height);
 		}
 	}
 
@@ -82,17 +79,19 @@ ScenceController::~ScenceController()
 
 void ScenceController::update(Viewport * viewport)
 {
+	
 	colStart = viewport->x / width;
 	colStart = colStart > cols ? cols : colStart;
 
 	colEnd = viewport->right() / width + 1;
 	colEnd = colEnd > cols ? cols : colEnd;
 
-	rowStart = (rows - viewport->y / width) - 1;
+	rowStart = viewport->y / height;
 	rowStart = rowStart < 0 ? 0 : rowStart;
-	rowEnd = rows - viewport->bottom() / height;
 
-	rowEnd = rowEnd > rows ? rows : rowEnd;
+	rowEnd = viewport->bottom() / height + 1;
+	rowEnd = colEnd > rows ? rows : rowEnd;
+
 
 
 

@@ -28,7 +28,7 @@ extern CTextures*			texturesGlobal;
 extern CSprites*			spritesGlobal;
 extern CAnimations*			animationsGlobal;
 extern Camera*				cameraGlobal;
-extern Viewport*			viewPortGlobal;
+extern CRectangle*			viewPortGlobal;
 extern LPDIRECTINPUTDEVICE8 didvGlobal;
 extern LPDIRECTINPUT8       dinputGlobal;
 

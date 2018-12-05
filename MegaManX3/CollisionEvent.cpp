@@ -1,5 +1,8 @@
 #include "CollisionEvent.h"
-LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision)
+
+Collision::Collision(){}
+Collision* Collision::_instance;
+LPCollisionEvent Collision::sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision)
 {
 	int sl, st, sr, sb;		// static object bbox
 	int ml, mt, mr, mb;		// moving object bbox
@@ -31,13 +34,20 @@ LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectColli
 	return e;
 }
 
-vector<LPCollisionEvent> findCollisions(DWORD dt, LPObject objectMove, vector<LPObject>* Objects)
+Collision * Collision::getInstance()
+{
+	if (_instance == NULL)
+		_instance = new Collision();
+	return _instance;
+}
+
+vector<LPCollisionEvent> Collision::findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, CTreeObject*>& objects)
 {
 	vector<LPCollisionEvent> coEvents;
-	for (UINT i = 0; i < Objects->size(); i++)
-	{
-		LPCollisionEvent e = sweptAABBEx(dt, objectMove, Objects->at(i));
 
+	for (auto keyValue : objects)
+	{
+		LPCollisionEvent e = sweptAABBEx(dt, objectMove, keyValue.second->object);
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
 		else
@@ -48,7 +58,7 @@ vector<LPCollisionEvent> findCollisions(DWORD dt, LPObject objectMove, vector<LP
 	return coEvents;
 }
 
-void filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent>& coEventsResult, float & min_tx, float & min_ty, float & nx, float & ny)
+void Collision::filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent>& coEventsResult, float & min_tx, float & min_ty, float & nx, float & ny)
 {
 	min_tx = 1.0f;
 	min_ty = 1.0f;
@@ -77,7 +87,7 @@ void filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
-ColllisionDirect getCollisionDirect(float normalx, float normaly)
+ColllisionDirect Collision::getCollisionDirect(float normalx, float normaly)
 {
 	if (normalx == 0 && normaly == 1)
 	{
@@ -98,7 +108,7 @@ ColllisionDirect getCollisionDirect(float normalx, float normaly)
 	return ColllisionDirect::None;
 }
 
-void sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny)
+void Collision::sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny)
 {
 
 	float dx_entry, dx_exit, tx_entry, tx_exit;

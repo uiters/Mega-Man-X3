@@ -1,5 +1,4 @@
 #include "Game1.h"
-#include "Animation.h"
 
 void Game1::initGolbals()
 {
@@ -7,8 +6,8 @@ void Game1::initGolbals()
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
 	//cameraGlobal = new Camera(0, 512, 256, 222);
-	cameraGlobal = new Camera(0, 512, 256, 222);
-	cameraGlobal->setSizeWorld(2304, 1024);
+	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
+	cameraGlobal->setSizeWorld(0, 0, 2304, 1024);
 	viewPortGlobal = &cameraGlobal->viewport;
 }
 
@@ -17,7 +16,7 @@ void Game1::loadResource()
 
 	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
 
-	main = new MegamanX(Megaman, 50, 495);
+	main = new MegamanX(Megaman, 60, 670);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -289,34 +288,31 @@ void Game1::initOption()
 	root = Factory::getInstance()->createQuadTree(QUADTREE_TXT, *x);
 	delete x;
 }
-#include "CollisionEvent.h";
-#include "CTreeObject.h"
+
 void Game1::update(DWORD dt)
 {
 	keyGlobal->processKeyboard();
 	control->update(viewPortGlobal);
-	unordered_set<CTreeObject*>* x = new unordered_set<CTreeObject*>();
+	unordered_map<int, CTreeObject*> x;
 	
-	root->getObjectsIn(viewPortGlobal, x, true);
+	root->getObjectsIn(viewPortGlobal, x);
 	vector<LPObject> collision;
-	
-	for (auto obj : *x) {
-		auto e = sweptAABBEx(dt, main, obj->object);
-		if (e->t < 1.0f)
-		{
-			if (getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Bottom) {
-				main->onAir = 0;
-			}
-			if (getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Left || getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Right) {
-				main->onWall = true;
-			}
-		}
-		delete e;
-	}
+	//for (auto obj : *x) {
+	//	auto e = sweptAABBEx(dt, main, obj->object);
+	//	if (e->t > 0 && e->t < 1.0f)
+	//	{
+	//		if (getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Bottom) {
+	//			main->onAir = 0;
+	//		}
+	//		if (getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Left || getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Right) {
+	//			main->onWall = true;
+	//		}
+	//	}
+	//	delete e;
+	//}
 	main->update(dt);
 	
 	cameraGlobal->update(main->x, main->y);
-	delete x;
 }	
 
 void Game1::render(DWORD dt)

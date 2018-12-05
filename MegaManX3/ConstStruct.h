@@ -6,7 +6,6 @@ struct Point;
 struct Retangle;
 struct Speed;
 struct Rect;
-struct Viewport;
 typedef Speed* LPSpeed;
 typedef Rect* LPRect;
 
@@ -15,7 +14,6 @@ typedef Rect* LPRect;
 
 struct Size
 {
-	static const Size empty;
 	int width = 0;
 	int height = 0;
 
@@ -26,7 +24,6 @@ struct Size
 
 struct Point
 {
-	static const Point empty;
 	int x = 0;
 	int y = 0;
 
@@ -56,15 +53,21 @@ typedef struct Rectangle
 		width(width),
 		height(height) {}
 
-	int left() { return x; }
-	int top() { return y; }
-	int right() { return x + width; }
-	int bottom() { return y + height; }
-	int centerX() { return x + width / 2; }
-	int centerY() { return y + height / 2; }
-	void setRight(int right) { x = right - width; }
-	void setBottom(int bottom) { y = bottom - height; }
+	int left() const { return x; }
+	int top() const { return y; }
+	int right() const { return x + width; }
+	int bottom() const { return y + height; }
+
+	int centerX() const { return x + width / 2; }
+	int centerY() const { return y + height / 2; }
+
+	void setX(int right) { x = right - width; }
+	void setY(int bottom) { y = bottom - height; }
+
 	Size getSize() { return { width, height }; }
+
+	Point getLocation() { return { x, y }; }
+
 #pragma region contains
 	bool contains(Point pt)
 	{
@@ -89,20 +92,27 @@ typedef struct Rectangle
 #pragma endregion
 
 #pragma region Intersect
-	bool intersectsWith(Rectangle* rect)
+
+	bool intersectsWith(const Rectangle &rect)
 	{
-		int top = max(this->y, rect->y);
-		int bottom = min(this->bottom(), rect->bottom());
-		int left = max(this->x, rect->x);
-		int right = min(this->right(), rect->right());
+		//if (this->x > rect.right() || rect.x > this->right())
+		//	return false;
+		//if (this->y < rect.bottom() || rect.y < this->right())
+		//	return false;
+
+		//return true;
+		int top = max(this->y, rect.y);
+		int bottom = min(this->bottom(), rect.bottom());
+		int left = max(this->x, rect.x);
+		int right = min(this->right(), rect.right());
 		return bottom > top && right > left;
 	}
-	Rectangle intersect(Rectangle* rect)
+	Rectangle intersect(const Rectangle& rect)
 	{
-		int top = max(this->y, rect->y);
-		int bottom = min(this->bottom(), rect->bottom());
-		int left = max(this->x, rect->x);
-		int right = min(this->right(), rect->right());
+		int top = max(this->y, rect.y);
+		int bottom = min(this->bottom(), rect.bottom());
+		int left = max(this->x, rect.x);
+		int right = min(this->right(), rect.right());
 		if (bottom > top && right > left)
 		{
 			return { 0,0,0,0 };
@@ -110,12 +120,12 @@ typedef struct Rectangle
 		else return Rectangle::fromLTRB(left, top, right, bottom);
 	}
 
-	static bool intersects(Rectangle* r1, Rectangle* r2)
+	static bool intersects(const Rectangle& r1,const Rectangle& r2)
 	{
-		int top = max(r1->y, r2->y);
-		int bottom = min(r1->bottom(), r2->bottom());
-		int left = max(r1->x, r2->x);
-		int right = min(r1->right(), r2->right());
+		int top = max(r1.y, r2.y);
+		int bottom = min(r1.bottom(), r2.bottom());
+		int left = max(r1.x, r2.x);
+		int right = min(r1.right(), r2.right());
 		return bottom > top && right > left;
 	}
 #pragma endregion
@@ -124,38 +134,12 @@ typedef struct Rectangle
 	{
 		return Rectangle(left, top, abs(right - left), abs(bottom - top));
 	}
+
 	RECT getRECT() {
 		return { x, y, x + width, y + height };
 	}
-} CRectangle;
 
-typedef struct Viewport {
-	int x = 0;
-	int y = 0;
-	int width = 0;
-	int height = 0;
-
-	Viewport(int x, int y, int width, int height) {
-		this->x = x;
-		this->y = y;
-		this->width = width;
-		this->height = height;
-	}
-
-	int left() { return x; }
-	int right() { return x + width; }
-	int top() { return y; }
-	int bottom() { return y - height; }
-
-	CRectangle getRectangle() {
-		return { x, y - height, x + width,  y };
-	}
-
-	void setRight(int right) { x = right - width; }
-	void setBottom(int bottom) { y = bottom + height; }
-};
-
-
+} CRectangle, Viewport;
 
 
 struct Rect

@@ -9,11 +9,15 @@
 #define HLOGO L"icon.ico"
 #define MAP L"map1.log"
 
-#define WD_WIDTH 515
-#define WD_HEIGHT 450
+#define WD_WIDTH 800
+#define WD_HEIGHT 600
 
-#define WIDTH_QUADTREE 150
-#define HEIGHT_QUATREE 150
+#define CAMERA_WIDTH 255
+#define CAMERA_HEIGHT 224
+
+#define WIDTH_QUADTREE 200
+#define HEIGHT_QUATREE 200
+
 #define MAX_LEVEL 5
 #define FPS 60
 #pragma endregion

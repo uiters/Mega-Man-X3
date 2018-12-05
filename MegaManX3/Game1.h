@@ -1,10 +1,13 @@
 #pragma once
 #include "Game.h"
-
 #include "ScenceController.h"
 #include "Camera.h"
 #include "MegamanX.h"
 #include "Factory.h"
+#include "Animation.h"
+#include "CollisionEvent.h";
+#include "CTreeObject.h"
+#include "ConstGlobals.h"
 class Game1 :
 	public Game
 {

@@ -9,13 +9,13 @@ void Game::superRender(DWORD dt)
 	{
 		d3ddv->ColorFill(backBuffer, NULL, WHITE(255));
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		D3DXMATRIX matScale;
-		D3DXMatrixScaling(&matScale, 2.011f, 2.045f, .0f);
-		D3DXMATRIX old;
-		spriteHandler->GetTransform(&old);
-		spriteHandler->SetTransform(&matScale);
+		//D3DXMATRIX matScale;
+		//D3DXMatrixScaling(&matScale, 2.011f, 2.045f, .0f);
+		//D3DXMATRIX old;
+		//spriteHandler->GetTransform(&old);
+		//spriteHandler->SetTransform(&matScale);
 		render(dt);
-		spriteHandler->SetTransform(&old);
+		//spriteHandler->SetTransform(&old);
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
@@ -37,15 +37,14 @@ void Game::init(int nCmdShow) {
 	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
 	d3dpp.BackBufferCount = 1;
 
-	RECT rectangle;
-	GetClientRect(hWnd, &rectangle);
-	d3dpp.BackBufferHeight = rectangle.bottom + 1;
-	d3dpp.BackBufferWidth = rectangle.right + 1;
+	//RECT rectangle;
+	//GetClientRect(hWnd, &rectangle);
+	d3dpp.BackBufferHeight = CAMERA_WIDTH;//rectangle.bottom + 1;
+	d3dpp.BackBufferWidth = CAMERA_HEIGHT;// rectangle.right + 1;
 	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3ddv);
 	if (!d3ddv) return;
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 	D3DXCreateSprite(d3ddv, &spriteHandler);
-
 	initKeyboard();
 	initGolbals();
 	loadResource();
@@ -84,7 +83,7 @@ void Game::initKeyboard()
 	dipdw.diph.dwObj = 0;
 	dipdw.diph.dwHow = DIPH_DEVICE;
 	dipdw.dwData = KEYBOARD_BUFFER_SIZE; // Arbitary buffer size
-
+	
 	hr = didvGlobal->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
 
 	hr = didvGlobal->Acquire();
@@ -167,7 +166,7 @@ HWND CreateGameWindow(int nCmdShow) {
 	wc.lpszMenuName = 0;
 	wc.lpszClassName = CLASS_NAME;
 	wc.hIconSm = icon;// LoadIcon(0, IDI_QUESTION);
-
+	
 
 	RegisterClassEx(&wc);
 

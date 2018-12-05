@@ -8,7 +8,7 @@
 #include "CTreeObject.h"
 #include "GameObject.h"
 using namespace std;
-#define Max_level 5
+#define Max_level 6
 using namespace std;
 class QNode
 {
@@ -16,8 +16,7 @@ protected:
 	UINT _id;
 	int _level;
 	CRectangle rect;
-	vector<CTreeObject*> dynamicObjects;
-	vector<CTreeObject*> staticObjects;
+	vector<CTreeObject*> objects;
 
 	QNode* topLeft;
 	QNode* topRight;
@@ -25,16 +24,26 @@ protected:
 	QNode* bottomRight;
 
 protected:
-	void getObjects(CRectangle* region, unordered_set<CTreeObject*>* objs, bool isStatic);
-	void _insert(CTreeObject* object, bool isStatic);
+	void getObjects(CRectangle* region, unordered_map<int, CTreeObject*>& objs);
+	void _getObjects(unordered_map<int, CTreeObject*>& objs);
+	void _insert(CTreeObject* object);
+
+	void createNode();
+
 public:
-	QNode();
+
 	QNode(UINT id, int x, int y, UINT width, UINT height);
-	void insert(LPObject object, int x, int y, UINT width, UINT height, bool isStatic);
-	void getObjectsIn(Viewport* viewport, unordered_set<CTreeObject*>* objs, bool isStatic);
-	void getCollision(CRectangle* rect, unordered_set<CTreeObject*>* objs, bool isStatic);
+
+	void insert(LPObject object, int x, int y, UINT width, UINT height);
+
+	void getObjectsIn(Viewport* viewport, unordered_map<int, CTreeObject*>& objs);
+
+
 	void build(unordered_map<int, QNode*>& node);
-	void add(vector<CTreeObject*>* objs, bool isStatic);
+	void add(const vector<CTreeObject*>& objs);
+
+	int count();
+
 	~QNode() {}
 
 public: 

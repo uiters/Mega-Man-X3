@@ -20,6 +20,26 @@ GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed(
 	this->box.width = stexture->height;
 }
 
+GameObject::GameObject(UINT id, UINT idTexture, int x, int y, float vx, float vy)
+{
+	this->x = x;
+	this->y = y;
+
+	this->_id = id;
+	STexture* stexture = texturesGlobal->getSTexture(idTexture);
+
+	if (stexture == 0)
+	{
+		debugOut(L"[FAILED] load texture id = %l", idTexture);
+		this->_texture = 0;
+		this->box.width = this->box.height = 0;
+		return;
+	}
+	this->_texture = stexture->texture;
+	this->box.height = stexture->width;
+	this->box.width = stexture->height;
+}
+
 LPDIRECT3DTEXTURE9 GameObject::getTexture()
 {
 	return _texture;
@@ -69,7 +89,7 @@ void GameObject::updateBox()
 {
 	this->box.x = this->x;
 	this->box.y = this->y;
-	if (_animations.size() != 0 && state > -1)
+	if (_animations.size() > 0)
 	{
 		Size size = _animations[state]->getSize();
 		this->box.width = size.width;

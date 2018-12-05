@@ -4,6 +4,7 @@
 
 #include "GameObject.h"
 #include <algorithm>
+#include "CTreeObject.h"
 
 using namespace std;
 class GameObject;
@@ -24,22 +25,31 @@ struct CollisionEvent
 		return a->t < b->t;
 	}
 };
-void sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny);
+class Collision {
 
-// ex sweptAABB
-LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision);
+public:
+	
+	static Collision* getInstance();
+	// find all collision objectMove with another Objects
+	// waring !!!
+	vector<LPCollisionEvent> findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, CTreeObject*>& Objects);
 
-// find all collision objectMove with another Objects
-// waring !!!
-vector<LPCollisionEvent> findCollisions(DWORD dt, LPObject objectMove, vector<LPObject> *Objects);
+	static ColllisionDirect getCollisionDirect(float normalx, float normaly);
+private:
+	static Collision* _instance;
+	Collision();
+	// ex sweptAABB
+	LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision);
 
+	// Filter Collision
+	void filterCollision(vector<LPCollisionEvent> &coEvents, vector<LPCollisionEvent> &coEventsResult,
+		float &min_tx,
+		float &min_ty,
+		float &nx,
+		float &ny);
 
-// Filter Collision
-void filterCollision(vector<LPCollisionEvent> &coEvents, vector<LPCollisionEvent> &coEventsResult,
-	float &min_tx,
-	float &min_ty,
-	float &nx,
-	float &ny);
-ColllisionDirect getCollisionDirect(float normalx, float normaly);
+	void sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny);
+};
+
 
 #endif // !_CollisionEvent_

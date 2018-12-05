@@ -18,19 +18,19 @@ Tile::~Tile()
 void Tile::draw(bool center, D3DCOLOR colorBrush)
 {
 	
-	auto pos = cameraGlobal->transformToViewport(x, y);
+	auto pos = cameraGlobal->transform(x, y);
 	//debugOut(L"[%f, %f] [%f, %f]\n", x, y, pos.x, pos.y);
 	CSprite::draw(pos.x, pos.y, center,  colorBrush);
 }
 
 void Tile::drawFlipX(bool center, D3DCOLOR colorBrush)
 {
-	auto pos = cameraGlobal->transformToViewport(x, y);
+	auto pos = cameraGlobal->transform(x, y);
 	CSprite::drawFlipX(pos.x, pos.y, center, colorBrush);
 }
 
 void Tile::drawFlipY(bool center, D3DCOLOR colorBrush)
 {
-	auto pos = cameraGlobal->transformToViewport(x, y);
+	auto pos = cameraGlobal->transform(x, y);
 	CSprite::drawFlipY(pos.x, pos.y, center, colorBrush);
 }

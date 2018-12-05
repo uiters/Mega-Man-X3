@@ -237,6 +237,7 @@
     <ClInclude Include="Brick.h">
       <Filter>Game\GameObject\Static Object</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -348,6 +349,7 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Game\GameObject\Static Object</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

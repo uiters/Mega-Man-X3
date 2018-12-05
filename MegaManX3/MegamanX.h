@@ -2,8 +2,10 @@
 
 #define _MegamanX_H
 #include "DynamicObject.h"
-#include "CKey.h"
+#include "GameObject.h"
 #include "CTime.h"
+#include "CKey.h"
+#include "Camera.h"
 
 class MegamanX :
 	public DynamicObject,
