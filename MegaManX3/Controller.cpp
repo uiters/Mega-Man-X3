@@ -5,24 +5,31 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 {
 	this->rootStatic = rootStatic;
 	this->rootDynamic = rootDynamic;
-	this->collision = Collision::getInstance();
 	this->main = main;
+	tilesControll = new ScenceController(1);
 }
 
 Controller::~Controller()
 {
+	delete tilesControll;
 	QNode::clear(rootDynamic);
 	QNode::clear(rootStatic);
 }
 
 void Controller::update(DWORD dt)
 {
-	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
-	rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
+	tilesControll->update(viewPortGlobal);
 
-	auto collisionStatic = collision->findCollisions(dt, main, currentStatic);
+	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
+	//rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
+
+	
+	//debugOut(L"%i\n", collisionStatic.size());
+	main->update(dt, &currentStatic, 0);
 }
 
 void Controller::render(DWORD dt)
 {
+	tilesControll->render(dt);
+	main->render(dt);
 }

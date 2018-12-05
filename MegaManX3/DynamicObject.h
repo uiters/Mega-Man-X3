@@ -32,6 +32,7 @@ public:
 public:
 	virtual void receiveDamage(int damage);
 	virtual void reset();
+	
 };
 
 #endif // !_DynamicObject_H

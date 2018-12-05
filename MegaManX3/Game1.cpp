@@ -16,7 +16,7 @@ void Game1::loadResource()
 
 	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
 
-	main = new MegamanX(Megaman, 60, 670);
+	main = new MegamanX(Megaman, 60, 600);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -283,42 +283,23 @@ void Game1::loadResource()
 
 void Game1::initOption()
 {
-	control = new ScenceController(1);
 	auto x = Factory::getInstance()->createObjects(OBJECT_TXT);
 	root = Factory::getInstance()->createQuadTree(QUADTREE_TXT, *x);
 	delete x;
+	controller = new Controller(main, root, 0);
 }
 
 void Game1::update(DWORD dt)
 {
+	
 	keyGlobal->processKeyboard();
-	control->update(viewPortGlobal);
-	unordered_map<int, CTreeObject*> x;
-	
-	root->getObjectsIn(viewPortGlobal, x);
-	vector<LPObject> collision;
-	//for (auto obj : *x) {
-	//	auto e = sweptAABBEx(dt, main, obj->object);
-	//	if (e->t > 0 && e->t < 1.0f)
-	//	{
-	//		if (getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Bottom) {
-	//			main->onAir = 0;
-	//		}
-	//		if (getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Left || getCollisionDirect(e->nx, e->ny) == ColllisionDirect::Right) {
-	//			main->onWall = true;
-	//		}
-	//	}
-	//	delete e;
-	//}
-	main->update(dt);
-	
+	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
 }	
 
 void Game1::render(DWORD dt)
 {
-	control->render(dt);
-	main->render(dt);
+	controller->render(dt);
 }
 
 

@@ -1,6 +1,6 @@
 #include "GameObject.h"
 unordered_map<UINT, LPANIMATION> GameObject::_animations;
-
+Collision* GameObject::collision = Collision::getInstance();
 GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed( vx , vy ) {
 	this->x = x;
 	this->y = y;
@@ -73,11 +73,21 @@ ObjectType GameObject::getType()
 	return type;
 }
 
-void GameObject::getBoundingBox(int &left, int& top, int& right, int& bottom) {
+void GameObject::getBoundingBox(float &left, float& top, float& right, float& bottom) {
 	left = box.x;
 	top = box.y;
 	right = box.right();
 	bottom = box.bottom();
+}
+
+void GameObject::clone(GameObject * object, int id, int x, int y, int width, int height)
+{
+	this->box.x = x;
+	this->box.y = y;
+	this->box.width = width;
+	this->box.height = height;
+	this->type = object->type;
+	this->_animations = object->_animations;
 }
 
 CRectangle* GameObject::getBoundingBox()
@@ -98,11 +108,11 @@ void GameObject::updateBox()
 }
 
 
-void GameObject::update(DWORD dt, vector<LPObject>* coObjects)
+void GameObject::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
 	this->dt = dt;
-	//dx = speed.vx * dt;
-	//dy = speed.vy * dt;
+	dx = speed.vx * dt;
+	dy = speed.vy * dt;
 	updateBox();
 }
 

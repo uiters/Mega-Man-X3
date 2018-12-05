@@ -13,6 +13,7 @@ public:
 	StaticObject() {}
 	StaticObject(UINT idTexture, float x, float y);
 	~StaticObject() {}
+	//virtual void render(DWORD dt) {};
 	bool canBreak();
 };
 

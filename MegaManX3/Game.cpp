@@ -9,13 +9,7 @@ void Game::superRender(DWORD dt)
 	{
 		d3ddv->ColorFill(backBuffer, NULL, WHITE(255));
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		//D3DXMATRIX matScale;
-		//D3DXMatrixScaling(&matScale, 2.011f, 2.045f, .0f);
-		//D3DXMATRIX old;
-		//spriteHandler->GetTransform(&old);
-		//spriteHandler->SetTransform(&matScale);
 		render(dt);
-		//spriteHandler->SetTransform(&old);
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
@@ -115,7 +109,6 @@ void Game::run()
 
 			update(dt);
 			superRender(dt);
-
 		}
 		else
 			Sleep(timePerFarme - dt);

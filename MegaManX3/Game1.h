@@ -1,6 +1,6 @@
 #pragma once
 #include "Game.h"
-#include "ScenceController.h"
+
 #include "Camera.h"
 #include "MegamanX.h"
 #include "Factory.h"
@@ -8,13 +8,14 @@
 #include "CollisionEvent.h";
 #include "CTreeObject.h"
 #include "ConstGlobals.h"
+#include "Controller.h"
 class Game1 :
 	public Game
 {
-	ScenceController* control;
+	
 	QNode* root;
 	MegamanX* main;
-
+	Controller* controller;
 public:
 	void initGolbals() override; // call first
 	void loadResource() override; // 2

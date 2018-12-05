@@ -12,9 +12,12 @@
 #include "Graphics.h"
 #include "Debugs.h"
 #include "Animation.h"
+#include "CollisionEvent.h"
 class CTreeObject;
 class CTextures;
 
+struct CollisionEvent;
+class Collision;
 class GameObject
 {
 protected:
@@ -28,6 +31,7 @@ protected:
 	LPDIRECT3DTEXTURE9 _texture;
 
 	static unordered_map<UINT, LPANIMATION> _animations;
+	static Collision * collision;
 public:
 	float x = 0, y = 0;
 	float dx = 0; // dx = vx * dt
@@ -60,10 +64,12 @@ public:
 	LPDIRECT3DTEXTURE9 getTexture();
 	UINT getID() { return _id; }
 public:
-	void getBoundingBox(int & left, int & top, int & right, int & bottom);
+	void getBoundingBox(float & left, float & top, float & right, float & bottom);
+	void clone(GameObject* object, int id, int x, int y, int width = 0, int height = 0);
+
 	virtual CRectangle* getBoundingBox();
 	virtual void updateBox();
-	virtual void update(DWORD dt, vector<LPObject> *coObjects = 0);
+	virtual void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}
 	virtual void reset() {}
 	virtual void remove() {}

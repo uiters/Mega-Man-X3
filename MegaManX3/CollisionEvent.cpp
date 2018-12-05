@@ -4,8 +4,8 @@ Collision::Collision(){}
 Collision* Collision::_instance;
 LPCollisionEvent Collision::sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision)
 {
-	int sl, st, sr, sb;		// static object bbox
-	int ml, mt, mr, mb;		// moving object bbox
+	float sl, st, sr, sb;		// static object bbox
+	float ml, mt, mr, mb;		// moving object bbox
 	float t, nx, ny;
 
 	objectCollision->getBoundingBox(sl, st, sr, sb);
@@ -41,10 +41,9 @@ Collision * Collision::getInstance()
 	return _instance;
 }
 
-vector<LPCollisionEvent> Collision::findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, CTreeObject*>& objects)
+void  Collision::findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, CTreeObject*>& objects, vector<LPCollisionEvent> &coEvents)
 {
-	vector<LPCollisionEvent> coEvents;
-
+	coEvents.clear();
 	for (auto keyValue : objects)
 	{
 		LPCollisionEvent e = sweptAABBEx(dt, objectMove, keyValue.second->object);
@@ -55,13 +54,14 @@ vector<LPCollisionEvent> Collision::findCollisions(DWORD dt, LPObject objectMove
 	}
 
 	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
-	return coEvents;
+	//debugOut(L"%i\n", coEvents.size());
 }
 
 void Collision::filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent>& coEventsResult, float & min_tx, float & min_ty, float & nx, float & ny)
 {
 	min_tx = 1.0f;
 	min_ty = 1.0f;
+
 	int min_ix = -1;
 	int min_iy = -1;
 
@@ -70,9 +70,9 @@ void Collision::filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCol
 
 	coEventsResult.clear();
 
-	for (UINT i = 0; i < coEvents.size(); i++)
+	for (UINT i = 0; i < coEvents.size(); ++i)
 	{
-		LPCollisionEvent c = coEvents[i];
+		CollisionEvent* c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
 			min_tx = c->t; nx = c->nx; min_ix = i;
@@ -108,7 +108,11 @@ ColllisionDirect Collision::getCollisionDirect(float normalx, float normaly)
 	return ColllisionDirect::None;
 }
 
-void Collision::sweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float &t, float &nx, float &ny)
+void Collision::sweptAABB(
+	float ml, float mt, float mr, float mb,
+	float dx, float dy,
+	float sl, float st, float sr, float sb,
+	float &t, float &nx, float &ny)
 {
 
 	float dx_entry, dx_exit, tx_entry, tx_exit;
@@ -159,8 +163,8 @@ void Collision::sweptAABB(float ml, float mt, float mr, float mb, float dx, floa
 
 	if (dx == 0)
 	{
-		tx_entry = -99999999999.0f;
-		tx_exit = 99999999999.0f;
+		tx_entry = -99999999999;
+		tx_exit = 99999999999;
 	}
 	else
 	{
@@ -170,8 +174,8 @@ void Collision::sweptAABB(float ml, float mt, float mr, float mb, float dx, floa
 
 	if (dy == 0)
 	{
-		ty_entry = -99999999999.0f;
-		ty_exit = 99999999999.0f;
+		ty_entry = -99999999999;
+		ty_exit = 99999999999;
 	}
 	else
 	{
@@ -199,4 +203,5 @@ void Collision::sweptAABB(float ml, float mt, float mr, float mb, float dx, floa
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
+
 }

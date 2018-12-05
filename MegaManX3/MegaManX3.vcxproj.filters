@@ -180,33 +180,6 @@
     <ClInclude Include="MegamanX.h">
       <Filter>Game\GameObject\DynamicObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Zero.h">
-      <Filter>Game\GameObject\DynamicObject\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Maoh.h">
-      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
-    </ClInclude>
-    <ClInclude Include="Mac.h">
-      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
-    </ClInclude>
-    <ClInclude Include="Helit.h">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Caterkiller.h">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Hangerter.h">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="NotorBanger.h">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="HeadGunner.h">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="GansekiCarrier.h">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Lib\Map</Filter>
     </ClInclude>
@@ -237,7 +210,9 @@
     <ClInclude Include="Brick.h">
       <Filter>Game\GameObject\Static Object</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Controller.h">
+      <Filter>Game\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -295,33 +270,6 @@
     <ClCompile Include="MegamanX.cpp">
       <Filter>Game\GameObject\DynamicObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Zero.cpp">
-      <Filter>Game\GameObject\DynamicObject\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Maoh.cpp">
-      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="Mac.cpp">
-      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="Helit.cpp">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Caterkiller.cpp">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Hangerter.cpp">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="NotorBanger.cpp">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="HeadGunner.cpp">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="GansekiCarrier.cpp">
-      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>Lib\Map</Filter>
     </ClCompile>
@@ -349,7 +297,9 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Game\GameObject\Static Object</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Controller.cpp">
+      <Filter>Game\Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

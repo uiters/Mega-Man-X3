@@ -1,7 +1,61 @@
 #include "MegamanX.h"
+#include "Brick.h"
 
 
 
+void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+{
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+	//x += dx;
+	 collision->findCollisions(dt, this, *staticObjects, coEvents);
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+		debugOut(L" %f\n", speed.vy);
+		//onAir = true;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		Collision::getInstance()->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		x += min_tx * dx + nx * 0.2f;
+		y += min_ty * dy;// +ny * 0.2f;
+		debugOut(L" %f ", speed.vy);
+		if (nx != 0)
+			speed.vx = 0;
+		if (ny != 0)
+			speed.vy = 0;
+		debugOut(L" %f\n", speed.vy);
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			auto e = coEventsResult[i];
+
+			if (dynamic_cast<Brick *>(e->obj))
+			{
+				if (e->ny < 0)
+				{
+					speed.vy = 0;
+					onAir = false;
+					state = stand;
+				}
+				else if (e->nx != 0)
+				{
+
+				}
+			}
+		}
+	}
+
+	UINT size = coEvents.size();
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
+}
+
+void MegamanX::collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects)
+{
+	
+}
 
 MegamanX::MegamanX(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
 {
@@ -12,20 +66,23 @@ MegamanX::~MegamanX()
 {
 }
 
-void MegamanX::update(DWORD dt, vector<LPObject>* coObjects)
-{
 
+void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+{
+	GameObject::update(dt);
 	countTimeX.update();
 	countTimeC.update();
 	countTimeZ.update();
+	debugOut(L"%f ", speed.vy);
+	speed.vy += 0.005f * dt;
+	debugOut(L" %f", speed.vy);
+	collisionStatic(staticObjects);
+	collisionDynamic(dynamicObjects);
+}
 
-	this->dt = dt;
 
-	dx = speed.vx * dt;
-	x += dx;
-	dy = speed.vy * dt;
-	y += dy + 0.05f * dt;
-
+void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
+{
 
 	if (countTimeX.isStop())
 	{
@@ -87,16 +144,13 @@ void MegamanX::update(DWORD dt, vector<LPObject>* coObjects)
 		break;
 	}
 
-	if (y >= 660)
-	{
-		onAir = false;
-		y = 660;
-		//speed.vy = 0;
-	}
-}
+	//if (y >= 660)
+	//{
+	//	onAir = false;
+	//	y = 660;
+	//	//speed.vy = 0;
+	//}
 
-void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
-{
 	auto center = cameraGlobal->transform(x, y);
 	if (isFlipX)
 		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
@@ -106,7 +160,6 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 
 void MegamanX::onKeyDown(int keyCode)
 {
-	//debugOut(L"key down \n");
 	switch (keyCode)
 	{
 
@@ -117,7 +170,7 @@ void MegamanX::onKeyDown(int keyCode)
 		isFlipX = false;
 		break;
 	case DIK_UPARROW:
-		y + 10;
+
 		break;
 	case DIK_DOWNARROW:
 
@@ -150,7 +203,6 @@ void MegamanX::onKeyDown(int keyCode)
 
 void MegamanX::onKeyUp(int keyCode)
 {
-	debugOut(L"key up \n");
 	switch (keyCode)
 	{
 	case DIK_LEFTARROW:
@@ -205,7 +257,6 @@ void MegamanX::onKeyUp(int keyCode)
 
 void MegamanX::keyState(BYTE *_state)
 {
-
 	if (countTimeC.isRunning() && stack == DIK_C)
 	{
 
