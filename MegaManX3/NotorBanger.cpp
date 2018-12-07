@@ -90,7 +90,7 @@ void NotorBanger::update(DWORD dt, vector<LPObject>* coObjects)
 		}
 
 		if (state > 800) state = 0;
-		SetState(state);
+		setState(state);
 	}
 }
 
@@ -100,7 +100,7 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	else _animations[state]->renderFlipX(x, y);
 }
 
-void NotorBanger::SetState(int state)
+void NotorBanger::setState(int state)
 {
 	switch (state) {
 	case NOTOR_BANGER_STATE_JUMP:
@@ -124,12 +124,12 @@ void NotorBanger::loadResources()
 {
 	CTextures * textures = CTextures::getInstance();
 
-	textures->add(NOTOR_BANGER_ID_TEXTURE, L"NotorBanger.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
+	textures->add(NOTOR_BANGER_ID_TEXTURE, L"enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();
 
-	LPDIRECT3DTEXTURE9 textureNotorBanger = textures->getTexture(NOTOR_BANGER_ID_TEXTURE);
+	//LPDIRECT3DTEXTURE9 textureNotorBanger = textures->getTexture(NOTOR_BANGER_ID_TEXTURE);
 
 	LPANIMATION ani;
 
@@ -139,7 +139,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10003, NOTOR_BANGER_ID_TEXTURE, 92, 105, 40, 48);
 	sprites->addSprite(10004, NOTOR_BANGER_ID_TEXTURE, 136, 104, 40, 48);
 	 
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->add(10001);
 	ani->add(10002);
 	ani->add(10003);
@@ -179,7 +179,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10043, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
 	sprites->addSprite(10044, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->add(10041);
 	ani->add(10042);
 	ani->add(10043);
@@ -191,7 +191,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10052, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
 	sprites->addSprite(10053, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->add(10051);
 	ani->add(10052);
 	ani->add(10053);
@@ -201,7 +201,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10061, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
 	sprites->addSprite(10062, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->add(10061);
 	ani->add(10062);
 	animations->add(NOTOR_BANGER_STATE_READY_JUMP_LARGE, ani);

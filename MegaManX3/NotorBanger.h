@@ -27,7 +27,7 @@ public:
 	~NotorBanger();
 	void update(DWORD dt, vector<LPObject> *coObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
-	void SetState(int state);
+	void setState(int state);
 	void loadResources();
 private:
 	bool nx;
