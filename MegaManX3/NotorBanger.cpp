@@ -237,7 +237,7 @@ void NotorBanger::loadResources()
 	ani->add(10094);
 	animations->add(NOTOR_BANGER_STATE_DIE, ani);
 
-	// add animation
+	// add animations
 	this->addAnimation(NOTOR_BANGER_STATE_INIT);
 	this->addAnimation(NOTOR_BANGER_STATE_SHOT_SMALL);
 	this->addAnimation(NOTOR_BANGER_STATE_SHOT_MEDIUM);

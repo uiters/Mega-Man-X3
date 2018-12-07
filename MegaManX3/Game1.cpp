@@ -15,9 +15,14 @@ void Game1::loadResource()
 {
 	main = new MegamanX();
 	keyGlobal = main;
+
 	notorBanger = new NotorBanger();
 	notorBanger->loadResources();
 	notorBanger->setState(NOTOR_BANGER_STATE_INIT);
+
+	headGunner = new HeadGunner();
+	headGunner->loadResources();
+	headGunner->setState(HEAD_GUNNER_STATE_DEFAULT);
 }
 
 void Game1::initOption()
@@ -31,6 +36,7 @@ void Game1::update(DWORD dt)
 	keyGlobal->processKeyboard();
 	control->update(viewPortGlobal);
 	notorBanger->update(dt);
+	headGunner->update(dt);
 	//cameraGlobal->update
 }	
 
@@ -38,6 +44,7 @@ void Game1::render(DWORD dt)
 {
 	control->render(dt);
 	notorBanger->render(dt);
+	headGunner->render(dt);
 }
 
 

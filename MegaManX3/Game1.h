@@ -1,10 +1,10 @@
 #pragma once
 #include "Game.h"
-
 #include "ScenceController.h"
 #include "Camera.h"
 #include "MegamanX.h"
 #include "NotorBanger.h"
+#include "HeadGunner.h"
 
 class Game1 :
 	public Game
@@ -13,6 +13,7 @@ class Game1 :
 	QNode* node;
 	MegamanX* main;
 	NotorBanger* notorBanger;
+	HeadGunner* headGunner;
 public:
 	void initGolbals() override; // call first
 	void loadResource() override; // 2
