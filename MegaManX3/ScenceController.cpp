@@ -56,7 +56,6 @@ ScenceController::ScenceController(int level)
 		for (int col = 0; col < cols; ++col)
 		{
 			input >> id;
-
 			_tiles[row][col] = new Tile(id, _texture, col * width, row * height, width, height);
 		}
 	}

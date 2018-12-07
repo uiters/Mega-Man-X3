@@ -30,6 +30,13 @@ void CAnimation::add(UINT spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
+Size & CAnimation::getSize()
+{
+	if (currentFrame < 0)
+		return frames[0]->getSprite()->getSize();
+	else return frames[currentFrame]->getSprite()->getSize();
+}
+
 void CAnimation::render(int x, int y, bool center, D3DCOLOR colorBrush)
 {
 	_updateFrame();

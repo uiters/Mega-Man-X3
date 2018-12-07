@@ -37,7 +37,7 @@ protected:
 public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void add(UINT spriteId, DWORD time = 0);
-
+	Size& getSize();
 	//center is draw center
 	void render(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;

@@ -35,6 +35,7 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 	while (input)
 	{
 		input >> id >> idNameObject >> idTypeObject >> x >> y >> width >> height;
+		//if (id == 2) continue;
 		obj = new Brick(id, x, y, width, height);
 		(*objs)[id] = obj;
 	}

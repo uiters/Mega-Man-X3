@@ -1,26 +1,26 @@
 #include "MegamanX.h"
 #include "Brick.h"
-
+#include "ConstGlobals.h"
 
 
 void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
-
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
-	//debugOut(L" %d\n", coEvents.size());
 	if (coEvents.size() == 0)
 	{
 		x += dx;
 		y += dy;
 		//onAir = true;
 		//if(onAir == false && dy > 0) onAir = true;
+		keyController->update();
 	}
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
 		Collision::getInstance()->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		keyController->update(nx, ny);
 
 		x += min_tx * dx + nx * 1.f;
 		y += min_ty * dy + ny * 1.f;
@@ -37,8 +37,7 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 				if (e->ny < 0)
 				{
 					speed.vy = 0;
-					onAir = false;
-					state = stand;
+					//onAir = false;
 				}
 				else if (e->nx != 0)
 				{
@@ -59,9 +58,11 @@ void MegamanX::collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects
 
 MegamanX::MegamanX(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
 {
-	keyController = new KeyController(false);
+	keyController = new KeyController(this, false);
 	//state = stand;
-	onAir = true;
+	//onAir = true;
+	width = Stand_Shoot_Width;
+	height = Stand_Shoot_Height;
 }
 
 MegamanX::~MegamanX()
@@ -76,13 +77,22 @@ MegamanX * MegamanX::clone(int id, int x, int y)
 	return nullptr;
 }
 
+void MegamanX::avoidOverlap()
+{
+	int w, h;
+	keyController->getSize(w, h);
+	
+	x += w - width;
+	y += h - height;
+}
+
 void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
 	GameObject::update(dt);
 
 
 
-	//speed.vy += 0.005f * dt;
+	speed.vy += 0.002f * dt;
 
 	
 
@@ -93,7 +103,7 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 void MegamanX::updateState(DWORD dt) 
 {
 	int statePre = keyController->getState(isFlipX);
-	if (state != statePre && statePre == dash)
+	if (state != statePre && (statePre == dash || statePre == run || statePre == jump || statePre == run_shoot))
 	{
 		_animations[statePre]->reset();
 	}
@@ -107,23 +117,19 @@ void MegamanX::updateState(DWORD dt)
 		break;
 	case run:
 	case run_shoot:
-		(isFlipX) ? speed.vx = -0.1 : speed.vx = 0.1;
-		(isKeyDown(DIK_X)) ? state = jump, speed.vy = -0.15 : state = run, speed.vy = 0;
-
+		(isFlipX) ? speed.vx = -0.1f : speed.vx = 0.1f;
 		break;
 	case dash:
 	case dash_shoot:
-		(isFlipX) ? speed.vx = -0.15 : speed.vx = 0.15;
+		(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
 		speed.vy = 0;
 		break;
 	case jump:
-		speed.vy = -0.15;
-		(isKeyDown(DIK_LEFTARROW) || isKeyDown(DIK_RIGHTARROW)) ? ((isFlipX) ? speed.vx = -0.1 : speed.vx - 0.1) : speed.vx = 0;
+		speed.vy = -0.009f * dt;
 		break;
 	case fall:
 	case fall_shoot:
-		speed.vy = 0.15;
-		(isKeyDown(DIK_LEFTARROW) || isKeyDown(DIK_RIGHTARROW)) ? ((isFlipX) ? speed.vx = -0.05 : speed.vx - 0.05) : speed.vx = 0;
+		speed.vy = 0.15f;
 		break;
 	case shock:
 		speed.vx = 0;
@@ -138,18 +144,17 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	updateState(dt);
 	auto spriteHandler = gameGlobal->getSpriteHandler();
-	spriteHandler->End();
-	spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
+	//spriteHandler->End();
+	//spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
 	auto center = cameraGlobal->transform(x, y);
 	if (isFlipX)
 		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
 	else
 		_animations[state]->render(center.x, center.y, false, colorBrush);
-	spriteHandler->End();
-	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	//spriteHandler->End();
+	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 }
-
 
 void MegamanX::onKeyDown(int keyCode)
 {
@@ -209,12 +214,10 @@ void MegamanX::keyState(BYTE *_state)
 void MegamanX::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x;
-	top = right;
-	switch (state)
-	{
-	default:
-		break;
-	}
+	top = y;
+	keyController->getSize(width, height);
+	right = x + width;
+	bottom = height + y;
 
 }
 

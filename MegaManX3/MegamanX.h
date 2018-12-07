@@ -30,8 +30,9 @@ public:
 	bool onAir = false; //đang ở trên không trung
 	
 private:
-
+	int width, height;
 	int shot;
+	void avoidOverlap();
 public:
 	
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;

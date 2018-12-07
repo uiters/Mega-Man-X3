@@ -15,7 +15,7 @@ void Game1::loadResource()
 
 	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
 	texturesGlobal->add(-100, L"Resource\\Textures\\test.png", 100, 100);
-	main = new MegamanX(Megaman, 100, 850);
+	main = new MegamanX(Megaman, 100, 910);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -67,10 +67,10 @@ void Game1::loadResource()
 	spritesGlobal->add(MegaManAnimation::run + 9, Megaman, 570, 20, 603, 52);
 	spritesGlobal->add(MegaManAnimation::run + 10, Megaman, 604, 20, 632, 52);
 
-	ani = new CAnimation(50);
+	ani = new CAnimation(550);
 	for (int i = 0; i < 11; i++)
 	{
-		ani->add(MegaManAnimation::run + i);
+		ani->add(MegaManAnimation::run + i, 50);
 	}
 	animationsGlobal->add(MegaManAnimation::run, ani);
 	main->addAnimation(MegaManAnimation::run);
@@ -187,10 +187,10 @@ void Game1::loadResource()
 	spritesGlobal->add(run_shoot + 8, Megaman, 560, 72, 596, 104);
 	spritesGlobal->add(run_shoot + 9, Megaman, 597, 72, 630, 104);
 
-	ani = new CAnimation(50);
+	ani = new CAnimation(550);
 	for (int i = 0; i < 10; i++)
 	{
-		ani->add(run_shoot + i, 10);
+		ani->add(run_shoot + i, 50);
 	}
 	animationsGlobal->add(run_shoot, ani);
 	main->addAnimation(run_shoot);

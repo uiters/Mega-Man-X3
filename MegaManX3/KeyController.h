@@ -1,10 +1,13 @@
 #ifndef _KeyController_H_
 #define _KeyController_H_
 #include "CTime.h"
+#include "GameObject.h"
 
 class KeyController
 {
 private:
+	GameObject* main;
+
 	int width = 0;
 	int height = 0;
 
@@ -33,8 +36,8 @@ private:
 	bool isJump = false;
 	bool isFall = false;
 	bool onAir = false;
-	
 	CTime timeJump = CTime(600);
+
 	//dash
 	bool isDash = false;
 	CTime timeDash = CTime(800);
@@ -51,8 +54,11 @@ private:
 	void updateJump();
 	void updateDash();
 	void updateRun();
+
+
+	void _update();
 public:
-	KeyController(bool left) { this->toLeft = left; };
+	KeyController(GameObject* megaman, bool left) { this->main = megaman, this->toLeft = left; };
 	~KeyController() {};
 
 
@@ -63,7 +69,7 @@ public:
 	bool isLeft();
 
 	void update();
-
+	void update(float nx, float ny);
 	//cancel animation
 	void stopJump();
 	void stopDash();
@@ -81,7 +87,6 @@ public:
 	void removeKeyX();
 	void removeKeyC();
 	void removeKeyArrow(bool isLeft);
-
 	
 	void getSize(int&width, int& height);
 	UINT getState(bool& isLeft);

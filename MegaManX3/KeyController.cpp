@@ -22,14 +22,37 @@ bool KeyController::isLeft()
 }
 #pragma endregion
 
+#pragma region Update
 
 void KeyController::update()
+{
+	_update();
+}
+
+void KeyController::update(float nx, float ny)
+{
+	_update();
+
+	if (ny < 0) stopFall();
+	else if (ny > 0) state = fall, stopJump();
+
+	if (nx != 0)
+	{
+		state = stand;
+		isDash = false;
+		isRun = false;
+	}
+}
+
+void KeyController::_update()
 {
 	updateDash();
 	updateJump();
 	updateShoot();
 	updateRun();
 }
+
+#pragma endregion
 
 #pragma region Shoot
 void KeyController::addKeyZ()
@@ -57,16 +80,15 @@ void KeyController::updateShoot()
 {
 	if (pressZ)
 		timePressZ.update();
-	else 
-		if(isShot)
+	if(isShot)
+	{
+		if (timeShoot.isRunning())
 		{
-			if (timeShoot.isRunning())
-			{
-				timeShoot.update();
-			}
-			else
-				isShot = false;
+			timeShoot.update();
 		}
+		else
+			isShot = false;
+	}
 }
 
 #pragma endregion
@@ -84,6 +106,8 @@ void KeyController::addKeyX()
 	isJump = true;
 	isFall = false;
 	onAir = true;
+	this->width = Jump_Shoot_Width;
+	this->height = Jump_Shoot_Height;
 }
 
 void KeyController::removeKeyX()
@@ -100,6 +124,8 @@ void KeyController::stopJump()
 		isJump = false;
 		timeJump.stop();
 		state = fall;
+		this->width = Fall_Shoot_Width;
+		this->height = Fall_Shoot_Height;
 	}
 }
 
@@ -110,6 +136,8 @@ void KeyController::updateJump()
 		state = jump; //current jump
 		stateShoot = jump_shoot;
 		timeJump.update();
+		this->width = Jump_Shoot_Width;
+		this->height = Jump_Shoot_Height;
 	}
 	else 
 		if (isJump)
@@ -118,6 +146,8 @@ void KeyController::updateJump()
 			isFall = true;
 			state = fall;
 			stateShoot = fall_shoot;
+			this->width = Fall_Shoot_Width;
+			this->height = Fall_Shoot_Height;
 		}
 }
 
@@ -129,6 +159,7 @@ void KeyController::stopFall()
 		isFall = false;
 		onAir = false;
 		isStand = true;
+		timeJump.stop();
 	}
 }
 #pragma endregion
@@ -140,8 +171,6 @@ void KeyController::addKeyC()
 	pressC = true;
 	timeDash.start();
 	isDash = true;
-	this->width = Dash_Shoot_Width;
-	this->height = Dash_Shoot_Height;
 }
 
 void KeyController::removeKeyC()
@@ -170,6 +199,8 @@ void KeyController::updateDash()
 		timeDash.update();
 		state = dash;
 		stateShoot = dash_shoot;
+		this->width = Dash_Shoot_Width;
+		this->height = Dash_Shoot_Height;
 	}
 	else
 	{
@@ -238,14 +269,18 @@ void KeyController::updateRun()
 	{
 		if (isRun)
 			state = run,
-			stateShoot = run_shoot;
+			stateShoot = run_shoot, 
+			this->width = Run_Shoot_Width,
+			this->height = Run_Shoot_Height;
 		else 
 			state = stand,
-			stateShoot = shoot;
+			stateShoot = shoot,
+			this->width = Stand_Shoot_Height,
+			this->height = Stand_Shoot_Height;
 	}
 }
-#pragma endregion
 
+#pragma endregion
 
 void KeyController::getSize(int & width, int & height)
 {

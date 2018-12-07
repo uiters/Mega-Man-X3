@@ -5,7 +5,7 @@
 
 #include "Graphics.h"
 #include "Textures.h"
-
+#include "ConstGlobals.h"
 using namespace std;
 
 class CSprite;
@@ -25,6 +25,7 @@ public:
 	void draw(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void drawFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void drawFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	Size& getSize();
 };
 
 /*

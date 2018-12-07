@@ -20,5 +20,5 @@ void StaticObject::getBoundingBox(float & left, float & top, float & right, floa
 	left = x;
 	top = y;
 	right = x + width;
-	bottom = y + width;
+	bottom = y + height;
 }
