@@ -7,7 +7,6 @@ void Game1::initGolbals()
 	animationsGlobal = CAnimations::getInstance();
 	//cameraGlobal = new Camera(0, 512, 256, 222);
 	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
-	cameraGlobal->setSizeWorld(0, 0, 2304, 1024);
 	viewPortGlobal = &cameraGlobal->viewport;
 }
 
@@ -15,8 +14,8 @@ void Game1::loadResource()
 {
 
 	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
-
-	main = new MegamanX(Megaman, 60, 600);
+	texturesGlobal->add(-100, L"Resource\\Textures\\test.png", 100, 100);
+	main = new MegamanX(Megaman, 100, 850);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);

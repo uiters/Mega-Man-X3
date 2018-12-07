@@ -7,6 +7,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->rootDynamic = rootDynamic;
 	this->main = main;
 	tilesControll = new ScenceController(1);
+	main->state = stand;
 }
 
 Controller::~Controller()
@@ -30,6 +31,11 @@ void Controller::update(DWORD dt)
 
 void Controller::render(DWORD dt)
 {
+
 	tilesControll->render(dt);
+	/*for (auto kv : currentStatic) {
+		kv.second->object->render(dt);
+	}*/
 	main->render(dt);
+
 }

@@ -13,10 +13,11 @@ class ScenceController
 {
 protected:
 	int totalFarme;
-	int rows;
-	int cols;
-	int width = 128;
-	int height = 128;
+	int rows = 0;
+	int cols = 0;
+	int width = 0;
+	int height = 0;
+
 	int rowStart = 0;
 	int rowEnd = 0;
 	int colStart = 0;

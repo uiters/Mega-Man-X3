@@ -1,11 +1,9 @@
 #include "ScenceController.h"
 #include "Debugs.h"
 #include "Textures.h"
-
+#include "Camera.h"
 ScenceController::ScenceController(int level)
 {
-	this->width = width;
-	this->height = height;
 	wchar_t* file;
 	wchar_t* fileImage;
 	switch (level)
@@ -58,10 +56,11 @@ ScenceController::ScenceController(int level)
 		for (int col = 0; col < cols; ++col)
 		{
 			input >> id;
+
 			_tiles[row][col] = new Tile(id, _texture, col * width, row * height, width, height);
 		}
 	}
-
+	cameraGlobal->setSizeWorld(0, 0, cols * width, height * height);
 	input.close();
 }
 
@@ -106,7 +105,7 @@ void ScenceController::update(Viewport * viewport)
 
 void ScenceController::render(DWORD dt)
 {
-	for (int i = rowStart; i < rowEnd; ++i)
-		for (int j = colStart; j < colEnd; ++j)
-			_tiles[i][j]->draw(false);
+	for (int row = rowStart; row < rowEnd; ++row)
+		for (int col = colStart; col < colEnd; ++col)
+			_tiles[row][col]->draw(false);
 }

@@ -207,12 +207,13 @@
     <ClInclude Include="Factory.h">
       <Filter>Game\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Game\GameObject\Static Object</Filter>
-    </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Game\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -294,12 +295,13 @@
     <ClCompile Include="Factory.cpp">
       <Filter>Game\Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Game\GameObject\Static Object</Filter>
-    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Game\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

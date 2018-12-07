@@ -152,6 +152,7 @@
     <ClInclude Include="Debugs.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="KeyController.h" />
     <ClInclude Include="MegamanX.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game1.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="KeyController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MegamanX.cpp" />
     <ClCompile Include="QNode.cpp" />

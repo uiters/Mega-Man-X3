@@ -23,6 +23,7 @@ void CSprite::draw(int x, int y, bool center, D3DCOLOR colorBrush)
 	
 }
 
+
 void CSprite::drawFlipX(int x, int y, bool center, D3DCOLOR colorBrush)
 {
 	LPD3DXSPRITE spriteHandler = gameGlobal->getSpriteHandler();

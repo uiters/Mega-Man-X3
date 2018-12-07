@@ -18,6 +18,7 @@ GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed(
 	this->_texture = stexture->texture;
 	this->box.height = stexture->width;
 	this->box.width = stexture->height;
+	
 }
 
 GameObject::GameObject(UINT id, UINT idTexture, int x, int y, float vx, float vy)
@@ -99,21 +100,19 @@ void GameObject::updateBox()
 {
 	this->box.x = this->x;
 	this->box.y = this->y;
-	if (_animations.size() > 0)
-	{
-		Size size = _animations[state]->getSize();
-		this->box.width = size.width;
-		this->box.height = size.height;
-	}
+	Size size = _animations[state]->getSize();
+	this->box.width = size.width;
+	this->box.height = size.height;
 }
 
 
 void GameObject::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
+	updateBox();
 	this->dt = dt;
 	dx = speed.vx * dt;
 	dy = speed.vy * dt;
-	updateBox();
+	//debugOut(L"%i %i %i %i\n", box.x, box.y, box.width, box.width);
 }
 
 GameObject::~GameObject()

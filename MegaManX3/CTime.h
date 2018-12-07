@@ -14,25 +14,24 @@ class CTime
 {
 private:
 	unsigned long timeStart;
-	unsigned long timeOff;
+	unsigned long timeUp;
 
 	ETime status;
 public:
 	CTime();
-	CTime(unsigned long timeOff);
+	CTime(unsigned long timeUp);
 	void update();
 
-	void setTimeOff(unsigned long timeOff);
-	unsigned long getTimeOff();
+	void setTimeUp(unsigned long timeUp);
+	unsigned long getTimeUp();
 	unsigned long getTime();
 
 	void stop();
 	void start();
-	void pause();
-	void resume();
+	//void resume();
 
 	bool isRunning();
-	bool isPause();
+
 	bool isStop();
 	~CTime();
 };
