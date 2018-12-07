@@ -5,12 +5,14 @@ class Effect :
 {
 private:
 	bool finish = false;
+	int loop = 0;
+	void getBoundingBox(float & left, float & top, float & right, float & bottom) override {};
 public:
 
-	Effect(int idTexture, int x, int y, bool runOnlyOne);
+	Effect(int idTexture, int x, int y, int loop);
 	~Effect();
 
-	void getBoundingBox(float & left, float & top, float & right, float & bottom) override {};
+	
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) = 0;
 };
 

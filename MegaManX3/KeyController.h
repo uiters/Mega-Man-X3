@@ -5,6 +5,9 @@
 class KeyController
 {
 private:
+	int width = 0;
+	int height = 0;
+
 	bool toLeft = false;
 
 	int pressArrow = 0; // left right
@@ -80,7 +83,7 @@ public:
 	void removeKeyArrow(bool isLeft);
 
 	
-
+	void getSize(int&width, int& height);
 	UINT getState(bool& isLeft);
 };
 

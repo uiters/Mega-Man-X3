@@ -2,17 +2,9 @@
 
 
 
-Effect::Effect()
+Effect::Effect(int idTexture, int x, int y, int loop) : GameObject(idTexture, x, y)
 {
-}
-
-
-Effect::Effect(int idTexture, int x, int y) : GameObject(idTexture, x, y)
-{
-}
-
-Effect::Effect(int idTexture, int x, int y, bool runOnlyOne)
-{
+	this->loop = loop;
 }
 
 Effect::~Effect()

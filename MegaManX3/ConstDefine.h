@@ -40,6 +40,26 @@
 #define QUADTREE_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_static.txt"
 #pragma endregion
 
+#pragma region Megamian Size
+
+#define Dash_Shoot_Width 38
+#define Dash_Shoot_Height 31
+
+#define Jum_Shoot_Width 18
+#define Jum_Shoot_Height 46
+
+#define Fall_Shoot_Width 22
+#define Fall_Shoot_Height 46
+
+#define Stand_Shoot_Width 23
+#define Stand_Shoot_Height 34
+
+#define Run_Shoot_Width 23
+#define Run_Shoot_Height 35
+
+#define Cling_Shoot_Width 28
+#define Cling_Shoot_Height 43
+#pragma endregion
 
 
 #endif // !_ConstDefine_H_

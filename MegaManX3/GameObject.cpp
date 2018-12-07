@@ -17,7 +17,6 @@ GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed(
 	}
 	this->_texture = stexture->texture;
 
-	
 }
 
 GameObject::GameObject(UINT id, UINT idTexture, int x, int y, float vx, float vy)

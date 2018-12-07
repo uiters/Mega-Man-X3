@@ -115,6 +115,9 @@
     <Filter Include="Game\GameObject\Effect">
       <UniqueIdentifier>{ba7cf9e5-ece7-4b70-a686-e4ea542b5d6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Controls\Key">
+      <UniqueIdentifier>{b2e700d6-4fb8-4842-9286-3f3fc5aa11df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -207,17 +210,21 @@
     <ClInclude Include="CTime.h">
       <Filter>Lib\CTime</Filter>
     </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>Game\Controls</Filter>
+    <ClInclude Include="Brick.h">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Game\GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyController.h">
+      <Filter>Game\Controls\Key</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Game\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    <ClInclude Include="Factory.h">
+      <Filter>Game\Controls\Scence</Filter>
     </ClInclude>
-    <ClInclude Include="KeyController.h" />
-    <ClInclude Include="Effect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -296,17 +303,21 @@
     <ClCompile Include="CTime.cpp">
       <Filter>Lib\CTime</Filter>
     </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>Game\Controls</Filter>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Game\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyController.cpp">
+      <Filter>Game\Controls\Key</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Game\Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Game\Controls\Scence</Filter>
     </ClCompile>
-    <ClCompile Include="KeyController.cpp" />
-    <ClCompile Include="Effect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

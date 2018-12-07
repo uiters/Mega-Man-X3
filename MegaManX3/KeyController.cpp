@@ -140,6 +140,8 @@ void KeyController::addKeyC()
 	pressC = true;
 	timeDash.start();
 	isDash = true;
+	this->width = Dash_Shoot_Width;
+	this->height = Dash_Shoot_Height;
 }
 
 void KeyController::removeKeyC()
@@ -244,6 +246,12 @@ void KeyController::updateRun()
 }
 #pragma endregion
 
+
+void KeyController::getSize(int & width, int & height)
+{
+	width = this->width;
+	height = this->height;
+}
 
 UINT KeyController::getState(bool& isLeft)
 {

@@ -92,7 +92,12 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 
 void MegamanX::updateState(DWORD dt) 
 {
-	state = keyController->getState(isFlipX);
+	int statePre = keyController->getState(isFlipX);
+	if (state != statePre && statePre == dash)
+	{
+		_animations[statePre]->reset();
+	}
+	state = statePre;
 	switch (state)
 	{
 	case stand:
@@ -205,6 +210,11 @@ void MegamanX::getBoundingBox(float & left, float & top, float & right, float & 
 {
 	left = x;
 	top = right;
+	switch (state)
+	{
+	default:
+		break;
+	}
 
 }
 
