@@ -2,17 +2,19 @@
 #include "ConstGlobals.h"
 NotorBanger::NotorBanger()
 {
-	this->x = 30.0f;
-	this->y = 30.0f;
-	this->state = NOTOR_BANGER_STATE_JUMP;
+	this->x = 10;
+	this->y = 200;
+	this->nx = true;
+	this->distance = 2;
 }
 
-NotorBanger::NotorBanger(int id, float x, float y)
+NotorBanger::NotorBanger(int id, float x, float y, bool nx, int distance)
 {
 	this->_id = id;
 	this->x = x;
 	this->y = y;
-	this->state = NOTOR_BANGER_STATE_INIT;
+	this->nx = nx;
+	this->distance = distance;
 }
 
 NotorBanger::~NotorBanger()
@@ -22,27 +24,100 @@ NotorBanger::~NotorBanger()
 
 void NotorBanger::update(DWORD dt, vector<LPObject>* coObjects)
 {	
-	//updateBox();
+	GameObject::update(dt);
 
+	speed.vy += NOTOR_BANGER_GRAVITY;
+	x += dx;
+	y += dy;
+
+	if (speed.vx < 0 && x < 0) {
+		speed.vx = -speed.vx;
+		nx = true;
+	}
+
+	if (speed.vx > 0 && x > 300) {
+		speed.vx = -speed.vx;
+		nx = false;
+	}
+
+	if (speed.vy < 0 && y < 160) {
+		y = 160;
+	}
+
+	if (speed.vy > 0 && y > 200) {
+		y = 200;
+	}
+
+	if (_animations[state]->isLastFrame()) {
+		switch (state)
+		{
+		case 0: 
+		{
+			switch (distance)
+			{
+			case 0:
+				state += 100;
+				break;
+			case 1:
+				state += 200;
+				break;
+			case 2:
+				state += 300;
+				break;
+			default:
+				break;
+			}
+			break;
+		}
+		case 100:
+			state += 300;
+			break;
+		case 200:
+			state += 300;
+			break;
+		case 300:
+			state += 300;
+			break;
+		case 400:
+			state += 300;
+			break;
+		case 500:
+			state += 200;
+			break;
+		default:
+			state += 100;
+			break;
+		}
+
+		if (state > 800) state = 0;
+		SetState(state);
+	}
 }
 
 void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
-{
-	_animations[state]->render(x, y, false);
-	this->state += 100;
-	if (this->state > 400) this->state = 0;
+{	
+	if (nx != true) _animations[state]->render(x, y, false);
+	else _animations[state]->renderFlipX(x, y);
 }
 
 void NotorBanger::SetState(int state)
 {
 	switch (state) {
-	case NOTOR_BANGER_ANI_JUMP:
-		speed.vy = -NOTOR_BANGER_SPEED;
+	case NOTOR_BANGER_STATE_JUMP:
+		speed.vy = -NOTOR_BANGER_SPEED_Y;
+		speed.vx = nx == true ? NOTOR_BANGER_SPEED_X : -NOTOR_BANGER_SPEED_X;
+		break;
+	case NOTOR_BANGER_STATE_TOUCH_FLOOR:
+		speed.vy = NOTOR_BANGER_SPEED_Y;
+		speed.vx = nx == true ? NOTOR_BANGER_SPEED_X : -NOTOR_BANGER_SPEED_X;
 		break;
 	default:
-		speed.vx = speed.vy = 0;
+		speed.vx = 0;
+		speed.vy = 0;
 		break;
 	}
+	this->state = state;
+	_animations[state]->reset();
 }
 
 void NotorBanger::loadResources()
@@ -64,64 +139,114 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10003, NOTOR_BANGER_ID_TEXTURE, 92, 105, 40, 48);
 	sprites->addSprite(10004, NOTOR_BANGER_ID_TEXTURE, 136, 104, 40, 48);
 	 
-	ani = new CAnimation(500);
+	ani = new CAnimation(100);
 	ani->add(10001);
 	ani->add(10002);
 	ani->add(10003);
 	ani->add(10004);
 	animations->add(NOTOR_BANGER_STATE_INIT , ani);
 
-	// shot
-	sprites->addSprite(10011, NOTOR_BANGER_ID_TEXTURE, 176, 104, 40, 48); // 40 x 48
+	// shot small
+	sprites->addSprite(10011, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10012, NOTOR_BANGER_ID_TEXTURE, 176, 104, 40, 48);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(500);
 	ani->add(10011);
-	animations->add(NOTOR_BANGER_STATE_SHOT, ani);
+	ani->add(10012);
+	animations->add(NOTOR_BANGER_STATE_SHOT_SMALL, ani);
 
-	// ready jump
-	sprites->addSprite(10021, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
-	sprites->addSprite(10022, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48);
-	sprites->addSprite(10023, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
-	sprites->addSprite(10024, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+	// shot medium
+	sprites->addSprite(10021, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10022, NOTOR_BANGER_ID_TEXTURE, 136, 104, 40, 48);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(500);
 	ani->add(10021);
 	ani->add(10022);
-	ani->add(10023);
-	ani->add(10024);
-	animations->add(NOTOR_BANGER_STATE_READY_JUMP, ani);
+	animations->add(NOTOR_BANGER_STATE_SHOT_MEDIUM, ani);
 
-	// jump
-	sprites->addSprite(10031, NOTOR_BANGER_ID_TEXTURE, 146, 2, 48, 41);
-	sprites->addSprite(10032, NOTOR_BANGER_ID_TEXTURE, 100, 6, 41, 32);
-	sprites->addSprite(10033, NOTOR_BANGER_ID_TEXTURE, 48, 6, 41, 32);
-	sprites->addSprite(10034, NOTOR_BANGER_ID_TEXTURE, 3, 6, 41, 32);
+	// shot large
+	sprites->addSprite(10031, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10032, NOTOR_BANGER_ID_TEXTURE, 92, 105, 40, 48);
 
-	ani = new CAnimation(250);
+	ani = new CAnimation(500);
 	ani->add(10031);
 	ani->add(10032);
-	ani->add(10033);
-	ani->add(10034);
-	animations->add(NOTOR_BANGER_STATE_JUMP, ani);
+	animations->add(NOTOR_BANGER_STATE_SHOT_LARGE, ani);
 
-	// die
-	sprites->addSprite(10041, NOTOR_BANGER_ID_TEXTURE, 8, 168, 18, 8);
-	sprites->addSprite(10042, NOTOR_BANGER_ID_TEXTURE, 32, 165, 11, 12);
-	sprites->addSprite(10043, NOTOR_BANGER_ID_TEXTURE, 47, 157, 22, 23);
-	sprites->addSprite(10044, NOTOR_BANGER_ID_TEXTURE, 74, 157, 19, 20);
+	// ready jump small
+	sprites->addSprite(10041, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10042, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48);
+	sprites->addSprite(10043, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
+	sprites->addSprite(10044, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
 
 	ani = new CAnimation(100);
 	ani->add(10041);
 	ani->add(10042);
 	ani->add(10043);
 	ani->add(10044);
+	animations->add(NOTOR_BANGER_STATE_READY_JUMP_SMALL, ani);
+
+	// ready jump medium
+	sprites->addSprite(10051, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48);
+	sprites->addSprite(10052, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
+	sprites->addSprite(10053, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+
+	ani = new CAnimation(100);
+	ani->add(10051);
+	ani->add(10052);
+	ani->add(10053);
+	animations->add(NOTOR_BANGER_STATE_READY_JUMP_MEDIUM, ani);
+
+	// ready jump large
+	sprites->addSprite(10061, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
+	sprites->addSprite(10062, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+
+	ani = new CAnimation(100);
+	ani->add(10061);
+	ani->add(10062);
+	animations->add(NOTOR_BANGER_STATE_READY_JUMP_LARGE, ani);
+
+	// jump
+	sprites->addSprite(10071, NOTOR_BANGER_ID_TEXTURE, 181, 0, 48, 48); // 48 x 48
+
+	ani = new CAnimation(500);
+	ani->add(10071);
+	animations->add(NOTOR_BANGER_STATE_JUMP, ani);
+
+	// touch floor
+	sprites->addSprite(10081, NOTOR_BANGER_ID_TEXTURE, 128, 2, 48, 48);
+	sprites->addSprite(10082, NOTOR_BANGER_ID_TEXTURE, 76, 2, 48, 48); // 48 x 48
+	sprites->addSprite(10083, NOTOR_BANGER_ID_TEXTURE, 18, 2, 48, 48);
+
+	ani = new CAnimation(100);
+	ani->add(10081);
+	ani->add(10082);
+	ani->add(10083);
+	animations->add(NOTOR_BANGER_STATE_TOUCH_FLOOR, ani);
+
+	// die
+	sprites->addSprite(10091, NOTOR_BANGER_ID_TEXTURE, 8, 168, 18, 8);
+	sprites->addSprite(10092, NOTOR_BANGER_ID_TEXTURE, 32, 165, 11, 12);
+	sprites->addSprite(10093, NOTOR_BANGER_ID_TEXTURE, 47, 157, 22, 23);
+	sprites->addSprite(10094, NOTOR_BANGER_ID_TEXTURE, 74, 157, 19, 20);
+
+	ani = new CAnimation(200);
+	ani->add(10091);
+	ani->add(10092);
+	ani->add(10093);
+	ani->add(10094);
 	animations->add(NOTOR_BANGER_STATE_DIE, ani);
 
 	// add animation
 	this->addAnimation(NOTOR_BANGER_STATE_INIT);
-	this->addAnimation(NOTOR_BANGER_STATE_SHOT);
-	this->addAnimation(NOTOR_BANGER_STATE_READY_JUMP);
+	this->addAnimation(NOTOR_BANGER_STATE_SHOT_SMALL);
+	this->addAnimation(NOTOR_BANGER_STATE_SHOT_MEDIUM);
+	this->addAnimation(NOTOR_BANGER_STATE_SHOT_LARGE);
+	this->addAnimation(NOTOR_BANGER_STATE_READY_JUMP_SMALL);
+	this->addAnimation(NOTOR_BANGER_STATE_READY_JUMP_MEDIUM);
+	this->addAnimation(NOTOR_BANGER_STATE_READY_JUMP_LARGE);
 	this->addAnimation(NOTOR_BANGER_STATE_JUMP);
+	this->addAnimation(NOTOR_BANGER_STATE_TOUCH_FLOOR);
 	this->addAnimation(NOTOR_BANGER_STATE_DIE);
 }
 

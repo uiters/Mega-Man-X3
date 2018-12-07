@@ -99,9 +99,9 @@ void GameObject::updateBox()
 void GameObject::update(DWORD dt, vector<LPObject>* coObjects)
 {
 	this->dt = dt;
-	//dx = speed.vx * dt;
-	//dy = speed.vy * dt;
-	updateBox();
+	dx = speed.vx * dt;
+	dy = speed.vy * dt;
+	//updateBox();
 }
 
 GameObject::~GameObject()

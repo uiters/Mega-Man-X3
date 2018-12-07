@@ -17,6 +17,7 @@ void Game1::loadResource()
 	keyGlobal = main;
 	notorBanger = new NotorBanger();
 	notorBanger->loadResources();
+	notorBanger->SetState(NOTOR_BANGER_STATE_INIT);
 }
 
 void Game1::initOption()
