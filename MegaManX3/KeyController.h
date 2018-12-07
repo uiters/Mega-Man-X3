@@ -42,7 +42,7 @@ private:
 	CTime timePressZ = CTime();
 
 	UINT state = 0;
-	UINT stateShoot = 0;
+	UINT stateShoot = shoot;
 
 	void updateShoot();
 	void updateJump();

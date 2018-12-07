@@ -71,13 +71,18 @@ MegamanX::~MegamanX()
 
 
 
+MegamanX * MegamanX::clone(int id, int x, int y)
+{
+	return nullptr;
+}
+
 void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
 	GameObject::update(dt);
 
 
 
-	speed.vy += 0.005f * dt;
+	//speed.vy += 0.005f * dt;
 
 	
 
@@ -87,7 +92,6 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 
 void MegamanX::updateState(DWORD dt) 
 {
-	keyController->update();
 	state = keyController->getState(isFlipX);
 	switch (state)
 	{
@@ -128,7 +132,6 @@ void MegamanX::updateState(DWORD dt)
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	updateState(dt);
-	
 	auto spriteHandler = gameGlobal->getSpriteHandler();
 	spriteHandler->End();
 	spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
@@ -145,7 +148,7 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 
 void MegamanX::onKeyDown(int keyCode)
 {
-	debugOut(L"keydown\n");
+	
 	switch (keyCode)
 	{
 	case DIK_LEFT:
@@ -170,7 +173,7 @@ void MegamanX::onKeyDown(int keyCode)
 
 void MegamanX::onKeyUp(int keyCode)
 {
-	debugOut(L"keyup\n");
+	
 	switch (keyCode)
 	{
 	case DIK_LEFT:
@@ -195,6 +198,13 @@ void MegamanX::onKeyUp(int keyCode)
 
 void MegamanX::keyState(BYTE *_state)
 {
+	keyController->update();
+}
+
+void MegamanX::getBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	left = x;
+	top = right;
 
 }
 

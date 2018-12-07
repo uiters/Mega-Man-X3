@@ -18,6 +18,9 @@ private:
 	void collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects);
 
 	KeyController* keyController;
+	MegamanX* clone(int id, int x, int y) override;
+
+	MegamanX() {}
 public:
 	MegamanX(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	~MegamanX();
@@ -30,13 +33,14 @@ private:
 
 	int shot;
 public:
-
+	
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;
 	void updateState(DWORD dt);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void onKeyDown(int) override;
 	void onKeyUp(int) override;
 	void keyState(BYTE*) override;
+	void getBoundingBox(float& left, float& top, float& right, float &bottom) override;
 
 };
 #endif // !_MegamanX_H

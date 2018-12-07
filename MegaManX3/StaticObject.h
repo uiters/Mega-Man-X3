@@ -9,12 +9,18 @@ class StaticObject
 {
 protected:
 	bool _canBreak = false;
+	int width;
+	int height;
 public:
 	StaticObject() {}
-	StaticObject(UINT idTexture, float x, float y);
 	~StaticObject() {}
-	//virtual void render(DWORD dt) {};
+
+
+	StaticObject(UINT id, float x, float y, int width, int height);
+	
+	virtual void render(DWORD dt, D3DCOLOR colorBrush) {}
 	bool canBreak();
+	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 };
 
 #endif // !_StaticObject_H

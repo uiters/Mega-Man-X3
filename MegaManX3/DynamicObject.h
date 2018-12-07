@@ -30,6 +30,8 @@ public:
 	bool isDeath();
 
 public:
+	virtual GameObject* clone(int id, int x, int y) = 0;
+	virtual void getBoundingBox(float & left, float & top, float & right, float & bottom) override = 0;
 	virtual void receiveDamage(int damage);
 	virtual void reset();
 	

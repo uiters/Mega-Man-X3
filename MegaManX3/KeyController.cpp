@@ -63,17 +63,6 @@ void KeyController::updateShoot()
 			if (timeShoot.isRunning())
 			{
 				timeShoot.update();
-				if (onAir)
-				{
-					if (isJump) stateShoot = jump_shoot;
-					else
-						if (isFall) stateShoot = fall_shoot;
-				}
-				else
-				if (isDash) stateShoot = dash_shoot;
-				else if (isRun) stateShoot = run_shoot;
-				else state = shoot;
-
 			}
 			else
 				isShot = false;
@@ -110,6 +99,7 @@ void KeyController::stopJump()
 		isFall = true;
 		isJump = false;
 		timeJump.stop();
+		state = fall;
 	}
 }
 
@@ -118,6 +108,7 @@ void KeyController::updateJump()
 	if (timeJump.isRunning())
 	{
 		state = jump; //current jump
+		stateShoot = jump_shoot;
 		timeJump.update();
 	}
 	else 
@@ -126,6 +117,7 @@ void KeyController::updateJump()
 			isJump = false;
 			isFall = true;
 			state = fall;
+			stateShoot = fall_shoot;
 		}
 }
 
@@ -175,6 +167,7 @@ void KeyController::updateDash()
 	{
 		timeDash.update();
 		state = dash;
+		stateShoot = dash_shoot;
 	}
 	else
 	{
@@ -192,8 +185,6 @@ void KeyController::updateDash()
 void KeyController::addKeyArrow(bool isLeft)
 {
 	pressArrow += 1;
-	if (isLeft) left = true;
-	else 
 	if (pressArrow == 2)
 	{
 		left = true;
@@ -243,9 +234,12 @@ void KeyController::updateRun()
 {
 	if (!(isDash || onAir))
 	{
-		if(isRun)
-			state = run;
-		else state = stand;
+		if (isRun)
+			state = run,
+			stateShoot = run_shoot;
+		else 
+			state = stand,
+			stateShoot = shoot;
 	}
 }
 #pragma endregion

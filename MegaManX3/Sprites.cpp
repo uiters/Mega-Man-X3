@@ -56,10 +56,6 @@ void CSprite::drawFlipY(int x, int y, bool center, D3DCOLOR colorBrush)
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
-Size CSprite::getSize()
-{
-	return frame.getSize();
-}
 
 CSprites * CSprites::__instance = NULL;
 

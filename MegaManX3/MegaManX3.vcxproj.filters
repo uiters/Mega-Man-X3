@@ -112,6 +112,9 @@
     <Filter Include="Lib\CTime">
       <UniqueIdentifier>{32410854-48fb-4bb2-8b82-472188ba17b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Effect">
+      <UniqueIdentifier>{ba7cf9e5-ece7-4b70-a686-e4ea542b5d6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -214,6 +217,7 @@
       <Filter>Game\GameObject\Static Object\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="KeyController.h" />
+    <ClInclude Include="Effect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -302,6 +306,7 @@
       <Filter>Game\GameObject\Static Object\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="KeyController.cpp" />
+    <ClCompile Include="Effect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

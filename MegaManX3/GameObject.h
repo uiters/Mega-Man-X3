@@ -22,12 +22,11 @@ class GameObject
 {
 protected:
 	UINT _id = 0;
+	UINT _idObject = 0;//type name
 	
-	CRectangle box;
 	bool _canReset = true;
 	bool _canRemove = false;
 
-	
 	LPDIRECT3DTEXTURE9 _texture;
 
 	static unordered_map<UINT, LPANIMATION> _animations;
@@ -43,7 +42,6 @@ public:
 	Speed speed;
 	DWORD dt = 0;
 	CTreeObject* currentNode = 0;
-	ObjectType type;
 
 public:
 	GameObject(UINT idTexture, int x = 0, int y = 0, float vx = 0, float vy = 0);
@@ -51,24 +49,17 @@ public:
 
 	GameObject() {}
 	~GameObject();
-
-
 	void addAnimation(UINT animationId);
-	//void renderBoundingBox(); // for test
-
-	void getSize(int &width, int &height);
 	bool canReset();
 	bool canRemove();
 
-	ObjectType getType();	
-	LPDIRECT3DTEXTURE9 getTexture();
+	LPDIRECT3DTEXTURE9 getTexture() { return _texture; }
 	UINT getID() { return _id; }
+	UINT getIDObject() { return _idObject; }
 public:
-	void getBoundingBox(float & left, float & top, float & right, float & bottom);
-	void clone(GameObject* object, int id, int x, int y, int width = 0, int height = 0);
-
+	
+	virtual void getBoundingBox(float & left, float & top, float & right, float & bottom) = 0;
 	virtual CRectangle* getBoundingBox();
-	virtual void updateBox();
 	virtual void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}
 	virtual void reset() {}

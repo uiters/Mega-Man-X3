@@ -144,6 +144,7 @@
     <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="DynamicObject.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="dxsound.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />

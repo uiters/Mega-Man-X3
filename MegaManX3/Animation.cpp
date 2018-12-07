@@ -54,12 +54,6 @@ void CAnimation::reset()
 	currentFrame = -1;
 }
 
-Size CAnimation::getSize()
-{
-	if (currentFrame == -1)
-		return frames[0]->getSprite()->getSize();
-	return frames[currentFrame]->getSprite()->getSize();
-}
 
 CAnimations * CAnimations::__instance = NULL;
 

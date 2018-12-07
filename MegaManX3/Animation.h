@@ -43,7 +43,6 @@ public:
 	void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void renderFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void reset();//reset frame
-	Size getSize();
 };
 
 
