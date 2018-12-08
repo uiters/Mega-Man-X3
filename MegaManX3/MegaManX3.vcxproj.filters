@@ -225,6 +225,9 @@
     <ClInclude Include="Factory.h">
       <Filter>Game\Controls\Scence</Filter>
     </ClInclude>
+    <ClInclude Include="DashSmoke.h">
+      <Filter>Game\GameObject\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -317,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="Factory.cpp">
       <Filter>Game\Controls\Scence</Filter>
+    </ClCompile>
+    <ClCompile Include="DashSmoke.cpp">
+      <Filter>Game\GameObject\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

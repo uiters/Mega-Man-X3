@@ -24,7 +24,7 @@ private:
 	//stand
 	bool onFloor = false;
 	bool isStand = false;
-
+	bool isWall = false;
 	// run
 	bool isRun = false;
 
@@ -36,11 +36,11 @@ private:
 	bool isJump = false;
 	bool isFall = false;
 	bool onAir = false;
-	CTime timeJump = CTime(600);
+	CTime timeJump = CTime(250);
 
 	//dash
 	bool isDash = false;
-	CTime timeDash = CTime(800);
+	CTime timeDash = CTime(600);
 
 	//shoot
 	bool isShot = false;
@@ -74,9 +74,14 @@ public:
 	void stopJump();
 	void stopDash();
 	void stopRun();
-
 	void stopShoot();
 	void stopFall();
+
+	void setNearWall(bool);
+
+	//wall
+	void clingWall();
+	void slideWall();
 
 	void addKeyZ();
 	void addKeyX();

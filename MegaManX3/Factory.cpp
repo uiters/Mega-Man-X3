@@ -35,7 +35,7 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 	while (input)
 	{
 		input >> id >> idNameObject >> idTypeObject >> x >> y >> width >> height;
-		//if (id == 2) continue;
+		if (idNameObject == 2) obj = 0;else
 		obj = new Brick(id, x, y, width, height);
 		(*objs)[id] = obj;
 	}
@@ -81,8 +81,9 @@ vector<CTreeObject*>* Factory::getObject(ifstream  *input, int numObjects, unord
 	for (int i = 0; i < numObjects; ++i)
 	{
 		(*input) >> id;
+		if (objects[id] == 0) continue;
 		CTreeObject *cObject = new CTreeObject(objects[id], *objects[id]->getBoundingBox());
-		vObjects->push_back(cObject);
+		vObjects->emplace_back(cObject);
 	}
 	return vObjects;
 }

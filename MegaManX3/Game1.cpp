@@ -12,7 +12,6 @@ void Game1::initGolbals()
 
 void Game1::loadResource()
 {
-
 	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
 	texturesGlobal->add(-100, L"Resource\\Textures\\test.png", 100, 100);
 	main = new MegamanX(Megaman, 100, 910);
@@ -108,23 +107,28 @@ void Game1::loadResource()
 	spritesGlobal->add(dash, Megaman, 278, 127, 314, 157);
 	spritesGlobal->add(dash + 1, Megaman, 319, 132, 356, 157);
 
-	ani = new CAnimation(800);
+	ani = new CAnimation(600);
 	ani->add(dash, 50);
-	ani->add(dash + 1, 750);
+	ani->add(dash + 1, 550);
 	animationsGlobal->add(dash, ani);
 	main->addAnimation(dash);
 #pragma endregion
 
 #pragma region cling
-	spritesGlobal->add(cling, Megaman, 35, 211, 61, 253);
-	spritesGlobal->add(cling + 1, Megaman, 64, 212, 91, 253);
-
+	spritesGlobal->add(cling, Megaman, 64, 212, 91, 253);
 	ani = new CAnimation(100);
 	ani->add(cling);
-	ani->add(cling + 1);
 	animationsGlobal->add(cling, ani);
 	main->addAnimation(cling);
 #pragma endregion
+#pragma region slide
+	spritesGlobal->add(slide, Megaman, 35, 211, 61, 253);
+	ani = new CAnimation(100);
+	ani->add(slide);
+	animationsGlobal->add(slide, ani);
+	main->addAnimation(slide);
+#pragma endregion
+
 
 #pragma region enhance
 	spritesGlobal->add(enhance, Megaman, 470, 118, 497, 162);
@@ -213,23 +217,28 @@ void Game1::loadResource()
 	spritesGlobal->add(dash_shoot, Megaman, 367, 126, 404, 156);
 	spritesGlobal->add(dash_shoot + 1, Megaman, 410, 131, 458, 156);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(600);
 	ani->add(dash_shoot, 50);
-	ani->add(dash_shoot + 1, 750);
+	ani->add(dash_shoot + 1, 550);
 	animationsGlobal->add(dash_shoot, ani);
 	main->addAnimation(dash_shoot);
 #pragma endregion
 
 #pragma region cling_shoot
 	spritesGlobal->add(cling_shoot, Megaman, 46, 259, 78, 301);
-	spritesGlobal->add(cling_shoot + 1, Megaman, 84, 258, 115, 299);
-
 	ani = new CAnimation(100);
 	ani->add(cling_shoot);
-	ani->add(cling_shoot + 1);
 	animationsGlobal->add(cling_shoot, ani);
 	main->addAnimation(cling_shoot);
 #pragma endregion
+#pragma region slide_shoot
+	spritesGlobal->add(slide_shoot, Megaman, 84, 258, 115, 299);
+	ani = new CAnimation(100);
+	ani->add(slide_shoot);
+	animationsGlobal->add(slide_shoot, ani);
+	main->addAnimation(slide_shoot);
+#pragma endregion
+
 
 #pragma region fall_shoot
 	spritesGlobal->add(fall_shoot, Megaman, 88, 117, 118, 157);

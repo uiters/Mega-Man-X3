@@ -2,9 +2,9 @@
 
 
 
-Effect::Effect(int idTexture, int x, int y, int loop) : GameObject(idTexture, x, y)
+Effect::Effect(UINT idAnimation) : GameObject(0, 0, 0)
 {
-	this->loop = loop;
+	LPANIMATION animation = CAnimations::getInstance()->get(idAnimation);
 }
 
 Effect::~Effect()

@@ -49,8 +49,7 @@ void  Collision::findCollisions(DWORD dt, LPObject objectMove, const unordered_m
 		LPCollisionEvent e = sweptAABBEx(dt, objectMove, keyValue.second->object);
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
-		else
-			delete e;
+		else delete e;
 	}
 
 	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
@@ -85,6 +84,13 @@ void Collision::filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCol
 
 	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
+}
+
+void Collision::slide(float& vx, float& vy, float nx, float ny, float t)
+{
+	float dotprod = (vx * ny + vy * nx) * t;
+	vx = ny * dotprod;
+	vy = nx * dotprod;
 }
 
 ColllisionDirect Collision::getCollisionDirect(float normalx, float normaly)

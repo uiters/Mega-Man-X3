@@ -9,9 +9,10 @@ class StaticObject
 {
 protected:
 	bool _canBreak = false;
+
+public:
 	int width;
 	int height;
-public:
 	StaticObject() {}
 	~StaticObject() {}
 

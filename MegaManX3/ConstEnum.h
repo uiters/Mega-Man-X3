@@ -49,8 +49,9 @@ enum MegaManAnimation {
 	dash = 10400,
 	fall = 10500,
 	cling = 10600,
-	enhance = 10700,
-	shock = 10800,
+	slide = 10700,
+	enhance = 10800,
+	shock = 10900,
 
 	shoot = 11100,
 	run_shoot = 11200,
@@ -58,6 +59,7 @@ enum MegaManAnimation {
 	dash_shoot = 11400,
 	fall_shoot = 11500,
 	cling_shoot = 11600,
+	slide_shoot = 11700,
 
 };
 #endif // !_ConstEnum_H_

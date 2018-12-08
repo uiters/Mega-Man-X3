@@ -10,8 +10,6 @@ typedef Speed* LPSpeed;
 typedef Rect* LPRect;
 
 
-
-
 struct Size
 {
 	int width = 0;

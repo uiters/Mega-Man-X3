@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "CollisionEvent.h"
 #include "KeyController.h"
+#include "Brick.h"
 class KeyController;
 class MegamanX :
 	public DynamicObject,
@@ -26,13 +27,12 @@ public:
 	~MegamanX();
 
 	bool isFlipX = false; //lật hình (mặc định hướng về phải)
-	bool onWall = false; //đang ở trên tường
+	int  onWall = 0; //đang ở trên tường -1 left - 1 right
 	bool onAir = false; //đang ở trên không trung
-	
 private:
 	int width, height;
 	int shot;
-	void avoidOverlap();
+	Brick* wall;
 public:
 	
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;

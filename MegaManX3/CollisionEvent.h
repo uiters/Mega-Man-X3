@@ -41,6 +41,7 @@ public:
 		float &min_ty,
 		float &nx,
 		float &ny);
+	void slide(float& vx, float& vy, float nx, float ny, float t);
 private:
 	static Collision* _instance;
 	Collision();

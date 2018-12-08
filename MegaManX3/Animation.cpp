@@ -37,6 +37,14 @@ Size & CAnimation::getSize()
 	else return frames[currentFrame]->getSprite()->getSize();
 }
 
+bool CAnimation::isLastFrame()
+{
+	if (currentFrame == -1) return false;
+	DWORD now = GetTickCount();
+	DWORD t = frames[currentFrame]->getTime();
+	return currentFrame == frames.size() - 1 && now - lastFrameTime >= t;;
+}
+
 void CAnimation::render(int x, int y, bool center, D3DCOLOR colorBrush)
 {
 	_updateFrame();

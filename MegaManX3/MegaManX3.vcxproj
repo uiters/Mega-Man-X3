@@ -140,6 +140,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="CTime.h" />
     <ClInclude Include="CTreeObject.h" />
+    <ClInclude Include="DashSmoke.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="CTime.cpp" />
     <ClCompile Include="CTreeObject.cpp" />
+    <ClCompile Include="DashSmoke.cpp" />
     <ClCompile Include="Debugs.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxsound.cpp" />

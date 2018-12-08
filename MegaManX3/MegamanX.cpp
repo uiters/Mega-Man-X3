@@ -1,5 +1,5 @@
 #include "MegamanX.h"
-#include "Brick.h"
+
 #include "ConstGlobals.h"
 
 
@@ -7,6 +7,7 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
+	keyController->update();
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
 	if (coEvents.size() == 0)
 	{
@@ -14,34 +15,60 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 		y += dy;
 		//onAir = true;
 		//if(onAir == false && dy > 0) onAir = true;
-		keyController->update();
+		if ((isFlipX && onWall == 1) || (!isFlipX && onWall == -1))
+			keyController->setNearWall(false), wall = NULL, onWall = 0;
+		if (wall) 
+		{
+			int distanceLeft = wall->x - (x + width);
+			int distanceRight = x - (wall->x + wall->width);
+
+			if (distanceLeft > 3 || distanceRight > 3) //5 is safe collision
+				keyController->setNearWall(false),
+				wall = NULL,
+				onWall = 0;
+			else
+			{
+				int distanceTop = wall->y - (this->y + this->height);
+				if(distanceTop > 4)
+					keyController->setNearWall(false),
+					wall = NULL,
+					onWall = 0;
+			}
+		}
+		
 	}
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
-		Collision::getInstance()->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		keyController->update(nx, ny);
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		x += min_tx * dx + nx * 1.f;
-		y += min_ty * dy + ny * 1.f;
+		//x += min_tx * dx + nx * 2.f;
+		/*y += min_ty * dy + ny * 1.f;*/
 		
 		if (nx != 0) speed.vx = 0;
 		if (ny != 0) speed.vy = 0;
 
+		
 		for (UINT i = 0; i < coEventsResult.size(); ++i)
 		{
 			auto e = coEventsResult[i];
-
-			if (dynamic_cast<Brick *>(e->obj))
+			Brick* obj = dynamic_cast<Brick *>(e->obj);
+			if (obj)
 			{
 				if (e->ny < 0)
 				{
-					speed.vy = 0;
-					//onAir = false;
+					keyController->stopFall();
 				}
-				else if (e->nx != 0)
+				else if(e->ny > 0)
 				{
-					speed.vx = 0;
+					keyController->stopJump();
+				}
+				else if (e->nx !=0)
+				{
+					wall = obj;
+					onWall = isFlipX ? -1 : 1; // true left : right
+					keyController->stopDash();
+					keyController->setNearWall(true);
 				}
 			}
 		}
@@ -77,22 +104,13 @@ MegamanX * MegamanX::clone(int id, int x, int y)
 	return nullptr;
 }
 
-void MegamanX::avoidOverlap()
-{
-	int w, h;
-	keyController->getSize(w, h);
-	
-	x += w - width;
-	y += h - height;
-}
-
 void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
 	GameObject::update(dt);
 
 
 
-	speed.vy += 0.002f * dt;
+	speed.vy += 0.0015f * dt;
 
 	
 
@@ -113,23 +131,29 @@ void MegamanX::updateState(DWORD dt)
 	case stand:
 	case shoot:
 		speed.vx = 0;
-		speed.vy = 0;
+		//speed.vy = 0;
+		break;
+	case cling:
+	case cling_shoot:
+		x += isFlipX ? 0.05f * dt : -0.05f * dt;
+		speed.vy = -0.0046f * dt;
 		break;
 	case run:
 	case run_shoot:
-		(isFlipX) ? speed.vx = -0.1f : speed.vx = 0.1f;
+		(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
 		break;
 	case dash:
 	case dash_shoot:
-		(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
+		(isFlipX) ? speed.vx = -0.01f * dt : speed.vx = 0.01f * dt;
 		speed.vy = 0;
 		break;
 	case jump:
-		speed.vy = -0.009f * dt;
+		//(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
+		speed.vy += -0.0046f * dt;
 		break;
 	case fall:
 	case fall_shoot:
-		speed.vy = 0.15f;
+		//speed.vy += 0.0001f * dt;
 		break;
 	case shock:
 		speed.vx = 0;
@@ -143,16 +167,33 @@ void MegamanX::updateState(DWORD dt)
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	updateState(dt);
+	int add = 0;
+	switch (state)
+	{
+	case dash:
+	case dash_shoot:
+		add = 8;
+		break;
+	case slide:
+	case slide_shoot:
+	case cling:
+	case cling_shoot:
+		add = -8;
+		break;
+	default:
+		break;
+	}
+
 	auto spriteHandler = gameGlobal->getSpriteHandler();
-	//spriteHandler->End();
-	//spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
-	auto center = cameraGlobal->transform(x, y);
+	spriteHandler->End();
+	spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
+	auto center = cameraGlobal->transform(x, y + add);
 	if (isFlipX)
 		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
 	else
 		_animations[state]->render(center.x, center.y, false, colorBrush);
-	//spriteHandler->End();
-	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	spriteHandler->End();
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 }
 
