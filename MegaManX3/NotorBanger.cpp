@@ -1,11 +1,15 @@
 #include "NotorBanger.h"
 #include "ConstGlobals.h"
+
+
+
 NotorBanger::NotorBanger()
 {
 	this->x = 10;
-	this->y = 200;
+	this->y = 300;
 	this->nx = true;
 	this->distance = 2;
+	this->repeat = 0;
 }
 
 NotorBanger::NotorBanger(int id, float x, float y, bool nx, int distance)
@@ -15,6 +19,7 @@ NotorBanger::NotorBanger(int id, float x, float y, bool nx, int distance)
 	this->y = y;
 	this->nx = nx;
 	this->distance = distance;
+	this->repeat = 0;
 }
 
 NotorBanger::~NotorBanger()
@@ -24,6 +29,12 @@ NotorBanger::~NotorBanger()
 
 void NotorBanger::update(DWORD dt, vector<LPObject>* coObjects)
 {	
+	for (int i = 0; i < listBullet.size(); i++) {
+		if (listBullet[i].isDelete) {
+			listBullet.erase(listBullet.begin() + i);
+		} else listBullet[i].update(dt);
+	}
+
 	GameObject::update(dt);
 
 	speed.vy += NOTOR_BANGER_GRAVITY;
@@ -40,19 +51,18 @@ void NotorBanger::update(DWORD dt, vector<LPObject>* coObjects)
 		nx = false;
 	}
 
-	if (speed.vy < 0 && y < 160) {
-		y = 160;
+	if (speed.vy < 0 && y < 260) {
+		y = 260;
 	}
 
-	if (speed.vy > 0 && y > 200) {
-		y = 200;
+	if (speed.vy > 0 && y > 300) {
+		y = 300;
 	}
 
 	if (_animations[state]->isLastFrame()) {
 		switch (state)
 		{
 		case 0: 
-		{
 			switch (distance)
 			{
 			case 0:
@@ -68,21 +78,39 @@ void NotorBanger::update(DWORD dt, vector<LPObject>* coObjects)
 				break;
 			}
 			break;
-		}
 		case 100:
-			state += 300;
+			if (repeat == 2)
+				state += 300;
+			createBullet();
+			repeat++;
+			if (repeat > 2) 
+				repeat = 0;
 			break;
 		case 200:
-			state += 300;
+			if (repeat == 2)
+				state += 300;
+			createBullet();
+			repeat++;
+			if (repeat > 2) 
+				repeat = 0;
 			break;
 		case 300:
-			state += 300;
+			if (repeat == 2)
+				state += 300;
+			createBullet();
+			repeat++;
+			if (repeat > 2) 
+				repeat = 0;
 			break;
 		case 400:
 			state += 300;
 			break;
 		case 500:
 			state += 200;
+			break;
+		case 800:
+			// clear bullet
+			state += 100;
 			break;
 		default:
 			state += 100;
@@ -96,6 +124,11 @@ void NotorBanger::update(DWORD dt, vector<LPObject>* coObjects)
 
 void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 {	
+	for (int i = 0; i < listBullet.size(); i++)
+	{
+		listBullet[i].render(dt);
+	}
+
 	if (nx != true) _animations[state]->render(x, y, false);
 	else _animations[state]->renderFlipX(x, y);
 }
@@ -122,6 +155,7 @@ void NotorBanger::setState(int state)
 
 void NotorBanger::loadResources()
 {
+
 	CTextures * textures = CTextures::getInstance();
 
 	textures->add(NOTOR_BANGER_ID_TEXTURE, L"enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
@@ -250,4 +284,42 @@ void NotorBanger::loadResources()
 	this->addAnimation(NOTOR_BANGER_STATE_DIE);
 }
 
+void NotorBanger::setPositionForListBullet()
+{
+	for (int i = 0; i < listBullet.size(); i++)
+	{
+		if (nx == true) listBullet[i].setPosition(x + 10, y);
+		else listBullet[i].setPosition(x - 10, y);
+	}
+}
+
+void NotorBanger::createBullet()
+{	
+	int x, y;
+	switch (distance)
+	{
+	case 0:
+		x = nx == true ? this->x + 10 : this->x + 20;
+		break;
+	case 1:
+		x = nx == true ? this->x + 20 : this->x + 8;
+		break;
+	case 2:
+		x = nx == true ? this->x + 30 : this->x - 2;
+		break;
+	default:
+		break;
+	}
+	NotorBangerBullet* notorBangerBullet = new NotorBangerBullet(
+		x, 
+		this->y - 2, 
+		true, 
+		false,
+		distance
+	);
+	notorBangerBullet->nx = this->nx;
+	notorBangerBullet->loadResources();
+	notorBangerBullet->setState(NOTOR_BANGER_BULLET_STATE_DEFAULT);
+	listBullet.push_back(*notorBangerBullet);
+}
 

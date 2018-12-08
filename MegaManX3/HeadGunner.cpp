@@ -1,5 +1,7 @@
 #include "HeadGunner.h"
 
+
+
 HeadGunner::HeadGunner()
 {
 	this->x = 10;

@@ -1,6 +1,10 @@
 #pragma once
+#include<vector>
 #include "DynamicObject.h";
 #include "CTime.h";
+#include "NotorBangerBullet.h"
+
+using namespace std;
 
 #define NOTOR_BANGER_GRAVITY 0.002f
 #define NOTOR_BANGER_SPEED_X 0.075f
@@ -29,8 +33,12 @@ public:
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void setState(int state);
 	void loadResources();
+	void setPositionForListBullet();
+	void createBullet();
 private:
+	int repeat;
 	bool nx;
 	int distance; // 0: small, 1: medium, 2: large
+	vector<NotorBangerBullet> listBullet;
 };
 

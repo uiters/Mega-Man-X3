@@ -229,6 +229,7 @@
       <Filter>Lib\Map</Filter>
     </ClInclude>
     <ClInclude Include="CTime.h" />
+    <ClInclude Include="NotorBangerBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -332,6 +333,7 @@
       <Filter>Lib\Map</Filter>
     </ClCompile>
     <ClCompile Include="CTime.cpp" />
+    <ClCompile Include="NotorBangerBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

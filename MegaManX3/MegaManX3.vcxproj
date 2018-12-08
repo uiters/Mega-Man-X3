@@ -167,6 +167,7 @@
     <ClInclude Include="Maoh.h" />
     <ClInclude Include="MegamanX.h" />
     <ClInclude Include="NotorBanger.h" />
+    <ClInclude Include="NotorBangerBullet.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
     <ClInclude Include="Sound.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Maoh.cpp" />
     <ClCompile Include="MegamanX.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
+    <ClCompile Include="NotorBangerBullet.cpp" />
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="ScenceController.cpp" />
     <ClCompile Include="Sound.cpp" />
