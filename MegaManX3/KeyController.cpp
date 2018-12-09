@@ -50,8 +50,78 @@ void KeyController::_update()
 	updateJump();
 	updateShoot();
 	updateRun();
+
+	updateState();
+	updateVx();
 }
 
+void KeyController::updateState()
+{
+	if (isDash)
+	{
+		state = dash;
+		stateShoot = dash_shoot;
+		width = Dash_Shoot_Width;
+		height = Dash_Shoot_Height;
+		return;
+	}
+	if (onAir)
+	{
+		switch (statusJump)
+		{
+		case StatusJump::Jump:
+		case StatusJump::Kick:
+			state = MegaManAnimation::jump;
+			stateShoot = jump_shoot;
+			width = Jump_Shoot_Width;
+			height = Jump_Shoot_Height;
+			main->speed.vy = -0.25f;
+
+		case StatusJump::Fall:
+			state = MegaManAnimation::fall;
+			stateShoot = fall_shoot;
+			width = Fall_Shoot_Width;
+			height = Fall_Shoot_Height;
+			break;
+
+		case StatusJump::Slide:
+			state = MegaManAnimation::slide;
+			stateShoot = slide_shoot;
+			width = Slide_Shoot_Width;
+			height = Slide_Shoot_Height;
+			break;
+		default:
+			break;
+		}
+		return;
+	}
+	if (isRun && !isStand)
+	{
+		state = MegaManAnimation::run;
+		stateShoot = run_shoot;
+		width = Run_Shoot_Width;
+		height = Run_Shoot_Height;
+	}
+	else
+		state = MegaManAnimation::stand,
+		stateShoot = shoot,
+		width = Stand_Shoot_Width,
+		height = Stand_Shoot_Height;
+}
+
+void KeyController::updateVx()
+{
+	if (isDash)
+		main->speed.vx = toLeft ? -0.25f : 0.25f;
+	else
+		if (isRun && !isStand)
+		{
+			main->speed.vx = toLeft ? -0.15f : 0.15f;
+		}
+		else
+			main->speed.vx = 0;
+
+}
 #pragma endregion
 
 #pragma region Shoot
@@ -97,18 +167,18 @@ void KeyController::updateShoot()
 
 void KeyController::addKeyX()
 {
-	if (onAir) return;
-	
-	timeDash.stop();
+	stopDash();
 	pressX = true;
 
-	timeJump.start();
-	isJump = true;
-	isFall = false;
-	onAir = true;
-	onFloor = false;
-	this->width = Jump_Shoot_Width;
-	this->height = Jump_Shoot_Height;
+	if (onAir)
+	{
+		if (isWall)
+			kickWall();
+	}
+	else
+	{
+		jump();
+	}
 }
 
 void KeyController::removeKeyX()
@@ -117,87 +187,86 @@ void KeyController::removeKeyX()
 	stopJump();
 }
 
+void KeyController::stopJumpRunning()
+{
+	statusJump = StatusJump::Fall;
+	timeJump.stop();
+}
+
 void KeyController::stopJump()
 {
 	if (timeJump.isRunning())
 	{
-		isFall = true;
-		isJump = false;
+		statusJump = StatusJump::Fall;
 		timeJump.stop();
-		state = fall;
-		this->width = Fall_Shoot_Width;
-		this->height = Fall_Shoot_Height;
 	}
 }
 
 void KeyController::updateJump()
 {
-	if (isWall)
+	if (timeJump.isRunning())
 	{
-		if (pressArrow == 1 && (toLeft == left || !toLeft == right)) 
-		{
-			if (timeJump.isRunning())
-				clingWall();
-			else
-				slideWall();
-		}else
-			if (timeJump.isRunning())
-				clingWall();
-			else
-			{
-				if (isJump)
-				{
-					isJump = false;
-					isFall = true;
-					state = fall;
-					stateShoot = fall_shoot;
-					this->width = Fall_Shoot_Width;
-					this->height = Fall_Shoot_Height;
-				}
-			}
-
+		timeJump.update();
 	}
-	else 
+	else if(onAir)
 	{
-		if (timeJump.isRunning())
+		if (StatusJump::Jump == statusJump || statusJump == StatusJump::Kick) 
+			stopJumpRunning();
+
+		if (statusJump == StatusJump::Fall && isWall && isWallLeft == toLeft)
 		{
-			state = jump; //current jump
-			stateShoot = jump_shoot;
-			timeJump.update();
-			this->width = Jump_Shoot_Width;
-			this->height = Jump_Shoot_Height;
+			statusJump = StatusJump::Slide;
+			return;
 		}
-		else
-			if (isJump)
-			{
-				isJump = false;
-				isFall = true;
-				state = fall;
-				stateShoot = fall_shoot;
-				this->width = Fall_Shoot_Width;
-				this->height = Fall_Shoot_Height;
-			}
-	}
 
+		if (statusJump == StatusJump::Slide && !isWall && isWallLeft != toLeft)
+			statusJump = StatusJump::Fall;
+	}
 }
 
 void KeyController::stopFall() 
 {
-	if (isFall)
+	if (statusJump == StatusJump::Fall)
 	{
 		timeJump.stop();
-		isJump = false;
-		isFall = false;
+		statusJump = StatusJump::None;
 		onAir = false;
-
 		onFloor = true;
-
-		//state = stand;
-		//stateShoot = shoot;
-		this->width = Stand_Shoot_Width;
-		this->height = Stand_Shoot_Height;
-
 	}
+}
+
+void KeyController::stopSlideWall()
+{
+	if (statusJump == StatusJump::Slide)
+	{
+		timeJump.stop();
+		statusJump = StatusJump::None;
+		onAir = false;
+		onFloor = true;
+	}
+}
+
+void KeyController::stopFallOrSlide()
+{
+	stopFall();
+	stopSlideWall();
+}
+
+void KeyController::jump()
+{
+	timeJump.start();
+	statusJump = StatusJump::Jump;
+
+	onAir = true;
+	onFloor = false;
+}
+
+void KeyController::kickWall()
+{
+	timeJump.start();
+	statusJump = StatusJump::Kick;
+
+	main->x += toLeft ? 20 : -20;
 }
 
 #pragma endregion
@@ -205,86 +274,94 @@ void KeyController::stopFall()
 #pragma region Dash
 void KeyController::addKeyC()
 {
-	if (onAir || isWall) return;
+	if (onAir || isWall) return;//----
 	pressC = true;
-	timeDash.start();
 	isDash = true;
+	timeDash.start();
 }
 
 void KeyController::removeKeyC()
 {
 	pressC = false;
-	if (timeDash.isRunning()) 
-	{
-		isDash = false;
-		timeDash.stop();
-	}
+	stopDash();
+}
+
+void KeyController::stopDashRunning()
+{
+	isDash = false;
+	timeDash.stop();
 }
 
 void KeyController::stopDash()
 {
-	if (timeDash.isRunning()) {
+	if (timeDash.isRunning())
+	{
 		isDash = false;
 		timeDash.stop();
-		isStand = true;
 	}
 }
 
 void KeyController::updateDash()
 {
-	if (timeDash.isRunning() && !onAir)
+	if (timeDash.isRunning())
 	{
-		timeDash.update();
-		state = dash;
-		stateShoot = dash_shoot;
-		this->width = Dash_Shoot_Width;
-		this->height = Dash_Shoot_Height;
-	}
-	else
-	{
-		if (isDash) 
+		if (onAir)
 		{
-			timeDash.stop();
-			isDash = false;
+			stopDashRunning();
+			statusJump = StatusJump::Fall;
+			return;
 		}
+		if (isWall)
+		{
+			stopDashRunning();
+			return;
+		}
+		timeDash.update();
 	}
-		
+	else // time up
+	{
+		if (isDash) isDash = false;
+	}
 }
 #pragma endregion
 
-#pragma region Run Stand
+#pragma region Arrow
 void KeyController::addKeyArrow(bool isLeft)
 {
 	pressArrow += 1;
-	if (pressArrow == 2)
+	if (pressArrow == 2) // stand
 	{
-		left = true;
-		right = true;
+		arrow = Arrow::Two;
 		isRun = false;
 		isHoldLeft = isHoldRight = false;
+		isStand = true;//stand
 	}
-	else 
+	else // run
 	{
-		if (isLeft != toLeft) stopDash(); //cancel dash
-		isLeft ? left = true : right = true;
+		if (isLeft != toLeft) // toleft == left or toRight ==right
+			stopDash(); //cancel dash
+		isLeft ? arrow = Arrow::Left : arrow = Arrow::Right;
 		toLeft = isLeft;
 		isRun = true;
+		isStand = false;
 	}
 }
 
 void KeyController::removeKeyArrow(bool isLeft)
 {
 	pressArrow -= 1;
-	if (pressArrow == 1)
+	if (pressArrow == 1) //run
 	{
-		isLeft ? left = false : right = false;
+		isLeft ? arrow = Arrow::Right : arrow = Arrow::Left;
 		toLeft = !isLeft;
-		isRun = true;
+		if (isLeft != toLeft) stopDash(); //cancel dash
+		isRun = true; //run
+		isStand = false;
 	}
-	else 
+	else //stand
 	{
-		left = false;
-		right = false;
+		isStand = true;
+		arrow = Arrow::None;
 		isRun = false;
 		isHoldLeft = isHoldRight = false;
 	}
@@ -295,49 +372,27 @@ void KeyController::stopRun()
 {
 	if (isRun)
 	{
-		left = false;
-		right = false;
 		isRun = false;
+		isStand = true;
 	}
 }
 
 void KeyController::updateRun()
 {
-	if (!(isDash || onAir))
-	{
-		if (isRun && !isWall)
-			state = run,
-			stateShoot = run_shoot, 
-			this->width = Run_Shoot_Width,
-			this->height = Run_Shoot_Height;
-		else 
-			state = stand,
-			stateShoot = shoot,
-			this->width = Stand_Shoot_Height,
-			this->height = Stand_Shoot_Height;
-	}
+	if (isRun && !isWall || isWallLeft != toLeft)
+		isStand = false;
+	else
+		isStand = true;
 }
 
-void KeyController::setNearWall(bool isTrue)
+void KeyController::setNearWall(bool isTrue, Brick* wall)
 {
 	isWall = isTrue;
+	this->isWall = wall;
 }
 
 #pragma endregion
 
-#pragma region Wall
-void KeyController::clingWall()
-{
-	state = cling;
-	stateShoot = cling_shoot;
-	this->width = Cling_Shoot_Width;
-	this->height = Cling_Shoot_Height;
-}
-void KeyController::slideWall()
-{
-	//state = 
-}
-#pragma endregion
 
 
 void KeyController::getSize(int & width, int & height)

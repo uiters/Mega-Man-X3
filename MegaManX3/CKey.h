@@ -7,7 +7,7 @@
 #include "Game.h"
 
 #define KEYBOARD_BUFFER_SIZE 1024
-#define DIRECTINPUT_VERSION 0x0800
+//#define DIRECTINPUT_VERSION 0x0800
 class CKey
 {
 protected:

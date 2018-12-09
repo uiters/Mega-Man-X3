@@ -2,20 +2,36 @@
 #define _KeyController_H_
 #include "CTime.h"
 #include "GameObject.h"
-
+#include "Brick.h"
+enum StatusJump
+{
+	Jump = 1,
+	Kick = 2,
+	None = 0,
+	Fall = -1,
+	Slide = -2
+};
+enum class Arrow
+{
+	Left = -1,
+	None = 0,
+	Right = 1,
+	Two = 2
+};
 class KeyController
 {
 private:
 	GameObject* main;
+	Brick* wall;
 
 	int width = 0;
 	int height = 0;
 
 	bool toLeft = false;
 
+	//arow
 	int pressArrow = 0; // left right
-	bool left = false;
-	bool right = false;
+	Arrow arrow = Arrow::None;
 
 	bool pressZ = false;
 	bool pressX = false;
@@ -23,20 +39,28 @@ private:
 
 	//stand
 	bool onFloor = false;
-	bool isStand = false;
-	bool isWall = false;
-	// run
-	bool isRun = false;
+	bool isStand = false;// don't direction
+	bool isWall = false;//near wall
 
-	// hold
 	bool isHoldLeft = false;
 	bool isHoldRight = false;
+	bool isWallLeft = false;//direction wall
+	// run
+	bool isRun = false; // change direction
+
+
 
 	// jum
-	bool isJump = false;
-	bool isFall = false;
+
+	// 1 jum
+	// 2 kick
+	// -1 fall
+	// -2 slide
+	StatusJump statusJump = StatusJump::Jump;
+
 	bool onAir = false;
 	CTime timeJump = CTime(250);
+	CTime timeKick = CTime(150);
 
 	//dash
 	bool isDash = false;
@@ -55,7 +79,8 @@ private:
 	void updateDash();
 	void updateRun();
 
-
+	void updateState();
+	void updateVx();
 	void _update();
 public:
 	KeyController(GameObject* megaman, bool left) { this->main = megaman, this->toLeft = left; };
@@ -71,17 +96,28 @@ public:
 	void update();
 	void update(float nx, float ny);
 	//cancel animation
+	//jum
+	void stopJumpRunning();
 	void stopJump();
+	void stopFall(); // 
+	void stopSlideWall();
+
+	void stopFallOrSlide();
+
+
+	void stopDashRunning();
 	void stopDash();
+
 	void stopRun();
 	void stopShoot();
-	void stopFall();
 
-	void setNearWall(bool);
+	void setNearWall(bool, Brick*);
 
+	//jump
+	void jump();
+	void kickWall();
 	//wall
-	void clingWall();
-	void slideWall();
+
 
 	void addKeyZ();
 	void addKeyX();

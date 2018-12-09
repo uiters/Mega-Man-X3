@@ -115,14 +115,15 @@ void Game1::loadResource()
 #pragma endregion
 
 #pragma region cling
-	spritesGlobal->add(cling, Megaman, 64, 212, 91, 253);
+	spritesGlobal->add(cling, Megaman, 35, 211, 61, 253);
+
 	ani = new CAnimation(100);
 	ani->add(cling);
 	animationsGlobal->add(cling, ani);
 	main->addAnimation(cling);
 #pragma endregion
 #pragma region slide
-	spritesGlobal->add(slide, Megaman, 35, 211, 61, 253);
+	spritesGlobal->add(slide, Megaman, 64, 212, 91, 253);
 	ani = new CAnimation(100);
 	ani->add(slide);
 	animationsGlobal->add(slide, ani);

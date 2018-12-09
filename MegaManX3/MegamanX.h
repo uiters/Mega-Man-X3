@@ -32,9 +32,8 @@ public:
 private:
 	int width, height;
 	int shot;
-	Brick* wall;
-public:
 	
+public:
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;
 	void updateState(DWORD dt);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;

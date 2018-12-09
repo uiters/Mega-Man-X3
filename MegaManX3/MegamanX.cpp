@@ -1,4 +1,4 @@
-#include "MegamanX.h"
+﻿#include "MegamanX.h"
 
 #include "ConstGlobals.h"
 
@@ -7,7 +7,7 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
-	keyController->update();
+	
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
 	if (coEvents.size() == 0)
 	{
@@ -15,35 +15,35 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 		y += dy;
 		//onAir = true;
 		//if(onAir == false && dy > 0) onAir = true;
-		if ((isFlipX && onWall == 1) || (!isFlipX && onWall == -1))
-			keyController->setNearWall(false), wall = NULL, onWall = 0;
-		if (wall) 
-		{
-			int distanceLeft = wall->x - (x + width);
-			int distanceRight = x - (wall->x + wall->width);
+		//if ((isFlipX && onWall == 1) || (!isFlipX && onWall == -1))
+		//	keyController->setNearWall(false), wall = NULL, onWall = 0;
+		//if (wall) 
+		//{
+		//	int distanceLeft = wall->x - (x + width);
+		//	int distanceRight = x - (wall->x + wall->width);
 
-			if (distanceLeft > 3 || distanceRight > 3) //5 is safe collision
-				keyController->setNearWall(false),
-				wall = NULL,
-				onWall = 0;
-			else
-			{
-				int distanceTop = wall->y - (this->y + this->height);
-				if(distanceTop > 4)
-					keyController->setNearWall(false),
-					wall = NULL,
-					onWall = 0;
-			}
-		}
-		
+		//	if (distanceLeft > 3 || distanceRight > 3) //5 is safe collision
+		//		keyController->setNearWall(false),
+		//		wall = NULL,
+		//		onWall = 0;
+		//	else
+		//	{
+		//		int distanceTop = wall->y - (this->y + this->height);
+		//		if(distanceTop > 4)
+		//			keyController->setNearWall(false),
+		//			wall = NULL,
+		//			onWall = 0;
+		//	}
+		//}
+		keyController->setNearWall(false, NULL);
 	}
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
 		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		//x += min_tx * dx + nx * 2.f;
-		/*y += min_ty * dy + ny * 1.f;*/
+		x += min_tx * dx + nx * 2.f;
+		y += min_ty * dy + ny * 1.f;
 		
 		if (nx != 0) speed.vx = 0;
 		if (ny != 0) speed.vy = 0;
@@ -57,7 +57,7 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 			{
 				if (e->ny < 0)
 				{
-					keyController->stopFall();
+					keyController->stopFallOrSlide();
 				}
 				else if(e->ny > 0)
 				{
@@ -65,15 +65,14 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 				}
 				else if (e->nx !=0)
 				{
-					wall = obj;
 					onWall = isFlipX ? -1 : 1; // true left : right
 					keyController->stopDash();
-					keyController->setNearWall(true);
+					keyController->setNearWall(true, obj);
 				}
 			}
 		}
 	}
-
+	keyController->update();
 	UINT size = coEvents.size();
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
@@ -126,42 +125,42 @@ void MegamanX::updateState(DWORD dt)
 		_animations[statePre]->reset();
 	}
 	state = statePre;
-	switch (state)
-	{
-	case stand:
-	case shoot:
-		speed.vx = 0;
-		//speed.vy = 0;
-		break;
-	case cling:
-	case cling_shoot:
-		x += isFlipX ? 0.05f * dt : -0.05f * dt;
-		speed.vy = -0.0046f * dt;
-		break;
-	case run:
-	case run_shoot:
-		(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
-		break;
-	case dash:
-	case dash_shoot:
-		(isFlipX) ? speed.vx = -0.01f * dt : speed.vx = 0.01f * dt;
-		speed.vy = 0;
-		break;
-	case jump:
-		//(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
-		speed.vy += -0.0046f * dt;
-		break;
-	case fall:
-	case fall_shoot:
-		//speed.vy += 0.0001f * dt;
-		break;
-	case shock:
-		speed.vx = 0;
-		speed.vy = 0;
-		break;
-	default:
-		break;
-	}
+	//switch (state)
+	//{
+	//case stand:
+	//case shoot:
+	//	speed.vx = 0;
+	//	//speed.vy = 0;
+	//	break;
+	//case cling:
+	//case cling_shoot:
+	//	//x += isFlipX ? 0.05f * dt : -0.05f * dt;
+	//	speed.vy = -0.0046f * dt;
+	//	break;
+	//case run:
+	//case run_shoot:
+	//	(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
+	//	break;
+	//case dash:
+	//case dash_shoot:
+	//	(isFlipX) ? speed.vx = -0.01f * dt : speed.vx = 0.01f * dt;
+	//	speed.vy = 0;
+	//	break;
+	//case jump:
+	//	//(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
+	//	speed.vy += -0.0046f * dt;
+	//	break;
+	//case fall:
+	//case fall_shoot:
+	//	//speed.vy += 0.0001f * dt;
+	//	break;
+	//case shock:
+	//	speed.vx = 0;
+	//	speed.vy = 0;
+	//	break;
+	//default:
+	//	break;
+	//}
 }
 
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
@@ -183,17 +182,29 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 	default:
 		break;
 	}
+	D3DXMATRIX matScale;
+	D3DXMATRIX oldMatrix;
+	// khởi tạo ma trận phóng to theo trục Ox 2 lần, trục Oy 3 lần.
+	D3DXMatrixScaling(&matScale, 0.9f, 0.9f, .0f);
 
+	// thực hiện việc chuyển đổi.
+	
 	auto spriteHandler = gameGlobal->getSpriteHandler();
-	spriteHandler->End();
-	spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
+
+	//spriteHandler->GetTransform(&oldMatrix);
+	//spriteHandler->SetTransform(&matScale);
+
+	//spriteHandler->End();
+	//spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
 	auto center = cameraGlobal->transform(x, y + add);
 	if (isFlipX)
 		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
 	else
 		_animations[state]->render(center.x, center.y, false, colorBrush);
-	spriteHandler->End();
-	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	//spriteHandler->End();
+	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
+	//spriteHandler->SetTransform(&oldMatrix);
 
 }
 

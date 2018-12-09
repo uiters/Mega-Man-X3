@@ -45,7 +45,7 @@
 #define Dash_Shoot_Width 29
 #define Dash_Shoot_Height 34
 
-#define Jump_Shoot_Width 24
+#define Jump_Shoot_Width 29
 #define Jump_Shoot_Height 34
 
 #define Fall_Shoot_Width 29
@@ -57,10 +57,10 @@
 #define Run_Shoot_Width 29
 #define Run_Shoot_Height 34
 
-#define Cling_Shoot_Width 28
+#define Cling_Shoot_Width 29
 #define Cling_Shoot_Height 34
 
-#define Slide_Shoot_Width 28
+#define Slide_Shoot_Width 29
 #define Slide_Shoot_Height 34
 #pragma endregion
 
