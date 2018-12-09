@@ -35,8 +35,25 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 	while (input)
 	{
 		input >> id >> idNameObject >> idTypeObject >> x >> y >> width >> height;
-		if (idNameObject == 2) obj = 0;else
-		obj = new Brick(id, x, y, width, height);
+
+		switch (idNameObject)
+		{
+		case 2:
+			obj = NULL;
+			break;
+		case 3: 
+			obj = new NotorBanger(id, x, y, false, 1); 
+			obj->loadResources();
+			break;
+		case 4:
+			obj = new HeadGunner(id, x, y, false);
+			obj->loadResources();
+			break;
+		default:
+			obj = new Brick(id, x, y, width, height);
+			break;
+		}
+		
 		(*objs)[id] = obj;
 	}
 	input.close();

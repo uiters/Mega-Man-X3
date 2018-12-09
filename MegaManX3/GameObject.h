@@ -28,7 +28,7 @@ protected:
 
 	LPDIRECT3DTEXTURE9 _texture;
 
-	static unordered_map<UINT, LPANIMATION> _animations;
+	unordered_map<UINT, LPANIMATION> _animations;
 	static Collision * collision;
 public:
 	float x = 0, y = 0;

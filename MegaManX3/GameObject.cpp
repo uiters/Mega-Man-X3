@@ -1,5 +1,4 @@
 #include "GameObject.h"
-unordered_map<UINT, LPANIMATION> GameObject::_animations;
 Collision* GameObject::collision = Collision::getInstance();
 
 GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed( vx , vy ) {

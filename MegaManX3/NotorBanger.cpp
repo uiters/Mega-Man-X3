@@ -1,5 +1,4 @@
 #include "NotorBanger.h"
-#include "ConstGlobals.h"
 
 
 
@@ -7,6 +6,8 @@ NotorBanger::NotorBanger()
 {
 	this->x = 10;
 	this->y = 300;
+	this->initX = this->x;
+	this->initY = this->y;
 	this->nx = true;
 	this->distance = 2;
 	this->repeat = 0;
@@ -17,6 +18,8 @@ NotorBanger::NotorBanger(int id, float x, float y, bool nx, int distance)
 	this->_id = id;
 	this->x = x;
 	this->y = y;
+	this->initX = x;
+	this->initY = y;
 	this->nx = nx;
 	this->distance = distance;
 	this->repeat = 0;
@@ -51,12 +54,12 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 		nx = false;
 	}
 
-	if (speed.vy < 0 && y < 260) {
-		y = 260;
+	if (speed.vy < 0 && y < this->initY - 40) {
+		y = this->initY - 40;
 	}
 
-	if (speed.vy > 0 && y > 300) {
-		y = 300;
+	if (speed.vy > 0 && y > this->initY) {
+		y = this->initY;
 	}
 
 	if (_animations[state]->isLastFrame()) {
@@ -128,9 +131,10 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		listBullet[i].render(dt);
 	}
-
-	if (nx != true) _animations[state]->render(x, y, false);
-	else _animations[state]->renderFlipX(x, y);
+	auto center = cameraGlobal->transform(x, y);
+	if (nx != true)
+		_animations[state]->render(center.x, center.y);
+	else _animations[state]->renderFlipX(center.x, center.y);
 }
 
 void NotorBanger::setState(int state)
@@ -158,6 +162,7 @@ void NotorBanger::loadResources()
 
 	CTextures * textures = CTextures::getInstance();
 
+	if (textures->getTexture(NOTOR_BANGER_ID_TEXTURE) == NULL)
 	textures->add(NOTOR_BANGER_ID_TEXTURE, L"enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites * sprites = CSprites::getInstance();
@@ -323,9 +328,16 @@ void NotorBanger::createBullet()
 	listBullet.push_back(*notorBangerBullet);
 }
 
+void NotorBanger::resetPosition()
+{
+	this->x = this->initX;
+	this->y = this->initY;
+}
+
 void NotorBanger::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 }
+
 
 NotorBanger * NotorBanger::clone(int id, int x, int y)
 {

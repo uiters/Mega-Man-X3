@@ -51,6 +51,7 @@ void CTextures::add(UINT id, LPCWSTR filePath, UINT width, UINT height, D3DCOLOR
 
 LPDIRECT3DTEXTURE9 CTextures::getTexture(UINT id)
 {
+	if (textures[id] == 0) return 0;
 	return textures[id]->texture;
 }
 

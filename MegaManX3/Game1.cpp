@@ -302,8 +302,9 @@ void Game1::initOption()
 {
 	auto x = Factory::getInstance()->createObjects(OBJECT_TXT);
 	root = Factory::getInstance()->createQuadTree(QUADTREE_TXT, *x);
+	auto rootdyanamic = Factory::getInstance()->createQuadTree(QUADTREEDyanamic_TXT, *x);
 	delete x;
-	controller = new Controller(main, root, 0);
+	controller = new Controller(main, root, rootdyanamic);
 }
 
 void Game1::update(DWORD dt)
@@ -313,16 +314,16 @@ void Game1::update(DWORD dt)
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
 
-	notorBanger->update(dt);
-	headGunner->update(dt);
+	//notorBanger->update(dt);
+	//headGunner->update(dt);
 }	
 
 void Game1::render(DWORD dt)
 {
 
 	controller->render(dt);
-	notorBanger->render(dt);
-	headGunner->render(dt);
+	//notorBanger->render(dt);
+	//headGunner->render(dt);
 }
 
 Game1::~Game1()

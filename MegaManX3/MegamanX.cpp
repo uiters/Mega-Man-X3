@@ -182,10 +182,10 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 	default:
 		break;
 	}
-	D3DXMATRIX matScale;
-	D3DXMATRIX oldMatrix;
+	//D3DXMATRIX matScale;
+	//D3DXMATRIX oldMatrix;
 	// khởi tạo ma trận phóng to theo trục Ox 2 lần, trục Oy 3 lần.
-	D3DXMatrixScaling(&matScale, 0.9f, 0.9f, .0f);
+	//D3DXMatrixScaling(&matScale, 0.9f, 0.9f, .0f);
 
 	// thực hiện việc chuyển đổi.
 	

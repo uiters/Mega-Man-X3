@@ -34,8 +34,9 @@ void HeadGunner::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObject
 
 void HeadGunner::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (nx != true) _animations[state]->render(x, y, false);
-	else _animations[state]->renderFlipX(x, y);
+	auto center = cameraGlobal->transform(x, y);
+	if (nx != true) _animations[state]->render(center.x, center.y);
+	else _animations[state]->renderFlipX(center.x, center.y);
 }
 
 void HeadGunner::setState(int state)
@@ -56,8 +57,8 @@ void HeadGunner::getBoundingBox(float & left, float & top, float & right, float 
 void HeadGunner::loadResources()
 {
 	CTextures * textures = CTextures::getInstance();
-
-	textures->add(HEAD_GUNNER_ID_TEXTURE, L"enemies.png", 0, 0, D3DCOLOR_XRGB(255, 0, 255));
+	if(!textures->getTexture(HEAD_GUNNER_ID_TEXTURE))
+		textures->add(HEAD_GUNNER_ID_TEXTURE, L"enemies.png", 0, 0, D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();

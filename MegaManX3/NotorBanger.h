@@ -3,6 +3,8 @@
 #include "DynamicObject.h";
 #include "CTime.h";
 #include "NotorBangerBullet.h"
+#include "ConstGlobals.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -35,11 +37,14 @@ public:
 	void loadResources();
 	void setPositionForListBullet();
 	void createBullet();
+	void resetPosition();
 
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	NotorBanger* clone(int id, int x, int y) override;
 
 private:
+	float initX;
+	float initY;
 	int repeat;
 	bool nx;
 	int distance; // 0: small, 1: medium, 2: large

@@ -1,6 +1,7 @@
 #pragma once
 #include <stdlib.h>
 #include "Weapon.h"
+#include "Camera.h"
 
 #define NOTOR_BANGER_BULLET_GRAVITY 0.01f
 #define NOTOR_BANGER_BULLET_SPEED_X_SMALL 0.015f

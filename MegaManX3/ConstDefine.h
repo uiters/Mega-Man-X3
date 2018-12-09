@@ -9,8 +9,8 @@
 #define HLOGO L"icon.ico"
 #define MAP L"map1.log"
 
-#define WD_WIDTH 800
-#define WD_HEIGHT 600
+#define WD_WIDTH 400
+#define WD_HEIGHT 300
 
 #define CAMERA_WIDTH 255
 #define CAMERA_HEIGHT 224
@@ -38,6 +38,7 @@
 
 #define OBJECT_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1.txt"
 #define QUADTREE_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_static.txt"
+#define QUADTREEDyanamic_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_dynamic.txt"
 #pragma endregion
 
 #pragma region Megamian Size
