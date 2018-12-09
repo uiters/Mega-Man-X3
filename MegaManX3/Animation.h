@@ -37,13 +37,15 @@ protected:
 public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void add(UINT spriteId, DWORD time = 0);
-	Size& getSize();
+
 	bool isLastFrame();
+
 	//center is draw center
 	void render(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void renderFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void reset();//reset frame
+	Size getSize();
 };
 
 
@@ -56,6 +58,7 @@ class CAnimations
 public:
 	void add(UINT id, LPANIMATION ani);
 	LPANIMATION get(UINT id);
+	bool isLastFrame(UINT id);
 
 	static CAnimations * getInstance();
 };

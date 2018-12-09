@@ -6,7 +6,6 @@
 #include <d3dx9.h>
 #include <vector>
 
-
 #include "Sprites.h"
 #include "Textures.h"
 #include "Graphics.h"
@@ -64,7 +63,7 @@ public:
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}
 	virtual void reset() {}
 	virtual void remove() {}
-	virtual void loadResource() {}
+	virtual void loadResources() = 0;
 };
 
 #endif //! _GameObject_H

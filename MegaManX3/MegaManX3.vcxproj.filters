@@ -228,6 +228,15 @@
     <ClInclude Include="DashSmoke.h">
       <Filter>Game\GameObject\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="NotorBanger.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunner.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBangerBullet.h">
+      <Filter>Game\GameObject\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -323,6 +332,15 @@
     </ClCompile>
     <ClCompile Include="DashSmoke.cpp">
       <Filter>Game\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBanger.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunner.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerBullet.cpp">
+      <Filter>Game\GameObject\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

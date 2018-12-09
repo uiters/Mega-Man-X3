@@ -9,6 +9,10 @@
 #include "CTreeObject.h"
 #include "ConstGlobals.h"
 #include "Controller.h"
+
+#include "NotorBanger.h"
+#include "HeadGunner.h"
+
 class Game1 :
 	public Game
 {
@@ -16,6 +20,8 @@ class Game1 :
 	QNode* root;
 	MegamanX* main;
 	Controller* controller;
+	NotorBanger* notorBanger;
+	HeadGunner* headGunner;
 public:
 	void initGolbals() override; // call first
 	void loadResource() override; // 2

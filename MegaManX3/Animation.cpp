@@ -14,6 +14,7 @@ void CAnimation::_updateFrame()
 		if (now - lastFrameTime > t)
 		{
 			++currentFrame;
+			
 			lastFrameTime = now;
 			if (currentFrame == frames.size()) currentFrame = 0;
 		}
@@ -30,19 +31,13 @@ void CAnimation::add(UINT spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-Size & CAnimation::getSize()
-{
-	if (currentFrame < 0)
-		return frames[0]->getSprite()->getSize();
-	else return frames[currentFrame]->getSprite()->getSize();
-}
-
 bool CAnimation::isLastFrame()
 {
 	if (currentFrame == -1) return false;
 	DWORD now = GetTickCount();
 	DWORD t = frames[currentFrame]->getTime();
-	return currentFrame == frames.size() - 1 && now - lastFrameTime >= t;;
+	//debugOut(L"%ld\n", now);
+	return currentFrame == frames.size() - 1 && now - lastFrameTime >= t;
 }
 
 void CAnimation::render(int x, int y, bool center, D3DCOLOR colorBrush)
@@ -69,6 +64,10 @@ void CAnimation::reset()
 	currentFrame = -1;
 }
 
+Size CAnimation::getSize()
+{
+	return frames[currentFrame]->getSprite()->getSize();
+}
 
 CAnimations * CAnimations::__instance = NULL;
 
@@ -86,4 +85,9 @@ void CAnimations::add(UINT id, LPANIMATION ani)
 LPANIMATION CAnimations::get(UINT id)
 {
 	return animations[id];
+}
+
+bool CAnimations::isLastFrame(UINT id)
+{
+	return animations[id]->isLastFrame();
 }

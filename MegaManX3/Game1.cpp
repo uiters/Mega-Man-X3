@@ -122,6 +122,7 @@ void Game1::loadResource()
 	animationsGlobal->add(cling, ani);
 	main->addAnimation(cling);
 #pragma endregion
+
 #pragma region slide
 	spritesGlobal->add(slide, Megaman, 64, 212, 91, 253);
 	ani = new CAnimation(100);
@@ -232,6 +233,7 @@ void Game1::loadResource()
 	animationsGlobal->add(cling_shoot, ani);
 	main->addAnimation(cling_shoot);
 #pragma endregion
+
 #pragma region slide_shoot
 	spritesGlobal->add(slide_shoot, Megaman, 84, 258, 115, 299);
 	ani = new CAnimation(100);
@@ -239,7 +241,6 @@ void Game1::loadResource()
 	animationsGlobal->add(slide_shoot, ani);
 	main->addAnimation(slide_shoot);
 #pragma endregion
-
 
 #pragma region fall_shoot
 	spritesGlobal->add(fall_shoot, Megaman, 88, 117, 118, 157);
@@ -255,7 +256,6 @@ void Game1::loadResource()
 	animationsGlobal->add(fall_shoot, ani);
 	main->addAnimation(fall_shoot);
 #pragma endregion
-
 
 #pragma region bullet_lv1
 	spritesGlobal->add(bullet_lv1, Megaman, 5, 377, 12, 382);
@@ -287,6 +287,14 @@ void Game1::loadResource()
 #pragma endregion
 
 	main->state = appear;
+
+	notorBanger = new NotorBanger();
+	notorBanger->loadResources();
+	notorBanger->setState(NOTOR_BANGER_STATE_INIT);
+
+	headGunner = new HeadGunner();
+	headGunner->loadResources();
+	headGunner->setState(HEAD_GUNNER_STATE_DEFAULT);
 }
 
 
@@ -304,13 +312,18 @@ void Game1::update(DWORD dt)
 	keyGlobal->processKeyboard();
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
+
+	notorBanger->update(dt);
+	headGunner->update(dt);
 }	
 
 void Game1::render(DWORD dt)
 {
-	controller->render(dt);
-}
 
+	controller->render(dt);
+	notorBanger->render(dt);
+	headGunner->render(dt);
+}
 
 Game1::~Game1()
 {

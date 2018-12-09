@@ -2,8 +2,7 @@
 #define _DynamicObject_H
 #include "GameObject.h"
 #include "Weapon.h"
-class DynamicObject
-	:public GameObject
+class DynamicObject : public GameObject
 {
 protected:
 	bool _death = false;
