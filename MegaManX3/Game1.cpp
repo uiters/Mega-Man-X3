@@ -313,16 +313,16 @@ void Game1::update(DWORD dt)
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
 
-	notorBanger->update(dt);
-	headGunner->update(dt);
+	//notorBanger->update(dt);
+	//headGunner->update(dt);
 }	
 
 void Game1::render(DWORD dt)
 {
 
 	controller->render(dt);
-	notorBanger->render(dt);
-	headGunner->render(dt);
+	//notorBanger->render(dt);
+	//headGunner->render(dt);
 }
 
 Game1::~Game1()

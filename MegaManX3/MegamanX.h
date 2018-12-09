@@ -21,6 +21,7 @@ private:
 	KeyController* keyController;
 	MegamanX* clone(int id, int x, int y) override;
 
+
 	MegamanX() {}
 public:
 	MegamanX(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);

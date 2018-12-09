@@ -3,6 +3,7 @@
 #include "CTime.h"
 #include "GameObject.h"
 #include "Brick.h"
+#include "DashSmoke.h"
 enum StatusJump
 {
 	Jump = 1,
@@ -21,11 +22,13 @@ enum class Arrow
 class KeyController
 {
 private:
+	DashSmoke *smoke;
+private:
 	GameObject* main;
 	Brick* wall;
 
-	int width = 0;
-	int height = 0;
+	int width = Stand_Shoot_Width;
+	int height = Stand_Shoot_Width;
 
 	bool toLeft = false;
 
@@ -60,7 +63,7 @@ private:
 
 	bool onAir = false;
 	CTime timeJump = CTime(250);
-	CTime timeKick = CTime(150);
+	CTime timeKick = CTime(70);
 
 	//dash
 	bool isDash = false;
@@ -94,7 +97,6 @@ public:
 	bool isLeft();
 
 	void update();
-	void update(float nx, float ny);
 	//cancel animation
 	//jum
 	void stopJumpRunning();
@@ -117,7 +119,7 @@ public:
 	void jump();
 	void kickWall();
 	//wall
-
+	void render();
 
 	void addKeyZ();
 	void addKeyX();

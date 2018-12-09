@@ -118,6 +118,15 @@
     <Filter Include="Game\Controls\Key">
       <UniqueIdentifier>{b2e700d6-4fb8-4842-9286-3f3fc5aa11df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Weapon\MegamanX">
+      <UniqueIdentifier>{34a6a19e-304d-422d-b122-2f972842c751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\Megaman">
+      <UniqueIdentifier>{d5c3ee2c-3ed7-40a4-a2f0-021db83df582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\DynamicObject\Other">
+      <UniqueIdentifier>{d57ebcc8-b91f-4afa-aa2e-bfb67c66e521}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -225,9 +234,6 @@
     <ClInclude Include="Factory.h">
       <Filter>Game\Controls\Scence</Filter>
     </ClInclude>
-    <ClInclude Include="DashSmoke.h">
-      <Filter>Game\GameObject\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="NotorBanger.h">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClInclude>
@@ -236,6 +242,36 @@
     </ClInclude>
     <ClInclude Include="NotorBangerBullet.h">
       <Filter>Game\GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="BusterShot.h">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargedShot1.h">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargedShot2.h">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClInclude>
+    <ClInclude Include="DashSmoke.h">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="DashSpark.h">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="WallKick.h">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="WallSlide.h">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="Gate.h">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="DiePoint.h">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,9 +366,6 @@
     <ClCompile Include="Factory.cpp">
       <Filter>Game\Controls\Scence</Filter>
     </ClCompile>
-    <ClCompile Include="DashSmoke.cpp">
-      <Filter>Game\GameObject\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="NotorBanger.cpp">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClCompile>
@@ -341,6 +374,36 @@
     </ClCompile>
     <ClCompile Include="NotorBangerBullet.cpp">
       <Filter>Game\GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BusterShot.cpp">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedShot1.cpp">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedShot2.cpp">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClCompile>
+    <ClCompile Include="DashSmoke.cpp">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="DashSpark.cpp">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="WallKick.cpp">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="WallSlide.cpp">
+      <Filter>Game\GameObject\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="Gate.cpp">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="DiePoint.cpp">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

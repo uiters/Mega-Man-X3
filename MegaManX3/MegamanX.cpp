@@ -13,36 +13,13 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 	{
 		x += dx;
 		y += dy;
-		//onAir = true;
-		//if(onAir == false && dy > 0) onAir = true;
-		//if ((isFlipX && onWall == 1) || (!isFlipX && onWall == -1))
-		//	keyController->setNearWall(false), wall = NULL, onWall = 0;
-		//if (wall) 
-		//{
-		//	int distanceLeft = wall->x - (x + width);
-		//	int distanceRight = x - (wall->x + wall->width);
-
-		//	if (distanceLeft > 3 || distanceRight > 3) //5 is safe collision
-		//		keyController->setNearWall(false),
-		//		wall = NULL,
-		//		onWall = 0;
-		//	else
-		//	{
-		//		int distanceTop = wall->y - (this->y + this->height);
-		//		if(distanceTop > 4)
-		//			keyController->setNearWall(false),
-		//			wall = NULL,
-		//			onWall = 0;
-		//	}
-		//}
-		keyController->setNearWall(false, NULL);
 	}
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
 		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		x += min_tx * dx + nx * 2.f;
+		x += min_tx * dx + nx * 1.f;
 		y += min_ty * dy + ny * 1.f;
 		
 		if (nx != 0) speed.vx = 0;
@@ -65,9 +42,9 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 				}
 				else if (e->nx !=0)
 				{
-					onWall = isFlipX ? -1 : 1; // true left : right
 					keyController->stopDash();
-					keyController->setNearWall(true, obj);
+					keyController->setNearWall(e->nx > 0, obj);
+					debugOut(L"Here\n");
 				}
 			}
 		}
@@ -177,15 +154,15 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 	case slide_shoot:
 	case cling:
 	case cling_shoot:
-		add = -8;
+		add = -12;
 		break;
 	default:
 		break;
 	}
-	D3DXMATRIX matScale;
-	D3DXMATRIX oldMatrix;
+	//D3DXMATRIX matScale;
+	//D3DXMATRIX oldMatrix;
 	// khởi tạo ma trận phóng to theo trục Ox 2 lần, trục Oy 3 lần.
-	D3DXMatrixScaling(&matScale, 0.9f, 0.9f, .0f);
+	//D3DXMatrixScaling(&matScale, 0.9f, 0.9f, .0f);
 
 	// thực hiện việc chuyển đổi.
 	

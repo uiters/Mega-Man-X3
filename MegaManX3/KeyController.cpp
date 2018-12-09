@@ -26,23 +26,25 @@ bool KeyController::isLeft()
 
 void KeyController::update()
 {
-	_update();
-}
-
-void KeyController::update(float nx, float ny)
-{
-	_update();
-
-	if (ny < 0) stopFall();
-	else if (ny > 0) state = fall, stopJump();
-
-	if (nx != 0)
+	if (wall)
 	{
-		state = stand;
-		isDash = false;
-		isRun = false;
+		int distanceLeft = wall->x - (main->x + width);
+		int distanceRight = main->x - (wall->x + wall->width);
+
+		if (distanceLeft > 3 || distanceRight > 3) //5 is safe collision
+			isWall = false,
+			wall = NULL;
+		else
+		{
+			int distanceTop = wall->y - (main->y + this->height);
+			if (distanceTop > 4)
+				isWall = false,
+				wall = NULL;
+		}
 	}
+	_update();
 }
+
 
 void KeyController::_update()
 {
@@ -70,12 +72,19 @@ void KeyController::updateState()
 		switch (statusJump)
 		{
 		case StatusJump::Jump:
-		case StatusJump::Kick:
 			state = MegaManAnimation::jump;
 			stateShoot = jump_shoot;
 			width = Jump_Shoot_Width;
 			height = Jump_Shoot_Height;
-			main->speed.vy = -0.25f;
+			main->speed.vy = -0.155f; 
+			break;
+		case StatusJump::Kick:
+			state = MegaManAnimation::cling;
+			stateShoot = cling_shoot;
+			width = Jump_Shoot_Width;
+			height = Jump_Shoot_Height;
+			main->speed.vy = -0.155f;
+			break;
 
 		case StatusJump::Fall:
 			state = MegaManAnimation::fall;
@@ -112,7 +121,7 @@ void KeyController::updateState()
 void KeyController::updateVx()
 {
 	if (isDash)
-		main->speed.vx = toLeft ? -0.25f : 0.25f;
+		main->speed.vx = toLeft ? -0.15f : 0.15f;
 	else
 		if (isRun && !isStand)
 		{
@@ -207,19 +216,25 @@ void KeyController::updateJump()
 	if (timeJump.isRunning())
 	{
 		timeJump.update();
+		if (timeKick.isRunning())
+		{
+			timeKick.update();
+			main->x += toLeft ? 0.5 : -0.5;
+		}
+		else statusJump = Jump;
 	}
 	else if(onAir)
 	{
 		if (StatusJump::Jump == statusJump || statusJump == StatusJump::Kick) 
 			stopJumpRunning();
 
-		if (statusJump == StatusJump::Fall && isWall && isWallLeft == toLeft)
+		if (statusJump == StatusJump::Fall && isWall && pressArrow == 1 && isWallLeft == toLeft)
 		{
 			statusJump = StatusJump::Slide;
 			return;
 		}
 
-		if (statusJump == StatusJump::Slide && !isWall && isWallLeft != toLeft)
+		if (statusJump == StatusJump::Slide &&( !isWall || isStand || isWallLeft != toLeft))
 			statusJump = StatusJump::Fall;
 	}
 }
@@ -265,8 +280,13 @@ void KeyController::kickWall()
 {
 	timeJump.start();
 	statusJump = StatusJump::Kick;
+	timeKick.start();
+	
+}
 
-	main->x += toLeft ? 20 : -20;
+void KeyController::render()
+{
+
 }
 
 #pragma endregion
@@ -385,15 +405,14 @@ void KeyController::updateRun()
 		isStand = true;
 }
 
-void KeyController::setNearWall(bool isTrue, Brick* wall)
+void KeyController::setNearWall(bool isLeft, Brick* wall)
 {
-	isWall = isTrue;
-	this->isWall = wall;
+	isWall = true;
+	isWallLeft = isLeft;
+	this->wall = wall;
 }
 
 #pragma endregion
-
-
 
 void KeyController::getSize(int & width, int & height)
 {

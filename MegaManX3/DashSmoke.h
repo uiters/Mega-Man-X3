@@ -10,11 +10,12 @@ class DashSmoke : public Effect
 {
 private:
 	void createEffectInfinity(int x, int y) override {};
-
+	void loadResources() override {}
 public:
 	DashSmoke(UINT animation);
 	void createEffect(int x, int y) override;
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	~DashSmoke();
+	
 };
 #endif // !_DashSmoke_H_
