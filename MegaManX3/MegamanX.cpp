@@ -55,15 +55,15 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 			Brick* obj = dynamic_cast<Brick *>(e->obj);
 			if (obj)
 			{
-				if (e->ny < 0)
+				if (e->ny < 0)//floor
 				{
 					keyController->stopFallOrSlide();
 				}
-				else if(e->ny > 0)
+				else if(e->ny > 0)// ceiling
 				{
 					keyController->stopJump();
 				}
-				else if (e->nx !=0)
+				else if (e->nx !=0) 
 				{
 					onWall = isFlipX ? -1 : 1; // true left : right
 					keyController->stopDash();

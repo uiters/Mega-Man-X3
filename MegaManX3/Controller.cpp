@@ -27,7 +27,8 @@ void Controller::update(DWORD dt)
 		//auto obj = dynamic_cast<NotorBanger*>(kv.second->object);
 		//if (obj)
 		//	obj->update(dt);
-		kv.second->object->update(dt);
+		//if (kv.second->region.intersectsWith(*viewPortGlobal))
+			kv.second->object->update(dt, &currentStatic);
 	}
 	
 	//debugOut(L"%i\n", collisionStatic.size());

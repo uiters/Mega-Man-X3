@@ -40,11 +40,13 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 
 	GameObject::update(dt);
 
-	speed.vy += NOTOR_BANGER_GRAVITY;
-	x += dx;
-	y += dy;
+	speed.vy += NOTOR_BANGER_GRAVITY * dt;
 
-	if (speed.vx < 0 && x < 0) {
+	/*x += dx;
+	y += dy;*/
+	collisionStatic(staticObjects);
+
+	/*if (speed.vx < 0 && x < 0) {
 		speed.vx = -speed.vx;
 		nx = true;
 	}
@@ -52,15 +54,15 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 	if (speed.vx > 0 && x > 300) {
 		speed.vx = -speed.vx;
 		nx = false;
-	}
+	}*/
 
-	if (speed.vy < 0 && y < this->initY - 40) {
+	/*if (speed.vy < 0 && y < this->initY - 40) {
 		y = this->initY - 40;
-	}
+	}*/
 
-	if (speed.vy > 0 && y > this->initY) {
+	/*if (speed.vy > 0 && y > this->initY) {
 		y = this->initY;
-	}
+	}*/
 
 	if (_animations[state]->isLastFrame()) {
 		switch (state)
@@ -336,11 +338,75 @@ void NotorBanger::resetPosition()
 
 void NotorBanger::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 40;
+	bottom = y + 48;
 }
-
 
 NotorBanger * NotorBanger::clone(int id, int x, int y)
 {
 	return nullptr;
+}
+
+void NotorBanger::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+{
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	collision->findCollisions(dt, this, *staticObjects, coEvents);
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+		//debugOut(L"%f %f %f\n", speed.vy, dy, y);
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		x += min_tx * dx + nx * 1.f;
+		y += min_ty * dy + ny * 1.f;
+		//if (speed.vx > 0 && nx > 0)//left
+		//{
+		//	speed.vx = -speed.vx;
+		//	this->nx = true;
+		//}
+		//else if (speed.vx < 0 && nx < 0)//right
+		//{
+		//	speed.vx = -speed.vx;
+		//	this->nx = false;
+		//}
+
+		for (UINT i = 0; i < coEventsResult.size(); ++i)
+		{
+			auto e = coEventsResult[i];
+			Brick* obj = dynamic_cast<Brick *>(e->obj);
+			if (obj)
+			{
+				if (e->ny < 0)//floor
+				{
+					this->initY = y;
+				}
+				else if (e->ny > 0)// ceiling
+				{
+					
+				}
+				else if (e->nx > 0)// left
+				{
+					speed.vx = -speed.vx;
+					this->nx = true;
+				}
+				else if(e->nx < 0)// right
+				{
+					speed.vx = -speed.vx;
+					this->nx = false;
+				}
+			}
+		}
+	}
+	UINT size = coEvents.size();
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
 

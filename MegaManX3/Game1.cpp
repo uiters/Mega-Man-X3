@@ -14,7 +14,7 @@ void Game1::loadResource()
 {
 	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
 	texturesGlobal->add(-100, L"Resource\\Textures\\test.png", 100, 100);
-	main = new MegamanX(Megaman, 100, 910);
+	main = new MegamanX(Megaman, 200, 910);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);

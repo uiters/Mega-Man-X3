@@ -5,12 +5,14 @@
 #include "NotorBangerBullet.h"
 #include "ConstGlobals.h"
 #include "Camera.h"
+#include "CollisionEvent.h"
+#include "Brick.h"
 
 using namespace std;
 
-#define NOTOR_BANGER_GRAVITY 0.002f
+#define NOTOR_BANGER_GRAVITY 0.001f
 #define NOTOR_BANGER_SPEED_X 0.075f
-#define NOTOR_BANGER_SPEED_Y 0.15f
+#define NOTOR_BANGER_SPEED_Y 0.35f
 
 #define NOTOR_BANGER_STATE_INIT 0
 #define NOTOR_BANGER_STATE_SHOT_SMALL 100
@@ -49,5 +51,6 @@ private:
 	bool nx;
 	int distance; // 0: small, 1: medium, 2: large
 	vector<NotorBangerBullet> listBullet;
+	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
 };
 
