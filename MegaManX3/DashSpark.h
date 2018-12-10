@@ -9,8 +9,11 @@ private:
 	void loadResources() override;
 	static DashSpark* _instance;
 	DashSpark();
+	bool isLeft = false;
 public:
 	~DashSpark();
+	void setDirection(bool isLeft);
+	void render(DWORD dt, bool center, D3DCOLOR colorBrush = WHITE(255));
 	static DashSpark* getInstance();
 };
 

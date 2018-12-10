@@ -20,7 +20,9 @@ protected:
 	bool infity = false;
 	AnimationOneTime* animation;
 	virtual void loadResources() = 0;
+
 public:
+
 	Effect();
 	~Effect();
 

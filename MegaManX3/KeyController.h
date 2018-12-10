@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include "StaticObject.h"
 #include "MegamanEffectFactory.h"
+#include "MegamanWeapon.h"
+
 enum StatusJump
 {
 	Jump = 1,
@@ -23,6 +25,7 @@ class KeyController
 {
 private:
 	MegamanEffectFactory* effect;
+	MegamanWeapon *weapon;
 private:
 	GameObject* main;
 	StaticObject* wall, *floor;
@@ -50,7 +53,7 @@ private:
 	bool isWallLeft = false;//direction wall
 	// run
 	bool isRun = false; // change direction
-
+	int levelShoot = 0;
 
 
 	// jum
@@ -88,7 +91,7 @@ private:
 	void updateVx();
 	void _update();
 public:
-	KeyController(GameObject* megaman, MegamanEffectFactory* effect, bool left);
+	KeyController(GameObject* megaman, MegamanEffectFactory* effect, MegamanWeapon *weapon, bool left);
 	~KeyController() {};
 
 

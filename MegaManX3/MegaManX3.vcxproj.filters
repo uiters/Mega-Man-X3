@@ -133,6 +133,9 @@
     <Filter Include="Game\Effect\Megaman">
       <UniqueIdentifier>{d5c3ee2c-3ed7-40a4-a2f0-021db83df582}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Controls\Megaman\Weapon">
+      <UniqueIdentifier>{abfdf745-b352-4eb8-a66f-156848355fee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -285,6 +288,12 @@
     <ClInclude Include="Game1.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="MegamanWeapon.h">
+      <Filter>Game\Controls\Megaman\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargedEffect.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -422,6 +431,12 @@
     </ClCompile>
     <ClCompile Include="Game1.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanWeapon.cpp">
+      <Filter>Game\Controls\Megaman\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedEffect.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

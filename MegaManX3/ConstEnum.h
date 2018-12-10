@@ -30,7 +30,7 @@ enum class ColllisionDirect {
 
 enum TextureID
 {
-
+	Death = 0,
 	Megaman = 1,
 	TElevator = 2,
 
@@ -38,7 +38,8 @@ enum TextureID
 	TDashSpark = 2001,
 	TKick = 2002,
 	TSlide = 2003,
-
+	TCharged1 = 2004,
+	TCharged2 = 2005
 };
 
 enum WeaponID
@@ -57,7 +58,10 @@ enum Animation {
 	DashSparkAnimation = 12025, // 10 cells
 	SlideAnimation = 12036, // 6 cells
 	KickAnimation = 12045,// 1 cell
-
+	Charged_Level1 = 12050,
+	Charged_Level2 = 12070,
+	preDie = 1700,
+	die = 1800,
 };
 
 

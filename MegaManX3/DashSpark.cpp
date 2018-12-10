@@ -21,6 +21,29 @@ DashSpark::~DashSpark()
 {
 }
 
+void DashSpark::setDirection(bool isLeft)
+{
+	this->isLeft = isLeft;
+}
+
+void DashSpark::render(DWORD dt, bool center, D3DCOLOR colorBrush)
+{
+	for (auto it = animations.begin(); it != animations.end(); )
+	{
+		auto ani = &(*it).animation;
+		auto pos = cameraGlobal->transform((*it).point.x, (*it).point.y);
+		if(isLeft) 
+			ani->render(pos.x, pos.y, center, colorBrush);
+		else ani->renderFlipX(pos.x, pos.y, center, colorBrush);
+
+		if (ani->isFinish())
+		{
+			it = animations.erase(it);
+		}
+		else ++it;
+	}
+}
+
 DashSpark * DashSpark::_instance = null;
 
 DashSpark * DashSpark::getInstance()

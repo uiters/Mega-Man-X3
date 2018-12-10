@@ -1,6 +1,6 @@
 ﻿#ifndef _MegamanX_H
 #define _MegamanX_H
-
+#pragma once
 #include "DynamicObject.h"
 #include "GameObject.h"
 #include "CTime.h"
@@ -10,6 +10,8 @@
 #include "KeyController.h"
 #include "Brick.h"
 #include "MegamanEffectFactory.h"
+#include "MegamanWeapon.h"
+#include "ConstGlobals.h"
 class KeyController;
 class MegamanX :
 	public DynamicObject,
@@ -22,8 +24,19 @@ private:
 	KeyController* keyController;
 	MegamanX* clone(int id, int x, int y) override;
 	MegamanEffectFactory* effect;
-
+	MegamanWeapon *weapon;
 	MegamanX() {}
+private:
+	CTime countDissapear = (800);
+	CTime timePreDie = (500);
+	PointF p1 = { 400, 290 };
+	PointF p2 = { 410, 300 };
+	PointF p3 = { 400, 310 };
+	PointF p4 = { 390, 300 };
+	PointF p5 = { 410, 290 };
+	PointF p6 = { 410, 310 };
+	PointF p7 = { 390, 310 };
+	PointF p8 = { 390, 290 };
 public:
 	MegamanX(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	~MegamanX();
@@ -35,6 +48,8 @@ private:
 	int width, height;
 	int shot;
 	void loadResources() override {}
+	void dissapear(DWORD dt, D3DCOLOR colorBrush);
+	void resetPoint();
 public:
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;
 	void updateState(DWORD dt);

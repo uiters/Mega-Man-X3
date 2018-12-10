@@ -38,6 +38,7 @@ void KeyController::update()
 			wall = NULL;
 		else
 		{
+			
 			int distanceTop = wall->y - (main->y + this->height);
 
 			int distanceBottom = main->y - (wall->y + wall->height);
@@ -71,9 +72,10 @@ void KeyController::_update()
 	updateVx();
 }
 
-KeyController::KeyController(GameObject * megaman, MegamanEffectFactory* effect, bool left)
+KeyController::KeyController(GameObject * megaman, MegamanEffectFactory* effect, MegamanWeapon *weapon, bool left)
 {
 	this->effect = effect;
+	this->weapon = weapon;
 	main = megaman;
 	toLeft = left;
 }
@@ -159,6 +161,7 @@ void KeyController::addKeyZ()
 {
 	pressZ = true;
 	timePressZ.start();
+	levelShoot = 0;
 }
 
 void KeyController::removeKeyZ()
@@ -167,6 +170,11 @@ void KeyController::removeKeyZ()
 	isShot = true;
 	timePressZ.stop();
 	timeShoot.start();
+	effect->stopShoot();
+	if (toLeft)
+		weapon->createWeapon(main->x, main->y + height / 2 - 2, levelShoot, true);
+	else
+		weapon->createWeapon(main->x + width, main->y + height / 2 - 2, levelShoot, false);
 }
 
 void KeyController::stopShoot() 
@@ -174,12 +182,20 @@ void KeyController::stopShoot()
 	isShot = false;
 	timePressZ.stop();
 	timeShoot.stop();
+	effect->stopShoot();
 }
 
 void KeyController::updateShoot()
 {
 	if (pressZ)
+	{
 		timePressZ.update();
+		if (timePressZ.getTime() > 500 && levelShoot == 0)
+			effect->createShoot(++levelShoot);
+		else
+			if (timePressZ.getTime() > 2500 && levelShoot == 1)
+				effect->createShoot(++levelShoot);
+	}
 	if(isShot)
 	{
 		if (timeShoot.isRunning())
@@ -334,10 +350,10 @@ void KeyController::addKeyC()
 	//if (toLeft)
 	if (toLeft)
 		effect->createDashSmoke(main->x + width, main->y + height - 8),
-		effect->createDashSpark(main->x + width, main->y + height - 8);
+		effect->createDashSpark(main->x + width + 10, main->y + height - 8, true);
 	else
 		effect->createDashSmoke(main->x, main->y + height - 8),
-		effect->createDashSpark(main->x, main->y + height - 8);
+		effect->createDashSpark(main->x - width, main->y + height - 8, false);
 }
 
 void KeyController::removeKeyC()

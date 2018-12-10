@@ -18,6 +18,9 @@ void Game1::loadResource()
 	texturesGlobal->add(TDashSpark, DASH_SPARK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TSlide, SLIDE, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TKick, KICK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TCharged1, CHARGED_SHOOT1, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TCharged2, CHARGED_SHOOT2, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(Death, L"Resource\\Textures\\die.png", 135, 38, D3DCOLOR_XRGB(50, 96, 166));
 
 	main = new MegamanX(Megaman, 100, 910);
 	keyGlobal = main;
@@ -316,8 +319,28 @@ void Game1::loadResource()
 	main->addAnimation(TElevator);
 #pragma endregion
 
-#pragma region DashSmoke
+#pragma region preDie
+	spritesGlobal->add(preDie, Death, 77, 1, 102, 36);
+	spritesGlobal->add(preDie + 1, Death, 107, 1, 132, 36);
+	ani = new CAnimation(1000);
+	ani->add(preDie, 50);
+	ani->add(preDie + 1, 100);
+	animationsGlobal->add(preDie, ani);
+	main->addAnimation(preDie);
+#pragma endregion
 
+#pragma region die
+	for (int i = 0; i < 5; i++)
+	{
+		spritesGlobal->add(die + i, Death, i * 15 + 1, 0, (i + 1) * 15, 14);
+	}
+	ani = new CAnimation(750);
+	for (int i = 0; i < 5; ++i)
+	{
+		ani->add(die + i, 150);
+	}
+	animationsGlobal->add(die, ani);
+	main->addAnimation(die);
 #pragma endregion
 
 

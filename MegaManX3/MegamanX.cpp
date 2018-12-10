@@ -65,8 +65,9 @@ void MegamanX::collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects
 
 MegamanX::MegamanX(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
 {
+	weapon = new MegamanWeapon();
 	effect = new MegamanEffectFactory();
-	keyController = new KeyController(this, effect, false);
+	keyController = new KeyController(this, effect, weapon, false);
 	width = Stand_Shoot_Width;
 	height = Stand_Shoot_Height;
 }
@@ -85,12 +86,19 @@ MegamanX * MegamanX::clone(int id, int x, int y)
 
 void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
+	if (_death) return;
 	GameObject::update(dt);
 
 	speed.vy += 0.0015f * dt;
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
+	weapon->update(dt);
+	if (x > 500)
+	{
+		_death = true;
+		timePreDie.start();
+	}
 }
 
 void MegamanX::updateState(DWORD dt) 
@@ -105,6 +113,24 @@ void MegamanX::updateState(DWORD dt)
 
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	if (_death)
+	{
+		if (timePreDie.isRunning())
+		{
+			timePreDie.update();
+			auto pos = cameraGlobal->transform(x, y);
+			_animations[preDie]->render(pos.x, pos.y);
+			return;
+		}
+		countDissapear.update();
+		if (countDissapear.isStop())
+		{
+			resetPoint();
+			countDissapear.start();
+		}
+		dissapear(dt, colorBrush);
+		return;
+	}
 	updateState(dt);
 	int add = 0;
 	switch (state)
@@ -144,7 +170,80 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//spriteHandler->SetTransform(&oldMatrix);
-	effect->render(dt);
+	effect->render(dt, x, y, width, height);
+	weapon->render(dt);
+}
+
+void MegamanX::dissapear(DWORD dt, D3DCOLOR colorBrush)
+{
+	
+	speed.vx = 0.2;
+	speed.vy = -0.2;
+	p1.x += speed.vx*dt;
+	p1.y += speed.vy*dt;
+	auto pos = cameraGlobal->transform(p1.x, p1.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+
+	speed.vx = 0.2;
+	speed.vy = 0.2;
+	p2.x += speed.vx*dt;
+	p2.y += speed.vy*dt;
+	pos = cameraGlobal->transform(p2.x, p2.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+	
+	speed.vx = -0.2;
+	speed.vy = 0.2;
+	p3.x += speed.vx*dt;
+	p3.y += speed.vy*dt;
+	pos = cameraGlobal->transform(p3.x, p3.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+
+	speed.vx = -0.2;
+	speed.vy = -0.2;
+	p4.x += speed.vx*dt;
+	p4.y += speed.vy*dt;
+	pos = cameraGlobal->transform(p4.x, p4.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+
+	speed.vx = 0.2;
+	speed.vy = 0;
+	p5.x += speed.vx*dt;
+	p5.y += speed.vy*dt;
+	pos = cameraGlobal->transform(p5.x, p5.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+
+	speed.vx = 0;
+	speed.vy = 0.2;
+	p6.x += speed.vx*dt;
+	p6.y += speed.vy*dt;
+	pos = cameraGlobal->transform(p6.x, p6.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+
+	speed.vx = -0.2;
+	speed.vy = 0;
+	p7.x += speed.vx*dt;
+	p7.y += speed.vy*dt;
+	pos = cameraGlobal->transform(p7.x, p7.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+
+	speed.vx = 0;
+	speed.vy = -0.2;
+	p8.x += speed.vx*dt;
+	p8.y += speed.vy*dt;
+	pos = cameraGlobal->transform(p8.x, p8.y);
+	_animations[die]->render(pos.x, pos.y, colorBrush);
+}
+
+void MegamanX::resetPoint()
+{
+	p1 = { x, y - 10 };
+	p2 = { x + 10, y };
+	p3 = { x, y + 10 };
+	p4 = { x - 10, y };
+	p5 = { x + 10, y - 10 };
+	p6 = { x + 10 , y + 10 };
+	p7 = { x - 10 , y + 10 };
+	p8 = { x - 10, y - 10 };
 }
 
 void MegamanX::onKeyDown(int keyCode)

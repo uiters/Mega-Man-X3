@@ -43,6 +43,8 @@
 #define DASH_SPARK L"Resource\\Textures\\DashSpark.png"
 #define SLIDE L"Resource\\Textures\\Slide.png"
 #define KICK L"Resource\\Textures\\Kick.png"
+#define CHARGED_SHOOT1 L"Resource\\Textures\\Charged1.png"
+#define CHARGED_SHOOT2 L"Resource\\Textures\\Charged2.png"
 
 
 #define OBJECT_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1.txt"
