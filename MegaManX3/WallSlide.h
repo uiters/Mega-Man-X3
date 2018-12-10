@@ -3,8 +3,12 @@
 class WallSlide :
 	public Effect
 {
+private:
+	void loadResources() override;
+	static WallSlide* _instance;
+	WallSlide();
 public:
-	WallSlide(UINT idAnimation);
 	~WallSlide();
+	static WallSlide* getInstance();
 };
 

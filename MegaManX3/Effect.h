@@ -1,33 +1,32 @@
 #pragma once
-#include "GameObject.h"
 #include <vector>
+#include "AnimationOneTime.h"
 #include "ConstGlobals.h"
-#include "Animation.h"
+#include "Camera.h"
+
 using namespace std;
 
 struct AnimationPoint
 {
-	Point point;
-	CAnimation animation;
+	PointF point;
+	AnimationOneTime animation;
 };
 
-class Effect :
-	public GameObject
+class Effect
 {
-private: 
-	void getBoundingBox(float & left, float & top, float & right, float & bottom) override {};
 protected:
 	vector<AnimationPoint> animations;//list animation point
 
 	bool infity = false;
-	LPANIMATION animation;
-	
+	AnimationOneTime* animation;
+	virtual void loadResources() = 0;
 public:
-	Effect(UINT idAnimation);
+	Effect();
 	~Effect();
 
-	virtual void createEffect(int x, int y) = 0;//create effect one time at point x, y 
-	virtual void createEffectInfinity(int x, int y) = 0;
-	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) = 0;
+	virtual void createEffect(float x, float y);//create effect one time at point x, y 
+	virtual void createEffectInfinity(float x, float y);
+	virtual void render(DWORD dt, bool center,  D3DCOLOR colorBrush = WHITE(255));
+	virtual void stop();
 };
 

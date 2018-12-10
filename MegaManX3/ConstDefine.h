@@ -20,6 +20,7 @@
 
 #define MAX_LEVEL 5
 #define FPS 60
+#define null 0
 #pragma endregion
 
 #pragma region File Level
@@ -36,8 +37,18 @@
 #define IMAGE_LEVEL5 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level5.png"
 #define IMAGE_LEVEL6 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level6.png"
 
+#define MEGAMAN_EFFECT L"Resource\\Textures\\megamanEffect.png"
+#define SHIP L"Resource\\Images\\BlastHornetStage\\tile\\ship2.png"
+#define DASH_SMOKE L"Resource\\Textures\\DashSmoke.png"
+#define DASH_SPARK L"Resource\\Textures\\DashSpark.png"
+#define SLIDE L"Resource\\Textures\\Slide.png"
+#define KICK L"Resource\\Textures\\Kick.png"
+
+
 #define OBJECT_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1.txt"
 #define QUADTREE_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_static.txt"
+#define QUADTREEDYNAMIC_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_dynamic.txt"
+
 #pragma endregion
 
 #pragma region Megamian Size

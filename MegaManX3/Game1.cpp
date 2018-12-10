@@ -13,7 +13,12 @@ void Game1::initGolbals()
 void Game1::loadResource()
 {
 	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
-	texturesGlobal->add(-100, L"Resource\\Textures\\test.png", 100, 100);
+	texturesGlobal->add(TElevator, SHIP, 0, 0); 
+	texturesGlobal->add(TDashSmoke, DASH_SMOKE, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TDashSpark, DASH_SPARK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TSlide, SLIDE, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TKick, KICK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+
 	main = new MegamanX(Megaman, 100, 910);
 	keyGlobal = main;
 
@@ -130,7 +135,6 @@ void Game1::loadResource()
 	animationsGlobal->add(slide, ani);
 	main->addAnimation(slide);
 #pragma endregion
-
 
 #pragma region enhance
 	spritesGlobal->add(enhance, Megaman, 470, 118, 497, 162);
@@ -288,13 +292,35 @@ void Game1::loadResource()
 
 	main->state = appear;
 
-	notorBanger = new NotorBanger();
-	notorBanger->loadResources();
-	notorBanger->setState(NOTOR_BANGER_STATE_INIT);
+	//notorBanger = new NotorBanger();
+	//notorBanger->loadResources();
+	//notorBanger->setState(NOTOR_BANGER_STATE_INIT);
 
-	headGunner = new HeadGunner();
-	headGunner->loadResources();
-	headGunner->setState(HEAD_GUNNER_STATE_DEFAULT);
+	//headGunner = new HeadGunner();
+	//headGunner->loadResources();
+	//headGunner->setState(HEAD_GUNNER_STATE_DEFAULT);
+
+#pragma region Elevator
+
+	spritesGlobal->addSprite(Elevator1, TElevator, 0, 0, 96, 45);
+	spritesGlobal->addSprite(Elevator2, TElevator, 0, 45, 96, 45);
+	spritesGlobal->addSprite(Elevator3, TElevator, 0, 91, 96, 45);
+
+
+	ani = new CAnimation(40);
+	ani->add(Elevator1);
+	ani->add(Elevator2);
+	ani->add(Elevator3);
+
+	animationsGlobal->add(TElevator, ani);
+	main->addAnimation(TElevator);
+#pragma endregion
+
+#pragma region DashSmoke
+
+#pragma endregion
+
+
 }
 
 
@@ -302,6 +328,7 @@ void Game1::initOption()
 {
 	auto x = Factory::getInstance()->createObjects(OBJECT_TXT);
 	root = Factory::getInstance()->createQuadTree(QUADTREE_TXT, *x);
+	//auto rootDynamic = Factory::getInstance()->createQuadTree(QUADTREEDYNAMIC_TXT, *x);
 	delete x;
 	controller = new Controller(main, root, 0);
 }
@@ -312,7 +339,7 @@ void Game1::update(DWORD dt)
 	keyGlobal->processKeyboard();
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
-
+	mainGlobal = main;
 	//notorBanger->update(dt);
 	//headGunner->update(dt);
 }	

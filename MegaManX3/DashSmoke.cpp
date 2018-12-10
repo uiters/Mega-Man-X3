@@ -1,34 +1,31 @@
 #include "DashSmoke.h"
 
-
-DashSmoke::DashSmoke(UINT idAnimation) : Effect(idAnimation)
+DashSmoke* DashSmoke::_instance = null;
+void DashSmoke::loadResources()
 {
-
-}
-
-
-
-void DashSmoke::createEffect(int x, int y)
-{
-	AnimationPoint e = { Point(x, y) , *animation };
-	animations.emplace_back(e);
-	infity = false;
-}
-
-void DashSmoke::render(DWORD dt, D3DCOLOR colorBrush)
-{
-	for (auto it = animations.begin(); it != animations.end(); ++it) 
+	auto ani = new AnimationOneTime(40);
+	for (int i = 0; i < 12; ++i)
 	{
-		auto center = &cameraGlobal->transform((*it).point.x, (*it).point.y);
-		(*it).animation.render(center->x, center->y, colorBrush);
-		if ((*it).animation.isLastFrame())
-			animations.erase(it);
+		spritesGlobal->add(DashSmokeAnimation + i, TDashSmoke, i * 13.75, 0, (i + 1) * 13.75, 27);
+		ani->add(DashSmokeAnimation + i);
 	}
-	
-
+	animationsGlobal->add(TDashSmoke, ani);
+	this->animation = ani;
 }
+
+DashSmoke::DashSmoke()
+{
+	loadResources();
+}
+
 
 DashSmoke::~DashSmoke()
 {
 
+}
+
+DashSmoke * DashSmoke::getInstance()
+{
+	if (!_instance) _instance = new DashSmoke();
+	return _instance;
 }

@@ -3,8 +3,12 @@
 class WallKick :
 	public Effect
 {
+private:
+	void loadResources() override;
+	WallKick();
+	static WallKick* _instance;
 public:
-	WallKick(UINT idAnimation);
 	~WallKick();
+	static WallKick* getInstance();
 };
 

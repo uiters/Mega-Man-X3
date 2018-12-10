@@ -1,5 +1,7 @@
 #include "KeyController.h"
 #include "Debugs.h"
+#include "Elevator.h"
+
 #pragma region Check Key
 bool KeyController::isKeyZ()
 {
@@ -37,14 +39,26 @@ void KeyController::update()
 		else
 		{
 			int distanceTop = wall->y - (main->y + this->height);
-			if (distanceTop > 4)
+
+			int distanceBottom = main->y - (wall->y + wall->height);
+			if (distanceTop >4)
 				isWall = false,
 				wall = NULL;
 		}
 	}
+
+	if (this->floor && !onAir)
+	{
+		int distanceLeft = floor->x - (main->x + width);
+		int distanceRight = main->x - (floor->x + floor->width);
+		if (distanceLeft > 5 || distanceRight > 5)
+			onAir = true,
+			statusJump = StatusJump::Fall,
+			floor = NULL;
+	}
+
 	_update();
 }
-
 
 void KeyController::_update()
 {
@@ -55,6 +69,13 @@ void KeyController::_update()
 
 	updateState();
 	updateVx();
+}
+
+KeyController::KeyController(GameObject * megaman, MegamanEffectFactory* effect, bool left)
+{
+	this->effect = effect;
+	main = megaman;
+	toLeft = left;
 }
 
 void KeyController::updateState()
@@ -181,7 +202,7 @@ void KeyController::addKeyX()
 
 	if (onAir)
 	{
-		if (isWall)
+		if (isWall && statusJump != Kick)
 			kickWall();
 	}
 	else
@@ -227,15 +248,29 @@ void KeyController::updateJump()
 	{
 		if (StatusJump::Jump == statusJump || statusJump == StatusJump::Kick) 
 			stopJumpRunning();
-
-		if (statusJump == StatusJump::Fall && isWall && pressArrow == 1 && isWallLeft == toLeft)
+		if (statusJump == StatusJump::Slide)
+		{
+			if (!wall || !isRun || isWallLeft != toLeft)
+			{
+				statusJump = StatusJump::Fall;
+				return;
+			}
+			timeslideDelay.update();
+			if (timeslideDelay.isStop())
+			{
+				if (toLeft)
+					effect->createWallSlide(main->x, main->y + height - 8);
+				else
+					effect->createWallSlide(main->x + width, main->y + height - 8);
+				timeslideDelay.start();
+			}
+		}
+		else
+		if (statusJump == StatusJump::Fall && wall && pressArrow == 1 && isWallLeft == toLeft)
 		{
 			statusJump = StatusJump::Slide;
 			return;
-		}
-
-		if (statusJump == StatusJump::Slide &&( !isWall || isStand || isWallLeft != toLeft))
-			statusJump = StatusJump::Fall;
+		}			
 	}
 }
 
@@ -278,15 +313,13 @@ void KeyController::jump()
 
 void KeyController::kickWall()
 {
+	timeKick.start();
 	timeJump.start();
 	statusJump = StatusJump::Kick;
-	timeKick.start();
-	
-}
-
-void KeyController::render()
-{
-
+	if (toLeft)
+		effect->createWallKick(main->x , main->y + height - 8);
+	else
+		effect->createWallKick(main->x + width, main->y + height - 8);
 }
 
 #pragma endregion
@@ -298,18 +331,27 @@ void KeyController::addKeyC()
 	pressC = true;
 	isDash = true;
 	timeDash.start();
+	//if (toLeft)
+	if (toLeft)
+		effect->createDashSmoke(main->x + width, main->y + height - 8),
+		effect->createDashSpark(main->x + width, main->y + height - 8);
+	else
+		effect->createDashSmoke(main->x, main->y + height - 8),
+		effect->createDashSpark(main->x, main->y + height - 8);
 }
 
 void KeyController::removeKeyC()
 {
 	pressC = false;
 	stopDash();
+	effect->stopDashSpark();
 }
 
 void KeyController::stopDashRunning()
 {
 	isDash = false;
 	timeDash.stop();
+	dashSmokeDelay.stop();
 }
 
 void KeyController::stopDash()
@@ -318,6 +360,7 @@ void KeyController::stopDash()
 	{
 		isDash = false;
 		timeDash.stop();
+		dashSmokeDelay.stop();
 	}
 }
 
@@ -337,6 +380,15 @@ void KeyController::updateDash()
 			return;
 		}
 		timeDash.update();
+		dashSmokeDelay.update();
+		if (dashSmokeDelay.isStop())
+		{
+			if (toLeft)
+				effect->createDashSmoke(main->x + width, main->y + height - 8);
+			else
+				effect->createDashSmoke(main->x, main->y + height - 8);
+			dashSmokeDelay.start();
+		}
 	}
 	else // time up
 	{
@@ -404,16 +456,24 @@ void KeyController::updateRun()
 	else
 		isStand = true;
 }
+#pragma endregion
 
-void KeyController::setNearWall(bool isLeft, Brick* wall)
+#pragma region Set
+void KeyController::setNearWall(bool isLeft, StaticObject* wall)
 {
 	isWall = true;
 	isWallLeft = isLeft;
 	this->wall = wall;
 }
 
+void KeyController::setFloor(StaticObject *floor)
+{
+	this->floor = floor;
+}
+
 #pragma endregion
 
+#pragma region get
 void KeyController::getSize(int & width, int & height)
 {
 	width = this->width;
@@ -423,6 +483,9 @@ void KeyController::getSize(int & width, int & height)
 UINT KeyController::getState(bool& isLeft)
 {
 	isLeft = toLeft;
-	
+
 	return isShot ? stateShoot : state;
 }
+
+#pragma endregion
+

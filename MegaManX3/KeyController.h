@@ -2,8 +2,8 @@
 #define _KeyController_H_
 #include "CTime.h"
 #include "GameObject.h"
-#include "Brick.h"
-#include "DashSmoke.h"
+#include "StaticObject.h"
+#include "MegamanEffectFactory.h"
 enum StatusJump
 {
 	Jump = 1,
@@ -22,10 +22,10 @@ enum class Arrow
 class KeyController
 {
 private:
-	DashSmoke *smoke;
+	MegamanEffectFactory* effect;
 private:
 	GameObject* main;
-	Brick* wall;
+	StaticObject* wall, *floor;
 
 	int width = Stand_Shoot_Width;
 	int height = Stand_Shoot_Width;
@@ -63,18 +63,20 @@ private:
 
 	bool onAir = false;
 	CTime timeJump = CTime(250);
-	CTime timeKick = CTime(70);
+	CTime timeKick = CTime(100);
 
 	//dash
 	bool isDash = false;
 	CTime timeDash = CTime(600);
-
+	CTime dashSmokeDelay = CTime(90);
+	CTime timeslideDelay = CTime(20);
 	//shoot
 	bool isShot = false;
 	CTime timeShoot = CTime(400);
 	CTime timePressZ = CTime();
+	
 
-	UINT state = 0;
+	UINT state = stand;
 	UINT stateShoot = shoot;
 
 	void updateShoot();
@@ -86,7 +88,7 @@ private:
 	void updateVx();
 	void _update();
 public:
-	KeyController(GameObject* megaman, bool left) { this->main = megaman, this->toLeft = left; };
+	KeyController(GameObject* megaman, MegamanEffectFactory* effect, bool left);
 	~KeyController() {};
 
 
@@ -113,13 +115,12 @@ public:
 	void stopRun();
 	void stopShoot();
 
-	void setNearWall(bool, Brick*);
-
+	void setNearWall(bool, StaticObject*);
+	void setFloor(StaticObject*);
 	//jump
 	void jump();
 	void kickWall();
 	//wall
-	void render();
 
 	void addKeyZ();
 	void addKeyX();

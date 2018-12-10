@@ -10,3 +10,4 @@ Camera*					cameraGlobal;
 CRectangle*				viewPortGlobal;
 LPDIRECTINPUTDEVICE8	didvGlobal;
 LPDIRECTINPUT8			dinputGlobal;
+LPObject				mainGlobal;

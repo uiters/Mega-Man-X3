@@ -1,7 +1,7 @@
 #pragma once
 #include<vector>
-#include "DynamicObject.h";
-#include "CTime.h";
+#include "DynamicObject.h"
+#include "CTime.h"
 #include "NotorBangerBullet.h"
 
 using namespace std;

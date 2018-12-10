@@ -24,18 +24,20 @@ void Controller::update(DWORD dt)
 	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
 	//rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
 
-	
+	for (auto kv : currentStatic)
+		kv.second->object->update(dt);
 	//debugOut(L"%i\n", collisionStatic.size());
 	main->update(dt, &currentStatic, 0);
 }
 
 void Controller::render(DWORD dt)
 {
-
+	
 	tilesControll->render(dt);
-	/*for (auto kv : currentStatic) {
+	for (auto kv : currentStatic)
+	{
 		kv.second->object->render(dt);
-	}*/
+	}		
 	main->render(dt);
 
 }

@@ -1,21 +1,18 @@
-
 #ifndef _DashSmoke_H_
 #define _DashSmoke_H_
 #include "Effect.h"
-#include "Camera.h"
 #include <vector>
-#include "Animation.h"
+#include "AnimationOneTime.h"
+
 using namespace std;
 class DashSmoke : public Effect
 {
 private:
-	void createEffectInfinity(int x, int y) override {};
-	void loadResources() override {}
+	void loadResources() override;
+	static DashSmoke* _instance;
+	DashSmoke();
 public:
-	DashSmoke(UINT animation);
-	void createEffect(int x, int y) override;
-	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	~DashSmoke();
-	
+	static DashSmoke* getInstance();
 };
 #endif // !_DashSmoke_H_
