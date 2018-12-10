@@ -25,7 +25,7 @@ public:
 	void draw(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void drawFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void drawFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	Size& getSize();
+	Size getSize();
 };
 
 /*

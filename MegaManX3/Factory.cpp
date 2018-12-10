@@ -2,6 +2,7 @@
 #include "Brick.h"
 #include "CTreeObject.h"
 #include "GameObject.h"
+#include "Elevator.h"
 Factory * Factory::_instance = 0;
 
 Factory* Factory::getInstance()
@@ -41,19 +42,21 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 		case 2:
 			obj = NULL;
 			break;
-		case 3: 
-			obj = new NotorBanger(id, x, y, false, 1); 
+		case 3:
+			obj = new NotorBanger(id, x, y, false, 1);
 			obj->loadResources();
 			break;
 		case 4:
 			obj = new HeadGunner(id, x, y, false);
 			obj->loadResources();
 			break;
+		case 5:
+			obj = new Elevator(TElevator, x, y);
+			break;
 		default:
 			obj = new Brick(id, x, y, width, height);
 			break;
 		}
-		
 		(*objs)[id] = obj;
 	}
 	input.close();
@@ -99,7 +102,7 @@ vector<CTreeObject*>* Factory::getObject(ifstream  *input, int numObjects, unord
 	{
 		(*input) >> id;
 		if (objects[id] == 0) continue;
-		CTreeObject *cObject = new CTreeObject(objects[id], *objects[id]->getBoundingBox());
+		CTreeObject *cObject = new CTreeObject(objects[id], objects[id]->getBoundingBox());
 		vObjects->emplace_back(cObject);
 	}
 	return vObjects;

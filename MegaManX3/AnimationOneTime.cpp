@@ -11,19 +11,19 @@ void AnimationOneTime::_updateFrame()
 		lastFrameTime = now;
 	}
 	else
-		if (isDone) return;
-		else
+	if (isDone) return;
+	else
+	{
+		DWORD t = frames[currentFrame]->getTime();
+		if (now - lastFrameTime > t)
 		{
-			DWORD t = frames[currentFrame]->getTime();
-			if (now - lastFrameTime > t)
-			{
-				++currentFrame;
+			++currentFrame;
 
-				lastFrameTime = now;
-				if (currentFrame == frames.size())
-					isDone = true, --currentFrame;
-			}
+			lastFrameTime = now;
+			if (currentFrame == frames.size()) 
+				isDone = true, --currentFrame;
 		}
+	}
 }
 
 AnimationOneTime::AnimationOneTime(int defaultTime) : CAnimation(defaultTime)

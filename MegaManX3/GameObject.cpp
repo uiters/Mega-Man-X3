@@ -10,7 +10,7 @@ GameObject::GameObject(UINT idTexture, int x, int y, float vx, float vy) :speed(
 	
 	if (stexture == 0)
 	{
-		debugOut(L"[FAILED] load texture id = %l", idTexture);
+		debugOut(L"[FAILED] load texture id = %ld", idTexture);
 		this->_texture = 0;
 		return;
 	}
@@ -56,11 +56,11 @@ void GameObject::addAnimation(UINT animationId)
 
 
 
-CRectangle* GameObject::getBoundingBox()
+CRectangle GameObject::getBoundingBox()
 {
 	float left, top, right, bottom;
 	this->getBoundingBox(left, top, right, bottom);
-	return &CRectangle::fromLTRB(left, top, right, bottom);
+	return CRectangle::fromLTRB(left, top, right, bottom);
 }
 
 void GameObject::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)

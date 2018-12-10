@@ -22,7 +22,7 @@ void NotorBangerEffectShot::loadResources()
 	CTextures * textures = CTextures::getInstance();
 
 	if (textures->getTexture(NOTOR_BANGER_EFFECT_SHOT_ID_TEXTURE) == NULL)
-		textures->add(NOTOR_BANGER_EFFECT_SHOT_ID_TEXTURE, L"effect1.png", 0, 0, D3DCOLOR_XRGB(255, 255, 255));
+		textures->add(NOTOR_BANGER_EFFECT_SHOT_ID_TEXTURE, L"Resource\\Textures\\effect1.png", 0, 0, D3DCOLOR_XRGB(255, 255, 255));
 
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();

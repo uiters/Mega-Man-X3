@@ -24,26 +24,22 @@ void Controller::update(DWORD dt)
 	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
 	rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
 	for (auto kv : currentDynamic) {
-		//auto obj = dynamic_cast<NotorBanger*>(kv.second->object);
-		//if (obj)
-		//	obj->update(dt);
-		//if (kv.second->region.intersectsWith(*viewPortGlobal))
-			kv.second->object->update(dt, &currentStatic);
+		kv.second->object->update(dt, &currentStatic);
 	}
-	
-	//debugOut(L"%i\n", collisionStatic.size());
+	for (auto kv : currentStatic) {
+		kv.second->object->update(dt);
+	}
 	main->update(dt, &currentStatic, 0);
 }
 
 void Controller::render(DWORD dt)
 {
-
+	
 	tilesControll->render(dt);
-
+	for (auto kv : currentStatic) {
+		kv.second->object->render(dt);
+	}
 	for (auto kv : currentDynamic) {
-		//auto obj = dynamic_cast<NotorBanger*>(kv.second->object);
-		//if (obj)
-//obj->render(dt);
 		kv.second->object->render(dt);
 	}
 	main->render(dt);

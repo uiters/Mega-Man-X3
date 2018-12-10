@@ -9,6 +9,7 @@
 #include "CollisionEvent.h"
 #include "KeyController.h"
 #include "Brick.h"
+#include "MegamanEffectFactory.h"
 class KeyController;
 class MegamanX :
 	public DynamicObject,
@@ -20,6 +21,7 @@ private:
 
 	KeyController* keyController;
 	MegamanX* clone(int id, int x, int y) override;
+	MegamanEffectFactory* effect;
 
 	MegamanX() {}
 public:

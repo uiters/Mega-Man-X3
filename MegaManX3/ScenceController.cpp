@@ -78,7 +78,7 @@ ScenceController::~ScenceController()
 void ScenceController::update(Viewport * viewport)
 {
 	
-	colStart = viewport->x / width;
+	colStart = viewport->x / width ;
 	colStart = colStart > cols ? cols : colStart;
 
 	colEnd = viewport->right() / width + 1;
@@ -87,7 +87,7 @@ void ScenceController::update(Viewport * viewport)
 	rowStart = viewport->y / height;
 	rowStart = rowStart < 0 ? 0 : rowStart;
 
-	rowEnd = viewport->bottom() / height + 1;
+	rowEnd = viewport->bottom() / height + 2;
 	rowEnd = colEnd > rows ? rows : rowEnd;
 
 

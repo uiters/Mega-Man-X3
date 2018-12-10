@@ -2,7 +2,8 @@
 #define _KeyController_H_
 #include "CTime.h"
 #include "GameObject.h"
-#include "Brick.h"
+#include "StaticObject.h"
+#include "MegamanEffectFactory.h"
 enum StatusJump
 {
 	Jump = 1,
@@ -21,11 +22,13 @@ enum class Arrow
 class KeyController
 {
 private:
+	MegamanEffectFactory* effect;
+private:
 	GameObject* main;
-	Brick* wall;
+	StaticObject* wall, *floor;
 
-	int width = 0;
-	int height = 0;
+	int width = Stand_Shoot_Width;
+	int height = Stand_Shoot_Width;
 
 	bool toLeft = false;
 
@@ -59,19 +62,21 @@ private:
 	StatusJump statusJump = StatusJump::Jump;
 
 	bool onAir = false;
-	CTime timeJump = CTime(250);
+	CTime timeJump = CTime(350);
 	CTime timeKick = CTime(150);
 
 	//dash
 	bool isDash = false;
 	CTime timeDash = CTime(600);
-
+	CTime dashSmokeDelay = CTime(90);
+	CTime timeslideDelay = CTime(20);
 	//shoot
 	bool isShot = false;
 	CTime timeShoot = CTime(400);
 	CTime timePressZ = CTime();
+	
 
-	UINT state = 0;
+	UINT state = stand;
 	UINT stateShoot = shoot;
 
 	void updateShoot();
@@ -83,7 +88,7 @@ private:
 	void updateVx();
 	void _update();
 public:
-	KeyController(GameObject* megaman, bool left) { this->main = megaman, this->toLeft = left; };
+	KeyController(GameObject* megaman, MegamanEffectFactory* effect, bool left);
 	~KeyController() {};
 
 
@@ -94,7 +99,6 @@ public:
 	bool isLeft();
 
 	void update();
-	void update(float nx, float ny);
 	//cancel animation
 	//jum
 	void stopJumpRunning();
@@ -111,13 +115,12 @@ public:
 	void stopRun();
 	void stopShoot();
 
-	void setNearWall(bool, Brick*);
-
+	void setNearWall(bool, StaticObject*);
+	void setFloor(StaticObject*);
 	//jump
 	void jump();
 	void kickWall();
 	//wall
-
 
 	void addKeyZ();
 	void addKeyX();

@@ -5,7 +5,7 @@
 #include "MegamanX.h"
 #include "Factory.h"
 #include "Animation.h"
-#include "CollisionEvent.h";
+#include "CollisionEvent.h"
 #include "CTreeObject.h"
 #include "ConstGlobals.h"
 #include "Controller.h"
@@ -16,7 +16,6 @@
 class Game1 :
 	public Game
 {
-	
 	QNode* root;
 	MegamanX* main;
 	Controller* controller;

@@ -31,6 +31,6 @@ extern Camera*				cameraGlobal;
 extern CRectangle*			viewPortGlobal;
 extern LPDIRECTINPUTDEVICE8 didvGlobal;
 extern LPDIRECTINPUT8       dinputGlobal;
-
+extern LPObject				mainGlobal;
 #endif // _ConstGlobals_
 

@@ -1,5 +1,5 @@
 ﻿#include "MegamanX.h"
-
+#include "Elevator.h"
 #include "ConstGlobals.h"
 
 
@@ -9,40 +9,19 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 	vector<CollisionEvent*> coEventsResult;
 	
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
-	if (coEvents.size() == 0)
+	UINT size = coEvents.size();
+	if (size == 0)
 	{
 		x += dx;
 		y += dy;
-		//onAir = true;
-		//if(onAir == false && dy > 0) onAir = true;
-		//if ((isFlipX && onWall == 1) || (!isFlipX && onWall == -1))
-		//	keyController->setNearWall(false), wall = NULL, onWall = 0;
-		//if (wall) 
-		//{
-		//	int distanceLeft = wall->x - (x + width);
-		//	int distanceRight = x - (wall->x + wall->width);
-
-		//	if (distanceLeft > 3 || distanceRight > 3) //5 is safe collision
-		//		keyController->setNearWall(false),
-		//		wall = NULL,
-		//		onWall = 0;
-		//	else
-		//	{
-		//		int distanceTop = wall->y - (this->y + this->height);
-		//		if(distanceTop > 4)
-		//			keyController->setNearWall(false),
-		//			wall = NULL,
-		//			onWall = 0;
-		//	}
-		//}
-		keyController->setNearWall(false, NULL);
+		return;
 	}
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
 		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		x += min_tx * dx + nx * 2.f;
+		x += min_tx * dx + nx * 1.f;
 		y += min_ty * dy + ny * 1.f;
 		
 		if (nx != 0) speed.vx = 0;
@@ -52,41 +31,42 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 		for (UINT i = 0; i < coEventsResult.size(); ++i)
 		{
 			auto e = coEventsResult[i];
-			Brick* obj = dynamic_cast<Brick *>(e->obj);
+			StaticObject* obj = dynamic_cast<StaticObject *>(e->obj);
 			if (obj)
 			{
-				if (e->ny < 0)//floor
+				if (e->ny < 0)
 				{
 					keyController->stopFallOrSlide();
+					keyController->setFloor(obj);
 				}
-				else if(e->ny > 0)// ceiling
+				else if(e->ny > 0)
 				{
 					keyController->stopJump();
+					keyController->setFloor(obj);
 				}
-				else if (e->nx !=0) 
+				else if (e->nx !=0)
 				{
-					onWall = isFlipX ? -1 : 1; // true left : right
 					keyController->stopDash();
-					keyController->setNearWall(true, obj);
+					keyController->setNearWall(e->nx > 0, obj);
 				}
+				obj->run();
 			}
 		}
 	}
 	keyController->update();
-	UINT size = coEvents.size();
+
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
 
 void MegamanX::collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects)
 {
-	
+
 }
 
 MegamanX::MegamanX(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
 {
-	keyController = new KeyController(this, false);
-	//state = stand;
-	//onAir = true;
+	effect = new MegamanEffectFactory();
+	keyController = new KeyController(this, effect, false);
 	width = Stand_Shoot_Width;
 	height = Stand_Shoot_Height;
 }
@@ -107,11 +87,7 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 {
 	GameObject::update(dt);
 
-
-
-	speed.vy += 0.0015f * dt;
-
-	
+	speed.vy += 0.0012f * dt; ////
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
@@ -125,87 +101,56 @@ void MegamanX::updateState(DWORD dt)
 		_animations[statePre]->reset();
 	}
 	state = statePre;
-	//switch (state)
-	//{
-	//case stand:
-	//case shoot:
-	//	speed.vx = 0;
-	//	//speed.vy = 0;
-	//	break;
-	//case cling:
-	//case cling_shoot:
-	//	//x += isFlipX ? 0.05f * dt : -0.05f * dt;
-	//	speed.vy = -0.0046f * dt;
-	//	break;
-	//case run:
-	//case run_shoot:
-	//	(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
-	//	break;
-	//case dash:
-	//case dash_shoot:
-	//	(isFlipX) ? speed.vx = -0.01f * dt : speed.vx = 0.01f * dt;
-	//	speed.vy = 0;
-	//	break;
-	//case jump:
-	//	//(isFlipX) ? speed.vx = -0.15f : speed.vx = 0.15f;
-	//	speed.vy += -0.0046f * dt;
-	//	break;
-	//case fall:
-	//case fall_shoot:
-	//	//speed.vy += 0.0001f * dt;
-	//	break;
-	//case shock:
-	//	speed.vx = 0;
-	//	speed.vy = 0;
-	//	break;
-	//default:
-	//	break;
-	//}
 }
 
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	updateState(dt);
-	int add = 0;
+	Point center = { 0, 0 };
 	switch (state)
 	{
 	case dash:
 	case dash_shoot:
-		add = 8;
+		center = cameraGlobal->transform(x, y + 9);////
 		break;
 	case slide:
+	case cling:		
+		int deta;
+		(isFlipX) ? deta = -1 : deta = 6;
+		center = cameraGlobal->transform(x + deta, y);////
+		break;
 	case slide_shoot:
-	case cling:
 	case cling_shoot:
-		add = -8;
+		(isFlipX) ? deta = -1 : deta = 1;
+		center = cameraGlobal->transform(x + deta, y);
 		break;
 	default:
+		center = cameraGlobal->transform(x, y);
 		break;
 	}
 	//D3DXMATRIX matScale;
 	//D3DXMATRIX oldMatrix;
-	// khởi tạo ma trận phóng to theo trục Ox 2 lần, trục Oy 3 lần.
 	//D3DXMatrixScaling(&matScale, 0.9f, 0.9f, .0f);
 
-	// thực hiện việc chuyển đổi.
 	
 	auto spriteHandler = gameGlobal->getSpriteHandler();
-
+	
 	//spriteHandler->GetTransform(&oldMatrix);
 	//spriteHandler->SetTransform(&matScale);
 
 	//spriteHandler->End();
 	//spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
-	auto center = cameraGlobal->transform(x, y + add);
+	
 	if (isFlipX)
 		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
 	else
 		_animations[state]->render(center.x, center.y, false, colorBrush);
+	
 	//spriteHandler->End();
 	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//spriteHandler->SetTransform(&oldMatrix);
-
+	effect->render(dt);
 }
 
 void MegamanX::onKeyDown(int keyCode)

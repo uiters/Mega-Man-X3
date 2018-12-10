@@ -1,6 +1,8 @@
 #ifndef  _ConstStruct_
 #define _ConstStruct_
 
+struct PointF;
+struct AnimationPoint;
 struct Size;
 struct Point;
 struct Retangle;
@@ -9,6 +11,15 @@ struct Rect;
 typedef Speed* LPSpeed;
 typedef Rect* LPRect;
 
+struct PointF
+{
+	float x = 0;
+	float y = 0;
+
+	PointF(float x, float y)
+		: x(x),
+		y(y) {}
+};
 
 struct Size
 {
@@ -20,6 +31,7 @@ struct Size
 		height(height) {}
 };
 
+
 struct Point
 {
 	int x = 0;
@@ -29,7 +41,6 @@ struct Point
 		: x(x),
 		y(y) {}
 };
-
 typedef struct Rectangle
 {
 	int x = 0;

@@ -112,11 +112,26 @@
     <Filter Include="Lib\CTime">
       <UniqueIdentifier>{32410854-48fb-4bb2-8b82-472188ba17b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Effect">
+    <Filter Include="Game\GameObject\Weapon\MegamanX">
+      <UniqueIdentifier>{34a6a19e-304d-422d-b122-2f972842c751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\DynamicObject\Other">
+      <UniqueIdentifier>{d57ebcc8-b91f-4afa-aa2e-bfb67c66e521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Controls\Megaman">
+      <UniqueIdentifier>{adac7136-3060-49a5-931f-7a25dac273ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Controls\Megaman\Key">
+      <UniqueIdentifier>{b2e700d6-4fb8-4842-9286-3f3fc5aa11df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Controls\Megaman\Effect">
+      <UniqueIdentifier>{13db1790-1177-4d38-97ee-790e121d9a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effect">
       <UniqueIdentifier>{ba7cf9e5-ece7-4b70-a686-e4ea542b5d6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Controls\Key">
-      <UniqueIdentifier>{b2e700d6-4fb8-4842-9286-3f3fc5aa11df}</UniqueIdentifier>
+    <Filter Include="Game\Effect\Megaman">
+      <UniqueIdentifier>{d5c3ee2c-3ed7-40a4-a2f0-021db83df582}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +164,6 @@
     </ClInclude>
     <ClInclude Include="CKey.h">
       <Filter>Lib\Key</Filter>
-    </ClInclude>
-    <ClInclude Include="Game1.h">
-      <Filter>Game\Controls</Filter>
     </ClInclude>
     <ClInclude Include="dsutil.h">
       <Filter>Lib\Sound</Filter>
@@ -213,8 +225,11 @@
     <ClInclude Include="Brick.h">
       <Filter>Game\GameObject\Static Object\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
     <ClInclude Include="KeyController.h">
-      <Filter>Game\Controls\Key</Filter>
+      <Filter>Game\Controls\Megaman\Key</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Game\Controls</Filter>
@@ -231,8 +246,48 @@
     <ClInclude Include="NotorBangerBullet.h">
       <Filter>Game\GameObject\Weapon</Filter>
     </ClInclude>
-    <ClInclude Include="NotorBangerEffectShot.h" />
-    <ClInclude Include="AnimationOneTime.h" />
+    <ClInclude Include="BusterShot.h">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargedShot1.h">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargedShot2.h">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClInclude>
+    <ClInclude Include="DashSmoke.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="DashSpark.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="WallKick.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="WallSlide.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="Gate.h">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="DiePoint.h">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>Game\GameObject\Static Object\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationOneTime.h">
+      <Filter>Lib\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MegamanEffectFactory.h">
+      <Filter>Game\Controls\Megaman\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Game1.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBangerEffectShot.h">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -256,9 +311,6 @@
     </ClCompile>
     <ClCompile Include="CKey.cpp">
       <Filter>Lib\Key</Filter>
-    </ClCompile>
-    <ClCompile Include="Game1.cpp">
-      <Filter>Game\Controls</Filter>
     </ClCompile>
     <ClCompile Include="Debugs.cpp">
       <Filter>Lib\Debugs</Filter>
@@ -314,8 +366,11 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Game\GameObject\Static Object\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
     <ClCompile Include="KeyController.cpp">
-      <Filter>Game\Controls\Key</Filter>
+      <Filter>Game\Controls\Megaman\Key</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Game\Controls</Filter>
@@ -332,8 +387,48 @@
     <ClCompile Include="NotorBangerBullet.cpp">
       <Filter>Game\GameObject\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="NotorBangerEffectShot.cpp" />
-    <ClCompile Include="AnimationOneTime.cpp" />
+    <ClCompile Include="BusterShot.cpp">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedShot1.cpp">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedShot2.cpp">
+      <Filter>Game\GameObject\Weapon\MegamanX</Filter>
+    </ClCompile>
+    <ClCompile Include="DashSmoke.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="DashSpark.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="WallKick.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="WallSlide.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="Gate.cpp">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="DiePoint.cpp">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>Game\GameObject\Static Object\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationOneTime.cpp">
+      <Filter>Lib\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanEffectFactory.cpp">
+      <Filter>Game\Controls\Megaman\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game1.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerEffectShot.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

@@ -18,11 +18,10 @@ public:
 
 
 	StaticObject(UINT id, float x, float y, int width, int height);
-
-	virtual void render(DWORD dt, D3DCOLOR colorBrush) {}
 	bool canBreak();
-	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
+	virtual void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void loadResources() override {}
+	virtual void run() {}
 };
 
 #endif // !_StaticObject_H
