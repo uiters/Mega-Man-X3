@@ -35,7 +35,7 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 	for (int i = 0; i < listBullet.size(); i++) {
 		if (listBullet[i].isDelete) {
 			listBullet.erase(listBullet.begin() + i);
-		} else listBullet[i].update(dt);
+		} else listBullet[i].update(dt, staticObjects);
 	}
 
 	GameObject::update(dt);
@@ -58,9 +58,9 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 
 	/*if (speed.vy < 0 && y < this->initY - 40) {
 		y = this->initY - 40;
-	}*/
+	}
 
-	/*if (speed.vy > 0 && y > this->initY) {
+	if (speed.vy > 0 && y > this->initY) {
 		y = this->initY;
 	}*/
 
@@ -250,7 +250,7 @@ void NotorBanger::loadResources()
 	// jump
 	sprites->addSprite(10071, NOTOR_BANGER_ID_TEXTURE, 181, 0, 48, 48); // 48 x 48
 
-	ani = new CAnimation(500);
+	ani = new CAnimation(600);
 	ani->add(10071);
 	animations->add(NOTOR_BANGER_STATE_JUMP, ani);
 
@@ -259,7 +259,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10082, NOTOR_BANGER_ID_TEXTURE, 76, 2, 48, 48); // 48 x 48
 	sprites->addSprite(10083, NOTOR_BANGER_ID_TEXTURE, 18, 2, 48, 48);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(30);
 	ani->add(10081);
 	ani->add(10082);
 	ani->add(10083);
@@ -359,7 +359,6 @@ void NotorBanger::collisionStatic(unordered_map<int, CTreeObject*>* staticObject
 	{
 		x += dx;
 		y += dy;
-		//debugOut(L"%f %f %f\n", speed.vy, dy, y);
 	}
 	else
 	{
@@ -379,32 +378,6 @@ void NotorBanger::collisionStatic(unordered_map<int, CTreeObject*>* staticObject
 		//	this->nx = false;
 		//}
 
-		for (UINT i = 0; i < coEventsResult.size(); ++i)
-		{
-			auto e = coEventsResult[i];
-			Brick* obj = dynamic_cast<Brick *>(e->obj);
-			if (obj)
-			{
-				if (e->ny < 0)//floor
-				{
-					this->initY = y;
-				}
-				else if (e->ny > 0)// ceiling
-				{
-					
-				}
-				else if (e->nx > 0)// left
-				{
-					speed.vx = -speed.vx;
-					this->nx = true;
-				}
-				else if(e->nx < 0)// right
-				{
-					speed.vx = -speed.vx;
-					this->nx = false;
-				}
-			}
-		}
 	}
 	UINT size = coEvents.size();
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];
