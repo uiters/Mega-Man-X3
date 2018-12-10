@@ -97,14 +97,14 @@ void KeyController::updateState()
 			stateShoot = jump_shoot;
 			width = Jump_Shoot_Width;
 			height = Jump_Shoot_Height;
-			main->speed.vy = -0.155f; 
+			main->speed.vy = -0.15f; 
 			break;
 		case StatusJump::Kick:
 			state = MegaManAnimation::cling;
 			stateShoot = cling_shoot;
 			width = Jump_Shoot_Width;
 			height = Jump_Shoot_Height;
-			main->speed.vy = -0.155f;
+			main->speed.vy = -0.185f;
 			break;
 
 		case StatusJump::Fall:
@@ -202,7 +202,7 @@ void KeyController::addKeyX()
 
 	if (onAir)
 	{
-		if (isWall && statusJump != Kick)
+		if (isWall && timeKick.isStop())
 			kickWall();
 	}
 	else
@@ -240,7 +240,7 @@ void KeyController::updateJump()
 		if (timeKick.isRunning())
 		{
 			timeKick.update();
-			main->x += toLeft ? 0.5 : -0.5;
+			main->x += toLeft ? 1.5 : -1.5;
 		}
 		else statusJump = Jump;
 	}

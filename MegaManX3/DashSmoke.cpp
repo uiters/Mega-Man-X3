@@ -3,7 +3,7 @@
 DashSmoke* DashSmoke::_instance = null;
 void DashSmoke::loadResources()
 {
-	auto ani = new AnimationOneTime(40);
+	auto ani = new AnimationOneTime(50);
 	for (int i = 0; i < 12; ++i)
 	{
 		spritesGlobal->add(DashSmokeAnimation + i, TDashSmoke, i * 13.75, 0, (i + 1) * 13.75, 27);

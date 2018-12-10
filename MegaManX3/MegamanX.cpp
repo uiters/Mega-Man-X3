@@ -87,7 +87,7 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 {
 	GameObject::update(dt);
 
-	speed.vy += 0.0015f * dt;
+	speed.vy += 0.0012f * dt; ////
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
@@ -106,20 +106,26 @@ void MegamanX::updateState(DWORD dt)
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	updateState(dt);
-	int add = 0;
+	Point center = { 0, 0 };
 	switch (state)
 	{
 	case dash:
 	case dash_shoot:
-		add = 8;
+		center = cameraGlobal->transform(x, y + 9);////
 		break;
 	case slide:
+	case cling:		
+		int deta;
+		(isFlipX) ? deta = -1 : deta = 6;
+		center = cameraGlobal->transform(x + deta, y);////
+		break;
 	case slide_shoot:
-	case cling:
 	case cling_shoot:
-		add = -12;
+		(isFlipX) ? deta = -1 : deta = 1;
+		center = cameraGlobal->transform(x + deta, y);
 		break;
 	default:
+		center = cameraGlobal->transform(x, y);
 		break;
 	}
 	//D3DXMATRIX matScale;
@@ -134,7 +140,7 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 
 	//spriteHandler->End();
 	//spriteHandler->Begin(D3DXSPRITE_DONOTSAVESTATE);
-	auto center = cameraGlobal->transform(x, y + add);
+	
 	if (isFlipX)
 		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
 	else

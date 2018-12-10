@@ -62,8 +62,8 @@ private:
 	StatusJump statusJump = StatusJump::Jump;
 
 	bool onAir = false;
-	CTime timeJump = CTime(250);
-	CTime timeKick = CTime(100);
+	CTime timeJump = CTime(350);
+	CTime timeKick = CTime(150);
 
 	//dash
 	bool isDash = false;

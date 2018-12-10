@@ -43,7 +43,6 @@ void Game1::loadResource()
 	animationsGlobal->add(appear, ani);
 	main->addAnimation(appear);
 #pragma endregion
-
 #pragma region stand
 	spritesGlobal->add(stand, Megaman, 213, 18, 242, 51);
 	spritesGlobal->add(stand + 1, Megaman, 247, 18, 276, 51);
@@ -57,7 +56,6 @@ void Game1::loadResource()
 	animationsGlobal->add(stand, ani);
 	main->addAnimation(stand);
 #pragma endregion
-
 #pragma region run
 	spritesGlobal->add(MegaManAnimation::run, Megaman, 319, 19, 348, 52);
 	spritesGlobal->add(MegaManAnimation::run + 1, Megaman, 350, 19, 369, 52);
@@ -79,46 +77,40 @@ void Game1::loadResource()
 	animationsGlobal->add(MegaManAnimation::run, ani);
 	main->addAnimation(MegaManAnimation::run);
 #pragma endregion
-
 #pragma region jump
 	spritesGlobal->add(jump, Megaman, 5, 73, 28, 109);
 	spritesGlobal->add(jump + 1, Megaman, 34, 69, 48, 109);
 	spritesGlobal->add(jump + 2, Megaman, 55, 64, 73, 109);
 
-	ani = new CAnimation(600);
+	ani = new CAnimation(450);
 	ani->add(jump, 10);
 	ani->add(jump + 1, 40);
-	ani->add(jump + 2, 550);
+	ani->add(jump + 2, 400);
 	animationsGlobal->add(jump, ani);
 	main->addAnimation(jump);
 #pragma endregion
-
 #pragma region fall
 	spritesGlobal->add(fall, Megaman, 77, 69, 99, 109);
 	spritesGlobal->add(fall + 1, Megaman, 102, 68, 128, 109);
 	spritesGlobal->add(fall + 2, Megaman, 134, 72, 157, 109);
-	spritesGlobal->add(fall + 3, Megaman, 159, 78, 188, 109);
 
-	ani = new CAnimation(600);
-	ani->add(fall, 300);
-	ani->add(fall + 1, 250);
-	ani->add(fall + 2, 40);
-	ani->add(fall + 3, 10);
+	ani = new CAnimation(450);
+	ani->add(fall, 400);
+	ani->add(fall + 1, 40);
+	ani->add(fall + 2, 10);
 	animationsGlobal->add(fall, ani);
 	main->addAnimation(fall);
 #pragma endregion
-
 #pragma region dash
 	spritesGlobal->add(dash, Megaman, 278, 127, 314, 157);
 	spritesGlobal->add(dash + 1, Megaman, 319, 132, 356, 157);
 
 	ani = new CAnimation(600);
-	ani->add(dash, 50);
-	ani->add(dash + 1, 550);
+	ani->add(dash, 20);
+	ani->add(dash + 1, 580);
 	animationsGlobal->add(dash, ani);
 	main->addAnimation(dash);
 #pragma endregion
-
 #pragma region cling
 	spritesGlobal->add(cling, Megaman, 35, 211, 61, 253);
 
@@ -127,7 +119,6 @@ void Game1::loadResource()
 	animationsGlobal->add(cling, ani);
 	main->addAnimation(cling);
 #pragma endregion
-
 #pragma region slide
 	spritesGlobal->add(slide, Megaman, 64, 212, 91, 253);
 	ani = new CAnimation(100);
@@ -135,7 +126,6 @@ void Game1::loadResource()
 	animationsGlobal->add(slide, ani);
 	main->addAnimation(slide);
 #pragma endregion
-
 #pragma region enhance
 	spritesGlobal->add(enhance, Megaman, 470, 118, 497, 162);
 	spritesGlobal->add(enhance + 1, Megaman, 510, 118, 529, 162);
@@ -151,7 +141,6 @@ void Game1::loadResource()
 	animationsGlobal->add(enhance, ani);
 	main->addAnimation(enhance);
 #pragma endregion
-
 #pragma region shock
 	spritesGlobal->add(shock, Megaman, 10, 316, 35, 351);
 	spritesGlobal->add(shock + 1, Megaman, 39, 318, 67, 351);
@@ -173,7 +162,6 @@ void Game1::loadResource()
 	animationsGlobal->add(shock, ani);
 	main->addAnimation(shock);
 #pragma endregion
-
 #pragma region shoot
 	spritesGlobal->add(shoot, Megaman, 6, 167, 35, 200);
 	spritesGlobal->add(shoot + 1, Megaman, 41, 167, 69, 200);
@@ -184,7 +172,6 @@ void Game1::loadResource()
 	animationsGlobal->add(shoot, ani);
 	main->addAnimation(shoot);
 #pragma endregion
-
 #pragma region run_shoot
 	spritesGlobal->add(run_shoot, Megaman, 290, 71, 318, 104);
 	spritesGlobal->add(run_shoot + 1, Megaman, 319, 70, 350, 104);
@@ -205,7 +192,6 @@ void Game1::loadResource()
 	animationsGlobal->add(run_shoot, ani);
 	main->addAnimation(run_shoot);
 #pragma endregion
-
 #pragma region jump_shoot
 	spritesGlobal->add(jump_shoot, Megaman, 5, 121, 33, 157);
 	spritesGlobal->add(jump_shoot + 1, Megaman, 36, 117, 59, 157);
@@ -218,45 +204,39 @@ void Game1::loadResource()
 	animationsGlobal->add(jump_shoot, ani);
 	main->addAnimation(jump_shoot);
 #pragma endregion
-
 #pragma region dash_shoot
 	spritesGlobal->add(dash_shoot, Megaman, 367, 126, 404, 156);
 	spritesGlobal->add(dash_shoot + 1, Megaman, 410, 131, 458, 156);
 
 	ani = new CAnimation(600);
-	ani->add(dash_shoot, 50);
-	ani->add(dash_shoot + 1, 550);
+	ani->add(dash_shoot, 20);
+	ani->add(dash_shoot + 1, 580);
 	animationsGlobal->add(dash_shoot, ani);
 	main->addAnimation(dash_shoot);
 #pragma endregion
-
 #pragma region cling_shoot
 	spritesGlobal->add(cling_shoot, Megaman, 46, 259, 78, 301);
-	ani = new CAnimation(100);
+	ani = new CAnimation(10);
 	ani->add(cling_shoot);
 	animationsGlobal->add(cling_shoot, ani);
 	main->addAnimation(cling_shoot);
 #pragma endregion
-
 #pragma region slide_shoot
 	spritesGlobal->add(slide_shoot, Megaman, 84, 258, 115, 299);
-	ani = new CAnimation(100);
+	ani = new CAnimation(10);
 	ani->add(slide_shoot);
 	animationsGlobal->add(slide_shoot, ani);
 	main->addAnimation(slide_shoot);
 #pragma endregion
-
 #pragma region fall_shoot
 	spritesGlobal->add(fall_shoot, Megaman, 88, 117, 118, 157);
 	spritesGlobal->add(fall_shoot + 1, Megaman, 120, 116, 150, 157);
 	spritesGlobal->add(fall_shoot + 2, Megaman, 152, 120, 181, 157);
-	spritesGlobal->add(fall_shoot + 3, Megaman, 182, 126, 217, 157);
 
-	ani = new CAnimation(600);
-	ani->add(fall_shoot, 300);
-	ani->add(fall_shoot + 1, 250);
-	ani->add(fall_shoot + 2, 40);
-	ani->add(fall_shoot + 3, 10);
+	ani = new CAnimation(450);
+	ani->add(fall_shoot, 400);
+	ani->add(fall_shoot + 1, 40);
+	ani->add(fall_shoot + 2, 10);
 	animationsGlobal->add(fall_shoot, ani);
 	main->addAnimation(fall_shoot);
 #pragma endregion
@@ -267,7 +247,6 @@ void Game1::loadResource()
 	animationsGlobal->add(bullet_lv1, ani);
 	//main_bullet->addAnimation(bullet_lv1);
 #pragma endregion
-
 #pragma region bullet_lv2
 	spritesGlobal->add(bullet_lv2, Megaman, 26, 373, 39, 386);
 	spritesGlobal->add(bullet_lv2, Megaman, 48, 368, 71, 391);
@@ -280,7 +259,6 @@ void Game1::loadResource()
 	animationsGlobal->add(bullet_lv2, ani);
 	//main_bullet->addAnimation(bullet_lv2);
 #pragma endregion
-
 #pragma region bullet_lv3
 	spritesGlobal->add(bullet_lv3, Megaman, 35, 496, 80, 526);
 	spritesGlobal->add(bullet_lv3, Megaman, 87, 496, 131, 524);

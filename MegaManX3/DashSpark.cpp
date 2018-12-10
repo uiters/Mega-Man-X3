@@ -2,7 +2,7 @@
 
 void DashSpark::loadResources()
 {
-	auto ani = new AnimationOneTime(40);
+	auto ani = new AnimationOneTime(70);
 	for (int i = 0; i < 10; ++i)
 	{
 		spritesGlobal->add(DashSparkAnimation + i, TDashSpark, i * 35, 0, (i + 1) * 35, 32);
