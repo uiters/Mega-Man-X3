@@ -213,9 +213,6 @@
     <ClInclude Include="Brick.h">
       <Filter>Game\GameObject\Static Object\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>Game\GameObject\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="KeyController.h">
       <Filter>Game\Controls\Key</Filter>
     </ClInclude>
@@ -224,9 +221,6 @@
     </ClInclude>
     <ClInclude Include="Factory.h">
       <Filter>Game\Controls\Scence</Filter>
-    </ClInclude>
-    <ClInclude Include="DashSmoke.h">
-      <Filter>Game\GameObject\Effect</Filter>
     </ClInclude>
     <ClInclude Include="NotorBanger.h">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
@@ -237,6 +231,8 @@
     <ClInclude Include="NotorBangerBullet.h">
       <Filter>Game\GameObject\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="NotorBangerEffectShot.h" />
+    <ClInclude Include="AnimationOneTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -318,9 +314,6 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Game\GameObject\Static Object\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Game\GameObject\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="KeyController.cpp">
       <Filter>Game\Controls\Key</Filter>
     </ClCompile>
@@ -329,9 +322,6 @@
     </ClCompile>
     <ClCompile Include="Factory.cpp">
       <Filter>Game\Controls\Scence</Filter>
-    </ClCompile>
-    <ClCompile Include="DashSmoke.cpp">
-      <Filter>Game\GameObject\Effect</Filter>
     </ClCompile>
     <ClCompile Include="NotorBanger.cpp">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
@@ -342,6 +332,8 @@
     <ClCompile Include="NotorBangerBullet.cpp">
       <Filter>Game\GameObject\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="NotorBangerEffectShot.cpp" />
+    <ClCompile Include="AnimationOneTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

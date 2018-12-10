@@ -20,7 +20,7 @@ class CAnimationFrame
 
 public:
 	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
-	
+
 	DWORD getTime() { return time; }
 	LPSPRITE getSprite() { return sprite; }
 };
@@ -33,18 +33,18 @@ protected:
 	int defaultTime;
 	int currentFrame;
 	vector<LPANIMATION_FRAME> frames;
-	void _updateFrame();
+	virtual void _updateFrame();
 public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void add(UINT spriteId, DWORD time = 0);
 
-	bool isLastFrame();
+	bool isLastFrame();//warring
 
 	//center is draw center
-	void render(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	void renderFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	void reset();//reset frame
+	virtual void render(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	virtual void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	virtual void renderFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	virtual void reset();//reset frame
 	Size getSize();
 };
 

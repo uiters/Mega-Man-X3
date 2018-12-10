@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationOneTime.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CollisionEvent.h" />
@@ -140,12 +141,10 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="CTime.h" />
     <ClInclude Include="CTreeObject.h" />
-    <ClInclude Include="DashSmoke.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="DynamicObject.h" />
-    <ClInclude Include="Effect.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
@@ -159,6 +158,7 @@
     <ClInclude Include="MegamanX.h" />
     <ClInclude Include="NotorBanger.h" />
     <ClInclude Include="NotorBangerBullet.h" />
+    <ClInclude Include="NotorBangerEffectShot.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
     <ClInclude Include="Sound.h" />
@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationOneTime.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CKey.cpp" />
@@ -178,13 +179,11 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="CTime.cpp" />
     <ClCompile Include="CTreeObject.cpp" />
-    <ClCompile Include="DashSmoke.cpp" />
     <ClCompile Include="Debugs.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxsound.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
-    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -196,6 +195,7 @@
     <ClCompile Include="MegamanX.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
     <ClCompile Include="NotorBangerBullet.cpp" />
+    <ClCompile Include="NotorBangerEffectShot.cpp" />
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="ScenceController.cpp" />
     <ClCompile Include="Sound.cpp" />

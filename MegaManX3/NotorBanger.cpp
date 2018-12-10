@@ -133,6 +133,10 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		listBullet[i].render(dt);
 	}
+	
+	if (effectShot != NULL)
+	effectShot->render(dt);
+
 	auto center = cameraGlobal->transform(x, y);
 	if (nx != true)
 		_animations[state]->render(center.x, center.y);
@@ -328,6 +332,15 @@ void NotorBanger::createBullet()
 	notorBangerBullet->loadResources();
 	notorBangerBullet->setState(NOTOR_BANGER_BULLET_STATE_DEFAULT);
 	listBullet.push_back(*notorBangerBullet);
+
+	createEffect(x, this->y - 14);
+}
+
+void NotorBanger::createEffect(float x, float y)
+{
+	effectShot = new NotorBangerEffectShot(x, y);
+	effectShot->loadResources();
+	effectShot->setState(NOTOR_BANGER_EFFECT_SHOT_STATE_DEFAULT);
 }
 
 void NotorBanger::resetPosition()

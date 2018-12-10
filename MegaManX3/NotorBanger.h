@@ -1,12 +1,15 @@
 #pragma once
 #include<vector>
+
 #include "DynamicObject.h";
 #include "CTime.h";
-#include "NotorBangerBullet.h"
 #include "ConstGlobals.h"
 #include "Camera.h"
 #include "CollisionEvent.h"
 #include "Brick.h"
+
+#include "NotorBangerBullet.h"
+#include "NotorBangerEffectShot.h"
 
 using namespace std;
 
@@ -38,10 +41,13 @@ public:
 	void setState(int state);
 	void loadResources();
 	void setPositionForListBullet();
-	void createBullet();
+	
 	void resetPosition();
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	NotorBanger* clone(int id, int x, int y) override;
+
+	void createBullet();
+	void createEffect(float x, float y);
 
 
 private:
@@ -50,7 +56,9 @@ private:
 	int repeat;
 	bool nx;
 	int distance; // 0: small, 1: medium, 2: large
+
 	vector<NotorBangerBullet> listBullet;
+	NotorBangerEffectShot* effectShot;
 
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
 };
