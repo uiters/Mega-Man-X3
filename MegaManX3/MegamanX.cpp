@@ -94,7 +94,7 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
 	weapon->update(dt);
-	if (x > 500)
+	if (x > 1500)
 	{
 		_death = true;
 		timePreDie.start();

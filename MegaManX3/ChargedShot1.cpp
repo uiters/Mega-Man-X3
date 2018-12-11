@@ -41,6 +41,6 @@ void ChargedShot1::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	auto pos = cameraGlobal->transform(x, y);
 	if (toLeft)
-		_animations[bullet_lv2]->renderFlipX(pos.x - 30, pos.y, true, colorBrush);
+		_animations[bullet_lv2]->renderFlipX(pos.x - 15, pos.y, true, colorBrush);
 	else _animations[bullet_lv2]->render(pos.x, pos.y, true, colorBrush);
 }

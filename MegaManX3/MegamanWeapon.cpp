@@ -7,8 +7,8 @@ void MegamanWeapon::update(DWORD dt)
 	for (auto it = weapons.begin(); it  != weapons.end(); ++it )
 	{
 		if ((*it)->toLeft)
-			(*it)->x -= 0.05f * dt;
-		else (*it)->x += 0.05f * dt;
+			(*it)->x -= 0.25f * dt;
+		else (*it)->x += 0.25f * dt;
 	}
 }
 
