@@ -20,7 +20,7 @@ class CAnimationFrame
 
 public:
 	CAnimationFrame(LPSPRITE sprite, int time) { this->sprite = sprite; this->time = time; }
-	
+
 	DWORD getTime() { return time; }
 	LPSPRITE getSprite() { return sprite; }
 };

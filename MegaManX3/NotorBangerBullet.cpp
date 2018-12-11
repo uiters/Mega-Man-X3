@@ -39,28 +39,31 @@ NotorBangerBullet::~NotorBangerBullet()
 {
 }
 
-void NotorBangerBullet::update(DWORD dt, vector<LPObject>* coObjects)
+void NotorBangerBullet::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
 	GameObject::update(dt);
 
 	speed.vy += NOTOR_BANGER_BULLET_GRAVITY;
-	x += dx;
-	y += dy;
+	/*x += dx;
+	y += dy;*/
 
 	if (nx == false) speed.vx = -abs(speed.vx);
 	if (nx == true) speed.vx = abs(speed.vx);
 
-	if (y >= limit) {
+	/*if (y >= limit) {
 		y = limit;
 		isDelete = true;
-	}
+	}*/
+
+	collisionStatic(staticObjects);
 }
 
 void NotorBangerBullet::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	/*if (ny == true) _animations[state]->render(x, y);
 	else _animations[state]->renderFlipY(x, y);*/
-	_animations[state]->render(x, y);
+	auto center = cameraGlobal->transform(x, y);
+	_animations[state]->render(center.x, center.y);
 }
 
 void NotorBangerBullet::setState(int state)
@@ -91,7 +94,8 @@ void NotorBangerBullet::loadResources()
 {
 	CTextures * textures = CTextures::getInstance();
 
-	textures->add(NOTOR_BANGER_BULLET_ID_TEXTURE, L"enemies.png", 0, 0, D3DCOLOR_XRGB(255, 0, 255));
+	if (textures->getTexture(NOTOR_BANGER_BULLET_ID_TEXTURE) == NULL)
+		textures->add(NOTOR_BANGER_BULLET_ID_TEXTURE, L"Resource\\Textures\\enemies.png", 0, 0, D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();
@@ -99,7 +103,7 @@ void NotorBangerBullet::loadResources()
 	LPANIMATION ani;
 
 	// default
-	sprites->addSprite(10001, NOTOR_BANGER_BULLET_ID_TEXTURE, 188, 66, 8, 8); // 48 x 48
+	sprites->addSprite(10001, NOTOR_BANGER_BULLET_ID_TEXTURE, 188, 66, 8, 8); // 8 x 8
 
 	ani = new CAnimation(200);
 	ani->add(10001);
@@ -117,4 +121,33 @@ void NotorBangerBullet::setPosition(float x, float y)
 
 void NotorBangerBullet::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 8;
+	bottom = y + 8;
+}
+
+void NotorBangerBullet::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+{
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	collision->findCollisions(dt, this, *staticObjects, coEvents);
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		x += min_tx * dx + nx * 1.f;
+		y += min_ty * dy + ny * 1.f;
+		
+		isDelete = true;
+	}
+	UINT size = coEvents.size();
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }

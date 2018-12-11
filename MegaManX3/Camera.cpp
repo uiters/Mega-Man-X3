@@ -11,8 +11,7 @@ void Camera::update(int x, int y, int height) //center x, center y
 	int centerScreenX = viewport.width / 2;
 	int centerScreenY = viewport.height / 2;
 
-	viewport.x = x - centerScreenX; // hold character center of camera
-	viewport.y = y - centerScreenY;
+	
 
 	//if (viewport.x < world.left)
 	//	viewport.x = world.left;
@@ -25,6 +24,12 @@ void Camera::update(int x, int y, int height) //center x, center y
 
 	/*if (viewport.bottom() < world.bottom - height / 4)
 		viewport.setY(world.bottom - height / 4);*/
+	//if (true)
+	//{
+
+	//}
+	viewport.x = x - centerScreenX; // hold character center of camera
+	viewport.y = y - centerScreenY;
 }
 
 void Camera::setSizeWorld(int x, int y, int width, int height)

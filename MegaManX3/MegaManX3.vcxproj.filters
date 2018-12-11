@@ -294,6 +294,9 @@
     <ClInclude Include="ChargedEffect.h">
       <Filter>Game\Effect\Megaman</Filter>
     </ClInclude>
+    <ClInclude Include="NotorBangerEffectShot.h">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -437,6 +440,9 @@
     </ClCompile>
     <ClCompile Include="ChargedEffect.cpp">
       <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerEffectShot.cpp">
+      <Filter>Game\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{FA45CE6F-9743-4166-AF7F-9610E119495F}</ProjectGuid>
     <RootNamespace>MegaManX3</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -170,6 +170,7 @@
     <ClInclude Include="MegamanX.h" />
     <ClInclude Include="NotorBanger.h" />
     <ClInclude Include="NotorBangerBullet.h" />
+    <ClInclude Include="NotorBangerEffectShot.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
     <ClInclude Include="Sound.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="MegamanX.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
     <ClCompile Include="NotorBangerBullet.cpp" />
+    <ClCompile Include="NotorBangerEffectShot.cpp" />
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="ScenceController.cpp" />
     <ClCompile Include="Sound.cpp" />

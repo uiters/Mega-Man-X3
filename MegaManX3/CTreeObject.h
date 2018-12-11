@@ -8,7 +8,7 @@ public:
 	CRectangle region;
 	LPObject object;
 	bool isdel = false;
-	CTreeObject(LPObject object, CRectangle& region);
+	CTreeObject(LPObject object, CRectangle region);
 	~CTreeObject();
 };
 

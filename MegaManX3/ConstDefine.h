@@ -49,7 +49,7 @@
 
 #define OBJECT_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1.txt"
 #define QUADTREE_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_static.txt"
-#define QUADTREEDYNAMIC_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_dynamic.txt"
+#define QUADTREE_DYNAMIC_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_dynamic.txt"
 
 #pragma endregion
 

@@ -1,8 +1,14 @@
 #include "Elevator.h"
 
+void Elevator::loadResources()
+{
+	_animations[TElevator] = animationsGlobal->get(TElevator);
+}
+
 Elevator::Elevator(UINT idTexture, float x, float y) : StaticObject(idTexture, x, y - 6, 96, 43)
 {
 	//y -= 28;
+	loadResources();
 }
 
 Elevator::~Elevator()

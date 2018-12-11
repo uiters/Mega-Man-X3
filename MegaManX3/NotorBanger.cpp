@@ -1,5 +1,4 @@
 #include "NotorBanger.h"
-#include "ConstGlobals.h"
 
 
 
@@ -7,6 +6,8 @@ NotorBanger::NotorBanger()
 {
 	this->x = 10;
 	this->y = 300;
+	this->initX = this->x;
+	this->initY = this->y;
 	this->nx = true;
 	this->distance = 2;
 	this->repeat = 0;
@@ -17,6 +18,8 @@ NotorBanger::NotorBanger(int id, float x, float y, bool nx, int distance)
 	this->_id = id;
 	this->x = x;
 	this->y = y;
+	this->initX = x;
+	this->initY = y;
 	this->nx = nx;
 	this->distance = distance;
 	this->repeat = 0;
@@ -32,16 +35,18 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 	for (int i = 0; i < listBullet.size(); i++) {
 		if (listBullet[i].isDelete) {
 			listBullet.erase(listBullet.begin() + i);
-		} else listBullet[i].update(dt);
+		} else listBullet[i].update(dt, staticObjects);
 	}
 
 	GameObject::update(dt);
 
-	speed.vy += NOTOR_BANGER_GRAVITY;
-	x += dx;
-	y += dy;
+	speed.vy += NOTOR_BANGER_GRAVITY * dt;
 
-	if (speed.vx < 0 && x < 0) {
+	/*x += dx;
+	y += dy;*/
+	collisionStatic(staticObjects);
+
+	/*if (speed.vx < 0 && x < 0) {
 		speed.vx = -speed.vx;
 		nx = true;
 	}
@@ -49,15 +54,15 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 	if (speed.vx > 0 && x > 300) {
 		speed.vx = -speed.vx;
 		nx = false;
+	}*/
+
+	/*if (speed.vy < 0 && y < this->initY - 40) {
+		y = this->initY - 40;
 	}
 
-	if (speed.vy < 0 && y < 260) {
-		y = 260;
-	}
-
-	if (speed.vy > 0 && y > 300) {
-		y = 300;
-	}
+	if (speed.vy > 0 && y > this->initY) {
+		y = this->initY;
+	}*/
 
 	if (_animations[state]->isLastFrame()) {
 		switch (state)
@@ -128,9 +133,14 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		listBullet[i].render(dt);
 	}
+	
+	if (effectShot != NULL)
+	effectShot->render(dt);
 
-	if (nx != true) _animations[state]->render(x, y, false);
-	else _animations[state]->renderFlipX(x, y);
+	auto center = cameraGlobal->transform(x, y);
+	if (nx != true)
+		_animations[state]->render(center.x, center.y);
+	else _animations[state]->renderFlipX(center.x, center.y);
 }
 
 void NotorBanger::setState(int state)
@@ -158,7 +168,8 @@ void NotorBanger::loadResources()
 
 	CTextures * textures = CTextures::getInstance();
 
-	textures->add(NOTOR_BANGER_ID_TEXTURE, L"enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
+	if (textures->getTexture(NOTOR_BANGER_ID_TEXTURE) == NULL)
+	textures->add(NOTOR_BANGER_ID_TEXTURE, L"Resource\\Textures\\enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();
@@ -243,7 +254,7 @@ void NotorBanger::loadResources()
 	// jump
 	sprites->addSprite(10071, NOTOR_BANGER_ID_TEXTURE, 181, 0, 48, 48); // 48 x 48
 
-	ani = new CAnimation(500);
+	ani = new CAnimation(600);
 	ani->add(10071);
 	animations->add(NOTOR_BANGER_STATE_JUMP, ani);
 
@@ -252,7 +263,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10082, NOTOR_BANGER_ID_TEXTURE, 76, 2, 48, 48); // 48 x 48
 	sprites->addSprite(10083, NOTOR_BANGER_ID_TEXTURE, 18, 2, 48, 48);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(30);
 	ani->add(10081);
 	ani->add(10082);
 	ani->add(10083);
@@ -321,14 +332,67 @@ void NotorBanger::createBullet()
 	notorBangerBullet->loadResources();
 	notorBangerBullet->setState(NOTOR_BANGER_BULLET_STATE_DEFAULT);
 	listBullet.push_back(*notorBangerBullet);
+
+	createEffect(x, this->y - 14);
+}
+
+void NotorBanger::createEffect(float x, float y)
+{
+	effectShot = new NotorBangerEffectShot(x, y);
+	effectShot->loadResources();
+	effectShot->setState(NOTOR_BANGER_EFFECT_SHOT_STATE_DEFAULT);
+}
+
+void NotorBanger::resetPosition()
+{
+	this->x = this->initX;
+	this->y = this->initY;
 }
 
 void NotorBanger::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 40;
+	bottom = y + 48;
 }
 
 NotorBanger * NotorBanger::clone(int id, int x, int y)
 {
 	return nullptr;
+}
+
+void NotorBanger::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+{
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	collision->findCollisions(dt, this, *staticObjects, coEvents);
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		x += min_tx * dx + nx * 1.f;
+		y += min_ty * dy + ny * 1.f;
+		//if (speed.vx > 0 && nx > 0)//left
+		//{
+		//	speed.vx = -speed.vx;
+		//	this->nx = true;
+		//}
+		//else if (speed.vx < 0 && nx < 0)//right
+		//{
+		//	speed.vx = -speed.vx;
+		//	this->nx = false;
+		//}
+
+	}
+	UINT size = coEvents.size();
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
 

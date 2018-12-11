@@ -1,5 +1,6 @@
 #pragma once
 #include "DynamicObject.h"
+#include "Camera.h"
 
 #define HEAD_GUNNER_STATE_DEFAULT 0
 #define HEAD_GUNNER_STATE_SHOT_TOP 100
