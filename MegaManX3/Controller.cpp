@@ -6,7 +6,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->rootStatic = rootStatic;
 	this->rootDynamic = rootDynamic;
 	this->main = main;
-	tilesControll = new ScenceController(1);
+	tilesControll = new ScenceController();
 	main->state = stand;
 }
 
@@ -26,21 +26,31 @@ void Controller::update(DWORD dt)
 	for (auto kv : currentDynamic) {
 		kv.second->object->update(dt, &currentStatic);
 	}
-	for (auto kv : currentStatic) {
-		kv.second->object->update(dt);
+	if (elevator)
+	{
+		elevator->object->update(dt);
+		currentStatic[elevator->object->getID()] = elevator;
 	}
-	main->update(dt, &currentStatic, 0);
+	else
+	{
+		for (auto kv : currentStatic) {
+			if (dynamic_cast<Elevator*>(kv.second->object))
+			{
+				elevator = kv.second;
+			}
+		}
+	}
+
+	main->update(dt, &currentStatic, &currentDynamic);
 }
 
 void Controller::render(DWORD dt)
 {
 	
 	tilesControll->render(dt);
-	for (auto kv : currentStatic) {
-		kv.second->object->render(dt);
-	}
 	for (auto kv : currentDynamic) {
 		kv.second->object->render(dt);
 	}
+	if (elevator) elevator->object->render(dt);
 	main->render(dt);
 }

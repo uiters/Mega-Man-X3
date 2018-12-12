@@ -30,9 +30,11 @@ enum class ColllisionDirect {
 
 enum TextureID
 {
+	TMap = -1,
 	Death = 0,
 	Megaman = 1,
 	TElevator = 2,
+
 
 	TDashSmoke = 2000,
 	TDashSpark = 2001,

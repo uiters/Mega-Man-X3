@@ -7,36 +7,28 @@
 #define TITLE L"Mega Man X3"
 
 #define HLOGO L"icon.ico"
-#define MAP L"map1.log"
+//#define MAP L"map1.log"
 
 #define WD_WIDTH 800
 #define WD_HEIGHT 600
 
-#define CAMERA_WIDTH 255
-#define CAMERA_HEIGHT 224
+#define CAMERA_WIDTH 256
+#define CAMERA_HEIGHT 256
 
-#define WIDTH_QUADTREE 200
-#define HEIGHT_QUATREE 200
+#define WIDTH_QUADTREE 256
+#define HEIGHT_QUATREE 256
 
-#define MAX_LEVEL 5
+//#define MAX_LEVEL 5
 #define FPS 60
 #define null 0
 #pragma endregion
 
-#pragma region File Level
-#define LEVEL1 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level1.txt"
-#define LEVEL2 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level2.txt"
-//#define LEVEL3 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\"
-#define LEVEL4 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level4.txt"
-//#define LEVEL5 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\"
+#pragma region File Tiles Map
+#define MAP L"Resource\\Images\\BlastHornetStage\\Map\\tile\\map.txt"
+#define IMAGE_MAP L"Resource\\Images\\BlastHornetStage\\Map\\tile\\map.png"
+#pragma endregion
 
-#define IMAGE_LEVEL1 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level1.png"
-#define IMAGE_LEVEL2 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level2.png"
-#define IMAGE_LEVEL3 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level3.png"
-#define IMAGE_LEVEL4 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level4.png"
-#define IMAGE_LEVEL5 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level5.png"
-#define IMAGE_LEVEL6 L"Resource\\Images\\BlastHornetStage\\Map\\tile\\level6.png"
-
+#pragma region Megaman
 #define MEGAMAN_EFFECT L"Resource\\Textures\\megamanEffect.png"
 #define SHIP L"Resource\\Images\\BlastHornetStage\\tile\\ship2.png"
 #define DASH_SMOKE L"Resource\\Textures\\DashSmoke.png"
@@ -45,13 +37,21 @@
 #define KICK L"Resource\\Textures\\Kick.png"
 #define CHARGED_SHOOT1 L"Resource\\Textures\\Charged1.png"
 #define CHARGED_SHOOT2 L"Resource\\Textures\\Charged2.png"
-
-
-#define OBJECT_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1.txt"
-#define QUADTREE_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_static.txt"
-#define QUADTREE_DYNAMIC_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\level1_dynamic.txt"
-
+#define DIE L"Resource\\Textures\\die.png"
 #pragma endregion
+
+#pragma region Map
+#define OBJECT_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\BlastHornet.txt"
+#define QUADTREE_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\BlastHornet_static.txt"
+#define QUADTREE_DYNAMIC_TXT L"Resource\\Images\\BlastHornetStage\\Map\\Objects\\BlastHornet_dynamic.txt"
+#pragma endregion
+
+#pragma region Helit
+#define HELIT L""
+#pragma endregion
+
+
+
 
 #pragma region Megamian Size
 

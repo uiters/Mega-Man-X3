@@ -5,6 +5,7 @@
 #include "QNode.h"
 #include "CollisionEvent.h"
 #include "ScenceController.h"
+#include "Elevator.h"
 class Controller
 {
 
@@ -16,7 +17,7 @@ private:
 
 	QNode* rootStatic;//static Objects
 	QNode* rootDynamic;//dynamic Objects;
-
+	CTreeObject * elevator;
 
 	ScenceController* tilesControll;
 public:

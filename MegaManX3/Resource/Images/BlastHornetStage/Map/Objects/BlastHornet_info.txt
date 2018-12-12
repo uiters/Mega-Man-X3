@@ -1,0 +1,10 @@
+0 Brick
+1 Conveyor
+2 Death
+3 Elevator
+4 Gate
+5 Notor Banger
+6 Head Gunner
+7 Helit
+8 Box
+9 Box-Wall

@@ -169,8 +169,8 @@ void Collision::sweptAABB(
 
 	if (dx == 0)
 	{
-		tx_entry = -99999999999;
-		tx_exit = 99999999999;
+		tx_entry = -99999999999.f;
+		tx_exit = 99999999999.f;
 	}
 	else
 	{
@@ -180,8 +180,8 @@ void Collision::sweptAABB(
 
 	if (dy == 0)
 	{
-		ty_entry = -99999999999;
-		ty_exit = 99999999999;
+		ty_entry = -99999999999.f;
+		ty_exit = 99999999999.f;
 	}
 	else
 	{

@@ -164,6 +164,7 @@
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HeadGunner.h" />
+    <ClInclude Include="Helit.h" />
     <ClInclude Include="KeyController.h" />
     <ClInclude Include="MegamanEffectFactory.h" />
     <ClInclude Include="MegamanWeapon.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="HeadGunner.cpp" />
+    <ClCompile Include="Helit.cpp" />
     <ClCompile Include="KeyController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MegamanEffectFactory.cpp" />

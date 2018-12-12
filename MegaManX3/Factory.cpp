@@ -27,6 +27,7 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 	ifstream input;
 	input.open(file, ifstream::in);
 	UINT id, idNameObject, idTypeObject, x, y, width, height;
+	bool toLeft;
 	GameObject *obj;
 	if (!input.good())
 	{
@@ -35,22 +36,22 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 	}
 	while (input)
 	{
-		input >> id >> idNameObject >> idTypeObject >> x >> y >> width >> height;
+		input >> id >> idNameObject >> idTypeObject >> x >> y >> width >> height >> toLeft;
 
 		switch (idNameObject)
 		{
-		case 2:
+		case 4:
 			obj = NULL;
 			break;
-		case 3:
-			obj = new NotorBanger(id, x, y, false, 1);
-			obj->loadResources();
-			break;
-		case 4:
-			obj = new HeadGunner(id, x, y, false);
-			obj->loadResources();
-			break;
 		case 5:
+			obj = new NotorBanger(id, x, y, !toLeft, 1);
+			obj->loadResources();
+			break;
+		case 6:
+			obj = new HeadGunner(id, x, y, !toLeft);
+			obj->loadResources();
+			break;
+		case 3:
 			obj = new Elevator(TElevator, x, y);
 			break;
 		default:

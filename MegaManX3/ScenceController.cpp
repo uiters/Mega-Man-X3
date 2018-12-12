@@ -2,45 +2,13 @@
 #include "Debugs.h"
 #include "Textures.h"
 #include "Camera.h"
-ScenceController::ScenceController(int level)
+ScenceController::ScenceController()
 {
-	wchar_t* file;
-	wchar_t* fileImage;
-	switch (level)
-	{
-	case 1:
-		file = LEVEL1;
-		fileImage = IMAGE_LEVEL1;
-		break;
-	case 2:
-		file = LEVEL2;
-		fileImage = IMAGE_LEVEL2;
-		break;
-	//case 3:
-	//	//file = LEVEL3;
-	//	fileImage = IMAGE_LEVEL3;
-	//	break;
-	case 4:
-		file = LEVEL4;
-		fileImage = IMAGE_LEVEL4;
-		break;
-	//case 5:
-	//	//file = LEVEL5;
-	//	fileImage = IMAGE_LEVEL5;
-	//	break;
-	//case 6:
-	//	fileImage = IMAGE_LEVEL6;
-	//	break;
-	default:
-		fileImage = IMAGE_LEVEL1;
-		file = LEVEL1;
-		break;
-	}
-	level *= -1;
-	texturesGlobal->add(level, fileImage);
-	_texture = texturesGlobal->getTexture(level);
+
+	texturesGlobal->add(TMap, IMAGE_MAP);
+	_texture = texturesGlobal->getTexture(TMap);
 	ifstream input;
-	input.open(file, ifstream::in);
+	input.open(MAP, ifstream::in);
 	if (!input.good())
 	{
 		debugOut(L"[Failed] Load File ");

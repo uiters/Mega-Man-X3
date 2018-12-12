@@ -27,7 +27,7 @@ void Elevator::getBoundingBox(float & left, float & top, float & right, float & 
 void Elevator::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects , unordered_map<int, CTreeObject*>* dynamicObjects) 
 {
 	//GameObject::update(dt);
-	if (isRun && y >= 438)
+	if (isRun && y >= 170)
 	{
 		y += -1;
 		mainGlobal->y += -1;

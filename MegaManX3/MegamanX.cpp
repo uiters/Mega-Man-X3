@@ -93,12 +93,13 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
+	debugOut(L"%i %i \n", staticObjects->size(), dynamicObjects->size());
 	weapon->update(dt);
-	if (x > 1500)
-	{
-		_death = true;
-		timePreDie.start();
-	}
+	//if (x > 1500)
+	//{
+	//	_death = true;
+	//	timePreDie.start();
+	//}
 }
 
 void MegamanX::updateState(DWORD dt) 

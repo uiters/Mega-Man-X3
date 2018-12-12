@@ -136,6 +136,9 @@
     <Filter Include="Game\Controls\Megaman\Weapon">
       <UniqueIdentifier>{abfdf745-b352-4eb8-a66f-156848355fee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Weapon\Enemies">
+      <UniqueIdentifier>{46f12e7a-7b02-43f3-8611-26dfbc95874d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -246,9 +249,6 @@
     <ClInclude Include="HeadGunner.h">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="NotorBangerBullet.h">
-      <Filter>Game\GameObject\Weapon</Filter>
-    </ClInclude>
     <ClInclude Include="BusterShot.h">
       <Filter>Game\GameObject\Weapon\MegamanX</Filter>
     </ClInclude>
@@ -296,6 +296,12 @@
     </ClInclude>
     <ClInclude Include="NotorBangerEffectShot.h">
       <Filter>Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Helit.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBangerBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -393,9 +399,6 @@
     <ClCompile Include="HeadGunner.cpp">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="NotorBangerBullet.cpp">
-      <Filter>Game\GameObject\Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="BusterShot.cpp">
       <Filter>Game\GameObject\Weapon\MegamanX</Filter>
     </ClCompile>
@@ -443,6 +446,12 @@
     </ClCompile>
     <ClCompile Include="NotorBangerEffectShot.cpp">
       <Filter>Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Helit.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
