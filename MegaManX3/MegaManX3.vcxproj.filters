@@ -285,6 +285,7 @@
     <ClInclude Include="Game1.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Shurikein.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -423,6 +424,7 @@
     <ClCompile Include="Game1.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Shurikein.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

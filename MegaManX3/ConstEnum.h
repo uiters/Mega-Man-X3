@@ -33,6 +33,7 @@ enum TextureID
 
 	Megaman = 1,
 	TElevator = 2,
+	TShurikein = 3,
 
 	TDashSmoke = 2000,
 	TDashSpark = 2001,
@@ -40,7 +41,12 @@ enum TextureID
 	TSlide = 2003,
 
 };
-
+enum ShurikeinAnimation
+{
+	manifest = 14000,
+	roll = 14400,
+	spin = 14600,
+};
 enum WeaponID
 {
 	bullet_lv1 = 13000,

@@ -19,6 +19,8 @@ void Game1::loadResource()
 	texturesGlobal->add(TSlide, SLIDE, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TKick, KICK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 
+
+
 	main = new MegamanX(Megaman, 100, 910);
 	keyGlobal = main;
 
@@ -294,10 +296,7 @@ void Game1::loadResource()
 	main->addAnimation(TElevator);
 #pragma endregion
 
-#pragma region DashSmoke
-
-#pragma endregion
-
+	texturesGlobal->add(Megaman, L"Resource\\Textures\\Shurikein.png", 555, 468, D3DCOLOR_XRGB(64, 48, 72));
 
 }
 

@@ -170,6 +170,7 @@
     <ClInclude Include="NotorBangerBullet.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
+    <ClInclude Include="Shurikein.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StaticObject.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="NotorBangerBullet.cpp" />
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="ScenceController.cpp" />
+    <ClCompile Include="Shurikein.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StaticObject.cpp" />
