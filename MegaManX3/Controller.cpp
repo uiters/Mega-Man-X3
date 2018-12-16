@@ -51,6 +51,10 @@ void Controller::render(DWORD dt)
 	for (auto kv : currentDynamic) {
 		kv.second->object->render(dt);
 	}
+	for each (auto item in currentStatic)
+	{
+		item.second->object->render(dt);
+	}
 	if (elevator) elevator->object->render(dt);
 	main->render(dt);
 }

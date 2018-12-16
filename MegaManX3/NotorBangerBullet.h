@@ -9,6 +9,7 @@
 #include "CollisionEvent.h"
 #include "Brick.h"
 
+
 #define NOTOR_BANGER_BULLET_GRAVITY 0.01f
 #define NOTOR_BANGER_BULLET_SPEED_X_SMALL 0.015f
 #define NOTOR_BANGER_BULLET_SPEED_Y_SMALL 0.2f

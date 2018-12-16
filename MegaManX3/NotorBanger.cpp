@@ -32,8 +32,12 @@ NotorBanger::~NotorBanger()
 
 void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {	
+
 	for (int i = 0; i < listBullet.size(); i++) {
 		if (listBullet[i].isDelete) {
+			int x = listBullet[i].x - 16;
+			int y = listBullet[i].y - 20;
+			collisionEffect->createEffect(x, y);
 			listBullet.erase(listBullet.begin() + i);
 		} else listBullet[i].update(dt, staticObjects);
 	}
@@ -42,27 +46,7 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 
 	speed.vy += NOTOR_BANGER_GRAVITY * dt;
 
-	/*x += dx;
-	y += dy;*/
 	collisionStatic(staticObjects);
-
-	/*if (speed.vx < 0 && x < 0) {
-		speed.vx = -speed.vx;
-		nx = true;
-	}
-
-	if (speed.vx > 0 && x > 300) {
-		speed.vx = -speed.vx;
-		nx = false;
-	}*/
-
-	/*if (speed.vy < 0 && y < this->initY - 40) {
-		y = this->initY - 40;
-	}
-
-	if (speed.vy > 0 && y > this->initY) {
-		y = this->initY;
-	}*/
 
 	if (_animations[state]->isLastFrame()) {
 		switch (state)
@@ -84,28 +68,16 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 			}
 			break;
 		case 100:
-			createBullet();
-			if (repeat == 2)
-				state += 300;
-			repeat++;
-			if (repeat > 2)
-				repeat = 0;
-			break;
 		case 200:
-			createBullet();
-			if (repeat == 2)
-				state += 300;
-			repeat++;
-			if (repeat > 2) 
-				repeat = 0;
-			break;
 		case 300:
 			createBullet();
 			if (repeat == 2)
 				state += 300;
+
 			repeat++;
-			if (repeat > 2) 
+			if (repeat > 2)
 				repeat = 0;
+
 			break;
 		case 400:
 			state += 300;
@@ -114,7 +86,6 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 			state += 200;
 			break;
 		case 800:
-			// clear bullet
 			state += 100;
 			break;
 		default:
@@ -128,15 +99,7 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 }
 
 void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
-{	
-	
-	/*if (effectShot != NULL)
-		if (
-			state == NOTOR_BANGER_STATE_SHOT_SMALL || 
-			state == NOTOR_BANGER_STATE_SHOT_MEDIUM || 
-			state == NOTOR_BANGER_STATE_SHOT_LARGE
-		)
-			effectShot->render(dt);*/
+{
 
 	auto center = cameraGlobal->transform(x, y);
 	if (nx != true)
@@ -146,8 +109,11 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	for (int i = 0; i < listBullet.size(); i++)
 	{
 		listBullet[i].render(dt);
-		effectShot->render(dt);
 	}
+
+	shotEffect->render(dt, true);
+	collisionEffect->render(dt, false);
+		
 }
 
 void NotorBanger::setState(int state)
@@ -330,25 +296,20 @@ void NotorBanger::createBullet()
 	}
 
 	NotorBangerBullet* notorBangerBullet = new NotorBangerBullet(
-		x, 
-		this->y - 2, 
-		true, 
+		x,
+		this->y - 2,
+		true,
 		false,
 		distance
 	);
+
+	shotEffect->createEffect(x + 5, this->y);
+		
 	notorBangerBullet->nx = this->nx;
 	notorBangerBullet->loadResources();
 	notorBangerBullet->setState(NOTOR_BANGER_BULLET_STATE_DEFAULT);
 	listBullet.push_back(*notorBangerBullet);
 
-	createEffect(x - 2, this->y - 5);
-}
-
-void NotorBanger::createEffect(float x, float y)
-{
-	effectShot = new NotorBangerEffectShot(x, y);
-	effectShot->loadResources();
-	effectShot->setState(NOTOR_BANGER_EFFECT_SHOT_STATE_DEFAULT);
 }
 
 void NotorBanger::resetPosition()

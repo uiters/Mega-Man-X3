@@ -9,8 +9,9 @@
 #include "Brick.h"
 
 #include "NotorBangerBullet.h"
-#include "NotorBangerEffectShot.h"
 
+#include "BulletCollision.h"
+#include "WallSlide.h"
 using namespace std;
 
 #define NOTOR_BANGER_GRAVITY 0.001f
@@ -47,7 +48,6 @@ public:
 	NotorBanger* clone(int id, int x, int y) override;
 
 	void createBullet();
-	void createEffect(float x, float y);
 
 
 private:
@@ -58,7 +58,10 @@ private:
 	int distance; // 0: small, 1: medium, 2: large
 
 	vector<NotorBangerBullet> listBullet;
-	NotorBangerEffectShot* effectShot;
+
+	WallSlide* shotEffect = WallSlide::getInstance();
+
+	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
 };
