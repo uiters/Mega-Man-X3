@@ -1,5 +1,5 @@
 #include "Game1.h"
-
+#include "Helit.h"
 void Game1::initGolbals()
 {
 	texturesGlobal = CTextures::getInstance();
@@ -20,7 +20,10 @@ void Game1::loadResource()
 	texturesGlobal->add(TKick, KICK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TCharged1, CHARGED_SHOOT1, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TCharged2, CHARGED_SHOOT2, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
-	texturesGlobal->add(Death, DIE, 135, 38, D3DCOLOR_XRGB(50, 96, 166));
+	texturesGlobal->add(TDeath, DIE, 135, 38, D3DCOLOR_XRGB(50, 96, 166));
+
+	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
+	texturesGlobal->add(TExploison, EXPLOISION);
 
 	main = new MegamanX(Megaman, 200, 650);
 	keyGlobal = main;
@@ -273,13 +276,6 @@ void Game1::loadResource()
 
 	main->state = appear;
 
-	//notorBanger = new NotorBanger();
-	//notorBanger->loadResources();
-	//notorBanger->setState(NOTOR_BANGER_STATE_INIT);
-
-	//headGunner = new HeadGunner();
-	//headGunner->loadResources();
-	//headGunner->setState(HEAD_GUNNER_STATE_DEFAULT);
 
 #pragma region Elevator
 
@@ -297,8 +293,8 @@ void Game1::loadResource()
 #pragma endregion
 
 #pragma region preDie
-	spritesGlobal->add(preDie, Death, 77, 1, 102, 36);
-	spritesGlobal->add(preDie + 1, Death, 107, 1, 132, 36);
+	spritesGlobal->add(preDie, TDeath, 77, 1, 102, 36);
+	spritesGlobal->add(preDie + 1, TDeath, 107, 1, 132, 36);
 	ani = new CAnimation(1000);
 	ani->add(preDie, 50);
 	ani->add(preDie + 1, 100);
@@ -309,7 +305,7 @@ void Game1::loadResource()
 #pragma region die
 	for (int i = 0; i < 5; i++)
 	{
-		spritesGlobal->add(die + i, Death, i * 15 + 1, 0, (i + 1) * 15, 14);
+		spritesGlobal->add(die + i, TDeath, i * 15 + 1, 0, (i + 1) * 15, 14);
 	}
 	ani = new CAnimation(750);
 	for (int i = 0; i < 5; ++i)
@@ -331,6 +327,7 @@ void Game1::initOption()
 	auto rootdyanamic = Factory::getInstance()->createQuadTree(QUADTREE_DYNAMIC_TXT, *x);
 	delete x;
 	controller = new Controller(main, root, rootdyanamic);
+	
 }
 
 void Game1::update(DWORD dt)
@@ -340,6 +337,7 @@ void Game1::update(DWORD dt)
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
 	mainGlobal = main;
+	
 }	
 
 void Game1::render(DWORD dt)

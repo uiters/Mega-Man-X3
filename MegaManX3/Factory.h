@@ -7,7 +7,11 @@
 #include "GameObject.h"
 #include "NotorBanger.h"
 #include "HeadGunner.h"
-
+#include "Brick.h"
+#include "CTreeObject.h"
+#include "GameObject.h"
+#include "Elevator.h"
+#include "Helit.h"
 using namespace std;
 class Factory
 {

@@ -139,6 +139,9 @@
     <Filter Include="Game\GameObject\Weapon\Enemies">
       <UniqueIdentifier>{46f12e7a-7b02-43f3-8611-26dfbc95874d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Effect\Enemies">
+      <UniqueIdentifier>{81df8b30-1092-444b-8786-54c94e1fb4f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -303,6 +306,12 @@
     <ClInclude Include="NotorBangerBullet.h">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="HelitBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionEffect.h">
+      <Filter>Game\Effect\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -452,6 +461,12 @@
     </ClCompile>
     <ClCompile Include="NotorBangerBullet.cpp">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionEffect.cpp">
+      <Filter>Game\Effect\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

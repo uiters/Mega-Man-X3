@@ -9,15 +9,15 @@ class Game;
 namespace Graphics {
 	class Draw {
 	public:
-		virtual void draw(int x, int y, bool center = false,  D3DCOLOR colorBrush = WHITE(255)) = 0;
-		virtual void drawFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
-		virtual void drawFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
+		virtual void draw(float x, float y, bool center = false,  D3DCOLOR colorBrush = WHITE(255)) = 0;
+		virtual void drawFlipX(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
+		virtual void drawFlipY(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
 	};
 
 	class Render {
-		virtual void render(int x, int y, bool center = false , D3DCOLOR colorBrush = WHITE(255)) = 0;
-		virtual void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
-		virtual void renderFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
+		virtual void render(float x, float y, bool center = false , D3DCOLOR colorBrush = WHITE(255)) = 0;
+		virtual void renderFlipX(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
+		virtual void renderFlipY(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) = 0;
 	};
 };
 

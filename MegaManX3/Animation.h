@@ -41,9 +41,9 @@ public:
 	bool isLastFrame();//warring
 
 	//center is draw center
-	virtual void render(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	virtual void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	virtual void renderFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	virtual void render(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	virtual void renderFlipX(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	virtual void renderFlipY(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	virtual void reset();//reset frame
 	Size getSize();
 };

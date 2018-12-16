@@ -19,6 +19,7 @@ struct PointF
 	PointF(float x, float y)
 		: x(x),
 		y(y) {}
+	PointF() {}
 };
 
 struct Size
@@ -40,7 +41,9 @@ struct Point
 	Point(int x, int y)
 		: x(x),
 		y(y) {}
+	Point() {}
 };
+
 typedef struct Rectangle
 {
 	int x = 0;

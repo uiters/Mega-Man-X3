@@ -5,7 +5,7 @@
 ScenceController::ScenceController()
 {
 
-	texturesGlobal->add(TMap, IMAGE_MAP);
+	texturesGlobal->add(TMap, IMAGE_MAP, 0, 0);
 	_texture = texturesGlobal->getTexture(TMap);
 	ifstream input;
 	input.open(MAP, ifstream::in);
@@ -25,7 +25,9 @@ ScenceController::ScenceController()
 		{
 			input >> id;
 			_tiles[row][col] = new Tile(id, _texture, col * width, row * height, width, height);
+			//debugOut(L"%i\t\t%i \t\t|\t\t", col * width, row * height);
 		}
+		//debugOut(L"\n");
 	}
 	cameraGlobal->setSizeWorld(0, 0, cols * width, height * height);
 	input.close();

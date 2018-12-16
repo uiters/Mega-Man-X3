@@ -154,6 +154,7 @@
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Elevator.h" />
+    <ClInclude Include="ExplosionEffect.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HeadGunner.h" />
     <ClInclude Include="Helit.h" />
+    <ClInclude Include="HelitBullet.h" />
     <ClInclude Include="KeyController.h" />
     <ClInclude Include="MegamanEffectFactory.h" />
     <ClInclude Include="MegamanWeapon.h" />
@@ -208,6 +210,7 @@
     <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Elevator.cpp" />
+    <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -216,6 +219,7 @@
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="HeadGunner.cpp" />
     <ClCompile Include="Helit.cpp" />
+    <ClCompile Include="HelitBullet.cpp" />
     <ClCompile Include="KeyController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MegamanEffectFactory.cpp" />

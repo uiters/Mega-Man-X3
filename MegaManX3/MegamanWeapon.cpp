@@ -14,9 +14,16 @@ void MegamanWeapon::update(DWORD dt)
 
 void MegamanWeapon::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	for (auto it = weapons.begin(); it != weapons.end(); ++it)
+	for (auto it = weapons.begin(); it != weapons.end(); )
 	{
 		(*it)->render(dt, colorBrush);
+
+		if (!it[0]->getBoundingBox().intersectsWith(cameraGlobal->viewport))
+		{
+			delete (*it);
+			it = weapons.erase(it);
+		}
+		else ++it;
 	}
 }
 

@@ -31,10 +31,15 @@ ChargedShot1::ChargedShot1(float x, float y, bool toLeft)
 
 ChargedShot1::~ChargedShot1()
 {
+	delete _animations[bullet_lv2];
 }
 
 void ChargedShot1::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 40;
+	bottom = y + 15;
 }
 
 void ChargedShot1::render(DWORD dt, D3DCOLOR colorBrush)

@@ -40,19 +40,19 @@ bool CAnimation::isLastFrame()
 	return currentFrame == frames.size() - 1 && now - lastFrameTime >= t;
 }
 
-void CAnimation::render(int x, int y, bool center, D3DCOLOR colorBrush)
+void CAnimation::render(float x, float y, bool center, D3DCOLOR colorBrush)
 {
 	_updateFrame();
 	frames[currentFrame]->getSprite()->draw(x, y, center, colorBrush);
 }
 
-void CAnimation::renderFlipX(int x, int y, bool center, D3DCOLOR colorBrush)
+void CAnimation::renderFlipX(float x, float y, bool center, D3DCOLOR colorBrush)
 {
 	_updateFrame();
 	frames[currentFrame]->getSprite()->drawFlipX(x, y, center, colorBrush);
 }
 
-void CAnimation::renderFlipY(int x, int y, bool center, D3DCOLOR colorBrush)
+void CAnimation::renderFlipY(float x, float y, bool center, D3DCOLOR colorBrush)
 {
 	_updateFrame();
 	frames[currentFrame]->getSprite()->drawFlipY(x, y, center, colorBrush);

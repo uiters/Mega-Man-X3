@@ -19,12 +19,12 @@ protected:
 	UINT id;				// Sprite ID in the sprite database
 	CRectangle frame;
 	LPDIRECT3DTEXTURE9 texture;
-
+	CSprite();
 public:
 	CSprite(UINT id, UINT left, UINT top, UINT right, UINT bottom, LPDIRECT3DTEXTURE9 texure);
-	void draw(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	void drawFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	void drawFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	void draw(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	void drawFlipX(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	void drawFlipY(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	Size getSize();
 };
 

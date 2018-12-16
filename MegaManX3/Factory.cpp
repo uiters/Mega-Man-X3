@@ -1,8 +1,5 @@
 #include "Factory.h"
-#include "Brick.h"
-#include "CTreeObject.h"
-#include "GameObject.h"
-#include "Elevator.h"
+
 Factory * Factory::_instance = 0;
 
 Factory* Factory::getInstance()
@@ -40,6 +37,9 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 
 		switch (idNameObject)
 		{
+		case 3:
+			obj = new Elevator(TElevator, x, y);
+			break;
 		case 4:
 			obj = NULL;
 			break;
@@ -51,9 +51,9 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 			obj = new HeadGunner(id, x, y, !toLeft);
 			obj->loadResources();
 			break;
-		case 3:
-			obj = new Elevator(TElevator, x, y);
-			break;
+		//case 7:
+		//	obj = new Helit(id, x, y, toLeft);
+		//	break;
 		default:
 			obj = new Brick(id, x, y, width, height);
 			break;

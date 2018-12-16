@@ -47,7 +47,8 @@
 #pragma endregion
 
 #pragma region Helit
-#define HELIT L""
+#define HELIT L"Resource\\Textures\\helit.png"
+#define EXPLOISION L"Resource\\Textures\\explosion.png"
 #pragma endregion
 
 

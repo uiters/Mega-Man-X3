@@ -8,6 +8,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->main = main;
 	tilesControll = new ScenceController();
 	main->state = stand;
+	helit = new Helit(100, 200, 650, false);
 }
 
 Controller::~Controller()
@@ -40,7 +41,7 @@ void Controller::update(DWORD dt)
 			}
 		}
 	}
-
+	helit->update(dt, &currentStatic, &currentDynamic);
 	main->update(dt, &currentStatic, &currentDynamic);
 }
 
@@ -53,4 +54,5 @@ void Controller::render(DWORD dt)
 	}
 	if (elevator) elevator->object->render(dt);
 	main->render(dt);
+	helit->render(dt);
 }

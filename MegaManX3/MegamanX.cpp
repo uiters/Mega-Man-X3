@@ -55,7 +55,7 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 	}
 	keyController->update();
 
-	for (UINT i = 0; i < size; ++i) delete coEvents[i];
+	
 }
 
 void MegamanX::collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects)
@@ -93,7 +93,7 @@ void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects,
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
-	debugOut(L"%i %i \n", staticObjects->size(), dynamicObjects->size());
+	//debugOut(L"%i %i \n", staticObjects->size(), dynamicObjects->size());
 	weapon->update(dt);
 	//if (x > 1500)
 	//{

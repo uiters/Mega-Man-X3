@@ -6,6 +6,7 @@
 #include "CollisionEvent.h"
 #include "ScenceController.h"
 #include "Elevator.h"
+#include "Helit.h"
 class Controller
 {
 
@@ -20,6 +21,7 @@ private:
 	CTreeObject * elevator;
 
 	ScenceController* tilesControll;
+	Helit* helit;
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();

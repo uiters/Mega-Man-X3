@@ -19,10 +19,15 @@ BusterShot::BusterShot(float x, float y,bool toLeft)
 
 BusterShot::~BusterShot()
 {
+	delete _animations[bullet_lv1];
 }
 
 void BusterShot::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 8;
+	bottom = y + 6;
 }
 
 void BusterShot::render(DWORD dt, D3DCOLOR colorBrush)
