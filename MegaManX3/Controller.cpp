@@ -1,5 +1,5 @@
 #include "Controller.h"
-
+#include "CollisionEvent.h"
 #include "NotorBanger.h"
 Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 {
@@ -9,6 +9,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	tilesControll = new ScenceController();
 	main->state = stand;
 	helit = new Helit(100, 200, 650, false);
+	Chelit = new CTreeObject(helit, { 0,0,0,0 });
 }
 
 Controller::~Controller()
@@ -24,6 +25,9 @@ void Controller::update(DWORD dt)
 
 	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
 	rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
+
+	currentDynamic[-1] = Chelit;
+
 	for (auto kv : currentDynamic) {
 		kv.second->object->update(dt, &currentStatic);
 	}
@@ -41,7 +45,9 @@ void Controller::update(DWORD dt)
 			}
 		}
 	}
-	helit->update(dt, &currentStatic, &currentDynamic);
+	//helit->update(dt, &currentStatic, &currentDynamic);
+
+
 	main->update(dt, &currentStatic, &currentDynamic);
 }
 
@@ -54,5 +60,5 @@ void Controller::render(DWORD dt)
 	}
 	if (elevator) elevator->object->render(dt);
 	main->render(dt);
-	helit->render(dt);
+	//helit->render(dt);
 }

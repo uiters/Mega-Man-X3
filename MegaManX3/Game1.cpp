@@ -160,10 +160,10 @@ void Game1::loadResource()
 	spritesGlobal->add(shock + 8, Megaman, 309, 318, 337, 351);
 	spritesGlobal->add(shock + 9, Megaman, 341, 316, 366, 351);
 
-	ani = new CAnimation(500);
-	for (int i = 0; i < 10; i++)
+	ani = new CAnimation(50);
+	for (int i = 0; i < 10; ++i)
 	{
-		ani->add(shock + i, 50);
+		ani->add(shock + i, 10);
 	}
 	animationsGlobal->add(shock, ani);
 	main->addAnimation(shock);

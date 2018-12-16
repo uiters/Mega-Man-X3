@@ -21,12 +21,15 @@ private:
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
 	void collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects);
 
+	void setHurt();
+
 	KeyController* keyController;
 	MegamanX* clone(int id, int x, int y) override;
 	MegamanEffectFactory* effect;
 	MegamanWeapon *weapon;
 	MegamanX() {}
 private:
+
 	CTime countDissapear = (800);
 	CTime timePreDie = (500);
 	PointF p1 = { 400, 290 };
@@ -44,12 +47,20 @@ public:
 	bool isFlipX = false; //lật hình (mặc định hướng về phải)
 	int  onWall = 0; //đang ở trên tường -1 left - 1 right
 	bool onAir = false; //đang ở trên không trung
+	bool hurt() { return isHurt; }
 private:
+	bool isHurt = false;
+	bool isProtect = false;
+	CTime timeHurt = (1000); //animation hurt
+	CTime timeProtect = (3000); //animation flicker;
+	bool showblur = false; //for blur draw
+	int delay = 3;
+
 	int width, height;
-	int shot;
 	void loadResources() override {}
 	void dissapear(DWORD dt, D3DCOLOR colorBrush);
 	void resetPoint();
+	void config(Point& center);
 public:
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;
 	void updateState(DWORD dt);
@@ -58,6 +69,13 @@ public:
 	void onKeyUp(int) override;
 	void keyState(BYTE*) override;
 	void getBoundingBox(float& left, float& top, float& right, float &bottom) override;
+
+private:
+	void dynamicCollisionThis(unordered_map<int, CTreeObject*>* dynamicObjects);
+	void bulletCollisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects);
+
+	bool collisionGameObject(GameObject* obj1, GameObject* obj2);
+	bool collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject* obj2);
 	
 };
 #endif // !_MegamanX_H

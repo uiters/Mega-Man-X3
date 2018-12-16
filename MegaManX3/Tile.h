@@ -5,7 +5,7 @@
 class Tile :
 	private CSprite
 {
-public:
+private:
 	int x;
 	int y;
 public:

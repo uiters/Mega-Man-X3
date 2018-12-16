@@ -22,6 +22,7 @@ private:
 
 	ScenceController* tilesControll;
 	Helit* helit;
+	CTreeObject* Chelit;
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();

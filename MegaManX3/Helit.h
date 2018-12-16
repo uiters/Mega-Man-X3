@@ -39,10 +39,8 @@ private:
 
 	void updateBullet(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects);
 	bool collisionBulletStatic(Weapon* bullet, unordered_map<int, CTreeObject*>* staticObjects);
-
 public:
-	void createExplosion(float x, float y);
-	vector<Weapon*>* getWeapons();
+	void createExplosion(float x, float y) override;
 };
 
 #endif // !_Helit_H_

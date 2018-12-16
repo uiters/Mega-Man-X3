@@ -153,6 +153,7 @@ void Helit::render(DWORD dt, D3DCOLOR colorBrush)
 		{
 			renderNormal(dt);
 		}
+		_effects[HELIT_EFFECT_EXPLOSION]->render(dt, true);
 	}
 }
 
@@ -188,12 +189,13 @@ void Helit::setAnimationDie()
 {
 	_death = true;
 	dieX[0] = dieX[1] = dieX[2] = { x, y };
-	timeDeath.setTimeUp(1000);
+	timeDeath.setTimeUp(2000);
 	timeDeath.start();
 	speed.vy = -0.0125f *dt;
 	speed.vx = 0.0002f * dt;
 	this->showColor = true;
 	timeSwitchColor = 0;
+	createExplosion(x + 10, y);
 }
 
 void Helit::renderDie(DWORD dt)
@@ -226,7 +228,7 @@ void Helit::renderNormal(DWORD dt)
 		weapon->render(dt);
 	}
 	_effects[HELIT_EFFECT_FIRE]->render(dt, true);
-	_effects[HELIT_EFFECT_EXPLOSION]->render(dt, true);
+	
 }
 
 void Helit::setAnimationFire()
@@ -281,7 +283,6 @@ bool Helit::collisionBulletStatic(Weapon* bullet, unordered_map<int, CTreeObject
 	{
 		return false;
 	}
-
 }
 
 void Helit::createExplosion(float x, float y)
@@ -289,7 +290,3 @@ void Helit::createExplosion(float x, float y)
 	_effects[HELIT_EFFECT_EXPLOSION]->createEffect(x, y);
 }
 
-vector<Weapon*>* Helit::getWeapons()
-{
-	return &_weapons;
-}

@@ -18,7 +18,6 @@ public:
 	int hp = 0;
 	bool canMove = true;
 	bool canControl = false;
-
 public:
 	DynamicObject(UINT idTexture, float x, float y, float vx, float vy);
 	DynamicObject();
@@ -30,6 +29,8 @@ public:
 	virtual void getBoundingBox(float & left, float & top, float & right, float & bottom) override = 0;
 	virtual void receiveDamage(int damage);
 	virtual void reset();
+	virtual vector<Weapon*>* getWeapons();
+	virtual void createExplosion(float x, float y) {}
 };
 
 #endif // !_DynamicObject_H

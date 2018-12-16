@@ -14,7 +14,7 @@ public:
 
 	void setSizeWorld(int x,int y,int width,int height);
 
-	const Point& transform(const int& x,const int& y) const;
+	const Point transform(const int& x,const int& y) const;
 	//D3DXVECTOR3 transformToViewport(int x, int y);// transform to viewport
 };
 

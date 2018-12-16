@@ -51,6 +51,7 @@ private:
 	bool isHoldLeft = false;
 	bool isHoldRight = false;
 	bool isWallLeft = false;//direction wall
+	bool isHurt = false;
 	// run
 	bool isRun = false; // change direction
 	int levelShoot = 0;
@@ -94,7 +95,7 @@ public:
 	KeyController(GameObject* megaman, MegamanEffectFactory* effect, MegamanWeapon *weapon, bool left);
 	~KeyController() {};
 
-
+	void setHurt(bool isTrue);
 	bool isKeyZ();
 	bool isKeyX();
 	bool iskeyC();

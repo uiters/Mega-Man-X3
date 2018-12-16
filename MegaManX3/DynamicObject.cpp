@@ -45,3 +45,9 @@ void DynamicObject::reset()
 		visible = true;
 	}
 }
+
+vector<Weapon*>* DynamicObject::getWeapons()
+{
+	return &_weapons;
+}
+

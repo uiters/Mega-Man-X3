@@ -40,7 +40,7 @@ void Camera::setSizeWorld(int x, int y, int width, int height)
 	world.bottom = height + y;
 }
 
-const Point& Camera::transform(const int& x, const int& y) const
+const Point Camera::transform(const int& x, const int& y) const
 {
 	return { x - viewport.x, y - viewport.y };
 }

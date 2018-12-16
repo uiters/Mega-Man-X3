@@ -6,12 +6,12 @@
 class MegamanWeapon
 {
 private:
-	vector<Weapon*> weapons;
+	vector<Weapon*>* weapons;
 public:
 	void update(DWORD dt);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void createWeapon(float x, float y, int level,bool isLeft);
-	MegamanWeapon();
+	MegamanWeapon(vector<Weapon*>* weapons);
 	~MegamanWeapon();
 };
 

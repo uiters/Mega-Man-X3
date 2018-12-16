@@ -3,6 +3,16 @@
 #include "Elevator.h"
 
 #pragma region Check Key
+void KeyController::setHurt(bool isTrue)
+{
+	isHurt = isTrue;
+	if (isTrue)
+	{
+		stopDash();
+		stopFallOrSlide();
+		isStand = true;
+	}
+}
 bool KeyController::isKeyZ()
 {
 	return pressZ;
@@ -28,6 +38,15 @@ bool KeyController::isLeft()
 
 void KeyController::update()
 {
+	if (isHurt)
+	{
+		state = shock;
+		stateShoot = shock;
+		main->speed.vy = 0;
+		main->speed.vx = 0;
+		return;
+	}
+
 	if (wall)
 	{
 		int distanceLeft = wall->x - (main->x + width);
@@ -82,6 +101,7 @@ KeyController::KeyController(GameObject * megaman, MegamanEffectFactory* effect,
 
 void KeyController::updateState()
 {
+
 	if (isDash)
 	{
 		state = dash;
@@ -168,6 +188,7 @@ void KeyController::removeKeyZ()
 {
 	pressZ = false;
 	isShot = true;
+	if (isHurt) return;
 	timePressZ.stop();
 	timeShoot.start();
 	effect->stopShoot();
