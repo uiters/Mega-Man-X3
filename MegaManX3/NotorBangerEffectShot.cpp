@@ -37,7 +37,7 @@ void NotorBangerEffectShot::loadResources()
 	sprites->addSprite(10005, NOTOR_BANGER_EFFECT_SHOT_ID_TEXTURE, 29, 23, 14, 14);
 	sprites->addSprite(10006, NOTOR_BANGER_EFFECT_SHOT_ID_TEXTURE, 49, 23, 14, 14);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->add(10001);
 	ani->add(10002);
 	ani->add(10003);

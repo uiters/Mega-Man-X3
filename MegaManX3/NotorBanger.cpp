@@ -9,7 +9,7 @@ NotorBanger::NotorBanger()
 	this->initX = this->x;
 	this->initY = this->y;
 	this->nx = true;
-	this->distance = 2;
+	this->distance = 0;
 	this->repeat = 0;
 }
 
@@ -84,25 +84,25 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 			}
 			break;
 		case 100:
+			createBullet();
 			if (repeat == 2)
 				state += 300;
-			createBullet();
 			repeat++;
-			if (repeat > 2) 
+			if (repeat > 2)
 				repeat = 0;
 			break;
 		case 200:
+			createBullet();
 			if (repeat == 2)
 				state += 300;
-			createBullet();
 			repeat++;
 			if (repeat > 2) 
 				repeat = 0;
 			break;
 		case 300:
+			createBullet();
 			if (repeat == 2)
 				state += 300;
-			createBullet();
 			repeat++;
 			if (repeat > 2) 
 				repeat = 0;
@@ -129,18 +129,25 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 
 void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 {	
-	for (int i = 0; i < listBullet.size(); i++)
-	{
-		listBullet[i].render(dt);
-	}
 	
-	if (effectShot != NULL)
-	effectShot->render(dt);
+	/*if (effectShot != NULL)
+		if (
+			state == NOTOR_BANGER_STATE_SHOT_SMALL || 
+			state == NOTOR_BANGER_STATE_SHOT_MEDIUM || 
+			state == NOTOR_BANGER_STATE_SHOT_LARGE
+		)
+			effectShot->render(dt);*/
 
 	auto center = cameraGlobal->transform(x, y);
 	if (nx != true)
 		_animations[state]->render(center.x, center.y);
 	else _animations[state]->renderFlipX(center.x, center.y);
+
+	for (int i = 0; i < listBullet.size(); i++)
+	{
+		listBullet[i].render(dt);
+		effectShot->render(dt);
+	}
 }
 
 void NotorBanger::setState(int state)
@@ -195,7 +202,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10011, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
 	sprites->addSprite(10012, NOTOR_BANGER_ID_TEXTURE, 176, 104, 40, 48);
 
-	ani = new CAnimation(500);
+	ani = new CAnimation(600);
 	ani->add(10011);
 	ani->add(10012);
 	animations->add(NOTOR_BANGER_STATE_SHOT_SMALL, ani);
@@ -204,7 +211,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10021, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48); // 40 x 48
 	sprites->addSprite(10022, NOTOR_BANGER_ID_TEXTURE, 136, 104, 40, 48);
 
-	ani = new CAnimation(500);
+	ani = new CAnimation(600);
 	ani->add(10021);
 	ani->add(10022);
 	animations->add(NOTOR_BANGER_STATE_SHOT_MEDIUM, ani);
@@ -213,7 +220,7 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10031, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48); // 40 x 48
 	sprites->addSprite(10032, NOTOR_BANGER_ID_TEXTURE, 92, 105, 40, 48);
 
-	ani = new CAnimation(500);
+	ani = new CAnimation(600);
 	ani->add(10031);
 	ani->add(10032);
 	animations->add(NOTOR_BANGER_STATE_SHOT_LARGE, ani);
@@ -321,6 +328,7 @@ void NotorBanger::createBullet()
 	default:
 		break;
 	}
+
 	NotorBangerBullet* notorBangerBullet = new NotorBangerBullet(
 		x, 
 		this->y - 2, 
@@ -333,7 +341,7 @@ void NotorBanger::createBullet()
 	notorBangerBullet->setState(NOTOR_BANGER_BULLET_STATE_DEFAULT);
 	listBullet.push_back(*notorBangerBullet);
 
-	createEffect(x, this->y - 14);
+	createEffect(x - 2, this->y - 5);
 }
 
 void NotorBanger::createEffect(float x, float y)
