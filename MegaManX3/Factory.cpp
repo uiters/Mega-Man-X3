@@ -44,7 +44,7 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 			obj = NULL;
 			break;
 		case 5:
-			obj = new NotorBanger(id, x, y, !toLeft, 1);
+			obj = new NotorBanger(id, x, y, !toLeft);
 			obj->loadResources();
 			break;
 		case 6:

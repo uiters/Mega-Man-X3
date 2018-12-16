@@ -19,6 +19,7 @@ struct PointF
 	PointF(float x, float y)
 		: x(x),
 		y(y) {}
+	PointF() {}
 };
 
 struct Size

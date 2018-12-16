@@ -35,10 +35,12 @@ class NotorBanger : public DynamicObject
 {
 public:
 	NotorBanger();
-	NotorBanger(int id, float x, float y, bool nx, int distance);
+	NotorBanger(int id, float x, float y, bool nx);
 	~NotorBanger();
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void calculateDie();
 	void setState(int state);
 	void loadResources();
 	void setPositionForListBullet();
@@ -55,7 +57,8 @@ private:
 	float initY;
 	int repeat;
 	bool nx;
-	int distance; // 0: small, 1: medium, 2: large
+	PointF die[4];
+	int getDistance();
 
 	vector<NotorBangerBullet> listBullet;
 
@@ -64,5 +67,11 @@ private:
 	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
+};
+
+struct  Distance
+{
+	float width;
+	float height;
 };
 

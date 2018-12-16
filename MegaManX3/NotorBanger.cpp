@@ -9,11 +9,10 @@ NotorBanger::NotorBanger()
 	this->initX = this->x;
 	this->initY = this->y;
 	this->nx = true;
-	this->distance = 0;
 	this->repeat = 0;
 }
 
-NotorBanger::NotorBanger(int id, float x, float y, bool nx, int distance)
+NotorBanger::NotorBanger(int id, float x, float y, bool nx)
 {
 	this->_id = id;
 	this->x = x;
@@ -21,8 +20,12 @@ NotorBanger::NotorBanger(int id, float x, float y, bool nx, int distance)
 	this->initX = x;
 	this->initY = y;
 	this->nx = nx;
-	this->distance = distance;
 	this->repeat = 0;
+
+	die[0] = die[1] = die[2] = die[3] = { x, y };
+	speed.vy = -0.0195f *dt;
+	speed.vx = 0.0032f * dt;
+	_death = true;
 }
 
 NotorBanger::~NotorBanger()
@@ -32,6 +35,11 @@ NotorBanger::~NotorBanger()
 
 void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {	
+	this->dt = dt;
+	if (_death) {
+		calculateDie();
+		return;
+	}
 
 	for (int i = 0; i < listBullet.size(); i++) {
 		if (listBullet[i].isDelete) {
@@ -52,7 +60,7 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 		switch (state)
 		{
 		case 0: 
-			switch (distance)
+			switch (this->getDistance())
 			{
 			case 0:
 				state += 100;
@@ -66,6 +74,11 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 			default:
 				break;
 			}
+			if (mainGlobal != NULL)
+				if (abs(this->y - mainGlobal->y) <= 30)
+					if (mainGlobal->x > this->x)
+						this->nx = !mainGlobal->toLeft;
+					else this->nx = mainGlobal->toLeft;
 			break;
 		case 100:
 		case 200:
@@ -93,13 +106,18 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 			break;
 		}
 
-		if (state > 800) state = 0;
+		if (state > 800) state = 0; //800
 		setState(state);
 	}
 }
 
 void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	if (_death) {
+		renderDie(dt);
+		collisionEffect->render(dt, false);
+		return;
+	}	
 
 	auto center = cameraGlobal->transform(x, y);
 	if (nx != true)
@@ -114,6 +132,37 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	shotEffect->render(dt, true);
 	collisionEffect->render(dt, false);
 		
+}
+
+void NotorBanger::calculateDie()
+{
+	speed.vy += 0.00115f * dt;
+	speed.vx += 0.000125 *dt;
+
+	dx = speed.vx * dt;
+	dy = speed.vy * dt;
+
+	die[0].x += dx;
+	die[1].x += dx * 2;
+	die[2].x -= dx;
+	die[3].x -= dx * 2;
+
+	die[0].y += dy;
+	die[1].y += dy;
+	die[2].y += dy;
+	die[3].y += dy;
+
+	//debugOut(L"%f %f %f %f %f %f ", dieX[0].x, dieX[0].y);
+}
+
+void NotorBanger::renderDie(DWORD dt, D3DCOLOR colorBrush)
+{
+	collisionEffect->createEffect(x, y);
+
+	for (int i = 0; i < 4; i++) {
+		auto center = cameraGlobal->transform(die[i].x, die[i].y);
+		_animations[NOTOR_BANGER_STATE_DIE + i ]->render(center.x, center.y);
+	}
 }
 
 void NotorBanger::setState(int state)
@@ -248,12 +297,13 @@ void NotorBanger::loadResources()
 	sprites->addSprite(10093, NOTOR_BANGER_ID_TEXTURE, 47, 157, 22, 23);
 	sprites->addSprite(10094, NOTOR_BANGER_ID_TEXTURE, 74, 157, 19, 20);
 
-	ani = new CAnimation(200);
-	ani->add(10091);
-	ani->add(10092);
-	ani->add(10093);
-	ani->add(10094);
-	animations->add(NOTOR_BANGER_STATE_DIE, ani);
+	for (int i = 0; i < 4; i++)
+	{
+		ani = new CAnimation(100);
+		ani->add(10091 + i);
+		animations->add(NOTOR_BANGER_STATE_DIE + i, ani);
+		this->addAnimation(NOTOR_BANGER_STATE_DIE + i);
+	}
 
 	// add animations
 	this->addAnimation(NOTOR_BANGER_STATE_INIT);
@@ -265,7 +315,6 @@ void NotorBanger::loadResources()
 	this->addAnimation(NOTOR_BANGER_STATE_READY_JUMP_LARGE);
 	this->addAnimation(NOTOR_BANGER_STATE_JUMP);
 	this->addAnimation(NOTOR_BANGER_STATE_TOUCH_FLOOR);
-	this->addAnimation(NOTOR_BANGER_STATE_DIE);
 }
 
 void NotorBanger::setPositionForListBullet()
@@ -280,7 +329,7 @@ void NotorBanger::setPositionForListBullet()
 void NotorBanger::createBullet()
 {	
 	int x, y;
-	switch (distance)
+	switch (this->getDistance())
 	{
 	case 0:
 		x = nx == true ? this->x + 10 : this->x + 20;
@@ -300,7 +349,7 @@ void NotorBanger::createBullet()
 		this->y - 2,
 		true,
 		false,
-		distance
+		this->getDistance()
 	);
 
 	shotEffect->createEffect(x + 5, this->y);
@@ -329,6 +378,23 @@ void NotorBanger::getBoundingBox(float & left, float & top, float & right, float
 NotorBanger * NotorBanger::clone(int id, int x, int y)
 {
 	return nullptr;
+}
+
+int NotorBanger::getDistance()
+{
+	float mainX = mainGlobal->x;
+	float mainY = mainGlobal->y;
+
+	Distance distance;
+	distance.width = abs(mainX - this->x);
+	distance.height = abs(mainY - this->y);
+
+	if (distance.height > 30) return 0;
+	if (distance.height <= 30) {
+		if (distance.width < 50) return 0;
+		if (distance.width >= 50 && distance.width < 100) return 1;
+		return 2;
+	}
 }
 
 void NotorBanger::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
