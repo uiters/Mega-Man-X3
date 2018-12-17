@@ -303,7 +303,10 @@
     <ClInclude Include="BulletCollision.h">
       <Filter>Game\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="HeadGunnerBullet.h" />
+    <ClInclude Include="HeadGunnerBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerBullet2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -454,7 +457,10 @@
     <ClCompile Include="BulletCollision.cpp">
       <Filter>Game\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="HeadGunnerBullet.cpp" />
+    <ClCompile Include="HeadGunnerBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerBullet2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

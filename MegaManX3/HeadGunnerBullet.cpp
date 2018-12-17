@@ -62,7 +62,7 @@ void HeadGunnerBullet::loadResources()
 	LPANIMATION ani;
 
 	// default
-	sprites->addSprite(10001, HEAD_GUNNER_BULLET_ID_TEXTURE, 77, 11, 7, 7);
+	sprites->addSprite(10001, HEAD_GUNNER_BULLET_ID_TEXTURE, 71, 13, 7, 7);
 
 	ani = new CAnimation(200);
 	ani->add(10001);

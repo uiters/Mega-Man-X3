@@ -34,9 +34,23 @@ void HeadGunner::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObject
 		else listBullet[i].update(dt, staticObjects);
 	}
 
+	for (int i = 0; i < listBullet2.size(); i++) {
+		if (listBullet2[i].isDelete) {
+			int x = listBullet2[i].x - 16;
+			int y = listBullet2[i].y - 20;
+			collisionEffect->createEffect(x, y);
+			listBullet2.erase(listBullet2.begin() + i);
+		}
+		else listBullet2[i].update(dt, staticObjects);
+	}
+
 	GameObject::update(dt);
 
 	if (_animations[state]->isLastFrame()) {
+		if (state == 100 || state == 200)
+			createBullet2();
+
+
 		if (state == 300 || state == 400)
 			createBullet();
 		
@@ -63,6 +77,10 @@ void HeadGunner::render(DWORD dt, D3DCOLOR colorBrush)
 	for (int i = 0; i < listBullet.size(); i++)
 	{
 		listBullet[i].render(dt);
+	}
+	for (int i = 0; i < listBullet2.size(); i++)
+	{
+		listBullet2[i].render(dt);
 	}
 
 	shotEffect->render(dt, true);
@@ -98,7 +116,7 @@ void HeadGunner::loadResources()
 	// default
 	sprites->addSprite(20001, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);// 41 x 45
 	
-	ani = new CAnimation(200);
+	ani = new CAnimation(2000);
 	ani->add(20001);
 	animations->add(HEAD_GUNNER_STATE_DEFAULT, ani);
 
@@ -191,7 +209,7 @@ void HeadGunner::createBullet()
 		}
 	}
 
-	shotEffect->createEffect(x + 5, this->y);
+	shotEffect->createEffect(x + 5, y);
 
 	HeadGunnerBullet* bullet = new HeadGunnerBullet(
 		x,
@@ -202,5 +220,47 @@ void HeadGunner::createBullet()
 	bullet->loadResources();
 	bullet->setState(HEAD_GUNNER_BULLET_STATE_DEFAULT);
 	listBullet.push_back(*bullet);
+
+}
+
+void HeadGunner::createBullet2()
+{
+	int x, y;
+
+	if (nx)
+	{
+		if (state == 100) {
+			x = this->x + 20;
+			y = this->y + 9;
+		}
+		else if (state == 200) {
+			x = this->x + 24;
+			y = this->y + 13;
+		}
+	}
+	else
+	{
+		if (state == 100) {
+			x = this->x - 4;
+			y = this->y + 9;
+		}
+		else if (state == 200) {
+			x = this->x;
+			y = this->y + 13;
+		}
+	}
+	if(nx)
+		shotEffect->createEffect(x + 10, y + 2);
+	else shotEffect->createEffect(x + 10, y + 2);
+
+	HeadGunnerBullet2* bullet2 = new HeadGunnerBullet2(
+		x,
+		y,
+		this->nx,
+		true
+	);
+	bullet2->loadResources();
+	bullet2->setState(HEAD_GUNNER_BULLET2_STATE_DEFAULT);
+	listBullet2.push_back(*bullet2);
 
 }

@@ -5,6 +5,7 @@
 #include "Camera.h"
 
 #include "HeadGunnerBullet.h"
+#include "HeadGunnerBullet2.h"
 
 #include "BulletCollision.h"
 #include "WallSlide.h"
@@ -35,9 +36,11 @@ private:
 	bool nx;
 	int repeat;
 	vector<HeadGunnerBullet> listBullet;
+	vector<HeadGunnerBullet2> listBullet2;
 	WallSlide* shotEffect = WallSlide::getInstance();
 	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
 	void createBullet();
+	void createBullet2();
 };
 
