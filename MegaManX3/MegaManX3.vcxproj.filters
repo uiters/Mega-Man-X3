@@ -312,6 +312,9 @@
     <ClInclude Include="ExplosionEffect.h">
       <Filter>Game\Effect\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="ChargedExplosion.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -467,6 +470,9 @@
     </ClCompile>
     <ClCompile Include="ExplosionEffect.cpp">
       <Filter>Game\Effect\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedExplosion.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

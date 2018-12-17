@@ -367,6 +367,7 @@ void KeyController::addKeyC()
 	if (onAir || isWall) return;//----
 	pressC = true;
 	isDash = true;
+	if (isHurt) return;
 	timeDash.start();
 	//if (toLeft)
 	if (toLeft)

@@ -51,9 +51,9 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 			obj = new HeadGunner(id, x, y, !toLeft);
 			obj->loadResources();
 			break;
-		//case 7:
-		//	obj = new Helit(id, x, y, toLeft);
-		//	break;
+		case 7:
+			obj = new Helit(id, x, y, toLeft);
+			break;
 		default:
 			obj = new Brick(id, x, y, width, height);
 			break;

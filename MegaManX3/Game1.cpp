@@ -21,9 +21,10 @@ void Game1::loadResource()
 	texturesGlobal->add(TCharged1, CHARGED_SHOOT1, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TCharged2, CHARGED_SHOOT2, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TDeath, DIE, 135, 38, D3DCOLOR_XRGB(50, 96, 166));
+	texturesGlobal->add(TChargedExplosion, CHARGED_EXPLOSION, 0, 0, D3DCOLOR_XRGB(50, 96, 166));
 
 	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
-	texturesGlobal->add(TExploison, EXPLOISION);
+	texturesGlobal->add(TExplosion, EXPLOISION);
 
 	main = new MegamanX(Megaman, 200, 650);
 	keyGlobal = main;
@@ -163,7 +164,7 @@ void Game1::loadResource()
 	ani = new CAnimation(50);
 	for (int i = 0; i < 10; ++i)
 	{
-		ani->add(shock + i, 10);
+		ani->add(shock + i, 20);
 	}
 	animationsGlobal->add(shock, ani);
 	main->addAnimation(shock);

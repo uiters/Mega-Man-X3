@@ -133,6 +133,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BusterShot.h" />
     <ClInclude Include="ChargedEffect.h" />
+    <ClInclude Include="ChargedExplosion.h" />
     <ClInclude Include="ChargedShot1.h" />
     <ClInclude Include="ChargedShot2.h" />
     <ClInclude Include="CKey.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="BusterShot.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChargedEffect.cpp" />
+    <ClCompile Include="ChargedExplosion.cpp" />
     <ClCompile Include="ChargedShot1.cpp" />
     <ClCompile Include="ChargedShot2.cpp" />
     <ClCompile Include="CKey.cpp" />

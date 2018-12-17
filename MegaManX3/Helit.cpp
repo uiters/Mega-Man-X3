@@ -80,6 +80,8 @@ Helit::Helit(int id, float x, float y, bool toLeft)
 	timeFire.start();
 	_effects.emplace_back(WallSlide::getInstance());
 	_effects.emplace_back(ExplosionEffect::getInstance());
+	speed.vx = 0;
+	speed.vy = 0;
 }
 #pragma endregion
 
@@ -89,8 +91,8 @@ void Helit::getBoundingBox(float & left, float & top, float & right, float & bot
 {
 	left = x;
 	top = y;
-	right = x + 24;
-	bottom = y + 29;
+	right = x + 22;
+	bottom = y + 30;
 }
 
 Helit * Helit::clone(int id, int x, int y)

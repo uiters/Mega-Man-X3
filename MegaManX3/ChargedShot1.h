@@ -11,5 +11,6 @@ public:
 	~ChargedShot1();
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects);
 };
 

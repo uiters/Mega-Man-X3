@@ -19,6 +19,9 @@ ChargedShot2::ChargedShot2(float x, float y, bool toLeft)
 	loadResources();
 	this->x = x;
 	this->y = y;
+	this->speed.vx = toLeft ? -0.25f : 0.25f;
+	this->speed.vy = 0.00f;
+	dy = 0;
 	this->toLeft = toLeft;
 }
 
@@ -29,16 +32,26 @@ ChargedShot2::~ChargedShot2()
 
 void ChargedShot2::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
-	right = x + 48;
-	bottom = y + 29;
+	//because draw center
+	left = x - 22.5f;
+	top = y - 14.5f;
+
+	right = x + 22.5f;
+	bottom = y + 14.5f;
 }
 
 void ChargedShot2::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	auto pos = cameraGlobal->transform(x, y);
+	
 	if (toLeft)
 		_animations[bullet_lv3]->renderFlipX(pos.x - 46, pos.y, true, colorBrush);
 	else _animations[bullet_lv3]->render(pos.x, pos.y, true, colorBrush);
+		
+}
+void ChargedShot2::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+{
+	this->dt = dt;
+	dx = speed.vx * dt;
+	this->x += dx;
 }

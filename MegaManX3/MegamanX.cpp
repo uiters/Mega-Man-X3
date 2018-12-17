@@ -352,9 +352,9 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, CTreeObject*>* dynamicObj
 		{
 			if (collisionBullet(obj, *bullet, this))
 			{
+				delete *bullet;
 				bullet = bullets->erase(bullet);
 				setHurt();
-				delete *bullet;
 				return;
 			}
 			else ++bullet;
@@ -376,15 +376,21 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, CTreeObject*>* dynamicO
 			else
 			{
 				DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second->object);
-				if (!obj) continue;
+				if (!obj)
+				{
+					++bullet;
+					continue;
+				}
 				auto dynamicBullets = obj->getWeapons();
 				bool isDelete = false;
 				for (auto bulletDynamic = dynamicBullets->begin(); bulletDynamic != dynamicBullets->end();)
 				{
 					if (collisionBullet(obj, *bulletDynamic, *bullet))
 					{
+
 						delete *bulletDynamic;
 						bulletDynamic = dynamicBullets->erase(bulletDynamic);
+
 						if (dynamic_cast<BusterShot*>(*bullet)) // don't cross delete bullet
 						{
 							isDelete = true;
@@ -398,6 +404,7 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, CTreeObject*>* dynamicO
 					bullet = _weapons.erase(bullet);
 				else ++bullet;
 			}
+
 		}
 	}
 }
@@ -416,7 +423,7 @@ bool MegamanX::collisionGameObject(GameObject* obj1, GameObject* obj2)
 
 bool MegamanX::collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject* obj2)
 {
-	auto e = Collision::getInstance()->sweptAABBEx(dt, obj1, obj2);
+	auto e = Collision::getInstance()->sweptAABBEx(dt, bullet1, obj2);
 	if (e->t > 0 && e->t <= 1.0f)
 	{
 		if (obj1->toLeft)

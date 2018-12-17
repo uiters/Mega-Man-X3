@@ -34,7 +34,8 @@ enum TextureID
 	TDeath = 0,
 	Megaman = 1,
 	TElevator = 2,
-	TExploison = 3,
+	TExplosion = 3,
+	TChargedExplosion = 4,
 
 	TDashSmoke = 2000,
 	TDashSpark = 2001,
@@ -74,6 +75,9 @@ enum Animation {
 	HelitBulletAnimation = 12125, // 1cells
 	HelitBulletSmoke = 12130, // 6cells,
 	ExplosionAnimation = 12140, //7 cells
+	Charged1_Explosion_Animation = 12150, // 2 cells
+	Charged2_Explosion_Animation = 12155, // 2 cells
+	Buster_Explosion_Animation = 12160, //3 cells
 };
 
 

@@ -38,6 +38,7 @@
 #define CHARGED_SHOOT1 L"Resource\\Textures\\Charged1.png"
 #define CHARGED_SHOOT2 L"Resource\\Textures\\Charged2.png"
 #define DIE L"Resource\\Textures\\die.png"
+#define CHARGED_EXPLOSION L"Resource\\Textures\\die.png"
 #pragma endregion
 
 #pragma region Map

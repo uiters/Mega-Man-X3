@@ -51,7 +51,7 @@ public:
 private:
 	bool isHurt = false;
 	bool isProtect = false;
-	CTime timeHurt = (1000); //animation hurt
+	CTime timeHurt = (500); //animation hurt
 	CTime timeProtect = (3000); //animation flicker;
 	bool showblur = false; //for blur draw
 	int delay = 3;
