@@ -21,7 +21,7 @@ void Game1::loadResource()
 	texturesGlobal->add(TCharged1, CHARGED_SHOOT1, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TCharged2, CHARGED_SHOOT2, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(Death, DIE, 135, 38, D3DCOLOR_XRGB(50, 96, 166));
-	main = new MegamanX(Megaman, 1664, 530);
+	main = new MegamanX(Megaman, 807, 150);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);

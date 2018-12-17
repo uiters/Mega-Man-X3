@@ -2,10 +2,7 @@
 #include <stdlib.h>
 #include "Weapon.h"
 #include "Camera.h"
-#include "CTime.h";
-#include "NotorBangerBullet.h"
 #include "ConstGlobals.h"
-#include "Camera.h"
 #include "CollisionEvent.h"
 #include "Brick.h"
 
@@ -29,7 +26,6 @@ public:
 	bool nx;
 	bool ny;
 
-	NotorBangerBullet();
 	NotorBangerBullet(float x, float y, bool nx, bool ny, int distance);
 	NotorBangerBullet(int id, float x, float y, bool nx, bool ny, int distance);
 	~NotorBangerBullet();
@@ -42,7 +38,6 @@ public:
 
 
 private:
-	float limit;
 	int distance;
 
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);

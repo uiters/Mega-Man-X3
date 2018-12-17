@@ -25,13 +25,12 @@ NotorBanger::NotorBanger(int id, float x, float y, bool nx)
 	die[0] = die[1] = die[2] = die[3] = { x, y };
 	speed.vy = -0.0195f *dt;
 	speed.vx = 0.0032f * dt;
-	_death = true;
+	_death = false;
 }
 
 NotorBanger::~NotorBanger()
 {
 }
-
 
 void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {	
@@ -103,7 +102,6 @@ void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 			break;
 		default:
 			state += 100;
-			break;
 		}
 
 		if (state > 800) state = 0; //800
@@ -157,7 +155,6 @@ void NotorBanger::calculateDie()
 
 void NotorBanger::renderDie(DWORD dt, D3DCOLOR colorBrush)
 {
-	collisionEffect->createEffect(x, y);
 
 	for (int i = 0; i < 4; i++) {
 		auto center = cameraGlobal->transform(die[i].x, die[i].y);
@@ -344,17 +341,15 @@ void NotorBanger::createBullet()
 		break;
 	}
 
+	shotEffect->createEffect(x + 5, this->y);
+
 	NotorBangerBullet* notorBangerBullet = new NotorBangerBullet(
 		x,
 		this->y - 2,
-		true,
+		this->nx,
 		false,
 		this->getDistance()
 	);
-
-	shotEffect->createEffect(x + 5, this->y);
-		
-	notorBangerBullet->nx = this->nx;
 	notorBangerBullet->loadResources();
 	notorBangerBullet->setState(NOTOR_BANGER_BULLET_STATE_DEFAULT);
 	listBullet.push_back(*notorBangerBullet);

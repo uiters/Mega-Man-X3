@@ -1,6 +1,10 @@
 #pragma once
+#include<vector>
+
 #include "DynamicObject.h"
 #include "Camera.h"
+
+#include "HeadGunnerBullet.h"
 
 #define HEAD_GUNNER_STATE_DEFAULT 0
 #define HEAD_GUNNER_STATE_SHOT_TOP 100
@@ -21,12 +25,14 @@ public:
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void setState(int state);
-
-public:
 	HeadGunner* clone(int id, int x, int y) override;
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void loadResources() override;
 private:
 	bool nx;
+	int repeat;
+	vector<HeadGunnerBullet> listBullet;
+
+	void createBullet();
 };
 

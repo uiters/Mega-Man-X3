@@ -2,7 +2,6 @@
 #include<vector>
 
 #include "DynamicObject.h";
-#include "CTime.h";
 #include "ConstGlobals.h"
 #include "Camera.h"
 #include "CollisionEvent.h"
@@ -12,7 +11,6 @@
 
 #include "BulletCollision.h"
 #include "WallSlide.h"
-using namespace std;
 
 #define NOTOR_BANGER_GRAVITY 0.001f
 #define NOTOR_BANGER_SPEED_X 0.075f
@@ -44,13 +42,9 @@ public:
 	void setState(int state);
 	void loadResources();
 	void setPositionForListBullet();
-	
 	void resetPosition();
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	NotorBanger* clone(int id, int x, int y) override;
-
-	void createBullet();
-
 
 private:
 	float initX;
@@ -59,13 +53,11 @@ private:
 	bool nx;
 	PointF die[4];
 	int getDistance();
-
 	vector<NotorBangerBullet> listBullet;
-
 	WallSlide* shotEffect = WallSlide::getInstance();
-
 	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
+	void createBullet();
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
 };
 

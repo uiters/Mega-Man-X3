@@ -303,6 +303,7 @@
     <ClInclude Include="BulletCollision.h">
       <Filter>Game\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="HeadGunnerBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -453,6 +454,7 @@
     <ClCompile Include="BulletCollision.cpp">
       <Filter>Game\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="HeadGunnerBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">
