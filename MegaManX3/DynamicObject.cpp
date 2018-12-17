@@ -1,5 +1,5 @@
 #include "DynamicObject.h"
-
+#include "ExplosionEffect.h"
 
 
 
@@ -30,17 +30,26 @@ bool DynamicObject::isDeath()
 
 void DynamicObject::receiveDamage(int damage)
 {
-	if (hp > 0)
-		hp -= damage;
-	if (hp < 0)
-		_death = true;
+	//DWORD dt = GetTickCount();
+	//if (dt - delayReciveDamage > 100)//receive
+	//{
+		if (_hp > 0)
+			_hp -= damage;
+		if (_hp <= 0)
+		{
+			setAnimationDie();
+			_death = true;
+		}
+	//}
+
+
 }
 
 void DynamicObject::reset()
 {
 	if (_canReset)
 	{
-		hp = _hp;
+		_hp = hp;
 		_death = false;
 		visible = true;
 	}
@@ -50,4 +59,6 @@ vector<Weapon*>* DynamicObject::getWeapons()
 {
 	return &_weapons;
 }
+
+
 

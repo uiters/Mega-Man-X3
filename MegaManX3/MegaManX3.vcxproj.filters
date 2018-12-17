@@ -297,9 +297,6 @@
     <ClInclude Include="ChargedEffect.h">
       <Filter>Game\Effect\Megaman</Filter>
     </ClInclude>
-    <ClInclude Include="NotorBangerEffectShot.h">
-      <Filter>Game\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="Helit.h">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClInclude>
@@ -314,6 +311,15 @@
     </ClInclude>
     <ClInclude Include="ChargedExplosion.h">
       <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletCollision.h">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerBullet2.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -456,9 +462,6 @@
     <ClCompile Include="ChargedEffect.cpp">
       <Filter>Game\Effect\Megaman</Filter>
     </ClCompile>
-    <ClCompile Include="NotorBangerEffectShot.cpp">
-      <Filter>Game\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Helit.cpp">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClCompile>
@@ -473,6 +476,15 @@
     </ClCompile>
     <ClCompile Include="ChargedExplosion.cpp">
       <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletCollision.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerBullet2.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

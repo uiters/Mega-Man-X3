@@ -26,11 +26,18 @@ void Controller::update(DWORD dt)
 	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
 	rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
 
-	//currentDynamic[-1] = Chelit;
-
-	for (auto kv : currentDynamic) {
-		kv.second->object->update(dt, &currentStatic);
+	currentDynamic[-1] = Chelit;
+	for (auto i = currentDynamic.begin(); i != currentDynamic.end();)
+	{
+		GameObject* obj = (*i).second->object;
+		if (obj->getBoundingBox().intersectsWith(*viewPortGlobal))
+		{
+			obj->update(dt, &currentStatic);
+			++i;
+		}
+		else i = currentDynamic.erase(i);
 	}
+
 	if (elevator)
 	{
 		elevator->object->update(dt);
@@ -53,10 +60,13 @@ void Controller::update(DWORD dt)
 
 void Controller::render(DWORD dt)
 {
-	
 	tilesControll->render(dt);
 	for (auto kv : currentDynamic) {
 		kv.second->object->render(dt);
+	}
+	for each (auto item in currentStatic)
+	{
+		item.second->object->render(dt);
 	}
 	if (elevator) elevator->object->render(dt);
 	main->render(dt);

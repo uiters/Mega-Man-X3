@@ -16,6 +16,7 @@ BusterShot::BusterShot(float x, float y,bool toLeft)
 	this->toLeft = toLeft;
 	this->speed.vx = toLeft ? -0.25f : 0.25f;
 	this->speed.vy = 0.00f;
+	_damage = 1;
 	loadResources();
 }
 

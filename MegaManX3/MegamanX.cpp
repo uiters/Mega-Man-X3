@@ -26,6 +26,8 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 		
 		if (nx != 0) speed.vx = 0;
 		if (ny != 0) speed.vy = 0;
+		//else keyController->setFloor(null);
+
 
 		
 		for (UINT i = 0; i < coEventsResult.size(); ++i)
@@ -339,14 +341,15 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, CTreeObject*>* dynamicObj
 {
 	for (auto kv : *dynamicObjects)
 	{
-		if (collisionGameObject(kv.second->object, this))
+		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second->object);
+		if (!obj || obj->isDeath()) continue;
+
+		if (collisionGameObject(obj, this))
 		{
 			setHurt();
 			return;
 		}
 
-		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second->object);
-		if (!obj) continue;
 		auto bullets = obj->getWeapons();
 		for (auto bullet = bullets->begin(); bullet != bullets->end(); )
 		{
@@ -364,48 +367,65 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, CTreeObject*>* dynamicObj
 
 void MegamanX::bulletCollisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects)
 {
-	for (auto kv : *dynamicObjects)
+	for(auto it = dynamicObjects->begin(); it!= dynamicObjects->end(); )
 	{
+		DynamicObject* obj = dynamic_cast<DynamicObject*>((*it).second->object);
+		if (!obj)
+		{
+			++it;
+			continue;
+		}
+
 		for (auto bullet = _weapons.begin(); bullet != _weapons.end();)
 		{
-			if (kv.second->object->visible && collisionGameObject(*bullet, kv.second->object))
+			if (obj->isDeath()) break;
+			if (collisionGameObject(*bullet, obj)) //colision bullet with dynamic
 			{
-				delete *bullet;
-				bullet = _weapons.erase(bullet);
+				obj->receiveDamage(bullet[0]->getDamage());
+				if (obj->isDeath())
+				{
+					if (dynamic_cast<BusterShot*>(*bullet)) // don't cross delete bullet
+					{
+						delete *bullet;
+						bullet = _weapons.erase(bullet);
+					}
+				}
+				else
+				{
+					delete *bullet;
+					bullet = _weapons.erase(bullet);
+				}
+				break;// out for bullet
 			}
 			else
 			{
-				DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second->object);
-				if (!obj)
-				{
-					++bullet;
-					continue;
-				}
 				auto dynamicBullets = obj->getWeapons();
-				bool isDelete = false;
+				bool noDelete = true;
 				for (auto bulletDynamic = dynamicBullets->begin(); bulletDynamic != dynamicBullets->end();)
 				{
 					if (collisionBullet(obj, *bulletDynamic, *bullet))
 					{
-
 						delete *bulletDynamic;
 						bulletDynamic = dynamicBullets->erase(bulletDynamic);
-
+						noDelete = false;
 						if (dynamic_cast<BusterShot*>(*bullet)) // don't cross delete bullet
 						{
-							isDelete = true;
-							break;
+							delete *bullet,
+							bullet = _weapons.erase(bullet);
 						}
+						else ++bullet;
+						break;
 					}
 					else ++bulletDynamic;
 				}
-				if (isDelete)
-					delete *bullet,
-					bullet = _weapons.erase(bullet);
-				else ++bullet;
+				if (noDelete) ++bullet;
 			}
-
 		}
+
+		//if (obj->isDeath())
+		//	it = dynamicObjects->erase(it); // remove obj from list objects
+		//else ++it;
+		++it;
 	}
 }
 

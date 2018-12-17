@@ -131,6 +131,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationOneTime.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BulletCollision.h" />
     <ClInclude Include="BusterShot.h" />
     <ClInclude Include="ChargedEffect.h" />
     <ClInclude Include="ChargedExplosion.h" />
@@ -166,6 +167,8 @@
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HeadGunner.h" />
+    <ClInclude Include="HeadGunnerBullet.h" />
+    <ClInclude Include="HeadGunnerBullet2.h" />
     <ClInclude Include="Helit.h" />
     <ClInclude Include="HelitBullet.h" />
     <ClInclude Include="KeyController.h" />
@@ -174,7 +177,6 @@
     <ClInclude Include="MegamanX.h" />
     <ClInclude Include="NotorBanger.h" />
     <ClInclude Include="NotorBangerBullet.h" />
-    <ClInclude Include="NotorBangerEffectShot.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
     <ClInclude Include="Sound.h" />
@@ -190,6 +192,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationOneTime.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BulletCollision.cpp" />
     <ClCompile Include="BusterShot.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChargedEffect.cpp" />
@@ -220,6 +223,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="HeadGunner.cpp" />
+    <ClCompile Include="HeadGunnerBullet.cpp" />
+    <ClCompile Include="HeadGunnerBullet2.cpp" />
     <ClCompile Include="Helit.cpp" />
     <ClCompile Include="HelitBullet.cpp" />
     <ClCompile Include="KeyController.cpp" />
@@ -229,7 +234,6 @@
     <ClCompile Include="MegamanX.cpp" />
     <ClCompile Include="NotorBanger.cpp" />
     <ClCompile Include="NotorBangerBullet.cpp" />
-    <ClCompile Include="NotorBangerEffectShot.cpp" />
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="ScenceController.cpp" />
     <ClCompile Include="Sound.cpp" />

@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include "Weapon.h"
 #include "Camera.h"
-#include "CTime.h";
-#include "NotorBangerBullet.h"
 #include "ConstGlobals.h"
-#include "Camera.h"
 #include "CollisionEvent.h"
 #include "Brick.h"
+
 
 #define NOTOR_BANGER_BULLET_GRAVITY 0.01f
 #define NOTOR_BANGER_BULLET_SPEED_X_SMALL 0.015f
@@ -24,11 +22,9 @@
 class NotorBangerBullet : public Weapon
 {
 public:
-	bool isDelete;
 	bool nx;
 	bool ny;
 
-	NotorBangerBullet();
 	NotorBangerBullet(float x, float y, bool nx, bool ny, int distance);
 	NotorBangerBullet(int id, float x, float y, bool nx, bool ny, int distance);
 	~NotorBangerBullet();
@@ -41,7 +37,6 @@ public:
 
 
 private:
-	float limit;
 	int distance;
 
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);

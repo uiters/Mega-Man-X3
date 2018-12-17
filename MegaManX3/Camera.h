@@ -10,7 +10,7 @@ public:
 	Rect world;
 
 	Camera(int x, int y, int width, int height);
-	void update(int x, int y, int height = 0);
+	void update(int x, int y);
 
 	void setSizeWorld(int x,int y,int width,int height);
 

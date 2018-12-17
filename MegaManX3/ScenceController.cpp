@@ -74,6 +74,7 @@ void ScenceController::update(Viewport * viewport)
 
 void ScenceController::render(DWORD dt)
 {
+	//debugOut(L"%i -> %i  | %i -> %i\n", rowStart, rowEnd, colStart, colEnd);
 	for (int row = rowStart; row < rowEnd; ++row)
 		for (int col = colStart; col < colEnd; ++col)
 			_tiles[row][col]->draw(false);

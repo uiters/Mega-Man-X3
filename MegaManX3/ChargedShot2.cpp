@@ -23,6 +23,7 @@ ChargedShot2::ChargedShot2(float x, float y, bool toLeft)
 	this->speed.vy = 0.00f;
 	dy = 0;
 	this->toLeft = toLeft;
+	_damage = 3;
 }
 
 ChargedShot2::~ChargedShot2()

@@ -2,16 +2,15 @@
 #include<vector>
 
 #include "DynamicObject.h";
-#include "CTime.h";
 #include "ConstGlobals.h"
 #include "Camera.h"
 #include "CollisionEvent.h"
 #include "Brick.h"
 
 #include "NotorBangerBullet.h"
-#include "NotorBangerEffectShot.h"
 
-using namespace std;
+#include "BulletCollision.h"
+#include "WallSlide.h"
 
 #define NOTOR_BANGER_GRAVITY 0.001f
 #define NOTOR_BANGER_SPEED_X 0.075f
@@ -33,33 +32,37 @@ using namespace std;
 class NotorBanger : public DynamicObject
 {
 public:
-	NotorBanger();
-	NotorBanger(int id, float x, float y, bool nx, int distance);
+	NotorBanger(int id, float x, float y, bool nx);
 	~NotorBanger();
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void calculateDie();
 	void setState(int state);
 	void loadResources();
 	void setPositionForListBullet();
-	
 	void resetPosition();
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	NotorBanger* clone(int id, int x, int y) override;
-
-	void createBullet();
-	void createEffect(float x, float y);
-
-
+	void createExplosion(float x, float y);
+	void setAnimationDie() override;
 private:
 	float initX;
 	float initY;
 	int repeat;
 	bool nx;
-	int distance; // 0: small, 1: medium, 2: large
+	PointF die[4];
+	int getDistance();
+	WallSlide* shotEffect = WallSlide::getInstance();
+	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
-	vector<NotorBangerBullet> listBullet;
-	NotorBangerEffectShot* effectShot;
-
+	void createBullet();
 	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
+};
+
+struct  Distance
+{
+	float width;
+	float height;
 };
 

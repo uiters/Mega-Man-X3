@@ -1,24 +1,12 @@
 #include "NotorBangerBullet.h"
 
 
-
-NotorBangerBullet::NotorBangerBullet()
-{
-	this->x = 50;
-	this->y = 100;
-	this->nx = true;
-	this->ny = false;
-	this->limit = 100 + 48;
-	this->isDelete = false;
-}
-
 NotorBangerBullet::NotorBangerBullet(float x, float y, bool nx, bool ny, int distance)
 {
 	this->x = x;
 	this->y = y;
 	this->nx = nx;
 	this->ny = ny;
-	this->limit = y + 48;
 	this->isDelete = false;
 	this->distance = distance;
 }
@@ -30,7 +18,6 @@ NotorBangerBullet::NotorBangerBullet(int id, float x, float y, bool nx, bool ny,
 	this->y = y;
 	this->nx = nx;
 	this->ny = ny;
-	this->limit = y + 48;
 	this->isDelete = false;
 	this->distance = distance;
 }
@@ -44,24 +31,15 @@ void NotorBangerBullet::update(DWORD dt, unordered_map<int, CTreeObject*>* stati
 	GameObject::update(dt);
 
 	speed.vy += NOTOR_BANGER_BULLET_GRAVITY;
-	/*x += dx;
-	y += dy;*/
 
 	if (nx == false) speed.vx = -abs(speed.vx);
 	if (nx == true) speed.vx = abs(speed.vx);
-
-	/*if (y >= limit) {
-		y = limit;
-		isDelete = true;
-	}*/
 
 	collisionStatic(staticObjects);
 }
 
 void NotorBangerBullet::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	/*if (ny == true) _animations[state]->render(x, y);
-	else _animations[state]->renderFlipY(x, y);*/
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
 }

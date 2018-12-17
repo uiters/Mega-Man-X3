@@ -14,6 +14,7 @@ protected:
 	vector<Effect*> _effects;
 	int _hp = 0; //for reset
 	int baseDamage;
+	virtual void setAnimationDie() {};
 public:
 	int hp = 0;
 	bool canMove = true;
@@ -31,6 +32,7 @@ public:
 	virtual void reset();
 	virtual vector<Weapon*>* getWeapons();
 	virtual void createExplosion(float x, float y) {}
+	
 };
 
 #endif // !_DynamicObject_H

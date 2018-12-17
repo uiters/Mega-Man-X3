@@ -30,6 +30,7 @@ ChargedShot1::ChargedShot1(float x, float y, bool toLeft)
 	this->speed.vy = 0.00f;
 	dy = 0;
 	this->toLeft = toLeft;
+	_damage = 2;
 }
 
 ChargedShot1::~ChargedShot1()

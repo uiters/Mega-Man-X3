@@ -83,6 +83,7 @@ Helit::Helit(int id, float x, float y, bool toLeft)
 	_effects.emplace_back(ExplosionEffect::getInstance());
 	speed.vx = 0;
 	speed.vy = 0;
+	_hp = 2;
 }
 #pragma endregion
 

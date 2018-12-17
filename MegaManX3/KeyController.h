@@ -34,7 +34,7 @@ private:
 	int height = Stand_Shoot_Width;
 
 	bool toLeft = false;
-
+	bool prepareRemoveWall = false;
 	//arow
 	int pressArrow = 0; // left right
 	Arrow arrow = Arrow::None;

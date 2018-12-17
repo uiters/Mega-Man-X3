@@ -6,7 +6,7 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 
 }
 
-void Camera::update(int x, int y, int height) //center x, center y
+void Camera::update(int x, int y) //center x, center y
 {
 	int centerScreenX = viewport.width / 2;
 	int centerScreenY = viewport.height / 2;

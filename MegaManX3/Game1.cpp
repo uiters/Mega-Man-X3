@@ -26,7 +26,7 @@ void Game1::loadResource()
 	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
 	texturesGlobal->add(TExplosion, EXPLOISION);
 
-	main = new MegamanX(Megaman, 3124, 620);
+	main = new MegamanX(Megaman, 100, 650);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -328,7 +328,8 @@ void Game1::initOption()
 	auto rootdyanamic = Factory::getInstance()->createQuadTree(QUADTREE_DYNAMIC_TXT, *x);
 	delete x;
 	controller = new Controller(main, root, rootdyanamic);
-	
+	mainGlobal = main;
+
 }
 
 void Game1::update(DWORD dt)
@@ -337,7 +338,6 @@ void Game1::update(DWORD dt)
 	keyGlobal->processKeyboard();
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
-	mainGlobal = main;
 	
 }	
 
