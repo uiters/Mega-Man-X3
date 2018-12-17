@@ -26,6 +26,9 @@ void HeadGunner::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObject
 {
 	for (int i = 0; i < listBullet.size(); i++) {
 		if (listBullet[i].isDelete) {
+			int x = listBullet[i].x - 16;
+			int y = listBullet[i].y - 20;
+			collisionEffect->createEffect(x, y);
 			listBullet.erase(listBullet.begin() + i);
 		}
 		else listBullet[i].update(dt, staticObjects);
@@ -61,6 +64,9 @@ void HeadGunner::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		listBullet[i].render(dt);
 	}
+
+	shotEffect->render(dt, true);
+	collisionEffect->render(dt, false);
 }
 
 void HeadGunner::setState(int state)
@@ -184,6 +190,8 @@ void HeadGunner::createBullet()
 			y = this->y;
 		}
 	}
+
+	shotEffect->createEffect(x + 5, this->y);
 
 	HeadGunnerBullet* bullet = new HeadGunnerBullet(
 		x,

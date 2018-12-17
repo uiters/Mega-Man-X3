@@ -6,6 +6,9 @@
 
 #include "HeadGunnerBullet.h"
 
+#include "BulletCollision.h"
+#include "WallSlide.h"
+
 #define HEAD_GUNNER_STATE_DEFAULT 0
 #define HEAD_GUNNER_STATE_SHOT_TOP 100
 #define HEAD_GUNNER_STATE_SHOT_BOTTOM 200
@@ -32,6 +35,8 @@ private:
 	bool nx;
 	int repeat;
 	vector<HeadGunnerBullet> listBullet;
+	WallSlide* shotEffect = WallSlide::getInstance();
+	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
 	void createBullet();
 };

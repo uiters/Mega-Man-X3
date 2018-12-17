@@ -1,7 +1,6 @@
 #include "NotorBanger.h"
 
 
-
 NotorBanger::NotorBanger()
 {
 	this->x = 10;
