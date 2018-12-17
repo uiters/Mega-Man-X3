@@ -1,9 +1,11 @@
 #include "Shurikein.h"
 #include "Animation.h"
+#include <random>
 
 
 Shurikein::Shurikein()
 {
+	loadResources();
 }
 
 
@@ -11,8 +13,9 @@ Shurikein::~Shurikein()
 {
 }
 
-void Shurikein::loadResoures()
-{	
+void Shurikein::loadResources()
+{
+	texturesGlobal->add(Megaman, L"Resource\\Textures\\Shurikein.png", 555, 468, D3DCOLOR_XRGB(64, 48, 72));
 #pragma region manifest
 	auto ani = new CAnimation(50);
 	spritesGlobal->add(manifest, TShurikein, 83, 80, 83, 80);
@@ -140,7 +143,7 @@ void Shurikein::loadResoures()
 	this->addAnimation(manifest);
 #pragma endregion
 #pragma region roll
-	auto ani = new CAnimation(100);
+	ani = new CAnimation(100);
 	spritesGlobal->add(roll, TShurikein, 0, 356, 45, 402);
 	spritesGlobal->add(roll + 1, TShurikein, 52, 355, 98, 401);
 	spritesGlobal->add(roll + 2, TShurikein, 106, 357, 150, 401);
@@ -165,7 +168,7 @@ void Shurikein::loadResoures()
 	this->addAnimation(roll);
 #pragma endregion
 #pragma region spin
-	auto ani = new CAnimation(100);
+	ani = new CAnimation(100);
 	spritesGlobal->add(spin, TShurikein, 2, 412, 48, 460);
 	spritesGlobal->add(spin + 1, TShurikein, 54, 412, 98, 460);
 	spritesGlobal->add(spin + 2, TShurikein, 103, 412, 145, 460);
@@ -201,15 +204,149 @@ void Shurikein::loadResoures()
 	animationsGlobal->add(spin, ani);
 	this->addAnimation(spin);
 #pragma endregion
-
+#pragma region beaten
+	ani = new CAnimation(100);
+	spritesGlobal->add(beaten, TShurikein, 380, 10, 426, 58);
+	ani->add(beaten);
+	animationsGlobal->add(beaten, ani);
+	this->addAnimation(beaten);
+#pragma endregion
+#pragma region normal 
+	ani = new CAnimation(100);
+	spritesGlobal->add(normal, TShurikein, 328, 10, 374, 58);
+	ani->add(normal);
+	animationsGlobal->add(normal, ani);
+	this->addAnimation(normal);
+#pragma endregion
 }
-
+Shurikein::Shurikein(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
+{
+	
+}
 Shurikein * Shurikein::clone(int id, int x, int y)
 {
 	return nullptr;
+}
+
+void Shurikein::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+{
+	GameObject::update(dt);
+
+
+}
+
+void Shurikein::render(DWORD dt, D3DCOLOR colorBrush)
+{
+	_animations[state]->render(x, y, true);
 }
 
 void Shurikein::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 
 }
+
+void Shurikein::goAround()
+{
+	state = normal;
+	if (!isDeath())
+	{
+		if (x > 2344 && y == 920)
+		{
+			speed.vx = -0.18;
+			speed.vy = 0;
+		}
+		if (x == 2344 && y > 809)
+		{
+			speed.vx = 0;
+			speed.vy = -0.18;
+		}
+		if (x < 2518 && y == 809)
+		{
+			speed.vx = 0.18;
+			speed.vy = 0;
+		}
+		if (x == 2518 && y < 920)
+		{
+			speed.vx = 0;
+			speed.vy = 0.18;
+		}
+	}
+}
+
+void Shurikein::rollAndJump()
+{
+	state = roll;
+	if (x == 2518 && !jumped)
+	{
+		if (x > 2402 && !jumped)
+		{
+			speed.vx = -0.18;
+			speed.vy = 0;
+		}
+		if (x == 2402 && countTimeJump.isStop())
+		{
+			countTimeJump.start();
+			speed.vx = -0.15;
+			speed.vy = -0.15;
+		}
+		if (x > 2344 && x < 2402 && countTimeJump.isStop());
+		{
+			countTimeFall.start();
+			speed.vx = 0.15;
+			speed.vy = 0.15;
+			jumped = true;
+		}
+		if (x > 2402 && jumped);
+		{
+			speed.vx = 0.22;
+			speed.vy = 0;
+		}
+	}
+	else if (x == 2518 && jumped)
+	{
+		speed.vx = 0;
+		speed.vy = 0;
+	}
+}
+
+void Shurikein::spinAndJump()
+{
+	state = spin;
+	if (countTimeSpin.isRunning())
+	{
+		if (countTimeJump.isStop() && !jumped)
+		{
+			countTimeJump.start();
+			jumped = true;
+			(rand() % 2 + 0 == 1) ? speed.vx = 1 / (rand() % 6 + 5) : speed.vx = -1 / (rand() % 6 + 5);
+			speed.vy = -1 / (rand() % 11 + 10);
+		}
+		else if (countTimeJump.isStop() && jumped)
+		{
+			countTimeFall.start();
+			jumped = false;
+			(rand() % 2 + 0 == 1) ? speed.vx = 1 / (rand() % 6 + 5) : speed.vx = -1 / (rand() % 6 + 5);
+			speed.vy = 1 / (rand() % 11 + 10);
+		}
+	}
+	if (countTimeJump.isRunning())
+	{
+		countTimeFall.stop();
+	}
+	if (countTimeFall.isRunning())
+	{
+		countTimeJump.stop();
+	}
+
+}
+
+//room: 2319  2543
+//		784	 945
+//
+//		
+//		2344:809						2518:809
+//		
+//		2344:920	2402:920			2518:920
+//
+//
+//

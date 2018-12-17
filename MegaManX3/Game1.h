@@ -12,6 +12,7 @@
 
 #include "NotorBanger.h"
 #include "HeadGunner.h"
+#include "Shurikein.h"
 
 class Game1 :
 	public Game
@@ -21,6 +22,7 @@ class Game1 :
 	Controller* controller;
 	NotorBanger* notorBanger;
 	HeadGunner* headGunner;
+	Shurikein* shurikein;
 public:
 	void initGolbals() override; // call first
 	void loadResource() override; // 2

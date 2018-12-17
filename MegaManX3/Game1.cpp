@@ -21,7 +21,7 @@ void Game1::loadResource()
 
 
 
-	main = new MegamanX(Megaman, 100, 910);
+	main = new MegamanX(Megaman, 2344, 910);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -295,9 +295,8 @@ void Game1::loadResource()
 	animationsGlobal->add(TElevator, ani);
 	main->addAnimation(TElevator);
 #pragma endregion
-
-	texturesGlobal->add(Megaman, L"Resource\\Textures\\Shurikein.png", 555, 468, D3DCOLOR_XRGB(64, 48, 72));
-
+	shurikein = new Shurikein(TShurikein, 2402, 920);
+	shurikein->state = manifest;
 }
 
 

@@ -44,8 +44,10 @@ enum TextureID
 enum ShurikeinAnimation
 {
 	manifest = 14000,
-	roll = 14400,
-	spin = 14600,
+	roll = 14100,
+	spin = 14200,
+	beaten = 14300,
+	normal = 14400,
 };
 enum WeaponID
 {
