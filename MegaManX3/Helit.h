@@ -14,8 +14,8 @@ private:
 	void loadSprites();
 	void loadResources() override;
 	UINT body = 0;
-	CTime timeDeath = (10000);
-	CTime timeFire = (500);
+	CTime timeDeath = (50000);
+	CTime timeFire = (5000);
 	PointF dieX[3];
 	bool showColor = true;
 	int timeSwitchColor = 0;

@@ -26,7 +26,7 @@ void Controller::update(DWORD dt)
 	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
 	rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
 
-	currentDynamic[-1] = Chelit;
+	//currentDynamic[-1] = Chelit;
 
 	for (auto kv : currentDynamic) {
 		kv.second->object->update(dt, &currentStatic);

@@ -53,6 +53,7 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 			break;
 		case 7:
 			obj = new Helit(id, x, y, toLeft);
+
 			break;
 		default:
 			obj = new Brick(id, x, y, width, height);

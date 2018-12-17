@@ -1,5 +1,4 @@
 #include "Helit.h"
-
 #pragma region Load
 void Helit::loadSprites()
 {
@@ -71,6 +70,8 @@ Helit::Helit()
 
 Helit::Helit(int id, float x, float y, bool toLeft)
 {
+	this->_id = id;
+	this->visible = true;
 	this->_idObject = id;
 	this->x = x;
 	this->y = y;
@@ -216,6 +217,8 @@ void Helit::renderDie(DWORD dt)
 void Helit::renderNormal(DWORD dt)
 {
 	auto pos = cameraGlobal->transform(x, y);
+	debugOut(L"%i %i %i\n", _id, x, y);
+
 	if (toLeft)
 	{
 		_animations[body]->render(pos.x, pos.y);

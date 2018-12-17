@@ -26,7 +26,7 @@ void Game1::loadResource()
 	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
 	texturesGlobal->add(TExplosion, EXPLOISION);
 
-	main = new MegamanX(Megaman, 200, 650);
+	main = new MegamanX(Megaman, 3124, 620);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
