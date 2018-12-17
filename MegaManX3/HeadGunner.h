@@ -23,18 +23,23 @@ class HeadGunner :
 	public DynamicObject
 {
 public:
-	HeadGunner();
 	HeadGunner(int id, float x, float y, bool nx);
 	~HeadGunner();
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void calculateDie();
 	void setState(int state);
 	HeadGunner* clone(int id, int x, int y) override;
+	void resetPosition();
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void loadResources() override;
 private:
 	bool nx;
+	float initX;
+	float initY;
 	int repeat;
+	PointF die[4];
 	vector<HeadGunnerBullet> listBullet;
 	vector<HeadGunnerBullet2> listBullet2;
 	WallSlide* shotEffect = WallSlide::getInstance();

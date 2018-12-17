@@ -32,7 +32,6 @@
 class NotorBanger : public DynamicObject
 {
 public:
-	NotorBanger();
 	NotorBanger(int id, float x, float y, bool nx);
 	~NotorBanger();
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);

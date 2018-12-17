@@ -1,16 +1,6 @@
 #include "NotorBanger.h"
 
 
-NotorBanger::NotorBanger()
-{
-	this->x = 10;
-	this->y = 300;
-	this->initX = this->x;
-	this->initY = this->y;
-	this->nx = true;
-	this->repeat = 0;
-}
-
 NotorBanger::NotorBanger(int id, float x, float y, bool nx)
 {
 	this->_id = id;
@@ -148,13 +138,10 @@ void NotorBanger::calculateDie()
 	die[1].y += dy;
 	die[2].y += dy;
 	die[3].y += dy;
-
-	//debugOut(L"%f %f %f %f %f %f ", dieX[0].x, dieX[0].y);
 }
 
 void NotorBanger::renderDie(DWORD dt, D3DCOLOR colorBrush)
 {
-
 	for (int i = 0; i < 4; i++) {
 		auto center = cameraGlobal->transform(die[i].x, die[i].y);
 		_animations[NOTOR_BANGER_STATE_DIE + i ]->render(center.x, center.y);
@@ -175,7 +162,6 @@ void NotorBanger::setState(int state)
 	default:
 		speed.vx = 0;
 		speed.vy = 0;
-		break;
 	}
 	this->state = state;
 	_animations[state]->reset();
@@ -183,16 +169,12 @@ void NotorBanger::setState(int state)
 
 void NotorBanger::loadResources()
 {
-
 	CTextures * textures = CTextures::getInstance();
-
 	if (textures->getTexture(NOTOR_BANGER_ID_TEXTURE) == NULL)
-	textures->add(NOTOR_BANGER_ID_TEXTURE, L"Resource\\Textures\\enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
+		textures->add(NOTOR_BANGER_ID_TEXTURE, L"Resource\\Textures\\enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();
-
-	//LPDIRECT3DTEXTURE9 textureNotorBanger = textures->getTexture(NOTOR_BANGER_ID_TEXTURE);
 
 	LPANIMATION ani;
 
@@ -409,16 +391,6 @@ void NotorBanger::collisionStatic(unordered_map<int, CTreeObject*>* staticObject
 
 		x += min_tx * dx + nx * 1.f;
 		y += min_ty * dy + ny * 1.f;
-		//if (speed.vx > 0 && nx > 0)//left
-		//{
-		//	speed.vx = -speed.vx;
-		//	this->nx = true;
-		//}
-		//else if (speed.vx < 0 && nx < 0)//right
-		//{
-		//	speed.vx = -speed.vx;
-		//	this->nx = false;
-		//}
 
 	}
 	UINT size = coEvents.size();

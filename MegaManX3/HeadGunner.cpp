@@ -1,14 +1,6 @@
 #include "HeadGunner.h"
 
 
-HeadGunner::HeadGunner()
-{
-	this->x = 10;
-	this->y = 100;
-	this->nx = true;
-	this->repeat = 0;
-}
-
 HeadGunner::HeadGunner(int id, float x, float y, bool nx)
 {
 	this->_id = id;
@@ -16,6 +8,13 @@ HeadGunner::HeadGunner(int id, float x, float y, bool nx)
 	this->y = y;
 	this->nx = nx;
 	this->repeat = 0;
+	this->initX = x;
+	this->initY = y;
+
+	die[0] = die[1] = die[2] = die[3] = { x, y };
+	speed.vy = -0.0195f *dt;
+	speed.vx = 0.0032f * dt;
+	_death = false;
 }
 
 HeadGunner::~HeadGunner()
@@ -24,6 +23,12 @@ HeadGunner::~HeadGunner()
 
 void HeadGunner::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
+	this->dt = dt;
+	if (_death) {
+		calculateDie();
+		return;
+	}
+
 	for (int i = 0; i < listBullet.size(); i++) {
 		if (listBullet[i].isDelete) {
 			int x = listBullet[i].x - 16;
@@ -70,6 +75,12 @@ void HeadGunner::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObject
 
 void HeadGunner::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	if (_death) {
+		renderDie(dt);
+		collisionEffect->render(dt, false);
+		return;
+	}
+
 	auto center = cameraGlobal->transform(x, y);
 	if (nx != true) _animations[state]->render(center.x, center.y);
 	else _animations[state]->renderFlipX(center.x, center.y);
@@ -87,6 +98,33 @@ void HeadGunner::render(DWORD dt, D3DCOLOR colorBrush)
 	collisionEffect->render(dt, false);
 }
 
+void HeadGunner::renderDie(DWORD dt, D3DCOLOR colorBrush)
+{
+	for (int i = 0; i < 4; i++) {
+		auto center = cameraGlobal->transform(die[i].x, die[i].y);
+		_animations[HEAD_GUNNER_STATE_DIE + i]->render(center.x, center.y);
+	}
+}
+
+void HeadGunner::calculateDie()
+{
+	speed.vy += 0.00115f * dt;
+	speed.vx += 0.000125 *dt;
+
+	dx = speed.vx * dt;
+	dy = speed.vy * dt;
+
+	die[0].x += dx;
+	die[1].x += dx * 2;
+	die[2].x -= dx;
+	die[3].x -= dx * 2;
+
+	die[0].y += dy;
+	die[1].y += dy;
+	die[2].y += dy;
+	die[3].y += dy;
+}
+
 void HeadGunner::setState(int state)
 {
 	this->state = state;
@@ -98,8 +136,18 @@ HeadGunner * HeadGunner::clone(int id, int x, int y)
 	return nullptr;
 }
 
+void HeadGunner::resetPosition()
+{
+	this->x = this->initX;
+	this->y = this->initY;
+}
+
 void HeadGunner::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 40;
+	bottom = y + 48;
 }
 
 void HeadGunner::loadResources()
@@ -166,12 +214,13 @@ void HeadGunner::loadResources()
 	sprites->addSprite(20053, HEAD_GUNNER_ID_TEXTURE, 209, 357, 19, 8);
 	sprites->addSprite(20054, HEAD_GUNNER_ID_TEXTURE, 208, 368, 7, 13);
 
-	ani = new CAnimation(100);
-	ani->add(20051);
-	ani->add(20052);
-	ani->add(20053);
-	ani->add(20054);
-	animations->add(HEAD_GUNNER_STATE_DIE, ani);
+	for (int i = 0; i < 4; i++)
+	{
+		ani = new CAnimation(100);
+		ani->add(2051 + i);
+		animations->add(HEAD_GUNNER_STATE_DIE + i, ani);
+		this->addAnimation(HEAD_GUNNER_STATE_DIE + i);
+	}
 
 	// add animations
 	this->addAnimation(HEAD_GUNNER_STATE_DEFAULT);
@@ -179,7 +228,6 @@ void HeadGunner::loadResources()
 	this->addAnimation(HEAD_GUNNER_STATE_SHOT_BOTTOM);
 	this->addAnimation(HEAD_GUNNER_STATE_SHOT_LEFT);
 	this->addAnimation(HEAD_GUNNER_STATE_SHOT_RIGHT);
-	this->addAnimation(HEAD_GUNNER_STATE_DIE);
 }
 
 void HeadGunner::createBullet()
