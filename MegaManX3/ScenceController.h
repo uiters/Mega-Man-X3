@@ -23,8 +23,11 @@ protected:
 	int colStart = 0;
 	int colEnd = 0;
 
+	int rowTiles, colTiles;
 	Tile* ** _tiles; // list scence
 	LPDIRECT3DTEXTURE9 _texture;
+private:
+	void calculateIndex(int index, int& left, int& top);
 public:
 	ScenceController();
 	~ScenceController();

@@ -2,32 +2,40 @@
 #include "Debugs.h"
 #include "Textures.h"
 #include "Camera.h"
+void ScenceController::calculateIndex(int index, int & left, int & top)
+{
+	left = (index % colTiles) * width;
+	top = (index / colTiles) * height;
+}
 ScenceController::ScenceController()
 {
 
-	texturesGlobal->add(TMap, L"Resource\\Sounds\\BlastHornet.bmp", 0, 0);
+	texturesGlobal->add(TMap, IMAGE_MAP);
 	_texture = texturesGlobal->getTexture(TMap);
 	ifstream input;
-	input.open(L"Resource\\Sounds\\BlastHornet.txt", ifstream::in);
+	input.open(MAP, ifstream::in);
 	if (!input.good())
 	{
 		debugOut(L"[Failed] Load File ");
 		return;
 	}
-	input >> totalFarme >> rows >> cols >> width >> height;
-	int id = 0;
+	input >> totalFarme >> rows >> cols >> width >> height >> rowTiles >> colTiles;
+	int index = 0;
 	_tiles = new Tile**[rows];
+	int left, top;
 
 	for (int row = 0; row < rows; ++row)
 	{
 		_tiles[row] = new Tile*[cols];
 		for (int col = 0; col < cols; ++col)
 		{
-			input >> id;
-			_tiles[row][col] = new Tile(id, _texture, col * width, row * height, width, height);
-			//debugOut(L"%i\t\t%i \t\t|\t\t", col * width, row * height);
+			input >> index;
+			calculateIndex(index, left, top);
+			_tiles[row][col] = new Tile(index, col * width, row * height, left, top, width, height, _texture);
+			debugOut(L"[ %i %i ] ", left, top);
+
 		}
-		//debugOut(L"\n");
+		debugOut(L"\n");
 	}
 	cameraGlobal->setSizeWorld(0, 0, cols * width, height * height);
 	input.close();
