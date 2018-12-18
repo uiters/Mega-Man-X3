@@ -285,7 +285,9 @@
     <ClInclude Include="Game1.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Shurikein.h" />
+    <ClInclude Include="Shurikein.h">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -424,7 +426,9 @@
     <ClCompile Include="Game1.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Shurikein.cpp" />
+    <ClCompile Include="Shurikein.cpp">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

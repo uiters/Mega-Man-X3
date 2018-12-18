@@ -6,15 +6,19 @@ class Shurikein :
 {
 public:
 	bool jumped = false;
-	CTime countTimeJump = CTime(300);
-	CTime countTimeFall = CTime(500);
-	CTime countTimeSpin = CTime(1500);
+	CTime countManifest = CTime(2500);
+	CTime countTimeJump = CTime(400);
+	CTime countTimeFall = CTime(400);
+	CTime countTimeSpin = CTime(2400);
+	CTime mech1 = CTime(3000); //goAround
+	CTime mech2 = CTime(2000); //rollAndJump
+	CTime mech3 = CTime(2400); //spinAndJump
 	Shurikein();
 	~Shurikein();
 	Shurikein(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	void loadResources() override;
 	Shurikein* clone(int id, int x, int y);
-	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;
+	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0) override;
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void goAround();

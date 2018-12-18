@@ -1,9 +1,10 @@
 #include "Shurikein.h"
 #include "Animation.h"
+#include "Camera.h"
 #include <random>
 
 
-Shurikein::Shurikein()
+Shurikein::Shurikein() 
 {
 	loadResources();
 }
@@ -15,9 +16,9 @@ Shurikein::~Shurikein()
 
 void Shurikein::loadResources()
 {
-	texturesGlobal->add(Megaman, L"Resource\\Textures\\Shurikein.png", 555, 468, D3DCOLOR_XRGB(64, 48, 72));
+	texturesGlobal->add(TShurikein, L"Resource\\Textures\\Shurikein.png", 555, 468, D3DCOLOR_XRGB(64, 48, 72));
 #pragma region manifest
-	auto ani = new CAnimation(50);
+	auto ani = new CAnimation(40);
 	spritesGlobal->add(manifest, TShurikein, 83, 80, 83, 80);
 	spritesGlobal->add(manifest + 1, TShurikein, 88, 79, 90, 81);
 	spritesGlobal->add(manifest + 2, TShurikein, 101, 77, 107, 83);
@@ -34,12 +35,12 @@ void Shurikein::loadResources()
 	spritesGlobal->add(manifest + 13, TShurikein, 280, 72, 296, 88);
 	spritesGlobal->add(manifest + 14, TShurikein, 308, 72, 324, 88);
 	spritesGlobal->add(manifest + 15, TShurikein, 333, 70, 351, 88);
-	spritesGlobal->add(manifest + 16, TShurikein, 358, 69, 378, 99);
+	spritesGlobal->add(manifest + 16, TShurikein, 358, 69, 378, 89);
 	spritesGlobal->add(manifest + 17, TShurikein, 387, 69, 407, 89);
 	spritesGlobal->add(manifest + 18, TShurikein, 419, 67, 441, 89);
 	spritesGlobal->add(manifest + 19, TShurikein, 448, 67, 471, 89);
 	spritesGlobal->add(manifest + 20, TShurikein, 58, 112, 82, 136);
-	spritesGlobal->add(manifest + 21, TShurikein, 90, 111, 116, 37);
+	spritesGlobal->add(manifest + 21, TShurikein, 90, 111, 116, 137);
 	spritesGlobal->add(manifest + 22, TShurikein, 122, 111, 148, 137);
 	spritesGlobal->add(manifest + 23, TShurikein, 156, 110, 182, 136);
 	spritesGlobal->add(manifest + 24, TShurikein, 190, 112, 216, 138);
@@ -61,7 +62,7 @@ void Shurikein::loadResources()
 	spritesGlobal->add(manifest + 40, TShurikein, 452, 157, 494, 199);
 	spritesGlobal->add(manifest + 41, TShurikein, 46, 209, 90, 253);
 	spritesGlobal->add(manifest + 42, TShurikein, 96, 209, 142, 255);
-	spritesGlobal->add(manifest + 43, TShurikein, 147, 210, 195, 285);
+	spritesGlobal->add(manifest + 43, TShurikein, 147, 210, 195, 258);
 	spritesGlobal->add(manifest + 44, TShurikein, 202, 208, 250, 256);
 	spritesGlobal->add(manifest + 45, TShurikein, 259, 210, 305, 256);
 	spritesGlobal->add(manifest + 46, TShurikein, 316, 212, 360, 255);
@@ -69,9 +70,9 @@ void Shurikein::loadResources()
 	spritesGlobal->add(manifest + 48, TShurikein, 429, 209, 475, 255);
 	spritesGlobal->add(manifest + 49, TShurikein, 481, 208, 527, 254);
 	spritesGlobal->add(manifest + 50, TShurikein, 15, 271, 61, 317);
-	spritesGlobal->add(manifest + 51, TShurikein, 69, 217, 113, 315);
+	spritesGlobal->add(manifest + 51, TShurikein, 69, 271, 113, 315);
 	spritesGlobal->add(manifest + 52, TShurikein, 120, 273, 166, 319);
-	spritesGlobal->add(manifest + 53, TShurikein, 174, 217, 222, 318);
+	spritesGlobal->add(manifest + 53, TShurikein, 174, 271, 222, 318);
 	spritesGlobal->add(manifest + 54, TShurikein, 228, 271, 276, 319);
 	spritesGlobal->add(manifest + 55, TShurikein, 284, 274, 330, 320);
 	spritesGlobal->add(manifest + 56, TShurikein, 340, 274, 384, 318);
@@ -79,71 +80,15 @@ void Shurikein::loadResources()
 	spritesGlobal->add(manifest + 58, TShurikein, 451, 273, 497, 319);
 	spritesGlobal->add(manifest + 59, TShurikein, 502, 274, 550, 322);
 
-	ani->add(manifest);
-	ani->add(manifest + 1);
-	ani->add(manifest + 2);
-	ani->add(manifest + 3);
-	ani->add(manifest + 4);
-	ani->add(manifest + 5);
-	ani->add(manifest + 6);
-	ani->add(manifest + 7);
-	ani->add(manifest + 8);
-	ani->add(manifest + 9);
-	ani->add(manifest + 10);
-	ani->add(manifest + 11);
-	ani->add(manifest + 12);
-	ani->add(manifest + 13);
-	ani->add(manifest + 14);
-	ani->add(manifest + 15);
-	ani->add(manifest + 16);
-	ani->add(manifest + 17);
-	ani->add(manifest + 18);
-	ani->add(manifest + 19);
-	ani->add(manifest + 20);
-	ani->add(manifest + 21);
-	ani->add(manifest + 22);
-	ani->add(manifest + 23);
-	ani->add(manifest + 24);
-	ani->add(manifest + 25);
-	ani->add(manifest + 26);
-	ani->add(manifest + 27);
-	ani->add(manifest + 28);
-	ani->add(manifest + 29);
-	ani->add(manifest + 30);
-	ani->add(manifest + 31);
-	ani->add(manifest + 32);
-	ani->add(manifest + 33);
-	ani->add(manifest + 34);
-	ani->add(manifest + 35);
-	ani->add(manifest + 36);
-	ani->add(manifest + 37);
-	ani->add(manifest + 38);
-	ani->add(manifest + 39);
-	ani->add(manifest + 40);
-	ani->add(manifest + 41);
-	ani->add(manifest + 42);
-	ani->add(manifest + 43);
-	ani->add(manifest + 44);
-	ani->add(manifest + 45);
-	ani->add(manifest + 46);
-	ani->add(manifest + 47);
-	ani->add(manifest + 48);
-	ani->add(manifest + 49);
-	ani->add(manifest + 50);
-	ani->add(manifest + 51);
-	ani->add(manifest + 52);
-	ani->add(manifest + 53);
-	ani->add(manifest + 54);
-	ani->add(manifest + 55);
-	ani->add(manifest + 56);
-	ani->add(manifest + 57);
-	ani->add(manifest + 58);
-	ani->add(manifest + 59);
+	for (int i = 0; i < 60; i++)
+	{
+		ani->add(manifest + i);
+	}	
 	animationsGlobal->add(manifest, ani);
 	this->addAnimation(manifest);
 #pragma endregion
 #pragma region roll
-	ani = new CAnimation(100);
+	ani = new CAnimation(30);
 	spritesGlobal->add(roll, TShurikein, 0, 356, 45, 402);
 	spritesGlobal->add(roll + 1, TShurikein, 52, 355, 98, 401);
 	spritesGlobal->add(roll + 2, TShurikein, 106, 357, 150, 401);
@@ -154,21 +99,16 @@ void Shurikein::loadResources()
 	spritesGlobal->add(roll + 7, TShurikein, 390, 353, 436, 399);
 	spritesGlobal->add(roll + 8, TShurikein, 446, 355, 490, 399);
 	spritesGlobal->add(roll + 9, TShurikein, 498, 353, 544, 399);
-	ani->add(roll);
-	ani->add(roll + 1);
-	ani->add(roll + 2);
-	ani->add(roll + 3);
-	ani->add(roll + 4);
-	ani->add(roll + 5);
-	ani->add(roll + 6);
-	ani->add(roll + 7);
-	ani->add(roll + 8);
-	ani->add(roll + 9);
+	
+	for (int i = 0; i < 10; i++)
+	{
+		ani->add(roll + i);
+	}
 	animationsGlobal->add(roll, ani);
 	this->addAnimation(roll);
 #pragma endregion
 #pragma region spin
-	ani = new CAnimation(100);
+	ani = new CAnimation(40);
 	spritesGlobal->add(spin, TShurikein, 2, 412, 48, 460);
 	spritesGlobal->add(spin + 1, TShurikein, 54, 412, 98, 460);
 	spritesGlobal->add(spin + 2, TShurikein, 103, 412, 145, 460);
@@ -185,22 +125,15 @@ void Shurikein::loadResources()
 	spritesGlobal->add(spin + 13, TShurikein, 487, 413, 495, 461);
 	spritesGlobal->add(spin + 14, TShurikein, 504, 412, 511, 460);
 	spritesGlobal->add(spin + 15, TShurikein, 518, 412, 524, 460);
-	ani->add(spin);
-	ani->add(spin + 1);
-	ani->add(spin + 2);
-	ani->add(spin + 3);
-	ani->add(spin + 4);
-	ani->add(spin + 5);
-	ani->add(spin + 6);
-	ani->add(spin + 7);
-	ani->add(spin + 8);
-	ani->add(spin + 9);
-	ani->add(spin + 10);
-	ani->add(spin + 11);
-	ani->add(spin + 12);
-	ani->add(spin + 13);
-	ani->add(spin + 14);
-	ani->add(spin + 15);
+	
+	for (int i = 0; i < 16; i++)
+	{
+		ani->add(spin + i);
+	}
+	for (int i = 14; i > 0; i--)
+	{
+		ani->add(spin + i);
+	}
 	animationsGlobal->add(spin, ani);
 	this->addAnimation(spin);
 #pragma endregion
@@ -221,7 +154,8 @@ void Shurikein::loadResources()
 }
 Shurikein::Shurikein(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
 {
-	
+	loadResources();
+	countManifest.start();
 }
 Shurikein * Shurikein::clone(int id, int x, int y)
 {
@@ -231,13 +165,44 @@ Shurikein * Shurikein::clone(int id, int x, int y)
 void Shurikein::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
 {
 	GameObject::update(dt);
+	y += dy;
+	x += dx;
+	countManifest.update();
+	countTimeJump.update();
+	countTimeFall.update();
+	countTimeSpin.update();
+	mech1.update();
+	mech2.update();
+	mech3.update();
 
+	debugOut(L"%f %f\n", speed.vx, speed.vy);
+	if (countManifest.isStop() && mech1.isStop() && mech3.isStop() && mech2.isStop() && !isDeath())
+	{
+		switch (rand() % 3 + 1)
+		{
+		case 1:
+			mech1.start();
+			goAround();
+			break;
+		case 2:
+			mech2.start();
+			rollAndJump();
+			break;
+		case 3:
+			mech3.start();
+			spinAndJump();
+			break;
+		default:
+			break;
+		}
+	}
 
 }
 
 void Shurikein::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	_animations[state]->render(x, y, true);
+	auto pos = cameraGlobal->transform(x, y);
+	_animations[state]->render(pos.x, pos.y, true);
 }
 
 void Shurikein::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -248,24 +213,24 @@ void Shurikein::getBoundingBox(float & left, float & top, float & right, float &
 void Shurikein::goAround()
 {
 	state = normal;
-	if (!isDeath())
+	if (!_death)
 	{
-		if (x > 2344 && y == 920)
+		if (x > 2344 && y >= 920)
 		{
 			speed.vx = -0.18;
 			speed.vy = 0;
-		}
-		if (x == 2344 && y > 809)
+		} 
+		if (x <= 2344 && y > 809)
 		{
 			speed.vx = 0;
 			speed.vy = -0.18;
-		}
-		if (x < 2518 && y == 809)
+		} 
+		if (x < 2518 && y <= 809)
 		{
 			speed.vx = 0.18;
 			speed.vy = 0;
-		}
-		if (x == 2518 && y < 920)
+		} 
+		if (x >= 2518 && y < 920)
 		{
 			speed.vx = 0;
 			speed.vy = 0.18;
