@@ -22,7 +22,7 @@ public:
 
 	HeadGunnerBullet2(float x, float y, bool nx, bool ny);
 	~HeadGunnerBullet2();
-	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void setState(int state);
 	void loadResources();
@@ -30,6 +30,6 @@ public:
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 
 private:
-	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
+	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
 };
 

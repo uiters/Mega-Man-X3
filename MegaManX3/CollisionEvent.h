@@ -4,7 +4,6 @@
 
 #include "GameObject.h"
 #include <algorithm>
-#include "CTreeObject.h"
 
 using namespace std;
 class GameObject;
@@ -32,7 +31,7 @@ public:
 	static Collision* getInstance();
 	// find all collision objectMove with another Objects
 	// waring !!!
-	void findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, CTreeObject*>& objects, vector<LPCollisionEvent> &coEvents);
+	void findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, GameObject*>& objects, vector<LPCollisionEvent> &coEvents);
 	void findCollisions(DWORD dt, LPObject objectMove, vector<GameObject*> *objects, vector<LPCollisionEvent> &coEvents);
 
 

@@ -146,7 +146,6 @@
     <ClInclude Include="ConstStruct.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="CTime.h" />
-    <ClInclude Include="CTreeObject.h" />
     <ClInclude Include="DashSmoke.h" />
     <ClInclude Include="DashSpark.h" />
     <ClInclude Include="DiePoint.h" />
@@ -205,7 +204,6 @@
     <ClCompile Include="ConstGlobals.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="CTime.cpp" />
-    <ClCompile Include="CTreeObject.cpp" />
     <ClCompile Include="DashSmoke.cpp" />
     <ClCompile Include="DashSpark.cpp" />
     <ClCompile Include="Debugs.cpp" />
@@ -249,6 +247,27 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />
+    <Image Include="Resource\Textures\1d86c5d17f3cfd3038b46fb739937e26.png" />
+    <Image Include="Resource\Textures\box.png" />
+    <Image Include="Resource\Textures\Charged1.png" />
+    <Image Include="Resource\Textures\Charged2.png" />
+    <Image Include="Resource\Textures\chargedEffect.png" />
+    <Image Include="Resource\Textures\DashSmoke.png" />
+    <Image Include="Resource\Textures\DashSpark.png" />
+    <Image Include="Resource\Textures\die.png" />
+    <Image Include="Resource\Textures\effect1.png" />
+    <Image Include="Resource\Textures\effect2.png" />
+    <Image Include="Resource\Textures\effect3.png" />
+    <Image Include="Resource\Textures\effect4.png" />
+    <Image Include="Resource\Textures\enemies.png" />
+    <Image Include="Resource\Textures\explosion.png" />
+    <Image Include="Resource\Textures\HeadeGunnerBullets.png" />
+    <Image Include="Resource\Textures\helit.png" />
+    <Image Include="Resource\Textures\Kick.png" />
+    <Image Include="Resource\Textures\megamanEffect.png" />
+    <Image Include="Resource\Textures\Megamanx3.png" />
+    <Image Include="Resource\Textures\shurikein.png" />
+    <Image Include="Resource\Textures\Slide.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

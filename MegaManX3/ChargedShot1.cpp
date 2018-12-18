@@ -65,7 +65,7 @@ void ChargedShot1::render(DWORD dt, D3DCOLOR colorBrush)
 		_animations[bullet_lv2]->renderFlipX(pos.x - 10.f, pos.y, true, colorBrush);
 	else _animations[bullet_lv2]->render(pos.x, pos.y, true, colorBrush);
 }
-void ChargedShot1::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void ChargedShot1::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
 	dx = speed.vx * dt;

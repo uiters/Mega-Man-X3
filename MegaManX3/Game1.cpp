@@ -12,7 +12,7 @@ void Game1::initGolbals()
 
 void Game1::loadResource()
 {
-	texturesGlobal->add(Megaman, L"Resource\\Textures\\Megamanx3.png", 637, 533, D3DCOLOR_XRGB(80, 56, 72));
+	texturesGlobal->add(Megaman, MEGAMAN, 637, 533, D3DCOLOR_XRGB(80, 56, 72));
 	texturesGlobal->add(TElevator, SHIP, 0, 0); 
 	texturesGlobal->add(TDashSmoke, DASH_SMOKE, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TDashSpark, DASH_SPARK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
@@ -26,10 +26,10 @@ void Game1::loadResource()
 	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
 	texturesGlobal->add(TExplosion, EXPLOISION);
 
-	//main = new MegamanX(Megaman, 100, 650);
+	main = new MegamanX(Megaman, 100, 650);
 
 
-	main = new MegamanX(Megaman, 2344, 910);
+	//main = new MegamanX(Megaman, 2344, 910);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);

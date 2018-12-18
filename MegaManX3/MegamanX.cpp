@@ -3,7 +3,7 @@
 #include "ConstGlobals.h"
 #include <vector>
 
-void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
@@ -60,7 +60,7 @@ void MegamanX::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
 	
 }
 
-void MegamanX::collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects)
+void MegamanX::collisionDynamic(unordered_map<int, GameObject*>* dynamicObjects)
 {
 	bulletCollisionDynamic(dynamicObjects);//like main bullet collision dynamic
 	if (isProtect) return;
@@ -98,7 +98,7 @@ MegamanX * MegamanX::clone(int id, int x, int y)
 	return nullptr;
 }
 
-void MegamanX::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	if (_death) return;
 	GameObject::update(dt);
@@ -337,11 +337,11 @@ void MegamanX::getBoundingBox(float & left, float & top, float & right, float & 
 
 }
 
-void MegamanX::dynamicCollisionThis(unordered_map<int, CTreeObject*>* dynamicObjects)
+void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects)
 {
 	for (auto kv : *dynamicObjects)
 	{
-		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second->object);
+		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second);
 		if (!obj || obj->isDeath()) continue;
 
 		if (collisionGameObject(obj, this))
@@ -365,11 +365,11 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, CTreeObject*>* dynamicObj
 	}
 }
 
-void MegamanX::bulletCollisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects)
+void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicObjects)
 {
 	for(auto it = dynamicObjects->begin(); it!= dynamicObjects->end(); )
 	{
-		DynamicObject* obj = dynamic_cast<DynamicObject*>((*it).second->object);
+		DynamicObject* obj = dynamic_cast<DynamicObject*>((*it).second);
 		if (!obj)
 		{
 			++it;

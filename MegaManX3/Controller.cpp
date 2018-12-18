@@ -29,7 +29,7 @@ void Controller::update(DWORD dt)
 	//currentDynamic[-1] = Chelit;
 	for (auto i = currentDynamic.begin(); i != currentDynamic.end();)
 	{
-		GameObject* obj = (*i).second->object;
+		GameObject* obj = (*i).second;
 		if (obj->getBoundingBox().intersectsWith(*viewPortGlobal))
 		{
 			obj->update(dt, &currentStatic);
@@ -40,21 +40,19 @@ void Controller::update(DWORD dt)
 
 	if (elevator)
 	{
-		elevator->object->update(dt);
-		currentStatic[elevator->object->getID()] = elevator;
+		elevator->update(dt);
+		currentStatic[elevator->getID()] = elevator;
 	}
 	else
 	{
 		for (auto kv : currentStatic) {
-			if (dynamic_cast<Elevator*>(kv.second->object))
-			{
-				elevator = kv.second;
-			}
+			elevator = dynamic_cast<Elevator*>(kv.second);
+			if (elevator) break;
 		}
 	}
 	//helit->update(dt, &currentStatic, &currentDynamic);
 
-	shurikein->update(dt, &currentStatic);
+	//shurikein->update(dt, &currentStatic);
 	main->update(dt, &currentStatic, &currentDynamic);
 }
 
@@ -62,14 +60,14 @@ void Controller::render(DWORD dt)
 {
 	tilesControll->render(dt);
 	for (auto kv : currentDynamic) {
-		kv.second->object->render(dt);
+		kv.second->render(dt);
 	}
 	for each (auto item in currentStatic)
 	{
-		item.second->object->render(dt);
+		item.second->render(dt);
 	}
-	if (elevator) elevator->object->render(dt);
+	if (elevator) elevator->render(dt);
 	main->render(dt);
-	shurikein->render(dt);
+	//shurikein->render(dt);
 	//helit->render(dt);
 }

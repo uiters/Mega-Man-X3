@@ -162,7 +162,7 @@ Shurikein * Shurikein::clone(int id, int x, int y)
 	return nullptr;
 }
 
-void Shurikein::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void Shurikein::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	GameObject::update(dt);
 	y += dy;
@@ -199,7 +199,7 @@ void Shurikein::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects
 	}
 
 }
-void Shurikein::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;

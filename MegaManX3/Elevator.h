@@ -13,7 +13,7 @@ public:
 	~Elevator();
 	
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
-	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void run();
 };

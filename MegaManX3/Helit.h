@@ -25,7 +25,7 @@ public:
 	Helit(int id, float x, float y, bool toLeft);
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	Helit* clone(int id, int x, int y) override;
-	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0) override;
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0) override;
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	~Helit();
 
@@ -37,8 +37,8 @@ private:
 	void renderNormal(DWORD dt);
 	void setAnimationFire();
 
-	void updateBullet(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects);
-	bool collisionBulletStatic(Weapon* bullet, unordered_map<int, CTreeObject*>* staticObjects);
+	void updateBullet(DWORD dt, unordered_map<int, GameObject*>* staticObjects);
+	bool collisionBulletStatic(Weapon* bullet, unordered_map<int, GameObject*>* staticObjects);
 public:
 	void createExplosion(float x, float y) override;
 };

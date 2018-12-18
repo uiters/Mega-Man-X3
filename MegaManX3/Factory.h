@@ -8,7 +8,7 @@
 #include "NotorBanger.h"
 #include "HeadGunner.h"
 #include "Brick.h"
-#include "CTreeObject.h"
+#include "GameObject.h"
 #include "GameObject.h"
 #include "Elevator.h"
 #include "Helit.h"
@@ -24,7 +24,7 @@ public:
 	QNode* createQuadTree(wchar_t* fileQuadtree, unordered_map<UINT, GameObject*>& Objects);
 
 private:
-	vector<CTreeObject*>* getObject(ifstream * in, int numObjects, unordered_map<UINT, GameObject*>& objects);
+	vector<GameObject*>* getObject(ifstream * in, int numObjects, unordered_map<UINT, GameObject*>& objects);
 };
 
 #endif //_Factory_H_

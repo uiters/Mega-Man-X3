@@ -13,7 +13,7 @@ HeadGunnerBullet2::~HeadGunnerBullet2()
 {
 }
 
-void HeadGunnerBullet2::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void HeadGunnerBullet2::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	GameObject::update(dt);
 
@@ -77,7 +77,7 @@ void HeadGunnerBullet2::getBoundingBox(float & left, float & top, float & right,
 	bottom = y + 8;
 }
 
-void HeadGunnerBullet2::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+void HeadGunnerBullet2::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;

@@ -18,8 +18,8 @@ class MegamanX :
 	public CKey
 {
 private:
-	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
-	void collisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects);
+	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
+	void collisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);
 
 	void setHurt();
 
@@ -62,7 +62,7 @@ private:
 	void resetPoint();
 	void config(Point& center);
 public:
-	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects) override;
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects) override;
 	void updateState(DWORD dt);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void onKeyDown(int) override;
@@ -71,8 +71,8 @@ public:
 	void getBoundingBox(float& left, float& top, float& right, float &bottom) override;
 
 private:
-	void dynamicCollisionThis(unordered_map<int, CTreeObject*>* dynamicObjects);
-	void bulletCollisionDynamic(unordered_map<int, CTreeObject*>* dynamicObjects);
+	void dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects);
+	void bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);
 
 	bool collisionGameObject(GameObject* obj1, GameObject* obj2);
 	bool collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject* obj2);

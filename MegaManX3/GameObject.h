@@ -12,7 +12,7 @@
 #include "Debugs.h"
 #include "Animation.h"
 #include "CollisionEvent.h"
-class CTreeObject;
+class GameObject;
 class CTextures;
 
 struct CollisionEvent;
@@ -42,8 +42,6 @@ public:
 	UINT state = 0;
 	Speed speed;
 	DWORD dt = 0;
-	CTreeObject* currentNode = 0;
-
 public:
 	GameObject(UINT idTexture, int x = 0, int y = 0, float vx = 0, float vy = 0);
 	GameObject(UINT id, UINT idTexture, int x = 0, int y = 0, float vx = 0, float vy = 0);
@@ -61,7 +59,7 @@ public:
 	
 	virtual void getBoundingBox(float & left, float & top, float & right, float & bottom) = 0;
 	virtual CRectangle getBoundingBox();
-	virtual void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
+	virtual void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) {}
 	virtual void reset() {}
 	virtual void remove() {}

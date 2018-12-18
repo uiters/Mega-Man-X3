@@ -106,7 +106,7 @@ Helit * Helit::clone(int id, int x, int y)
 	return helit;
 }
 
-void Helit::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void Helit::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
 	if (!visible) return;
@@ -251,7 +251,7 @@ void Helit::setAnimationFire()
 }
 
 
-void Helit::updateBullet(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects)
+void Helit::updateBullet(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
 	for (auto it = _weapons.begin(); it != _weapons.end();)
 	{
@@ -275,7 +275,7 @@ void Helit::updateBullet(DWORD dt, unordered_map<int, CTreeObject*>* staticObjec
 	}
 }
 
-bool Helit::collisionBulletStatic(Weapon* bullet, unordered_map<int, CTreeObject*>* staticObjects)
+bool Helit::collisionBulletStatic(Weapon* bullet, unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;

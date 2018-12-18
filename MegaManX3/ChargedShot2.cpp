@@ -50,7 +50,7 @@ void ChargedShot2::render(DWORD dt, D3DCOLOR colorBrush)
 	else _animations[bullet_lv3]->render(pos.x, pos.y, true, colorBrush);
 		
 }
-void ChargedShot2::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void ChargedShot2::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
 	dx = speed.vx * dt;
