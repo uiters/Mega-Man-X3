@@ -10,11 +10,11 @@ public:
 	Rect world;
 
 	Camera(int x, int y, int width, int height);
-	void update(int x, int y, int height = 0);
+	void update(int x, int y);
 
 	void setSizeWorld(int x,int y,int width,int height);
 
-	const Point& transform(const int& x,const int& y) const;
+	const Point transform(const int& x,const int& y) const;
 	//D3DXVECTOR3 transformToViewport(int x, int y);// transform to viewport
 };
 

@@ -33,6 +33,8 @@ public:
 	// find all collision objectMove with another Objects
 	// waring !!!
 	void findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, CTreeObject*>& objects, vector<LPCollisionEvent> &coEvents);
+	void findCollisions(DWORD dt, LPObject objectMove, vector<GameObject*> *objects, vector<LPCollisionEvent> &coEvents);
+
 
 	static ColllisionDirect getCollisionDirect(float normalx, float normaly);
 	// Filter Collision
@@ -42,11 +44,12 @@ public:
 		float &nx,
 		float &ny);
 	void slide(float& vx, float& vy, float nx, float ny, float t);
+	LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision);
 private:
 	static Collision* _instance;
 	Collision();
 	// ex sweptAABB
-	LPCollisionEvent sweptAABBEx(DWORD dt, LPObject objectMove, LPObject objectCollision);
+	
 
 
 	void sweptAABB(

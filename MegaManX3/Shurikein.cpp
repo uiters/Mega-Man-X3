@@ -2,7 +2,7 @@
 #include "Animation.h"
 #include "Camera.h"
 #include <random>
-
+#include "StaticObject.h"
 
 Shurikein::Shurikein() 
 {
@@ -167,6 +167,7 @@ void Shurikein::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects
 	GameObject::update(dt);
 	y += dy;
 	x += dx;
+
 	countManifest.update();
 	countTimeJump.update();
 	countTimeFall.update();
@@ -198,16 +199,65 @@ void Shurikein::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects
 	}
 
 }
+void Shurikein::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+{
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	collision->findCollisions(dt, this, *staticObjects, coEvents);
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		//x += min_tx * dx + nx * 1.f;
+		//y += min_ty * dy + ny * 1.f;
+		for (UINT i = 0; i < coEventsResult.size(); ++i)
+		{
+			auto e = coEventsResult[i];
+			StaticObject* obj = dynamic_cast<StaticObject *>(e->obj);
+			if (obj)
+			{
+				if (e->ny < 0)
+				{
+
+				}
+				else if (e->ny > 0)
+				{
+
+				}
+				else if (e->nx != 0)
+				{
+
+
+				}
+				obj->run();
+			}
+		}
+	}
+	UINT size = coEvents.size();
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
+}
 
 void Shurikein::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	auto pos = cameraGlobal->transform(x, y);
-	_animations[state]->render(pos.x, pos.y, true);
+	_animations[state]->render(pos.x, pos.y, true, BLACK(255));
+	//_animations[state]->render(pos.x - 23, pos.y - 23, false);
 }
 
 void Shurikein::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x - 23;
+	top = y - 23;
 
+	right = x + 23;
+	top = y + 23;
 }
 
 void Shurikein::goAround()

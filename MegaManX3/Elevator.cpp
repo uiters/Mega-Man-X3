@@ -1,8 +1,14 @@
 #include "Elevator.h"
 
+void Elevator::loadResources()
+{
+	_animations[TElevator] = animationsGlobal->get(TElevator);
+}
+
 Elevator::Elevator(UINT idTexture, float x, float y) : StaticObject(idTexture, x, y - 6, 96, 43)
 {
 	//y -= 28;
+	loadResources();
 }
 
 Elevator::~Elevator()
@@ -20,16 +26,12 @@ void Elevator::getBoundingBox(float & left, float & top, float & right, float & 
 
 void Elevator::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects , unordered_map<int, CTreeObject*>* dynamicObjects) 
 {
-	if (isRun)
+	//GameObject::update(dt);
+	if (isRun && y >= 170)
 	{
-		if (y <= 438)
-		{
-			isRun = false;
-			return;
-		}
+		y += -1;
+		mainGlobal->y += -1;
 
-		y -= 1;
-		mainGlobal->y -= 1;
 	}
 }
 
@@ -41,6 +43,7 @@ void Elevator::render(DWORD dt, D3DCOLOR colorBrush)
 
 void Elevator::run()
 {
+	//speed.vy = -0.15f;
 	isRun = true;
 }
 

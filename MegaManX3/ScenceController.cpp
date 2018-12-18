@@ -2,45 +2,13 @@
 #include "Debugs.h"
 #include "Textures.h"
 #include "Camera.h"
-ScenceController::ScenceController(int level)
+ScenceController::ScenceController()
 {
-	wchar_t* file;
-	wchar_t* fileImage;
-	switch (level)
-	{
-	case 1:
-		file = LEVEL1;
-		fileImage = IMAGE_LEVEL1;
-		break;
-	case 2:
-		file = LEVEL2;
-		fileImage = IMAGE_LEVEL2;
-		break;
-	//case 3:
-	//	//file = LEVEL3;
-	//	fileImage = IMAGE_LEVEL3;
-	//	break;
-	case 4:
-		file = LEVEL4;
-		fileImage = IMAGE_LEVEL4;
-		break;
-	//case 5:
-	//	//file = LEVEL5;
-	//	fileImage = IMAGE_LEVEL5;
-	//	break;
-	//case 6:
-	//	fileImage = IMAGE_LEVEL6;
-	//	break;
-	default:
-		fileImage = IMAGE_LEVEL1;
-		file = LEVEL1;
-		break;
-	}
-	level *= -1;
-	texturesGlobal->add(level, fileImage);
-	_texture = texturesGlobal->getTexture(level);
+
+	texturesGlobal->add(TMap, IMAGE_MAP, 0, 0);
+	_texture = texturesGlobal->getTexture(TMap);
 	ifstream input;
-	input.open(file, ifstream::in);
+	input.open(MAP, ifstream::in);
 	if (!input.good())
 	{
 		debugOut(L"[Failed] Load File ");
@@ -57,7 +25,9 @@ ScenceController::ScenceController(int level)
 		{
 			input >> id;
 			_tiles[row][col] = new Tile(id, _texture, col * width, row * height, width, height);
+			//debugOut(L"%i\t\t%i \t\t|\t\t", col * width, row * height);
 		}
+		//debugOut(L"\n");
 	}
 	cameraGlobal->setSizeWorld(0, 0, cols * width, height * height);
 	input.close();
@@ -104,6 +74,7 @@ void ScenceController::update(Viewport * viewport)
 
 void ScenceController::render(DWORD dt)
 {
+	//debugOut(L"%i -> %i  | %i -> %i\n", rowStart, rowEnd, colStart, colEnd);
 	for (int row = rowStart; row < rowEnd; ++row)
 		for (int col = colStart; col < colEnd; ++col)
 			_tiles[row][col]->draw(false);

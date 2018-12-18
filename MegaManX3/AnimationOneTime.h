@@ -10,9 +10,9 @@ protected:
 	bool isDone = false;
 public:
 	AnimationOneTime(int defaultTime);
-	void render(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	void renderFlipX(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
-	void renderFlipY(int x, int y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	void render(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	void renderFlipX(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
+	void renderFlipY(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	bool isFinish();
 	~AnimationOneTime();
 };

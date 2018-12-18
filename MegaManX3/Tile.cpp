@@ -1,14 +1,17 @@
 #include "Tile.h"
 #include "Camera.h"
-Tile::Tile(UINT id, LPDIRECT3DTEXTURE9 texture, int x, int y, UINT width, UINT height) : CSprite(id, id * width, 0, (id + 1) * width, height, texture)
+Tile::Tile(UINT index, LPDIRECT3DTEXTURE9 texture, int x, int y, UINT width, UINT height)
 {
-	//this->frame.width = width;
-	//this->frame.height = height;
-	//this->frame.x = ;
-	//this->frame.y = ;
+	this->id = index;
+	this->texture = texture;
 	this->x = x;
 	this->y = y;
-	//debugOut(L"[%i, %i] [%u %u]\n", x, y, width, height);
+	//this->frame = CRectangle(index * width, 0, width, height);
+	this->frame.x = index * width;
+	this->frame.y = 0;
+	this->frame.width = width;
+	this->frame.height = height;
+	//debugOut(L"%i\t\t[%i, %i %i %i]\t\t", index, this->frame.x, this->frame.y, this->frame.right(), this->frame.bottom());
 }
 
 Tile::~Tile()
@@ -19,8 +22,8 @@ void Tile::draw(bool center, D3DCOLOR colorBrush)
 {
 	
 	auto pos = cameraGlobal->transform(x, y);
-	//debugOut(L"[%f, %f] [%f, %f]\n", x, y, pos.x, pos.y);
 	CSprite::draw(pos.x, pos.y, center,  colorBrush);
+	//CSprite::draw(0, 0, center, colorBrush);
 }
 
 void Tile::drawFlipX(bool center, D3DCOLOR colorBrush)

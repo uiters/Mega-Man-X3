@@ -19,6 +19,7 @@ public:
 	void loadResources() override;
 	Shurikein* clone(int id, int x, int y);
 	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0) override;
+	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void goAround();

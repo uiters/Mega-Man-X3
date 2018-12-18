@@ -133,6 +133,15 @@
     <Filter Include="Game\Effect\Megaman">
       <UniqueIdentifier>{d5c3ee2c-3ed7-40a4-a2f0-021db83df582}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Controls\Megaman\Weapon">
+      <UniqueIdentifier>{abfdf745-b352-4eb8-a66f-156848355fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Weapon\Enemies">
+      <UniqueIdentifier>{46f12e7a-7b02-43f3-8611-26dfbc95874d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effect\Enemies">
+      <UniqueIdentifier>{81df8b30-1092-444b-8786-54c94e1fb4f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -243,9 +252,6 @@
     <ClInclude Include="HeadGunner.h">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="NotorBangerBullet.h">
-      <Filter>Game\GameObject\Weapon</Filter>
-    </ClInclude>
     <ClInclude Include="BusterShot.h">
       <Filter>Game\GameObject\Weapon\MegamanX</Filter>
     </ClInclude>
@@ -284,6 +290,36 @@
     </ClInclude>
     <ClInclude Include="Game1.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MegamanWeapon.h">
+      <Filter>Game\Controls\Megaman\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargedEffect.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="Helit.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NotorBangerBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HelitBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionEffect.h">
+      <Filter>Game\Effect\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ChargedExplosion.h">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletCollision.h">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadGunnerBullet2.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Shurikein.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
@@ -384,9 +420,6 @@
     <ClCompile Include="HeadGunner.cpp">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="NotorBangerBullet.cpp">
-      <Filter>Game\GameObject\Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="BusterShot.cpp">
       <Filter>Game\GameObject\Weapon\MegamanX</Filter>
     </ClCompile>
@@ -425,6 +458,36 @@
     </ClCompile>
     <ClCompile Include="Game1.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MegamanWeapon.cpp">
+      <Filter>Game\Controls\Megaman\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedEffect.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="Helit.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="NotorBangerBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HelitBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionEffect.cpp">
+      <Filter>Game\Effect\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ChargedExplosion.cpp">
+      <Filter>Game\Effect\Megaman</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletCollision.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadGunnerBullet2.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Shurikein.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>

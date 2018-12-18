@@ -5,6 +5,9 @@
 #include "QNode.h"
 #include "CollisionEvent.h"
 #include "ScenceController.h"
+#include "Elevator.h"
+#include "Helit.h"
+#include "Shurikein.h"
 class Controller
 {
 
@@ -16,9 +19,11 @@ private:
 
 	QNode* rootStatic;//static Objects
 	QNode* rootDynamic;//dynamic Objects;
-
+	CTreeObject * elevator;
 
 	ScenceController* tilesControll;
+
+	Shurikein* shurikein;
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();

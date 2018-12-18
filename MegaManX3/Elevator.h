@@ -6,7 +6,7 @@ class Elevator :
 	public StaticObject
 {
 private:
-	void loadResources() override {};
+	void loadResources() override;
 	bool isRun = false;
 public:
 	Elevator(UINT idTexture, float x, float y);

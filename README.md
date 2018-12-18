@@ -1,6 +1,6 @@
 # Mega Man X3
 
-🎮 Mega Man X3 with C++, Directx.
+🎮 Mega Man X3 with C++, DirectX. Inspired by [Mega Man X3](https://en.wikipedia.org/wiki/Mega_Man_X3).
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/34389409/49020554-4eeef500-f1c3-11e8-823a-9fe46a35faf2.jpg" width="500"/>
@@ -27,8 +27,11 @@ Click [here](https://en.wikipedia.org/wiki/Mega_Man_X3) for more details.
 
 ## Documents
 
-* [DirectxTutorial](http://www.directxtutorial.com/)
-* [gamedev-intro-tutorials](https://github.com/Dungdna2000/gamedev-intro-tutorials)
+[gamedev-intro-tutorials](https://github.com/Dungdna2000/gamedev-intro-tutorials) by [Dungdna2000](https://github.com/Dungdna2000)
+
+## Build with
+
+## Some Screens
 
 ## Bugs and Issues
 
@@ -36,9 +39,9 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## Authors
 
-* **Vi Chi Thien** - [tvc12](https://github.com/tvc12)
-* **Nguyen Duy Cuong** - [ndc07](https://github.com/ndc07)
-* **Le Van Phuoc** - [TokumeiShi](https://github.com/TokumeiShi)
+* **Vi Chi Thien** - [tvc12](https://github.com/tvc12) 🐶
+* **Nguyen Duy Cuong** - [ndc07](https://github.com/ndc07) 💎
+* **Le Van Phuoc** - [TokumeiShi](https://github.com/TokumeiShi) 🦉
 
 ## License
 

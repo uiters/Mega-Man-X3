@@ -1,5 +1,9 @@
 #include "Sprites.h"
 
+CSprite::CSprite()
+{
+}
+
 CSprite::CSprite(UINT id, UINT left, UINT top, UINT right, UINT bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	this->id = id;
@@ -8,7 +12,7 @@ CSprite::CSprite(UINT id, UINT left, UINT top, UINT right, UINT bottom, LPDIRECT
 	this->texture = tex;
 }
 
-void CSprite::draw(int x, int y, bool center, D3DCOLOR colorBrush)
+void CSprite::draw(float x, float y, bool center, D3DCOLOR colorBrush)
 {
 	D3DXVECTOR3 pos(x, y, 0);
 	if (center) 
@@ -24,7 +28,7 @@ void CSprite::draw(int x, int y, bool center, D3DCOLOR colorBrush)
 }
 
 
-void CSprite::drawFlipX(int x, int y, bool center, D3DCOLOR colorBrush)
+void CSprite::drawFlipX(float x, float y, bool center, D3DCOLOR colorBrush)
 {
 	LPD3DXSPRITE spriteHandler = gameGlobal->getSpriteHandler();
 	D3DXMATRIX newMatrix;
@@ -40,7 +44,7 @@ void CSprite::drawFlipX(int x, int y, bool center, D3DCOLOR colorBrush)
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
-void CSprite::drawFlipY(int x, int y, bool center, D3DCOLOR colorBrush)
+void CSprite::drawFlipY(float x, float y, bool center, D3DCOLOR colorBrush)
 {
 	LPD3DXSPRITE spriteHandler = gameGlobal->getSpriteHandler();
 	D3DXMATRIX newMatrix;

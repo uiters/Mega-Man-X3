@@ -25,12 +25,14 @@ protected:
 	
 	bool _canReset = true;
 	bool _canRemove = false;
+	
 
 	LPDIRECT3DTEXTURE9 _texture;
 
-	static unordered_map<UINT, LPANIMATION> _animations;
+	unordered_map<UINT, LPANIMATION> _animations;
 	static Collision * collision;
 public:
+	bool toLeft = false;
 	float x = 0, y = 0;
 	float dx = 0; // dx = vx * dt
 	float dy = 0; // dy = vy * dt

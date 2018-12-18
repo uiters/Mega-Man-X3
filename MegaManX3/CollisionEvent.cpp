@@ -56,6 +56,19 @@ void  Collision::findCollisions(DWORD dt, LPObject objectMove, const unordered_m
 	//debugOut(L"%i\n", coEvents.size());
 }
 
+void Collision::findCollisions(DWORD dt, LPObject objectMove, vector<GameObject*>* objects, vector<LPCollisionEvent> &coEvents)
+{
+	coEvents.clear();
+	for (auto item : *objects)
+	{
+		LPCollisionEvent e = sweptAABBEx(dt, objectMove, item);
+		if (e->t > 0 && e->t <= 1.0f)
+			coEvents.push_back(e);
+		else delete e;
+	}
+	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
+}
+
 void Collision::filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent>& coEventsResult, float & min_tx, float & min_ty, float & nx, float & ny)
 {
 	min_tx = 1.0f;
@@ -169,8 +182,8 @@ void Collision::sweptAABB(
 
 	if (dx == 0)
 	{
-		tx_entry = -99999999999;
-		tx_exit = 99999999999;
+		tx_entry = -99999999999.f;
+		tx_exit = 99999999999.f;
 	}
 	else
 	{
@@ -180,8 +193,8 @@ void Collision::sweptAABB(
 
 	if (dy == 0)
 	{
-		ty_entry = -99999999999;
-		ty_exit = 99999999999;
+		ty_entry = -99999999999.f;
+		ty_exit = 99999999999.f;
 	}
 	else
 	{

@@ -1,5 +1,5 @@
 #include "Game1.h"
-
+#include "Helit.h"
 void Game1::initGolbals()
 {
 	texturesGlobal = CTextures::getInstance();
@@ -18,7 +18,15 @@ void Game1::loadResource()
 	texturesGlobal->add(TDashSpark, DASH_SPARK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TSlide, SLIDE, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TKick, KICK, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TCharged1, CHARGED_SHOOT1, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TCharged2, CHARGED_SHOOT2, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
+	texturesGlobal->add(TDeath, DIE, 135, 38, D3DCOLOR_XRGB(50, 96, 166));
+	texturesGlobal->add(TChargedExplosion, CHARGED_EXPLOSION, 0, 0, D3DCOLOR_XRGB(50, 96, 166));
 
+	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
+	texturesGlobal->add(TExplosion, EXPLOISION);
+
+	//main = new MegamanX(Megaman, 100, 650);
 
 
 	main = new MegamanX(Megaman, 2344, 910);
@@ -156,10 +164,10 @@ void Game1::loadResource()
 	spritesGlobal->add(shock + 8, Megaman, 309, 318, 337, 351);
 	spritesGlobal->add(shock + 9, Megaman, 341, 316, 366, 351);
 
-	ani = new CAnimation(500);
-	for (int i = 0; i < 10; i++)
+	ani = new CAnimation(50);
+	for (int i = 0; i < 10; ++i)
 	{
-		ani->add(shock + i, 50);
+		ani->add(shock + i, 20);
 	}
 	animationsGlobal->add(shock, ani);
 	main->addAnimation(shock);
@@ -272,13 +280,6 @@ void Game1::loadResource()
 
 	main->state = appear;
 
-	//notorBanger = new NotorBanger();
-	//notorBanger->loadResources();
-	//notorBanger->setState(NOTOR_BANGER_STATE_INIT);
-
-	//headGunner = new HeadGunner();
-	//headGunner->loadResources();
-	//headGunner->setState(HEAD_GUNNER_STATE_DEFAULT);
 
 #pragma region Elevator
 
@@ -293,10 +294,32 @@ void Game1::loadResource()
 	ani->add(Elevator3);
 
 	animationsGlobal->add(TElevator, ani);
-	main->addAnimation(TElevator);
 #pragma endregion
-	shurikein = new Shurikein(TShurikein, 2402, 920);
-	shurikein->state = manifest;
+
+#pragma region preDie
+	spritesGlobal->add(preDie, TDeath, 77, 1, 102, 36);
+	spritesGlobal->add(preDie + 1, TDeath, 107, 1, 132, 36);
+	ani = new CAnimation(1000);
+	ani->add(preDie, 50);
+	ani->add(preDie + 1, 100);
+	animationsGlobal->add(preDie, ani);
+	main->addAnimation(preDie);
+#pragma endregion
+
+#pragma region die
+	for (int i = 0; i < 5; i++)
+	{
+		spritesGlobal->add(die + i, TDeath, i * 15 + 1, 0, (i + 1) * 15, 14);
+	}
+	ani = new CAnimation(750);
+	for (int i = 0; i < 5; ++i)
+	{
+		ani->add(die + i, 150);
+	}
+	animationsGlobal->add(die, ani);
+	main->addAnimation(die);
+#pragma endregion
+	
 }
 
 
@@ -304,9 +327,11 @@ void Game1::initOption()
 {
 	auto x = Factory::getInstance()->createObjects(OBJECT_TXT);
 	root = Factory::getInstance()->createQuadTree(QUADTREE_TXT, *x);
-	//auto rootDynamic = Factory::getInstance()->createQuadTree(QUADTREEDYNAMIC_TXT, *x);
+	auto rootdyanamic = Factory::getInstance()->createQuadTree(QUADTREE_DYNAMIC_TXT, *x);
 	delete x;
-	controller = new Controller(main, root, 0);
+	controller = new Controller(main, root, rootdyanamic);
+	mainGlobal = main;
+
 }
 
 void Game1::update(DWORD dt)
@@ -316,7 +341,7 @@ void Game1::update(DWORD dt)
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
 	mainGlobal = main;
-	shurikein->update(dt);
+	
 	//notorBanger->update(dt);
 	//headGunner->update(dt);
 }	
@@ -325,7 +350,7 @@ void Game1::render(DWORD dt)
 {
 
 	controller->render(dt);
-	shurikein->render(dt);
+	
 	//notorBanger->render(dt);
 	//headGunner->render(dt);
 }

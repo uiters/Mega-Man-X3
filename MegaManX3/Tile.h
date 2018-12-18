@@ -5,11 +5,11 @@
 class Tile :
 	private CSprite
 {
-public:
+private:
 	int x;
 	int y;
 public:
-	Tile(UINT id, LPDIRECT3DTEXTURE9 texture, int x, int y, UINT width, UINT heigt);// id = index 
+	Tile(UINT index, LPDIRECT3DTEXTURE9 texture, int x, int y, UINT width, UINT heiht);// id = index 
 	~Tile();
 	void draw(bool center, D3DCOLOR colorBrush = WHITE(255));
 	void drawFlipX(bool center, D3DCOLOR colorBrush = WHITE(255));
