@@ -340,7 +340,6 @@ void Game1::update(DWORD dt)
 	keyGlobal->processKeyboard();
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
-	mainGlobal = main;
 	
 	//notorBanger->update(dt);
 	//headGunner->update(dt);
