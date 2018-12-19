@@ -9,7 +9,9 @@ private:
 	int x;
 	int y;
 public:
-	Tile(UINT index, LPDIRECT3DTEXTURE9 texture, int x, int y, UINT width, UINT heiht);// id = index 
+	
+	Tile(UINT index, int x, int y, int left, int top, UINT width, UINT height, LPDIRECT3DTEXTURE9 texture);
+
 	~Tile();
 	void draw(bool center, D3DCOLOR colorBrush = WHITE(255));
 	void drawFlipX(bool center, D3DCOLOR colorBrush = WHITE(255));
