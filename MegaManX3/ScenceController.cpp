@@ -5,10 +5,10 @@
 ScenceController::ScenceController()
 {
 
-	texturesGlobal->add(TMap, IMAGE_MAP, 0, 0);
+	texturesGlobal->add(TMap, L"Resource\\Sounds\\BlastHornet.bmp", 0, 0);
 	_texture = texturesGlobal->getTexture(TMap);
 	ifstream input;
-	input.open(MAP, ifstream::in);
+	input.open(L"Resource\\Sounds\\BlastHornet.txt", ifstream::in);
 	if (!input.good())
 	{
 		debugOut(L"[Failed] Load File ");

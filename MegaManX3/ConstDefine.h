@@ -29,6 +29,7 @@
 #pragma endregion
 
 #pragma region Megaman
+#define MEGAMAN L"Resource\\Textures\\Megamanx3.png"
 #define MEGAMAN_EFFECT L"Resource\\Textures\\megamanEffect.png"
 #define SHIP L"Resource\\Images\\BlastHornetStage\\tile\\ship2.png"
 #define DASH_SMOKE L"Resource\\Textures\\DashSmoke.png"

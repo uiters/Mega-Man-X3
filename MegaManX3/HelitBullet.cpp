@@ -31,7 +31,7 @@ void HelitBullet::getBoundingBox(float & left, float & top, float & right, float
 	bottom = y + 10;
 }
 
-void HelitBullet::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void HelitBullet::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
 	dx = speed.vx * dt;

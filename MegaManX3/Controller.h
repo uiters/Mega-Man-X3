@@ -14,12 +14,12 @@ class Controller
 private:
 	MegamanX* main;
 
-	unordered_map<int, CTreeObject*> currentStatic;//current Static objects
-	unordered_map<int, CTreeObject*> currentDynamic;//current Dynaimc Objects;
+	unordered_map<int, GameObject*> currentStatic;//current Static objects
+	unordered_map<int, GameObject*> currentDynamic;//current Dynaimc Objects;
 
 	QNode* rootStatic;//static Objects
 	QNode* rootDynamic;//dynamic Objects;
-	CTreeObject * elevator;
+	GameObject* elevator;
 
 	ScenceController* tilesControll;
 

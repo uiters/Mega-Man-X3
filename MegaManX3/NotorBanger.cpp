@@ -20,7 +20,7 @@ NotorBanger::~NotorBanger()
 {
 }
 
-void NotorBanger::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void NotorBanger::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {	
 	this->dt = dt;
 	if (_death) {
@@ -395,7 +395,7 @@ int NotorBanger::getDistance()
 	}
 }
 
-void NotorBanger::collisionStatic(unordered_map<int, CTreeObject*>* staticObjects)
+void NotorBanger::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;

@@ -2,13 +2,11 @@
 #define _QNode_H_
 
 #include <vector>
-#include <unordered_set>
+#include <unordered_map>
 
 #include "ConstGlobals.h"
-#include "CTreeObject.h"
 #include "GameObject.h"
-using namespace std;
-#define Max_level 6
+
 using namespace std;
 class QNode
 {
@@ -16,7 +14,7 @@ protected:
 	UINT _id;
 	int _level;
 	CRectangle rect;
-	vector<CTreeObject*> objects;
+	vector<GameObject*> objects;
 
 	QNode* topLeft;
 	QNode* topRight;
@@ -24,23 +22,18 @@ protected:
 	QNode* bottomRight;
 
 protected:
-	void getObjects(CRectangle* region, unordered_map<int, CTreeObject*>& objs);
-	void _getObjects(unordered_map<int, CTreeObject*>& objs);
-	void _insert(CTreeObject* object);
-
-	void createNode();
-
+	void getObjects(CRectangle* region, unordered_map<int, GameObject*>& objs);
+	void _getObjects(unordered_map<int, GameObject*>& objs);
 public:
 
 	QNode(UINT id, int x, int y, UINT width, UINT height);
 
-	void insert(LPObject object, int x, int y, UINT width, UINT height);
 
-	void getObjectsIn(Viewport* viewport, unordered_map<int, CTreeObject*>& objs);
+	void getObjectsIn(Viewport* viewport, unordered_map<int, GameObject*>& objs);
 
 
 	void build(unordered_map<int, QNode*>& node);
-	void add(const vector<CTreeObject*>& objs);
+	void add(const vector<GameObject*>& objs);
 
 	int count();
 

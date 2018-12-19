@@ -41,12 +41,12 @@ Collision * Collision::getInstance()
 	return _instance;
 }
 
-void  Collision::findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, CTreeObject*>& objects, vector<LPCollisionEvent> &coEvents)
+void  Collision::findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, GameObject*>& objects, vector<LPCollisionEvent> &coEvents)
 {
 	coEvents.clear();
 	for (auto keyValue : objects)
 	{
-		LPCollisionEvent e = sweptAABBEx(dt, objectMove, keyValue.second->object);
+		LPCollisionEvent e = sweptAABBEx(dt, objectMove, keyValue.second);
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
 		else delete e;

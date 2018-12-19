@@ -6,7 +6,7 @@
 #include "Factory.h"
 #include "Animation.h"
 #include "CollisionEvent.h"
-#include "CTreeObject.h"
+#include "GameObject.h"
 #include "ConstGlobals.h"
 #include "Controller.h"
 #include "Shurikein.h"

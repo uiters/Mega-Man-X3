@@ -40,7 +40,7 @@ void BusterShot::render(DWORD dt, D3DCOLOR colorBrush)
 		_animations[bullet_lv1]->renderFlipX(pos.x, pos.y, true, colorBrush);
 	else _animations[bullet_lv1]->render(pos.x, pos.y, true, colorBrush);
 }
-void BusterShot::update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects, unordered_map<int, CTreeObject*>* dynamicObjects)
+void BusterShot::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
 	dx = speed.vx * dt;

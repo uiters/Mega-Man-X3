@@ -34,7 +34,7 @@ class NotorBanger : public DynamicObject
 public:
 	NotorBanger(int id, float x, float y, bool nx);
 	~NotorBanger();
-	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0);
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void calculateDie();
@@ -57,7 +57,7 @@ private:
 	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
 	void createBullet();
-	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
+	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
 };
 
 struct  Distance

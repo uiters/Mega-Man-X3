@@ -21,8 +21,8 @@ public:
 	Shurikein(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	void loadResources() override;
 	Shurikein* clone(int id, int x, int y);
-	void update(DWORD dt, unordered_map<int, CTreeObject*>* staticObjects = 0, unordered_map<int, CTreeObject*>* dynamicObjects = 0) override;
-	void collisionStatic(unordered_map<int, CTreeObject*>* staticObjects);
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0) override;
+	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	

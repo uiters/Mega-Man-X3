@@ -142,6 +142,9 @@
     <Filter Include="Game\Effect\Enemies">
       <UniqueIdentifier>{81df8b30-1092-444b-8786-54c94e1fb4f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{7a5d865b-a794-4041-8277-abd1cc9c2609}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -224,9 +227,6 @@
     </ClInclude>
     <ClInclude Include="ConstDefine.h">
       <Filter>Game\Constaint</Filter>
-    </ClInclude>
-    <ClInclude Include="CTreeObject.h">
-      <Filter>Lib\Map</Filter>
     </ClInclude>
     <ClInclude Include="CTime.h">
       <Filter>Lib\CTime</Filter>
@@ -393,9 +393,6 @@
     <ClCompile Include="QNode.cpp">
       <Filter>Lib\Map</Filter>
     </ClCompile>
-    <ClCompile Include="CTreeObject.cpp">
-      <Filter>Lib\Map</Filter>
-    </ClCompile>
     <ClCompile Include="CTime.cpp">
       <Filter>Lib\CTime</Filter>
     </ClCompile>
@@ -496,6 +493,69 @@
   <ItemGroup>
     <Image Include="icon.ico">
       <Filter>Resource Files\Images\Icons</Filter>
+    </Image>
+    <Image Include="Resource\Textures\1d86c5d17f3cfd3038b46fb739937e26.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\box.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\Charged1.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\Charged2.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\chargedEffect.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\DashSmoke.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\DashSpark.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\die.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\effect1.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\effect2.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\effect3.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\effect4.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\enemies.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\explosion.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\HeadeGunnerBullets.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\helit.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\Kick.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\megamanEffect.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\Megamanx3.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\shurikein.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\Slide.png">
+      <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>
 </Project>
