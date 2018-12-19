@@ -9,8 +9,8 @@
 #define HLOGO L"icon.ico"
 //#define MAP L"map1.log"
 
-#define WD_WIDTH 800
-#define WD_HEIGHT 600
+#define WD_WIDTH 768
+#define WD_HEIGHT 768
 
 #define CAMERA_WIDTH 256
 #define CAMERA_HEIGHT 256

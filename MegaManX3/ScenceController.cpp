@@ -32,10 +32,8 @@ ScenceController::ScenceController()
 			input >> index;
 			calculateIndex(index, left, top);
 			_tiles[row][col] = new Tile(index, col * width, row * height, left, top, width, height, _texture);
-			debugOut(L"[ %i %i ] ", left, top);
-
 		}
-		debugOut(L"\n");
+
 	}
 	cameraGlobal->setSizeWorld(0, 0, cols * width, height * height);
 	input.close();
@@ -56,28 +54,11 @@ ScenceController::~ScenceController()
 void ScenceController::update(Viewport * viewport)
 {
 	
-	colStart = viewport->x / width ;
-	colStart = colStart > cols ? cols : colStart;
+	colStart = viewport->x / width; //sure
+	rowStart = viewport->y / height; // sure
 
-	colEnd = viewport->right() / width + 1;
-	colEnd = colEnd > cols ? cols : colEnd;
-
-	rowStart = viewport->y / height;
-	rowStart = rowStart < 0 ? 0 : rowStart;
-
-	rowEnd = viewport->bottom() / height + 2;
-	rowEnd = colEnd > rows ? rows : rowEnd;
-
-
-
-
-	//colEnd = viewport->right() / width;
-	
-
-	//rowStart = rows - (viewport->y - viewport->height) / height;
-	
-	//debugOut(L"[%i -> %i %i -> % i]\n", rowStart, rowEnd, colStart, colEnd);
-	//debugOut(L"[%i %i ]\n", viewport->x, viewport->y);
+	colEnd = viewport->right() / (float)width + 0.99f;
+	rowEnd = viewport->bottom() / (float)height + 0.99f;
 }
 
 void ScenceController::render(DWORD dt)

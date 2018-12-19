@@ -139,6 +139,7 @@ void KeyController::updateState()
 		case StatusJump::Slide:
 			state = MegaManAnimation::slide;
 			stateShoot = slide_shoot;
+			main->speed.vy -= 0.0001f * main->dt;
 			width = Slide_Shoot_Width;
 			height = Slide_Shoot_Height;
 			break;
@@ -188,11 +189,20 @@ void KeyController::removeKeyZ()
 {
 	pressZ = false;
 	isShot = true;
-	if (isHurt) return;
+	if (isHurt)
+	{
+		timePressZ.stop();
+		timeShoot.stop();
+		return;
+	}
+
 	timePressZ.stop();
 	timeShoot.start();
 	effect->stopShoot();
-	if (toLeft)
+
+	bool left = this->statusJump == StatusJump::Slide ? !toLeft : toLeft;
+
+	if (left)
 		weapon->createWeapon(main->x, main->y + height / 2 - 2, levelShoot, true);
 	else
 		weapon->createWeapon(main->x + width, main->y + height / 2 - 2, levelShoot, false);
@@ -280,6 +290,7 @@ void KeyController::updateJump()
 			main->x += toLeft ? 1.5 : -1.5;
 		}
 		else statusJump = Jump;
+		timeslideDelay.start();
 	}
 	else if(onAir)
 	{
@@ -293,6 +304,7 @@ void KeyController::updateJump()
 				return;
 			}
 			timeslideDelay.update();
+
 			if (timeslideDelay.isStop())
 			{
 				if (toLeft)

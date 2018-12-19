@@ -73,7 +73,7 @@ private:
 	bool isDash = false;
 	CTime timeDash = CTime(600);
 	CTime dashSmokeDelay = CTime(90);
-	CTime timeslideDelay = CTime(20);
+	CTime timeslideDelay = CTime(50);
 	//shoot
 	bool isShot = false;
 	CTime timeShoot = CTime(400);
