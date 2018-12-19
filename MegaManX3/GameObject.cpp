@@ -56,7 +56,7 @@ void GameObject::addAnimation(UINT animationId)
 
 
 
-CRectangle GameObject::getBoundingBox()
+CRectangle GameObject::getBoundBox()
 {
 	float left, top, right, bottom;
 	this->getBoundingBox(left, top, right, bottom);

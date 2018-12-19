@@ -257,7 +257,7 @@ void Helit::updateBullet(DWORD dt, unordered_map<int, GameObject*>* staticObject
 	{
 		it[0]->update(dt);
 
-		if (!it[0]->getBoundingBox().intersectsWith(cameraGlobal->viewport))
+		if (!it[0]->getBoundBox().intersectsWith(cameraGlobal->viewport))
 		{
 			delete (*it);
 			it = _weapons.erase(it);

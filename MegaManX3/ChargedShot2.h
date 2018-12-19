@@ -1,5 +1,8 @@
-#pragma once
-#include "Weapon.h".
+#ifndef  _ChargedShot2_H_
+#define _ChargedShot2_H_
+
+
+#include "Weapon.h"
 #include "Camera.h"
 class ChargedShot2 :
 	public Weapon
@@ -14,3 +17,4 @@ public:
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects);
 };
 
+#endif // ! _ChargedShot2_H_

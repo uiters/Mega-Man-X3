@@ -1,6 +1,6 @@
 #ifndef  _ConstStruct_
 #define _ConstStruct_
-
+#include "Debugs.h"
 struct PointF;
 struct AnimationPoint;
 struct Size;
@@ -104,19 +104,14 @@ typedef struct Rectangle
 #pragma endregion
 
 #pragma region Intersect
-
 	bool intersectsWith(const Rectangle &rect)
 	{
-		//if (this->x > rect.right() || rect.x > this->right())
-		//	return false;
-		//if (this->y < rect.bottom() || rect.y < this->right())
-		//	return false;
-
-		//return true;
 		int top = max(this->y, rect.y);
-		int bottom = min(this->bottom(), rect.bottom());
+		int bottom = min(this->y + this->height, rect.y + rect.height);
+
 		int left = max(this->x, rect.x);
-		int right = min(this->right(), rect.right());
+		int right = min(this->x + width, rect.x + rect.width);
+
 		return bottom > top && right > left;
 	}
 	Rectangle intersect(const Rectangle& rect)

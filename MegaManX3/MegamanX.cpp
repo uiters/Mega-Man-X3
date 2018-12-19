@@ -339,12 +339,16 @@ void MegamanX::getBoundingBox(float & left, float & top, float & right, float & 
 
 void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects)
 {
+	auto megamanBox = this->getBoundBox();
 	for (auto kv : *dynamicObjects)
 	{
+		// object collision main (include bullet) (use single & swept aabb)
 		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second);
 		if (!obj || obj->isDeath()) continue;
 
-		if (collisionGameObject(obj, this))
+		if (kv.second->getBoundBox().intersectsWith(megamanBox) //single
+			||
+			collisionGameObject(obj, this)) // swpet
 		{
 			setHurt();
 			return;
@@ -353,8 +357,14 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObje
 		auto bullets = obj->getWeapons();
 		for (auto bullet = bullets->begin(); bullet != bullets->end(); )
 		{
-			if (collisionBullet(obj, *bullet, this))
+			if (bullet[0]->getBoundBox().intersectsWith(megamanBox) //single
+				||
+				collisionBullet(obj, *bullet, this)) //swept
 			{
+				if (bullet[0]->toLeft)
+					obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);
+				else
+					obj->createExplosion(bullet[0]->x - 10, bullet[0]->y);
 				delete *bullet;
 				bullet = bullets->erase(bullet);
 				setHurt();
@@ -375,11 +385,14 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 			++it;
 			continue;
 		}
-
+		// bullet main collision enemies or boss (use single & swept aabb)
+		auto objBox = obj->getBoundBox();
 		for (auto bullet = _weapons.begin(); bullet != _weapons.end();)
 		{
 			if (obj->isDeath()) break;
-			if (collisionGameObject(*bullet, obj)) //colision bullet with dynamic
+			if (bullet[0]->getBoundBox().intersectsWith(objBox) //single aabb collision
+				||
+				collisionGameObject(*bullet, obj)) //colision bullet with dynamic with swept aabb
 			{
 				obj->receiveDamage(bullet[0]->getDamage());
 				if (obj->isDeath())
@@ -397,7 +410,7 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				}
 				break;// out for bullet
 			}
-			else
+			else // bullet main collision bullet enemies or boss (use swept aabb)
 			{
 				auto dynamicBullets = obj->getWeapons();
 				bool noDelete = true;
@@ -405,7 +418,12 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				{
 					if (collisionBullet(obj, *bulletDynamic, *bullet))
 					{
-						delete *bulletDynamic;
+						if (bulletDynamic[0]->toLeft)
+							obj->createExplosion(bulletDynamic[0]->x + 10, bulletDynamic[0]->y);
+						else
+							obj->createExplosion(bulletDynamic[0]->x - 10, bulletDynamic[0]->y);
+
+						delete bulletDynamic[0];
 						bulletDynamic = dynamicBullets->erase(bulletDynamic);
 						noDelete = false;
 						if (dynamic_cast<BusterShot*>(*bullet)) // don't cross delete bullet
@@ -422,9 +440,6 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 			}
 		}
 
-		//if (obj->isDeath())
-		//	it = dynamicObjects->erase(it); // remove obj from list objects
-		//else ++it;
 		++it;
 	}
 }
@@ -446,10 +461,6 @@ bool MegamanX::collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject*
 	auto e = Collision::getInstance()->sweptAABBEx(dt, bullet1, obj2);
 	if (e->t > 0 && e->t <= 1.0f)
 	{
-		if (obj1->toLeft)
-			obj1->createExplosion(bullet1->x + 10, bullet1->y);
-		else
-			obj1->createExplosion(bullet1->x - 10, bullet1->y);
 		delete e;
 		return true;
 	}
