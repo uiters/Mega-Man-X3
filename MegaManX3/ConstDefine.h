@@ -19,7 +19,7 @@
 #define HEIGHT_QUATREE 256
 
 //#define MAX_LEVEL 5
-#define FPS 60
+#define FPS 90
 #define null 0
 #pragma endregion
 

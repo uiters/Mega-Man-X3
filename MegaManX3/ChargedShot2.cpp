@@ -53,6 +53,7 @@ void ChargedShot2::render(DWORD dt, D3DCOLOR colorBrush)
 void ChargedShot2::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
+	speed.vx += toLeft ? -0.001f * dt : 0.001f * dt;
 	dx = speed.vx * dt;
 	this->x += dx;
 }

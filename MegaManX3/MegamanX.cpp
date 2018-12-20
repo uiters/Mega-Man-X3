@@ -14,7 +14,6 @@ void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 	{
 		x += dx;
 		y += dy;
-		return;
 	}
 	else
 	{
@@ -26,8 +25,6 @@ void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 		
 		if (nx != 0) speed.vx = 0;
 		if (ny != 0) speed.vy = 0;
-		//else keyController->setFloor(null);
-
 
 		
 		for (UINT i = 0; i < coEventsResult.size(); ++i)
@@ -56,8 +53,7 @@ void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 		}
 	}
 	keyController->update();
-
-	
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
 
 void MegamanX::collisionDynamic(unordered_map<int, GameObject*>* dynamicObjects)

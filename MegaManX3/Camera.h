@@ -8,11 +8,12 @@ class Camera {
 private:
 	int maxValue, minValue;
 
+	void(Camera::*state) (int, int);
+
+	int nAnimation = 1;
 
 	bool lockLeft = false;
 	bool lockTop = false;
-
-	int state;
 
 	bool aniSwitchState = false;
 	bool enable = true;
@@ -27,16 +28,21 @@ private:
 	void state5(int cameraX, int cameraY);
 	void state6(int cameraX, int cameraY);
 	void state7(int cameraX, int cameraY);
+	void state8(int cameraX, int cameraY);
+	void state9(int cameraX, int cameraY);
+	void state10(int cameraX, int cameraY);
+
 public:
 	void setEnable(bool value) { this->enable = value; }
 	Viewport viewport;
 	Rect world;
 
+
 	Camera(int x, int y, int width, int height);
 
 	void update(int x, int y);
 
-	void nextState();
+	void nextAnimation();
 
 	void setSizeWorld(int x,int y,int width,int height);
 
