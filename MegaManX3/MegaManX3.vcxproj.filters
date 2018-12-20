@@ -324,6 +324,9 @@
     <ClInclude Include="Shurikein.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="BarrierSystem.h">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -488,6 +491,9 @@
     </ClCompile>
     <ClCompile Include="Shurikein.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BarrierSystem.cpp">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

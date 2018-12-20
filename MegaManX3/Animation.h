@@ -38,7 +38,7 @@ public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void add(UINT spriteId, DWORD time = 0);
 
-	bool isLastFrame();//warring
+	virtual bool isLastFrame();//warring
 
 	//center is draw center
 	virtual void render(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;

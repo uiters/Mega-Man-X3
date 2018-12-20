@@ -36,6 +36,7 @@ public:
 	~NotorBanger();
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void drawLine(LPDIRECT3DDEVICE9 Device_Interface, int x, int y, D3DCOLOR color);
 	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void calculateDie();
 	void setState(int state);
