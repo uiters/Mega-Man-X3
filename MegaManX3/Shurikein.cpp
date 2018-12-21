@@ -156,6 +156,8 @@ Shurikein::Shurikein(UINT idTexture, float x, float y, float vx, float vy) :Dyna
 {
 	loadResources();
 	countManifest.start();
+	mech = 2;
+	inMech = false;
 }
 Shurikein * Shurikein::clone(int id, int x, int y)
 {
@@ -164,40 +166,45 @@ Shurikein * Shurikein::clone(int id, int x, int y)
 
 void Shurikein::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	GameObject::update(dt);
-	y += dy;
-	x += dx;
-
-	countManifest.update();
-	countTimeJump.update();
-	countTimeFall.update();
-	countTimeSpin.update();
-	mech1.update();
-	mech2.update();
-	mech3.update();
-
-	debugOut(L"%f %f\n", speed.vx, speed.vy);
-	if (countManifest.isStop() && mech1.isStop() && mech3.isStop() && mech2.isStop() && !isDeath())
+	
+	if (!inMech)
 	{
-		switch (rand() % 3 + 1)
+		switch (mech)
 		{
 		case 1:
-			mech1.start();
-			goAround();
+
 			break;
 		case 2:
-			mech2.start();
-			rollAndJump();
+			mech2(true);
+			inMech = true;
+			state = spin;
 			break;
 		case 3:
-			mech3.start();
-			spinAndJump();
+
 			break;
 		default:
 			break;
 		}
 	}
+	else
+	{
+		switch (mech)
+		{
+		case 1:
 
+			break;
+		case 2:
+			speed.vy += 0.005f;
+			break;
+		case 3:
+
+			break;
+		default:
+			break;
+		}
+	}
+	GameObject::update(dt);
+	collisionStatic(staticObjects);
 }
 void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
@@ -205,6 +212,7 @@ void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 	vector<CollisionEvent*> coEventsResult;
 
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
+
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -215,31 +223,62 @@ void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 		float min_tx, min_ty, nx = 0, ny;
 		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		//x += min_tx * dx + nx * 1.f;
-		//y += min_ty * dy + ny * 1.f;
-		for (UINT i = 0; i < coEventsResult.size(); ++i)
+		if (nx < 0)
 		{
-			auto e = coEventsResult[i];
-			StaticObject* obj = dynamic_cast<StaticObject *>(e->obj);
-			if (obj)
+			
+		}
+		else if (nx > 0)
+		{
+			
+		}
+		else
+		{
+			
+		}
+
+		if (ny < 0)
+		{
+			switch (mech)
 			{
-				if (e->ny < 0)
-				{
-
-				}
-				else if (e->ny > 0)
-				{
-
-				}
-				else if (e->nx != 0)
-				{
-
-
-				}
-				obj->run();
+			case 1:
+				speed.vx = 0;
+				speed.vy = 0;
+				break;
+			case 2:
+				mech2(true);
+				break;
+			case 3:
+				break;
+			default:
+				speed.vx = 0;
+				speed.vy = 0;
+				break;
 			}
 		}
+		else if (ny > 0)
+		{
+			switch (mech)
+			{
+			case 1:
+				speed.vx = 0;
+				speed.vy = 0;
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			default:
+				speed.vx = 0;
+				speed.vy = 0;
+				break;
+			}
+		}
+		else
+		{
+
+		}	
 	}
+
 	UINT size = coEvents.size();
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
@@ -253,106 +292,25 @@ void Shurikein::render(DWORD dt, D3DCOLOR colorBrush)
 
 void Shurikein::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x - 23;
-	top = y - 23;
+	left = x;
+	top = y;
 
-	right = x + 23;
-	top = y + 23;
+	right = x + 20;
+	top = y + 20;
 }
 
-void Shurikein::goAround()
+void Shurikein::mech2(bool toLeft)
 {
-	state = normal;
-	if (!_death)
+	if (toLeft)
 	{
-		if (x > 2344 && y >= 920)
-		{
-			speed.vx = -0.18;
-			speed.vy = 0;
-		} 
-		if (x <= 2344 && y > 809)
-		{
-			speed.vx = 0;
-			speed.vy = -0.18;
-		} 
-		if (x < 2518 && y <= 809)
-		{
-			speed.vx = 0.18;
-			speed.vy = 0;
-		} 
-		if (x >= 2518 && y < 920)
-		{
-			speed.vx = 0;
-			speed.vy = 0.18;
-		}
+		speed.vx = -0.05f;
+		speed.vy = -0.35f;
 	}
-}
-
-void Shurikein::rollAndJump()
-{
-	state = roll;
-	if (x == 2518 && !jumped)
+	else
 	{
-		if (x > 2402 && !jumped)
-		{
-			speed.vx = -0.18;
-			speed.vy = 0;
-		}
-		if (x == 2402 && countTimeJump.isStop())
-		{
-			countTimeJump.start();
-			speed.vx = -0.15;
-			speed.vy = -0.15;
-		}
-		if (x > 2344 && x < 2402 && countTimeJump.isStop());
-		{
-			countTimeFall.start();
-			speed.vx = 0.15;
-			speed.vy = 0.15;
-			jumped = true;
-		}
-		if (x > 2402 && jumped);
-		{
-			speed.vx = 0.22;
-			speed.vy = 0;
-		}
+		speed.vx = 0.05f;
+		speed.vy = -0.35f;
 	}
-	else if (x == 2518 && jumped)
-	{
-		speed.vx = 0;
-		speed.vy = 0;
-	}
-}
-
-void Shurikein::spinAndJump()
-{
-	state = spin;
-	if (countTimeSpin.isRunning())
-	{
-		if (countTimeJump.isStop() && !jumped)
-		{
-			countTimeJump.start();
-			jumped = true;
-			(rand() % 2 + 0 == 1) ? speed.vx = 1 / (rand() % 6 + 5) : speed.vx = -1 / (rand() % 6 + 5);
-			speed.vy = -1 / (rand() % 11 + 10);
-		}
-		else if (countTimeJump.isStop() && jumped)
-		{
-			countTimeFall.start();
-			jumped = false;
-			(rand() % 2 + 0 == 1) ? speed.vx = 1 / (rand() % 6 + 5) : speed.vx = -1 / (rand() % 6 + 5);
-			speed.vy = 1 / (rand() % 11 + 10);
-		}
-	}
-	if (countTimeJump.isRunning())
-	{
-		countTimeFall.stop();
-	}
-	if (countTimeFall.isRunning())
-	{
-		countTimeJump.stop();
-	}
-
 }
 
 //room: 2319  2543

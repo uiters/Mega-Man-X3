@@ -8,7 +8,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->main = main;
 	tilesControll = new ScenceController();
 	main->state = stand;
-	shurikein  = new Shurikein(TShurikein, 2402, 920);
+	shurikein  = new Shurikein(TShurikein, 2518, 920);
 	shurikein->state = manifest;
 }
 
