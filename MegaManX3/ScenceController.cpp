@@ -32,10 +32,8 @@ ScenceController::ScenceController()
 			input >> index;
 			calculateIndex(index, left, top);
 			_tiles[row][col] = new Tile(index, col * width, row * height, left, top, width, height, _texture);
-			debugOut(L"[ %i %i ] ", left, top);
-
 		}
-		debugOut(L"\n");
+
 	}
 	cameraGlobal->setSizeWorld(0, 0, cols * width, height * height);
 	input.close();

@@ -10,6 +10,8 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	main->state = stand;
 	shurikein  = new Shurikein(TShurikein, 2518, 920);
 	shurikein->state = manifest;
+	brick1 = new Brick(0, 2297, 895, 22, 52);
+	brick2 = new Brick(0, 2546, 895, 22, 52);
 }
 
 Controller::~Controller()
@@ -22,10 +24,12 @@ Controller::~Controller()
 void Controller::update(DWORD dt)
 {
 	tilesControll->update(viewPortGlobal);
-
+	
 	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
 	rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
-
+	currentDynamic[-1] = shurikein;
+	currentStatic[-2] = brick1;
+	currentStatic[-3] = brick2;
 	//currentDynamic[-1] = Chelit;
 	for (auto i = currentDynamic.begin(); i != currentDynamic.end();)
 	{
@@ -51,8 +55,6 @@ void Controller::update(DWORD dt)
 		}
 	}
 	//helit->update(dt, &currentStatic, &currentDynamic);
-
-	//shurikein->update(dt, &currentStatic);
 	main->update(dt, &currentStatic, &currentDynamic);
 }
 

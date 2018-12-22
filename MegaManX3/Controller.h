@@ -22,7 +22,8 @@ private:
 	GameObject* elevator;
 
 	ScenceController* tilesControll;
-
+	Brick* brick1;
+	Brick* brick2;
 	Shurikein* shurikein;
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);

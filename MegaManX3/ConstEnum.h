@@ -52,8 +52,9 @@ enum ShurikeinAnimation
 	manifest = 14000,
 	roll = 14100,
 	spin = 14200,
-	beaten = 14300,
+	fast_roll = 14300,
 	normal = 14400,
+	fast_spin = 14500,
 };
 enum WeaponID
 {
