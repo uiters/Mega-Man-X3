@@ -86,9 +86,6 @@ MegamanX::~MegamanX()
 {
 }
 
-
-
-
 MegamanX * MegamanX::clone(int id, int x, int y)
 {
 	return nullptr;

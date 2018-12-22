@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include <random>
 #include "StaticObject.h"
+#include <stdlib.h>  
 
 Shurikein::Shurikein() 
 {
@@ -108,7 +109,7 @@ void Shurikein::loadResources()
 	this->addAnimation(roll);
 #pragma endregion
 #pragma region spin
-	ani = new CAnimation(40);
+	ani = new CAnimation(11);
 	spritesGlobal->add(spin, TShurikein, 2, 412, 48, 460);
 	spritesGlobal->add(spin + 1, TShurikein, 54, 412, 98, 460);
 	spritesGlobal->add(spin + 2, TShurikein, 103, 412, 145, 460);
@@ -128,7 +129,7 @@ void Shurikein::loadResources()
 	
 	for (int i = 0; i < 16; i++)
 	{
-		ani->add(spin + i);
+		ani->add(spin + i, 16);
 	}
 	for (int i = 14; i > 0; i--)
 	{
@@ -137,13 +138,6 @@ void Shurikein::loadResources()
 	animationsGlobal->add(spin, ani);
 	this->addAnimation(spin);
 #pragma endregion
-#pragma region beaten
-	ani = new CAnimation(100);
-	spritesGlobal->add(beaten, TShurikein, 380, 10, 426, 58);
-	ani->add(beaten);
-	animationsGlobal->add(beaten, ani);
-	this->addAnimation(beaten);
-#pragma endregion
 #pragma region normal 
 	ani = new CAnimation(100);
 	spritesGlobal->add(normal, TShurikein, 328, 10, 374, 58);
@@ -151,13 +145,49 @@ void Shurikein::loadResources()
 	animationsGlobal->add(normal, ani);
 	this->addAnimation(normal);
 #pragma endregion
+#pragma region fast_roll
+	ani = new CAnimation(15);
+	spritesGlobal->add(fast_roll, TShurikein, 0, 356, 45, 402);
+	spritesGlobal->add(fast_roll + 1, TShurikein, 106, 357, 150, 401);
+	spritesGlobal->add(fast_roll + 2, TShurikein, 222, 355, 270, 403);
+	spritesGlobal->add(fast_roll + 3, TShurikein, 335, 354, 383, 402);
+	spritesGlobal->add(fast_roll + 4, TShurikein, 498, 353, 544, 399);
+
+	for (int i = 0; i < 5; i++)
+	{
+		ani->add(fast_roll + i);
+	}
+	animationsGlobal->add(fast_roll, ani);
+	this->addAnimation(fast_roll);
+#pragma endregion
+#pragma region fast_spin
+	ani = new CAnimation(15);
+	spritesGlobal->add(fast_spin, TShurikein, 2, 412, 48, 460);
+	spritesGlobal->add(fast_spin + 1, TShurikein, 150, 412, 190, 460);
+	spritesGlobal->add(fast_spin + 2, TShurikein, 278, 412, 310, 460);
+	spritesGlobal->add(fast_spin + 3, TShurikein, 381, 412, 407, 460);
+	spritesGlobal->add(fast_spin + 4, TShurikein, 465, 412, 476, 460);
+	spritesGlobal->add(fast_spin + 5, TShurikein, 518, 412, 524, 460);
+
+	for (int i = 0; i < 6; i++)
+	{
+		ani->add(fast_spin + i);
+	}
+	for (int i = 5; i > 0; i--)
+	{
+		ani->add(fast_spin + i);
+	}
+	animationsGlobal->add(fast_spin, ani);
+	this->addAnimation(fast_spin);
+#pragma endregion
+
 }
 Shurikein::Shurikein(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
 {
 	loadResources();
 	countManifest.start();
-	mech = 2;
-	inMech = false;
+	srand(time(NULL));
+	_hp = hp = 30;
 }
 Shurikein * Shurikein::clone(int id, int x, int y)
 {
@@ -166,43 +196,97 @@ Shurikein * Shurikein::clone(int id, int x, int y)
 
 void Shurikein::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	
-	if (!inMech)
+
+	if (_death)
 	{
-		switch (mech)
+		//todo
+
+		return;
+	}
+	countManifest.update();
+	timeRest.update();
+	timeMech1.update();
+	timeMech2.update();
+	timeMech3.update();
+	timeBeHit.update();
+	if (hit && timeBeHit.isStop()) hit = false;
+
+	if (countManifest.isStop() && timeRest.isStop())
+	{
+		if (inMech == false)
 		{
-		case 1:
+			int i = rand() % 3 + 1;
+			switch (i)
+			{
+			case 1:
+				mech = 1;
+				inMech = true;
+				state = fast_roll;
+				speed.vy = 0;
+				speed.vx = -0.15;
+				timeMech1.start();
+				break;
+			case 2:
+				mech = 2;
+				inMech = true;
+				state = roll;
+				speed.vy = 0;
+				speed.vx = -0.15f;
+				timeMech2.start();
+				jumped = false;
+				break;
+			case 3:
+				mech = 3;
+				inMech = true;
+				state = spin;
+				speed.vy = -0.2f;
+				(toLeft) ? speed.vx = -1.0f / (rand() % 16 + 25) : speed.vx = 1.0f / (rand() % 16 + 25);
+				timeMech3.start();
+				break;
+			default:
+				speed.vx = 0;
+				speed.vy = 0;
+				state = spin;
+				break;
+			}
+		}
+		else
+		{
 
-			break;
-		case 2:
-			mech2(true);
-			inMech = true;
-			state = spin;
-			break;
-		case 3:
-
-			break;
-		default:
-			break;
+			if (mech == 3 || timeRest.isRunning())
+				speed.vy += 0.00025f *dt;
+			if (mech == 2 && !jumped && x < 2400)
+			{
+				speed.vy = -0.25f;
+				jumped = true;
+				jumping = true;
+			}
+			if (mech ==2 && jumping)
+			{
+				speed.vy += 0.0005f *dt;
+			}
+			if (timeMech1.isStop() && timeMech2.isStop() && timeMech3.isStop())
+			{
+				timeRest.start();
+				inMech = false;
+			}
 		}
 	}
 	else
 	{
-		switch (mech)
+		if (timeRest.isRunning())
 		{
-		case 1:
-
-			break;
-		case 2:
-			speed.vy += 0.005f;
-			break;
-		case 3:
-
-			break;
-		default:
-			break;
+			if (y < 920)
+			{
+				y += 1;
+			}
+			state = fast_spin;
+			speed.vx = 0;
+			speed.vy = 0;
 		}
 	}
+	
+
 	GameObject::update(dt);
 	collisionStatic(staticObjects);
 }
@@ -225,11 +309,47 @@ void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 
 		if (nx < 0)
 		{
-			
+			switch (mech)
+			{
+			case 1:
+				speed.vx = 0;
+				speed.vy = 0.12;
+				break;
+			case 2:
+				toLeft = true;
+				speed.vx = -0.15f;
+				break;
+			case 3:
+				toLeft = true;
+				speed.vx = -1.0f / (rand() % 16 + 25);
+				break;
+			default:
+				speed.vx = 0;
+				speed.vy = 0;
+				break;
+			}
 		}
 		else if (nx > 0)
 		{
-			
+			switch (mech)
+			{
+			case 1:
+				speed.vx = 0;
+				speed.vy = -0.12;
+				break;
+			case 2:
+				toLeft = false;
+				speed.vx = 0.15f;
+				break;
+			case 3:
+				toLeft = false;
+				speed.vx = 1.0f / (rand() % 16 + 25);
+				break;
+			default:
+				speed.vx = 0;
+				speed.vy = 0;
+				break;
+			}
 		}
 		else
 		{
@@ -241,13 +361,17 @@ void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 			switch (mech)
 			{
 			case 1:
-				speed.vx = 0;
+				toLeft = true;
+				speed.vx = -0.12;
 				speed.vy = 0;
 				break;
 			case 2:
-				mech2(true);
+				speed.vx = 0.15f;
+				speed.vy = 0;
+				jumping = false;
 				break;
 			case 3:
+				speed.vy = -0.2f;
 				break;
 			default:
 				speed.vx = 0;
@@ -260,12 +384,14 @@ void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 			switch (mech)
 			{
 			case 1:
-				speed.vx = 0;
+				toLeft = false;
+				speed.vx = 0.12;
 				speed.vy = 0;
 				break;
 			case 2:
 				break;
 			case 3:
+				speed.vy = 0;
 				break;
 			default:
 				speed.vx = 0;
@@ -285,32 +411,49 @@ void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 
 void Shurikein::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	if (_death)
+	{
+		effectExplosion->render(dt, true);
+		return;
+	}
 	auto pos = cameraGlobal->transform(x, y);
-	_animations[state]->render(pos.x, pos.y, true, BLACK(255));
-	//_animations[state]->render(pos.x - 23, pos.y - 23, false);
+	//_animations[state]->render(pos.x, pos.y, true, colorBrush);
+	_animations[state]->render(pos.x, pos.y, true, hit ? RED(255) : WHITE(255));
 }
 
 void Shurikein::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
+	left = x - 20;
+	top = y - 20;
 
 	right = x + 20;
-	top = y + 20;
+	bottom = y + 20;
 }
 
-void Shurikein::mech2(bool toLeft)
+void Shurikein::receiveDamage(int damage)
 {
-	if (toLeft)
+	//{
+	if (_hp > 0)
 	{
-		speed.vx = -0.05f;
-		speed.vy = -0.35f;
+		_hp -= damage;
+	}
+
+	if (_hp <= 0)
+	{
+		createExplosion(x, y);
+		_death = true;
 	}
 	else
 	{
-		speed.vx = 0.05f;
-		speed.vy = -0.35f;
+		hit = true;
+		timeBeHit.start();
 	}
+
+}
+
+void Shurikein::createExplosion(float x, float y)
+{
+	effectExplosion->createEffect(x, y);
 }
 
 //room: 2319  2543
