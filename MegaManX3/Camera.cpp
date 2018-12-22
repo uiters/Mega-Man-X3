@@ -46,8 +46,8 @@ void Camera::switchState()
 		else viewport.x += 4;
 		break;
 	case 10:
-		if (viewport.x >= 7680)
-			aniSwitchState = false, viewport.x = 7680;
+		if (viewport.x >= 7672)
+			aniSwitchState = false, viewport.x = 7672;
 		else viewport.x += 4;
 		break;
 	default:
@@ -207,7 +207,7 @@ void Camera::state6(int cameraX, int cameraY)
 		lockTop = true;
 		lockLeft = true;
 		minValue = 5632;
-		maxValue = 5504;
+		maxValue = 5760;
 		state = &Camera::state7;
 		return;
 	}
@@ -342,7 +342,7 @@ void Camera::state9(int cameraX, int cameraY)
 // boss
 void Camera::state10(int cameraX, int cameraY)
 {
-
+	//viewport.x = 7680 - 8;
 }
 
 Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, height)
