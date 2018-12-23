@@ -35,6 +35,8 @@ private:
 	bool isSwitch;
 	bool isLeft;
 	bool isPutBox;
+	bool isNext;
+
 	Box* box;
 
 	void setState(int state);

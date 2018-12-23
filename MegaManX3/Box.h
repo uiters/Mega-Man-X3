@@ -15,6 +15,8 @@ class Box :
 	public DynamicObject
 {
 public:
+	bool isNext;
+
 	Box(int id, float x, float y);
 	~Box();
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);

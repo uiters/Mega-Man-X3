@@ -6,6 +6,7 @@ Box::Box(int id, float x, float y)
 	this->_id = id;
 	this->x = x;
 	this->y = y;
+	this->isNext = false;
 
 	this->loadResources();
 	this->setState(BOX_STATE_DEFAULT);
@@ -17,20 +18,34 @@ Box::~Box()
 
 void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	if (y >= 750 + 59) {
+	if (y >= 720 + 59) {
 		x += speed.vx * dt;
 	}
 
 	y += speed.vy * dt;
 
-	if (x >= 4944 - 6 && x < 4985 + 25 -6) {
-		speed.vy = 0;
-	}
+	if (!isNext) {
+		if (x >= 4944 - 6 && x < 4985 + 25 - 6) {
+			speed.vy = 0;
+		}
 
-	if (x >= 4985 + 25 - 6) {
-		speed.vx = 0;
-		speed.vy = BOX_SPEED_Y;
+		if (x >= 4985 + 25 - 6) {
+			speed.vx = 0;
+			speed.vy = BOX_SPEED_Y;
+		}
 	}
+	else
+	{
+		if (x >= 4944 - 6 + 59 && x < 4985 + 25 - 6 + 59) {
+			speed.vy = 0;
+		}
+
+		if (x >= 4985 + 25 - 6 + 59) {
+			speed.vx = 0;
+			speed.vy = BOX_SPEED_Y;
+		}
+	}
+	
 
 	if (y >= 820 + 59) {
 		y = 820 + 59;

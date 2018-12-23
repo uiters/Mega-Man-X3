@@ -3,8 +3,9 @@
 
 CarryArm::CarryArm(int id, float x, float y)
 {
+	this->isNext = true;
 	this->_id = id;
-	this->x = x;
+	this->x = !isNext ? x : x + 59;
 	this->y = y;
 	this->counter = 0;
 	this->isSwitch = false;
@@ -14,7 +15,10 @@ CarryArm::CarryArm(int id, float x, float y)
 	this->loadResources();
 	this->setState(CARRY_ARM_STATE_FLY);
 
-	box = new Box(this->_id, x - 6, y + 59);
+	if (!isNext)
+		box = new Box(this->_id, x - 6, y + 59);
+	else box = new Box(this->_id, x - 6 + 59, y + 59);
+	box->isNext = true;
 }
 
 CarryArm::~CarryArm()
@@ -58,19 +62,32 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 		return;
 	}
 
-	if (y >= 750) {
+	if (y >= 720) {
 		x += speed.vx * dt;
 	}
 
 	y += speed.vy * dt;
 
-	if (x >= 4944 && x < 4985 + 25) {
-		speed.vy = 0;
-	}
+	if (!isNext) {
+		if (x >= 4944 && x < 4985 + 25) {
+			speed.vy = 0;
+		}
 
-	if (x >= 4985 + 25) {
-		speed.vx = 0;
-		speed.vy = CARRY_ARM_SPEED_Y;
+		if (x >= 4985 + 25) {
+			speed.vx = 0;
+			speed.vy = CARRY_ARM_SPEED_Y;
+		}
+	}
+	else
+	{
+		if (x >= 4944 + 59 && x < 4985 + 25 + 59) {
+			speed.vy = 0;
+		}
+
+		if (x >= 4985 + 25 + 59) {
+			speed.vx = 0;
+			speed.vy = CARRY_ARM_SPEED_Y;
+		}
 	}
 
 	if (y >= 820) {
