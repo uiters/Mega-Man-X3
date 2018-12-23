@@ -16,6 +16,7 @@ class Box :
 {
 public:
 	bool isNext;
+	bool isLeft;
 
 	Box(int id, float x, float y);
 	~Box();

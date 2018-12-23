@@ -3,22 +3,22 @@
 
 CarryArm::CarryArm(int id, float x, float y)
 {
-	this->isNext = true;
+	this->isNext = false;
+	this->isLeft = true;
+
 	this->_id = id;
-	this->x = !isNext ? x : x + 59;
+	this->x = isLeft ? (!isNext ? x : x + 59) : (!isNext ? x + 200 : x + 200 + 59);
 	this->y = y;
 	this->counter = 0;
 	this->isSwitch = false;
-	this->isLeft = true;
 	this->isPutBox = false;
 
 	this->loadResources();
 	this->setState(CARRY_ARM_STATE_FLY);
 
-	if (!isNext)
-		box = new Box(this->_id, x - 6, y + 59);
-	else box = new Box(this->_id, x - 6 + 59, y + 59);
-	box->isNext = true;
+	box = new Box(this->_id, this->x - 6, this->y + 59);
+	box->isNext = this->isNext;
+	box->isLeft = this->isLeft;
 }
 
 CarryArm::~CarryArm()
@@ -27,73 +27,138 @@ CarryArm::~CarryArm()
 
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	if (counter > 50) {
-		counter = 0;
-		isSwitch = true;
-		isPutBox = true;
-	}
+	if (isLeft) {
+		if (counter > 50) {
+			counter = 0;
+			isSwitch = true;
+			isPutBox = true;
+		}
 
-	if (isSwitch) {
-		if (isPutBox) {
-			setState(CARRY_ARM_STATE_PUT_BOX);
-			if (_animations[state]->isLastFrame()) {
-				isPutBox = false;
+		if (isSwitch) {
+			if (isPutBox) {
+				setState(CARRY_ARM_STATE_PUT_BOX);
+				if (_animations[state]->isLastFrame()) {
+					isPutBox = false;
+				}
+				speed.vx = 0;
 			}
-			speed.vx = 0;
+			else
+			{
+				setState(CARRY_ARM_STATE_FLY);
+			}
+
+			speed.vx = -CARRY_ARM_SPEED_X;
+			speed.vy = -CARRY_ARM_SPEED_Y;
+
+			x += speed.vx * dt;
+			y += speed.vy * dt;
+
+			if (y <= 672) {
+				isSwitch = false;
+				speed.vx = 0;
+				speed.vy = 0;
+				x = initX;
+				y = initY;
+			}
+			return;
+		}
+
+		if (y >= 720) {
+			x += speed.vx * dt;
+		}
+
+		y += speed.vy * dt;
+
+		if (!isNext) {
+			if (x >= 4944 && x < 4985 + 25) {
+				speed.vy = 0;
+			}
+
+			if (x >= 4985 + 25) {
+				speed.vx = 0;
+				speed.vy = CARRY_ARM_SPEED_Y;
+			}
 		}
 		else
 		{
-			setState(CARRY_ARM_STATE_FLY);
+			if (x >= 4944 + 59 && x < 4985 + 25 + 59) {
+				speed.vy = 0;
+			}
+
+			if (x >= 4985 + 25 + 59) {
+				speed.vx = 0;
+				speed.vy = CARRY_ARM_SPEED_Y;
+			}
 		}
 
-		speed.vx = -CARRY_ARM_SPEED_X;
-		speed.vy = -CARRY_ARM_SPEED_Y;
-
-		x += speed.vx * dt;
-		y += speed.vy * dt;
-
-		if (y <= 672) {
-			isSwitch = false;
-			speed.vx = 0;
-			speed.vy = 0;
-			x = initX;
-			y = initY;
-		}
-		return;
-	}
-
-	if (y >= 720) {
-		x += speed.vx * dt;
-	}
-
-	y += speed.vy * dt;
-
-	if (!isNext) {
-		if (x >= 4944 && x < 4985 + 25) {
-			speed.vy = 0;
-		}
-
-		if (x >= 4985 + 25) {
-			speed.vx = 0;
-			speed.vy = CARRY_ARM_SPEED_Y;
+		if (y >= 820) {
+			y = 820;
+			counter++;
 		}
 	}
 	else
 	{
-		if (x >= 4944 + 59 && x < 4985 + 25 + 59) {
-			speed.vy = 0;
+		if (counter > 50) {
+			counter = 0;
+			isSwitch = true;
+			isPutBox = true;
 		}
 
-		if (x >= 4985 + 25 + 59) {
-			speed.vx = 0;
-			speed.vy = CARRY_ARM_SPEED_Y;
+		if (isSwitch) {
+			if (isPutBox) {
+				setState(CARRY_ARM_STATE_PUT_BOX);
+				if (_animations[state]->isLastFrame()) {
+					isPutBox = false;
+				}
+				speed.vx = 0;
+			}
+			else
+			{
+				setState(CARRY_ARM_STATE_FLY);
+			}
+
+			speed.vx = -CARRY_ARM_SPEED_X;
+			speed.vy = -CARRY_ARM_SPEED_Y;
+
+			x += speed.vx * dt;
+			y += speed.vy * dt;
+
+			if (y <= 672) {
+				isSwitch = false;
+				speed.vx = 0;
+				speed.vy = 0;
+				x = initX;
+				y = initY;
+			}
+			return;
+		}
+
+		if (y >= 720) {
+			x -= speed.vx * dt;
+		}
+
+		y += speed.vy * dt;
+
+		if (!isNext) {
+			if (x <= 4985 + 25) {
+				speed.vx = 0;
+				speed.vy = CARRY_ARM_SPEED_Y;
+			}
+		}
+		else
+		{
+			if (x <= 4985 + 25 + 59) {
+				speed.vx = 0;
+				speed.vy = CARRY_ARM_SPEED_Y;
+			}
+		}
+
+		if (y >= 820) {
+			y = 820;
+			counter++;
 		}
 	}
-
-	if (y >= 820) {
-		y = 820;
-		counter++;
-	}
+	
 
 	box->update(dt);
 }
