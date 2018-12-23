@@ -1,14 +1,13 @@
-#pragma once
+#ifndef _NotorBanger_H_
+#define _NotorBanger_H_
 #include<vector>
 
-#include "DynamicObject.h";
+#include "DynamicObject.h"
 #include "ConstGlobals.h"
 #include "Camera.h"
 #include "CollisionEvent.h"
 #include "Brick.h"
-
 #include "NotorBangerBullet.h"
-
 #include "BulletCollision.h"
 #include "WallSlide.h"
 
@@ -68,3 +67,4 @@ struct  Distance
 	float height;
 };
 
+#endif //!_NotorBanger_H_

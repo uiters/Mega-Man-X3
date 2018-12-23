@@ -11,14 +11,14 @@ LPCollisionEvent Collision::sweptAABBEx(DWORD dt, LPObject objectMove, LPObject 
 	objectCollision->getBoundingBox(sl, st, sr, sb);
 
 	// deal with moving object: m speed = original m speed - collide object speed
-	//float svx, svy;
-	//svx = objectCollision->speed.vx;
-	//svy = objectCollision->speed.vy;
+	float svx, svy;
+	svx = objectCollision->speed.vx;
+	svy = objectCollision->speed.vy;
 
-	//float sdx = svx * dt;
-	//float sdy = svy * dt;
+	float sdx = svx * dt;
+	float sdy = svy * dt;
 
-	float dx = objectMove->dx -objectCollision->dx;
+	float dx = objectMove->dx - objectCollision->dx;
 	float dy = objectMove->dy - objectCollision->dy;
 
 	objectMove->getBoundingBox(ml, mt, mr, mb);

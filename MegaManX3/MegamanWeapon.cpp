@@ -16,7 +16,7 @@ void MegamanWeapon::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		(*it)->render(dt, colorBrush);
 
-		if (!it[0]->getBoundingBox().intersectsWith(cameraGlobal->viewport))
+		if (!it[0]->getBoundBox().intersectsWith(cameraGlobal->viewport))
 		{
 			delete (*it);
 			it = weapons->erase(it);

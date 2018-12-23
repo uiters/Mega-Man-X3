@@ -33,7 +33,7 @@ void Controller::update(DWORD dt)
 	for (auto i = currentDynamic.begin(); i != currentDynamic.end();)
 	{
 		GameObject* obj = (*i).second;
-		if (obj->getBoundingBox().intersectsWith(*viewPortGlobal))
+		if (obj->getBoundBox().intersectsWith(*viewPortGlobal))
 		{
 			obj->update(dt, &currentStatic);
 			++i;

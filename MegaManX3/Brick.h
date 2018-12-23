@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _Brick_H_
+#define _Brick_H_
 #include "StaticObject.h"
 class Brick
 	:public StaticObject
@@ -11,3 +12,4 @@ public:
 
 };
 
+#endif // !_Brick_H_
