@@ -5,6 +5,8 @@
 #include "CollisionEvent.h"
 #include "Brick.h"
 
+#include "Box.h"
+
 #define CARRY_ARM_SPEED_X 0.04f
 #define CARRY_ARM_SPEED_Y 0.04f
 
@@ -33,6 +35,7 @@ private:
 	bool isSwitch;
 	bool isLeft;
 	bool isPutBox;
+	Box* box;
 
 	void setState(int state);
 	void loadResources();

@@ -13,6 +13,8 @@ CarryArm::CarryArm(int id, float x, float y)
 
 	this->loadResources();
 	this->setState(CARRY_ARM_STATE_FLY);
+
+	box = new Box(this->_id, x - 6, y + 59);
 }
 
 CarryArm::~CarryArm()
@@ -71,16 +73,20 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 		speed.vy = CARRY_ARM_SPEED_Y;
 	}
 
-	if (y >= 830) {
-		y = 830;
+	if (y >= 820) {
+		y = 820;
 		counter++;
 	}
+
+	box->update(dt);
 }
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
+
+	box->render(dt);
 }
 
 void CarryArm::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -97,9 +103,12 @@ void CarryArm::setState(int state)
 	switch (state)
 	{
 	case CARRY_ARM_STATE_FLY:
-	case CARRY_ARM_STATE_PUT_BOX:
 		speed.vx = CARRY_ARM_SPEED_X;
 		speed.vy = CARRY_ARM_SPEED_Y;
+		break;
+	case CARRY_ARM_STATE_PUT_BOX:
+		speed.vx = 0;
+		speed.vy = 0;
 		break;
 	default:
 		break;

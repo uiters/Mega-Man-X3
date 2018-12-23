@@ -328,6 +328,9 @@
       <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClInclude>
     <ClInclude Include="CarryArm.h" />
+    <ClInclude Include="Box.h">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -497,6 +500,9 @@
       <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClCompile>
     <ClCompile Include="CarryArm.cpp" />
+    <ClCompile Include="Box.cpp">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">
