@@ -29,7 +29,8 @@
 
 #define NOTOR_BANGER_ID_TEXTURE 701
 
-class NotorBanger : public DynamicObject
+class NotorBanger : 
+public DynamicObject
 {
 public:
 	NotorBanger(int id, float x, float y, bool nx);

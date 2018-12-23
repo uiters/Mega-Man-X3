@@ -2,6 +2,8 @@
 #include "DynamicObject.h"
 #include "Camera.h"
 
+#include "CarryArm.h"
+
 #define BARRIER_SYSTEM_SPEED_PART_1 0.03f
 #define BARRIER_SYSTEM_SPEED_PART_2 0.02f
 
@@ -26,6 +28,7 @@ public:
 private:
 	float initX;
 	float initY;
+	CarryArm* carryArm;
 
 	void setState(int state);
 	void loadResources() override;

@@ -11,7 +11,6 @@ NotorBanger::NotorBanger(int id, float x, float y, bool nx)
 	this->nx = nx;
 	this->repeat = 0;
 
-
 	_death = false;
 	_hp = 3000;
 }

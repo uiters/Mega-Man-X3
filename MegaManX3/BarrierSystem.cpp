@@ -4,14 +4,16 @@
 
 BarrierSystem::BarrierSystem()
 {
-	this->x = 4944;
+	this->x = 4985;
 	this->y = 692; // 692 -> 770
 	this->initX = 4856;
 	this->initY = 692;
 	this->isHidden = false;
-
+		
 	this->setState(BARRIER_SYSTEM_SPEED_PART_1);
 	this->loadResources();
+
+	carryArm = new CarryArm(this->_id, initX + 36, initY - 20);
 }
 
 
@@ -52,6 +54,7 @@ void BarrierSystem::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 		y += speed.vy * dt;
 		if (y >= 855) {
 			y = 855;
+			carryArm->update(dt);
 		}
 	}
 }
@@ -63,6 +66,8 @@ void BarrierSystem::render(DWORD dt, D3DCOLOR colorBrush)
 
 	center = cameraGlobal->transform(initX, initY);
 	_animations[BARRIER_SYSTEM_STATE_PART_1]->render(center.x, center.y);
+
+	carryArm->render(dt);
 }
 
 void BarrierSystem::setState(int state)
@@ -90,19 +95,19 @@ void BarrierSystem::loadResources()
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();
 
-	AnimationOneTime* ani;
+	LPANIMATION ani;
 
 	// part 1
 	sprites->addSprite(20001, BARRIER_SYSTEM_ID_TEXTURE, 7, 3, 256, 88);
 
-	ani = new AnimationOneTime(10000);
+	ani = new AnimationOneTime(100);
 	ani->add(20001);
 	animations->add(BARRIER_SYSTEM_STATE_PART_1, ani);
 
 	// part 2
 	sprites->addSprite(20002, BARRIER_SYSTEM_ID_TEXTURE, 119, 94, 144, 88);
 
-	ani = new AnimationOneTime(2000);
+	ani = new AnimationOneTime(100);
 	ani->add(20002);
 	animations->add(BARRIER_SYSTEM_STATE_PART_2, ani);
 

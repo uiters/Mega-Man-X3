@@ -327,6 +327,7 @@
     <ClInclude Include="BarrierSystem.h">
       <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClInclude>
+    <ClInclude Include="CarryArm.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -495,6 +496,7 @@
     <ClCompile Include="BarrierSystem.cpp">
       <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClCompile>
+    <ClCompile Include="CarryArm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">
