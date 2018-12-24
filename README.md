@@ -2,7 +2,8 @@
 
 🎮 Mega Man X3 with C++, DirectX. Inspired by [Mega Man X3](https://en.wikipedia.org/wiki/Mega_Man_X3).
 
-![](https://img.shields.io/codeship/d6c1ddd0-16a3-0132-5f85-2e35c05e22b1/master.svg)</span>
+![](https://img.shields.io/codeship/d6c1ddd0-16a3-0132-5f85-2e35c05e22b1/master.svg)
+[![](https://img.shields.io/github/license/tvc12/Mega-Man-X3.svg)](https://github.com/tvc12/Mega-Man-X3/blob/master/LICENSE)
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/34389409/49020554-4eeef500-f1c3-11e8-823a-9fe46a35faf2.jpg" width="500"/>
@@ -16,7 +17,7 @@
 * [Build with](#build-with)
 * [Some Screens](#some-screens)
 * [Bugs and Issues](#bugs-and-issues)
-* [Authors](#authors)
+* [Team](#team)
 * [License](#license)
 
 ## Introduction
@@ -41,9 +42,9 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## Authors
 
-* **Vi Chi Thien** - [tvc12](https://github.com/tvc12) 🐶
-* **Nguyen Duy Cuong** - [jade28](https://github.com/jade28) 💎
-* **Le Van Phuoc** - [TokumeiShi](https://github.com/TokumeiShi) 🦉
+| [![Thien Chi Vi](https://github.com/tvc12.png?size=100)](https://github.com/tvc12) | [![Cuong Duy Nguyen](https://github.com/jade28.png?size=100)](https://github.com/jade28) | [![Phuoc Van Le](https://github.com/TokumeiShi.png?size=100)](https://github.com/TokumeiShi) |
+| :---: | :---: | :---: |
+| [Thien Chi Vi](https://github.com/tvc12) | [Cuong Duy Nguyen](https://github.com/jade28) | [Phuoc Van Le](https://github.com/TokumeiShi) |
 
 ## License
 
