@@ -13,6 +13,8 @@
 #include "Elevator.h"
 #include "Helit.h"
 
+#include "Shurikein.h"
+
 class Controller
 {
 
@@ -29,6 +31,7 @@ private:
 	ScenceController* tilesControll;
 	BarrierSystem* barrier;
 
+	Shurikein* shurikein;
 
 
 public:
