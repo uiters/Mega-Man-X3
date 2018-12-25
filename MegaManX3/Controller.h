@@ -12,7 +12,6 @@
 
 #include "Elevator.h"
 #include "Helit.h"
-#include "Shurikein.h"
 
 class Controller
 {
@@ -28,15 +27,8 @@ private:
 	GameObject* elevator;
 
 	ScenceController* tilesControll;
-<<<<<<< HEAD
-
 	BarrierSystem* barrier;
 
-=======
-	Brick* brick1;
-	Brick* brick2;
->>>>>>> d35ec485b7366bdabed9bb0cf9e2743e3b5af9f4
-	Shurikein* shurikein;
 
 
 public:

@@ -6,8 +6,8 @@ void Game1::initGolbals()
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
 	//cameraGlobal = new Camera(0, 512, 256, 222);
-	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
-	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);
+	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
+	cameraGlobal = new Camera(5000, 870, CAMERA_WIDTH, CAMERA_HEIGHT);
 
 	viewPortGlobal = &cameraGlobal->viewport;
 }
