@@ -8,10 +8,18 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->main = main;
 	tilesControll = new ScenceController();
 	main->state = stand;
+<<<<<<< HEAD
+
+	barrier = new BarrierSystem();
+
+	//shurikein = new Shurikein(TShurikein, 2402, 920);
+	//shurikein->state = manifest;
+=======
 	shurikein  = new Shurikein(TShurikein, 2518, 920);
 	shurikein->state = manifest;
 	brick1 = new Brick(0, 2297, 895, 22, 52);
 	brick2 = new Brick(0, 2546, 895, 22, 52);
+>>>>>>> d35ec485b7366bdabed9bb0cf9e2743e3b5af9f4
 }
 
 Controller::~Controller()
@@ -52,8 +60,17 @@ void Controller::update(DWORD dt)
 			if (elevator) break;
 		}
 	}
+<<<<<<< HEAD
+
+=======
 	//helit->update(dt, &currentStatic, &currentDynamic);
+>>>>>>> d35ec485b7366bdabed9bb0cf9e2743e3b5af9f4
 	main->update(dt, &currentStatic, &currentDynamic);
+
+	//helit->update(dt, &currentStatic, &currentDynamic);
+	//shurikein->update(dt, &currentStatic);
+
+	barrier->update(dt);
 }
 
 void Controller::render(DWORD dt)
@@ -68,6 +85,9 @@ void Controller::render(DWORD dt)
 	}
 	if (elevator) elevator->render(dt);
 	main->render(dt);
+
 	//shurikein->render(dt);
 	//helit->render(dt);
+
+	barrier->render(dt);
 }

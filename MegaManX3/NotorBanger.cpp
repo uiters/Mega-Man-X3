@@ -11,9 +11,8 @@ NotorBanger::NotorBanger(int id, float x, float y, bool nx)
 	this->nx = nx;
 	this->repeat = 0;
 
-
 	_death = false;
-	_hp = 3;
+	_hp = 3000;
 }
 
 NotorBanger::~NotorBanger()
@@ -111,6 +110,7 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	}	
 
 	auto center = cameraGlobal->transform(x, y);
+
 	if (nx != true)
 		_animations[state]->render(center.x, center.y);
 	else _animations[state]->renderFlipX(center.x, center.y);
@@ -119,10 +119,43 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		_weapons[i]->render(dt);
 	}
+	//drawLine(gameGlobal->getDirect3DDevice(), center.x, center.y, BLACK(128));
+	//gameGlobal->getSpriteHandler()->End();
+
+	//gameGlobal->getSpriteHandler()->Begin(D3DXSPRITE_DONOTSAVESTATE);
+
+	//_animations[state]->render(center.x, center.y, false, BLACK(255));
+	//gameGlobal->getSpriteHandler()->End();
+	//gameGlobal->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
 	shotEffect->render(dt, true);
 	collisionEffect->render(dt, false);
 		
+}
+
+void NotorBanger::drawLine(LPDIRECT3DDEVICE9 Device_Interface, int x, int y, D3DCOLOR color)
+{
+	gameGlobal->getSpriteHandler()->End();
+	//D3DRECT rec;
+	float l, t, r, b;
+	//this->getBoundingBox(l, t, r, b);
+	if (nx) {
+		l = x + 0;
+		t = y;
+		r = x + 20;
+		b = y + 48;
+	}
+	else //default 
+	{
+		l = x + 20;
+		t = y;
+		r = x + 40;
+		b = y + 48;
+	}
+	D3DRECT rec = {l, t, r , b };
+
+	Device_Interface->Clear(1, &rec, D3DCLEAR_TARGET, color, 0, 0);
+	gameGlobal->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 }
 
 void NotorBanger::calculateDie()
@@ -354,10 +387,19 @@ void NotorBanger::resetPosition()
 
 void NotorBanger::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
-	right = x + 40;
-	bottom = y + 48;
+	if (nx) {
+		left = x + 0;
+		top = y;
+		right = x + 20;
+		bottom = y + 48;
+	}
+	else //default 
+	{
+		left = x + 20;
+		top = y;
+		right = x + 40;
+		bottom = y + 48;
+	}
 }
 
 NotorBanger * NotorBanger::clone(int id, int x, int y)

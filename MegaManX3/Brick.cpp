@@ -7,9 +7,14 @@ Brick::Brick(UINT id, int x, int y, int width, int height) : StaticObject(id, x,
 #include "Camera.h"
 void Brick::render(DWORD dt, D3DCOLOR colorBrush)
 {
+<<<<<<< HEAD
+	/*auto center = cameraGlobal->transform(x, y);
+	drawLine(gameGlobal->getDirect3DDevice(), center.x, center.y, D3DCOLOR_XRGB(0, 0, 255));*/
+=======
 	auto center = cameraGlobal->transform(x, y);
 	drawLine(gameGlobal->getDirect3DDevice(), center.x, center.y, D3DCOLOR_XRGB(0, 0, 255));
 
+>>>>>>> d35ec485b7366bdabed9bb0cf9e2743e3b5af9f4
 }
 void Brick::drawLine(LPDIRECT3DDEVICE9 Device_Interface, int x, int y, D3DCOLOR color)
 {

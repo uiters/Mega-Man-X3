@@ -130,9 +130,12 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationOneTime.h" />
+    <ClInclude Include="BarrierSystem.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BulletCollision.h" />
     <ClInclude Include="BusterShot.h" />
+    <ClInclude Include="CarryArm.h" />
     <ClInclude Include="ChargedEffect.h" />
     <ClInclude Include="ChargedExplosion.h" />
     <ClInclude Include="ChargedShot1.h" />
@@ -191,10 +194,13 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationOneTime.cpp" />
+    <ClCompile Include="BarrierSystem.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BulletCollision.cpp" />
     <ClCompile Include="BusterShot.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CarryArm.cpp" />
     <ClCompile Include="ChargedEffect.cpp" />
     <ClCompile Include="ChargedExplosion.cpp" />
     <ClCompile Include="ChargedShot1.cpp" />

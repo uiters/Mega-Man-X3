@@ -11,7 +11,6 @@ HeadGunner::HeadGunner(int id, float x, float y, bool nx)
 	this->initX = x;
 	this->initY = y;
 
-
 	_death = false;
 	_hp = 5;
 }
@@ -137,8 +136,8 @@ void HeadGunner::getBoundingBox(float & left, float & top, float & right, float 
 {
 	left = x;
 	top = y;
-	right = x + 40;
-	bottom = y + 48;
+	right = x + 41;
+	bottom = y + 45;
 }
 
 void HeadGunner::loadResources()
