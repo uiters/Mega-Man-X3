@@ -110,7 +110,6 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	}	
 
 	auto center = cameraGlobal->transform(x, y);
-
 	if (nx != true)
 		_animations[state]->render(center.x, center.y);
 	else _animations[state]->renderFlipX(center.x, center.y);
@@ -171,9 +170,9 @@ void NotorBanger::calculateDie()
 	die[2].x -= dx;
 	die[3].x -= dx * 2;
 
-	die[0].y += dy;
+	die[0].y += dy * 2;
 	die[1].y += dy;
-	die[2].y += dy;
+	die[2].y += dy * 2;
 	die[3].y += dy;
 }
 

@@ -19,6 +19,12 @@ Box::~Box()
 
 void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
+	this->dt = dt;
+	if (_death) {
+		generatePosition();
+		return;
+	}
+
 	if (isLeft) {
 		if (y >= 720 + 59) {
 			x += speed.vx * dt;
@@ -51,6 +57,7 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 
 		if (y >= 820 + 59) {
 			y = 820 + 59;
+			_death = true;
 		}
 	}
 	else
@@ -78,14 +85,52 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 
 		if (y >= 820 + 59) {
 			y = 820 + 59;
+			_death = true;
 		}
 	}
 }
 
 void Box::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	if (_death) {
+		renderDie(dt);
+		return;
+	}
+
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
+}
+
+void Box::renderDie(DWORD dt, D3DCOLOR colorBrush)
+{
+	for (int i = 0; i < 4; i++) {
+		auto center = cameraGlobal->transform(die[i].x, die[i].y);
+		_animations[BOX_STATE_DIE + i]->render(center.x, center.y);
+	}
+}
+
+void Box::generatePosition()
+{
+	die[0] = { x, y }; //* important
+	die[1] = { x + 24, y };
+	die[2] = { x, y + 24};
+	die[3] = { x + 48, y + 24};
+
+	speed.vy += 0.012f * dt;
+	speed.vx += 0.01f * dt;
+
+	dx = speed.vx * dt;
+	dy = speed.vy * dt;
+
+	die[0].x -= dx;
+	die[1].x += dx * 1.5;
+	die[2].x -= dx;
+	die[3].x += dx * 2;
+
+	die[0].y += dy * 2;
+	die[1].y += dy;
+	die[2].y += dy * 2;
+	die[3].y += dy;
 }
 
 void Box::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -112,6 +157,7 @@ void Box::setState(int state)
 		break;
 	}
 	this->state = state;
+	_animations[state]->reset();
 }
 
 void Box::loadResources()
@@ -140,13 +186,20 @@ void Box::loadResources()
 	animations->add(BOX_STATE_HIGHTLIGHT, ani);
 
 	// die
-	sprites->addSprite(20021, BOX_ID_TEXTURE, 1, 1, 1, 1);
+	sprites->addSprite(20021, BOX_ID_TEXTURE, 271, 19, 8, 8);
+	sprites->addSprite(20022, BOX_ID_TEXTURE, 337, 19, 8, 8);
+	sprites->addSprite(20023, BOX_ID_TEXTURE, 337, 79, 8, 8);
+	sprites->addSprite(20024, BOX_ID_TEXTURE, 271, 79, 8, 8);
 
-	ani = new CAnimation(100);
-	ani->add(20021);
-	animations->add(BOX_STATE_DIE, ani);
+	for (int i = 0; i < 4; i++)
+	{
+		ani = new CAnimation(100);
+		ani->add(20021 + i);
+		animations->add(BOX_STATE_DIE + i, ani);
+		this->addAnimation(BOX_STATE_DIE + i);
+	}
 
 	this->addAnimation(BOX_STATE_DEFAULT);
 	this->addAnimation(BOX_STATE_HIGHTLIGHT);
-	this->addAnimation(BOX_STATE_DIE);
 }
+

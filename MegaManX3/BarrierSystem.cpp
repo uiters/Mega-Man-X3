@@ -5,9 +5,9 @@
 BarrierSystem::BarrierSystem()
 {
 	this->x = 4985;
-	this->y = 692; // 692 -> 770
+	this->y = 680; // 692 -> 770
 	this->initX = 4856;
-	this->initY = 692;
+	this->initY = this->y;
 	this->isHidden = false;
 		
 	this->setState(BARRIER_SYSTEM_SPEED_PART_1);
@@ -27,15 +27,15 @@ void BarrierSystem::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 		if (state == BARRIER_SYSTEM_STATE_PART_2) {
 			y -= speed.vy * dt;
 			if (y <= 770) {
-				y = 692;
+				y = 680;
 				this->setState(BARRIER_SYSTEM_STATE_PART_1);
 			}
 		}
 		else
 		{
 			initY -= speed.vy * dt;
-			if (initY <= 692) {
-				initY = 692;
+			if (initY <= 680) {
+				initY = 680;
 			}
 		}
 		return;
@@ -43,10 +43,10 @@ void BarrierSystem::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 
 	if (state == BARRIER_SYSTEM_STATE_PART_1) {
 		initY += speed.vy * dt;
-		if (initY >= 770) {
-			initY = 770;
+		if (initY >= 767) {
+			initY = 767;
 			this->setState(BARRIER_SYSTEM_STATE_PART_2);
-			y = 770;
+			y = 767;
 		}
 	}
 	else
