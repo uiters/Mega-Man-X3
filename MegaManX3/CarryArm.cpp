@@ -12,6 +12,7 @@ CarryArm::CarryArm(int id, float x, float y)
 	this->counter = 0;
 	this->isSwitch = false;
 	this->isPutBox = false;
+	this->isInjure = false;
 
 	this->loadResources();
 	this->setState(CARRY_ARM_STATE_FLY);
@@ -27,6 +28,12 @@ CarryArm::~CarryArm()
 
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
+	this->dt = dt;
+	if (this->isDamage) {
+		generatePosition();
+		this->isInjure = true;
+	}
+
 	if (isLeft) {
 		if (counter > 50) {
 			counter = 0;
@@ -36,7 +43,8 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 		if (isSwitch) {
 			if (isPutBox) {
-				setState(CARRY_ARM_STATE_PUT_BOX);
+				if (this->isInjure) setState(CARRY_ARM_STATE_INJURE);
+				else setState(CARRY_ARM_STATE_PUT_BOX);
 				if (_animations[state]->isLastFrame()) {
 					isPutBox = false;
 				}
@@ -44,7 +52,8 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 			}
 			else
 			{
-				setState(CARRY_ARM_STATE_FLY);
+				if (this->isInjure) setState(CARRY_ARM_STATE_INJURE);
+				else setState(CARRY_ARM_STATE_FLY);
 			}
 
 			speed.vx = -CARRY_ARM_SPEED_X;
@@ -59,6 +68,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 				speed.vy = 0;
 				x = initX;
 				y = initY;
+				this->isDamage = false;
 			}
 			return;
 		}
@@ -106,7 +116,8 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 		if (isSwitch) {
 			if (isPutBox) {
-				setState(CARRY_ARM_STATE_PUT_BOX);
+				if (this->isInjure) setState(CARRY_ARM_STATE_INJURE);
+				else setState(CARRY_ARM_STATE_PUT_BOX);
 				if (_animations[state]->isLastFrame()) {
 					isPutBox = false;
 				}
@@ -114,7 +125,8 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 			}
 			else
 			{
-				setState(CARRY_ARM_STATE_FLY);
+				if (this->isInjure) setState(CARRY_ARM_STATE_INJURE);
+				else setState(CARRY_ARM_STATE_FLY);
 			}
 
 			speed.vx = -CARRY_ARM_SPEED_X;
@@ -165,10 +177,66 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	if (this->isDamage) {
+		renderDamage(dt);
+	}
+
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
 
 	box->render(dt);
+}
+
+void CarryArm::renderDamage(DWORD dt, D3DCOLOR colorBrush)
+{
+	for (int i = 0; i < 9; i++) {
+		auto center = cameraGlobal->transform(damage[i].x, damage[i].y);
+		_animations[CARRY_ARM_STATE_DESTROY + i]->render(center.x, center.y);
+	}
+}
+
+void CarryArm::generatePosition()
+{
+	// init position
+	damage[0] = { x, y }; //* important
+	damage[1] = { x + 24, y };
+	damage[2] = { x, y + 24 };
+	damage[3] = { x + 48, y + 24 };
+	damage[4] = { x + 24, y };
+	damage[5] = { x, y + 24 };
+	damage[6] = { x + 48, y + 24 };
+	damage[7] = { x + 24, y };
+	damage[8] = { x, y + 24 };
+	damage[9] = { x + 48, y + 24 };
+
+	vy += 0.01f * dt;
+	vx += 0.008f * dt;
+
+	dx = vx * dt;
+	dy = vy * dt;
+
+	damage[0].x -= dx * 1.25;
+	damage[1].x += dx * 1.5;
+	damage[2].x -= dx;
+	damage[3].x += dx * 2.25;
+	damage[4].x -= dx * 0.5;
+	damage[5].x += dx * 1.5;
+	damage[6].x -= dx;
+	damage[7].x += dx * 2;
+	damage[8].x -= dx;
+	damage[9].x += dx * 1.5;
+
+
+	damage[0].y += dy * 2;
+	damage[1].y += dy;
+	damage[2].y += dy * 2;
+	damage[3].y += dy * 1.25;
+	damage[4].y += dy;
+	damage[5].y += dy * 2;
+	damage[6].y += dy;
+	damage[7].y += dy * 0.5;
+	damage[8].y += dy * 2;
+	damage[9].y += dy;
 }
 
 void CarryArm::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -254,16 +322,28 @@ void CarryArm::loadResources()
 	ani->add(20025);
 	animations->add(CARRY_ARM_STATE_INJURE, ani);
 
-	// die
-	sprites->addSprite(20031, CARRY_ARM_ID_TEXTURE, 119, 94, 144, 88);
+	// destroy
+	sprites->addSprite(20031, CARRY_ARM_ID_TEXTURE, 416, 45, 6, 7);
+	sprites->addSprite(20032, CARRY_ARM_ID_TEXTURE, 431, 44, 6, 6);
+	sprites->addSprite(20033, CARRY_ARM_ID_TEXTURE, 447, 44, 5, 7);
+	sprites->addSprite(20034, CARRY_ARM_ID_TEXTURE, 464, 44, 5, 4);
+	sprites->addSprite(20035, CARRY_ARM_ID_TEXTURE, 480, 45, 7, 6);
+	sprites->addSprite(20036, CARRY_ARM_ID_TEXTURE, 496, 45, 6, 7);
+	sprites->addSprite(20037, CARRY_ARM_ID_TEXTURE, 512, 44, 5, 7);
+	sprites->addSprite(20038, CARRY_ARM_ID_TEXTURE, 528, 45, 6, 6);
+	sprites->addSprite(20039, CARRY_ARM_ID_TEXTURE, 543, 46, 7, 4);
+	sprites->addSprite(20040, CARRY_ARM_ID_TEXTURE, 560, 45, 6, 4);
 
-	ani = new CAnimation(100);
-	ani->add(20031);
-	animations->add(CARRY_ARM_STATE_DIE, ani);
+	for (int i = 0; i < 9; i++)
+	{
+		ani = new CAnimation(100);
+		ani->add(20031 + i);
+		animations->add(CARRY_ARM_STATE_DESTROY + i, ani);
+		this->addAnimation(CARRY_ARM_STATE_DESTROY + i);
+	}
 
 	// add animations
 	this->addAnimation(CARRY_ARM_STATE_FLY);
 	this->addAnimation(CARRY_ARM_STATE_PUT_BOX);
 	this->addAnimation(CARRY_ARM_STATE_INJURE);
-	this->addAnimation(CARRY_ARM_STATE_DIE);
 }

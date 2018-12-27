@@ -57,7 +57,6 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 
 		if (y >= 820 + 59) {
 			y = 820 + 59;
-			_death = true;
 		}
 	}
 	else
@@ -85,7 +84,6 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 
 		if (y >= 820 + 59) {
 			y = 820 + 59;
-			_death = true;
 		}
 	}
 }
@@ -93,7 +91,7 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 void Box::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	if (_death) {
-		renderDie(dt);
+		renderDamage(dt);
 		return;
 	}
 
@@ -101,36 +99,37 @@ void Box::render(DWORD dt, D3DCOLOR colorBrush)
 	_animations[state]->render(center.x, center.y);
 }
 
-void Box::renderDie(DWORD dt, D3DCOLOR colorBrush)
+void Box::renderDamage(DWORD dt, D3DCOLOR colorBrush)
 {
 	for (int i = 0; i < 4; i++) {
-		auto center = cameraGlobal->transform(die[i].x, die[i].y);
+		auto center = cameraGlobal->transform(damage[i].x, damage[i].y);
 		_animations[BOX_STATE_DIE + i]->render(center.x, center.y);
 	}
 }
 
 void Box::generatePosition()
 {
-	die[0] = { x, y }; //* important
-	die[1] = { x + 24, y };
-	die[2] = { x, y + 24};
-	die[3] = { x + 48, y + 24};
+	// init position
+	damage[0] = { x, y }; //* important
+	damage[1] = { x + 24, y };
+	damage[2] = { x, y + 24};
+	damage[3] = { x + 48, y + 24};
 
-	speed.vy += 0.012f * dt;
-	speed.vx += 0.01f * dt;
+	speed.vy += 0.01f * dt;
+	speed.vx += 0.008f * dt;
 
 	dx = speed.vx * dt;
 	dy = speed.vy * dt;
 
-	die[0].x -= dx;
-	die[1].x += dx * 1.5;
-	die[2].x -= dx;
-	die[3].x += dx * 2;
+	damage[0].x -= dx;
+	damage[1].x += dx * 1.5;
+	damage[2].x -= dx;
+	damage[3].x += dx * 2;
 
-	die[0].y += dy * 2;
-	die[1].y += dy;
-	die[2].y += dy * 2;
-	die[3].y += dy;
+	damage[0].y += dy * 2;
+	damage[1].y += dy;
+	damage[2].y += dy * 2;
+	damage[3].y += dy;
 }
 
 void Box::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -199,6 +198,7 @@ void Box::loadResources()
 		this->addAnimation(BOX_STATE_DIE + i);
 	}
 
+	// add animations
 	this->addAnimation(BOX_STATE_DEFAULT);
 	this->addAnimation(BOX_STATE_HIGHTLIGHT);
 }
