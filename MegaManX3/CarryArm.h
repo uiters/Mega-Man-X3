@@ -15,6 +15,7 @@
 #define CARRY_ARM_STATE_PUT_BOX 100
 #define CARRY_ARM_STATE_INJURE 200
 #define CARRY_ARM_STATE_DESTROY 300
+#define CARRY_ARM_STATE_DIE 400
 
 #define CARRY_ARM_ID_TEXTURE 787
 
@@ -28,6 +29,8 @@ public:
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void renderDamage(DWORD dt, D3DCOLOR colorBrush = WHITE(255));// **
 	void generatePosition();// **
+	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));// **
+	void generatePosition2();// **
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	CarryArm* clone(int id, int x, int y) override;
 
@@ -46,6 +49,7 @@ private:
 
 	Box* box;
 	PointF damage[10];// **
+	PointF die[10];// **
 
 	void setState(int state);
 	void loadResources();

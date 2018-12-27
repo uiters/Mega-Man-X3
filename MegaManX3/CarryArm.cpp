@@ -29,6 +29,10 @@ CarryArm::~CarryArm()
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
+	if (this->_death) {
+		generatePosition2();
+		return;
+	}
 	if (this->isDamage) {
 		generatePosition();
 		this->isInjure = true;
@@ -177,6 +181,11 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	if (this->_death) {
+		renderDie(dt);
+		return;
+	}
+
 	if (this->isDamage) {
 		renderDamage(dt);
 	}
@@ -237,6 +246,58 @@ void CarryArm::generatePosition()
 	damage[7].y += dy * 0.5;
 	damage[8].y += dy * 2;
 	damage[9].y += dy;
+}
+
+void CarryArm::renderDie(DWORD dt, D3DCOLOR colorBrush)
+{
+	for (int i = 0; i < 9; i++) {
+		auto center = cameraGlobal->transform(die[i].x, die[i].y);
+		_animations[CARRY_ARM_STATE_DIE + i]->render(center.x, center.y);
+	}
+}
+
+void CarryArm::generatePosition2()
+{
+	// init position
+	die[0] = { x, y }; //* important
+	die[1] = { x + 24, y };
+	die[2] = { x, y + 24 };
+	die[3] = { x + 48, y + 24 };
+	die[4] = { x + 24, y };
+	die[5] = { x, y + 24 };
+	die[6] = { x + 48, y + 24 };
+	die[7] = { x + 24, y };
+	die[8] = { x, y + 24 };
+	die[9] = { x + 48, y + 24 };
+
+	speed.vy += 0.01f * dt;
+	speed.vx += 0.008f * dt;
+
+	dx =speed. vx * dt;
+	dy = speed.vy * dt;
+
+	die[0].x -= dx * 1.25;
+	die[1].x += dx * 1.5;
+	die[2].x -= dx;
+	die[3].x += dx * 2.25;
+	die[4].x -= dx * 0.5;
+	die[5].x += dx * 1.5;
+	die[6].x -= dx;
+	die[7].x += dx * 2;
+	die[8].x -= dx;
+	die[9].x += dx * 1.5;
+
+
+	die[0].y += dy * 2;
+	die[1].y += dy;
+	die[2].y += dy * 2;
+	die[3].y += dy * 1.25;
+	die[4].y += dy;
+	die[5].y += dy * 2;
+	die[6].y += dy;
+	die[7].y += dy * 0.5;
+	die[8].y += dy * 2;
+	die[9].y += dy;
 }
 
 void CarryArm::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -340,6 +401,26 @@ void CarryArm::loadResources()
 		ani->add(20031 + i);
 		animations->add(CARRY_ARM_STATE_DESTROY + i, ani);
 		this->addAnimation(CARRY_ARM_STATE_DESTROY + i);
+	}
+
+	// die
+	sprites->addSprite(20041, CARRY_ARM_ID_TEXTURE, 599, 14, 7, 12);
+	sprites->addSprite(20042, CARRY_ARM_ID_TEXTURE, 617, 12, 12, 7);
+	sprites->addSprite(20043, CARRY_ARM_ID_TEXTURE, 447, 44, 5, 7);
+	sprites->addSprite(20044, CARRY_ARM_ID_TEXTURE, 464, 44, 5, 4);
+	sprites->addSprite(20045, CARRY_ARM_ID_TEXTURE, 480, 45, 7, 6);
+	sprites->addSprite(20046, CARRY_ARM_ID_TEXTURE, 496, 45, 6, 7);
+	sprites->addSprite(20047, CARRY_ARM_ID_TEXTURE, 512, 44, 5, 7);
+	sprites->addSprite(20048, CARRY_ARM_ID_TEXTURE, 528, 45, 6, 6);
+	sprites->addSprite(20049, CARRY_ARM_ID_TEXTURE, 543, 46, 7, 4);
+	sprites->addSprite(20050, CARRY_ARM_ID_TEXTURE, 560, 45, 6, 4);
+
+	for (int i = 0; i < 9; i++)
+	{
+		ani = new CAnimation(100);
+		ani->add(20041 + i);
+		animations->add(CARRY_ARM_STATE_DIE + i, ani);
+		this->addAnimation(CARRY_ARM_STATE_DIE + i);
 	}
 
 	// add animations
