@@ -182,12 +182,12 @@ void Shurikein::loadResources()
 #pragma endregion
 
 }
-Shurikein::Shurikein(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
+Shurikein::Shurikein(UINT id, float x, float y, float vx, float vy) :DynamicObject(id, x, y, vx, vy)
 {
 	loadResources();
 	countManifest.start();
 	srand(time(NULL));
-	_hp = hp = 30;
+	_hp = 30;
 }
 Shurikein * Shurikein::clone(int id, int x, int y)
 {

@@ -39,7 +39,7 @@
 #define CHARGED_SHOOT1 L"Resource\\Textures\\Charged1.png"
 #define CHARGED_SHOOT2 L"Resource\\Textures\\Charged2.png"
 #define DIE L"Resource\\Textures\\die.png"
-#define CHARGED_EXPLOSION L"Resource\\Textures\\die.png"
+#define CHARGED_EFFECT_COLLISION  L"Resource\\Textures\\chargedEffect.png"
 #pragma endregion
 
 #pragma region Map
@@ -53,8 +53,13 @@
 #define EXPLOISION L"Resource\\Textures\\explosion.png"
 #pragma endregion
 
+#pragma region Head gun
+#define HEAD_GUN L"Resource\\Textures\\HeadeGunnerBullets.png"
+#pragma endregion
 
 
+#define ID_BLOCK_BACK_WARD -100
+#define ID_ELEVATOR -101
 
 #pragma region Megamian Size
 

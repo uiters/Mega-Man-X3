@@ -3,6 +3,10 @@
 
 #include "ConstGlobals.h"
 #include "Game.h"
+#include "Brick.h"
+#include "Elevator.h"
+
+class Brick;
 
 class Camera {
 private:
@@ -11,6 +15,7 @@ private:
 	void(Camera::*state) (int, int);
 
 	int nAnimation = 1;
+	Brick* blockBackward; //Block ,main backward 
 
 	bool lockLeft = false;
 	bool lockTop = false;
@@ -19,7 +24,6 @@ private:
 	bool enable = true;
 
 	void switchState();
-
 
 	void state1(int cameraX, int cameraY);
 	void state2(int cameraX, int cameraY);
@@ -32,22 +36,22 @@ private:
 	void state9(int cameraX, int cameraY);
 	void state10(int cameraX, int cameraY);
 
+	void nextAnimation();
 public:
-	void setEnable(bool value) { this->enable = value; }
 	Viewport viewport;
-	Rect world;
-
 
 	Camera(int x, int y, int width, int height);
 
 	void update(int x, int y);
-
-	void nextAnimation();
-
-	void setSizeWorld(int x,int y,int width,int height);
-
+	
 	const Point transform(const int& x,const int& y) const;
-	//D3DXVECTOR3 transformToViewport(int x, int y);// transform to viewport
+
+public:
+	Brick* getBlock() { return blockBackward; }
+	int getState() { return nAnimation; }
+
+public:
+	void setEnable(bool value) { this->enable = value; }
 };
 
 #endif // _Camera_H_

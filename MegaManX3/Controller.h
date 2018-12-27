@@ -8,6 +8,8 @@
 #include "Elevator.h"
 #include "Helit.h"
 #include "Shurikein.h"
+#include "StageController.h"
+#include "WeaponEffectController.h"
 class Controller
 {
 
@@ -16,15 +18,19 @@ private:
 
 	unordered_map<int, GameObject*> currentStatic;//current Static objects
 	unordered_map<int, GameObject*> currentDynamic;//current Dynaimc Objects;
-
+	StageController* stageController;
+	ScenceController* tilesController;
+	WeaponEffectController* weaponEffect;
 	QNode* rootStatic;//static Objects
 	QNode* rootDynamic;//dynamic Objects;
 	GameObject* elevator;
-
-	ScenceController* tilesControll;
+	bool enableUpdate;
+	
 	Brick* brick1;
 	Brick* brick2;
 	Shurikein* shurikein;
+private:
+	void filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& objects);
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();

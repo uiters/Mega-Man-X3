@@ -35,7 +35,6 @@ ScenceController::ScenceController()
 		}
 
 	}
-	cameraGlobal->setSizeWorld(0, 0, cols * width, height * height);
 	input.close();
 }
 
@@ -54,10 +53,10 @@ ScenceController::~ScenceController()
 void ScenceController::update(Viewport * viewport)
 {
 	
-	colStart = viewport->x / width; //sure
-	rowStart = viewport->y / height; // sure
+	colStart = viewport->x / width  - 0.99f; //sure
+	rowStart = viewport->y / height - 0.99f; // sure
 
-	colEnd = viewport->right() / (float)width + 0.99f;
+	colEnd = viewport->right() / (float)width + 1.99f;
 	rowEnd = viewport->bottom() / (float)height + 0.99f;
 }
 

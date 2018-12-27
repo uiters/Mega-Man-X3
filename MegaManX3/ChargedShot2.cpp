@@ -2,16 +2,8 @@
 
 void ChargedShot2::loadResources()
 {
-	spritesGlobal->add(bullet_lv3, Megaman, 35, 496, 80, 526);
-	spritesGlobal->add(bullet_lv3 + 1, Megaman, 87, 496, 131, 524);
-	spritesGlobal->add(bullet_lv3 + 2, Megaman, 146, 495, 187, 525);
-	auto ani = new CAnimation(900);
-	ani->add(bullet_lv3 , 100);
-	ani->add(bullet_lv3 + 1, 300);
-	ani->add(bullet_lv3 + 2, 500);
-
-	animationsGlobal->add(bullet_lv3, ani);
-	_animations[bullet_lv3] = ani;
+	_animations[bullet_lv3] = animationsGlobal->get(bullet_lv3);
+	_animations[bullet_lv3]->reset();
 }
 
 ChargedShot2::ChargedShot2(float x, float y, bool toLeft)
@@ -28,7 +20,7 @@ ChargedShot2::ChargedShot2(float x, float y, bool toLeft)
 
 ChargedShot2::~ChargedShot2()
 {
-	delete _animations[bullet_lv3];
+
 }
 
 void ChargedShot2::getBoundingBox(float & left, float & top, float & right, float & bottom)

@@ -1,19 +1,12 @@
 #include "NotorBanger.h"
 
 
-NotorBanger::NotorBanger(int id, float x, float y, bool nx)
+NotorBanger::NotorBanger(UINT id, float x, float y, bool nx) :DynamicObject(id, x, y, 0, 0)
 {
-	this->_id = id;
-	this->x = x;
-	this->y = y;
-	this->initX = x;
-	this->initY = y;
 	this->nx = nx;
 	this->repeat = 0;
-
-
-	_death = false;
-	_hp = 3;
+	initHP = _hp = 3;
+	setResetBound();
 }
 
 NotorBanger::~NotorBanger()
@@ -23,23 +16,13 @@ NotorBanger::~NotorBanger()
 void NotorBanger::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {	
 	this->dt = dt;
+	updateWeapon(dt, staticObjects);
+
+	if (!visible) return;
+
 	if (_death) {
 		calculateDie();
 		return;
-	}
-
-	for (auto bullet = _weapons.begin(); bullet != _weapons.end(); )
-	{
-		bullet[0]->update(dt, staticObjects);
-		if (bullet[0]->getIsDelete())
-		{
-			int x = bullet[0]->x - 16;
-			int y = bullet[0]->y - 20;
-			collisionEffect->createEffect(x, y);
-			delete bullet[0];
-			bullet = _weapons.erase(bullet);
-		}
-		else ++bullet;
 	}
 
 	GameObject::update(dt);
@@ -104,25 +87,23 @@ void NotorBanger::update(DWORD dt, unordered_map<int, GameObject*>* staticObject
 
 void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	collisionEffect->render(dt, false);
+	renderWeapon(dt, colorBrush);
+
+	if (!visible) return;
+
 	if (_death) {
 		renderDie(dt);
 		collisionEffect->render(dt, false);
-		return;
-	}	
+		timeHide.update();
 
-	auto center = cameraGlobal->transform(x, y);
-	if (nx != true)
-		_animations[state]->render(center.x, center.y);
-	else _animations[state]->renderFlipX(center.x, center.y);
-
-	for (int i = 0; i < _weapons.size(); i++)
-	{
-		_weapons[i]->render(dt);
+		if (timeHide.isStop())
+			visible = false;
 	}
-
-	shotEffect->render(dt, true);
-	collisionEffect->render(dt, false);
-		
+	else
+	{
+		renderNormal(dt, colorBrush);
+	}
 }
 
 void NotorBanger::calculateDie()
@@ -146,10 +127,12 @@ void NotorBanger::calculateDie()
 
 void NotorBanger::renderDie(DWORD dt, D3DCOLOR colorBrush)
 {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; ++i) {
 		auto center = cameraGlobal->transform(die[i].x, die[i].y);
-		_animations[NOTOR_BANGER_STATE_DIE + i ]->render(center.x, center.y);
+		_animations[NOTOR_BANGER_STATE_DIE + i ]->render(center.x, center.y, false, this->showColor ? WHITE(100) : WHITE(255));
 	}
+	if (++timeSwitchColor == 2)
+		showColor = !showColor, timeSwitchColor = 0;
 }
 
 void NotorBanger::setState(int state)
@@ -174,20 +157,54 @@ void NotorBanger::setState(int state)
 void NotorBanger::loadResources()
 {
 	CTextures * textures = CTextures::getInstance();
-	if (textures->getTexture(NOTOR_BANGER_ID_TEXTURE) == NULL)
-		textures->add(NOTOR_BANGER_ID_TEXTURE, L"Resource\\Textures\\enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
-
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();
-
 	LPANIMATION ani;
 
+	if (textures->getTexture(NOTOR_BANGER_ID_TEXTURE))
+		goto LoadAni;
+
+	textures->add(NOTOR_BANGER_ID_TEXTURE, L"Resource\\Textures\\enemies.png",0,0, D3DCOLOR_XRGB(255, 0, 255));
 	// init
 	sprites->addSprite(10001, NOTOR_BANGER_ID_TEXTURE, 7, 105, 40, 48); // 40 x 48
 	sprites->addSprite(10002, NOTOR_BANGER_ID_TEXTURE, 52, 106, 40, 48);
 	sprites->addSprite(10003, NOTOR_BANGER_ID_TEXTURE, 92, 105, 40, 48);
 	sprites->addSprite(10004, NOTOR_BANGER_ID_TEXTURE, 136, 104, 40, 48);
-	 
+	// shot small
+	sprites->addSprite(10011, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10012, NOTOR_BANGER_ID_TEXTURE, 176, 104, 40, 48);
+	// shot medium
+	sprites->addSprite(10021, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10022, NOTOR_BANGER_ID_TEXTURE, 136, 104, 40, 48);
+	// shot large
+	sprites->addSprite(10031, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10032, NOTOR_BANGER_ID_TEXTURE, 92, 105, 40, 48);
+	// ready jump small
+	sprites->addSprite(10041, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
+	sprites->addSprite(10042, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48);
+	sprites->addSprite(10043, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
+	sprites->addSprite(10044, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+	// ready jump medium
+	sprites->addSprite(10051, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48);
+	sprites->addSprite(10052, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
+	sprites->addSprite(10053, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+	// ready jump large
+	sprites->addSprite(10061, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
+	sprites->addSprite(10062, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+	// jump
+	sprites->addSprite(10071, NOTOR_BANGER_ID_TEXTURE, 181, 0, 48, 48); // 48 x 48
+	// touch floor
+	sprites->addSprite(10081, NOTOR_BANGER_ID_TEXTURE, 128, 2, 48, 48);
+	sprites->addSprite(10082, NOTOR_BANGER_ID_TEXTURE, 76, 2, 48, 48); // 48 x 48
+	sprites->addSprite(10083, NOTOR_BANGER_ID_TEXTURE, 18, 2, 48, 48);
+	// die
+	sprites->addSprite(10091, NOTOR_BANGER_ID_TEXTURE, 8, 168, 18, 8);
+	sprites->addSprite(10092, NOTOR_BANGER_ID_TEXTURE, 32, 165, 11, 12);
+	sprites->addSprite(10093, NOTOR_BANGER_ID_TEXTURE, 47, 157, 22, 23);
+	sprites->addSprite(10094, NOTOR_BANGER_ID_TEXTURE, 74, 157, 19, 20);
+
+LoadAni :
+
 	ani = new CAnimation(200);
 	ani->add(10001);
 	ani->add(10002);
@@ -195,38 +212,28 @@ void NotorBanger::loadResources()
 	ani->add(10004);
 	animations->add(NOTOR_BANGER_STATE_INIT , ani);
 
-	// shot small
-	sprites->addSprite(10011, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
-	sprites->addSprite(10012, NOTOR_BANGER_ID_TEXTURE, 176, 104, 40, 48);
+
 
 	ani = new CAnimation(600);
 	ani->add(10011);
 	ani->add(10012);
 	animations->add(NOTOR_BANGER_STATE_SHOT_SMALL, ani);
 
-	// shot medium
-	sprites->addSprite(10021, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48); // 40 x 48
-	sprites->addSprite(10022, NOTOR_BANGER_ID_TEXTURE, 136, 104, 40, 48);
+
 
 	ani = new CAnimation(600);
 	ani->add(10021);
 	ani->add(10022);
 	animations->add(NOTOR_BANGER_STATE_SHOT_MEDIUM, ani);
 
-	// shot large
-	sprites->addSprite(10031, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48); // 40 x 48
-	sprites->addSprite(10032, NOTOR_BANGER_ID_TEXTURE, 92, 105, 40, 48);
+
 
 	ani = new CAnimation(600);
 	ani->add(10031);
 	ani->add(10032);
 	animations->add(NOTOR_BANGER_STATE_SHOT_LARGE, ani);
 
-	// ready jump small
-	sprites->addSprite(10041, NOTOR_BANGER_ID_TEXTURE, 129, 52, 40, 48); // 40 x 48
-	sprites->addSprite(10042, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48);
-	sprites->addSprite(10043, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
-	sprites->addSprite(10044, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+
 
 	ani = new CAnimation(200);
 	ani->add(10041);
@@ -235,10 +242,7 @@ void NotorBanger::loadResources()
 	ani->add(10044);
 	animations->add(NOTOR_BANGER_STATE_READY_JUMP_SMALL, ani);
 
-	// ready jump medium
-	sprites->addSprite(10051, NOTOR_BANGER_ID_TEXTURE, 87, 52, 40, 48);
-	sprites->addSprite(10052, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
-	sprites->addSprite(10053, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+
 
 	ani = new CAnimation(200);
 	ani->add(10051);
@@ -246,26 +250,20 @@ void NotorBanger::loadResources()
 	ani->add(10053);
 	animations->add(NOTOR_BANGER_STATE_READY_JUMP_MEDIUM, ani);
 
-	// ready jump large
-	sprites->addSprite(10061, NOTOR_BANGER_ID_TEXTURE, 45, 52, 40, 48);
-	sprites->addSprite(10062, NOTOR_BANGER_ID_TEXTURE, 4, 52, 40, 48);
+
 
 	ani = new CAnimation(200);
 	ani->add(10061);
 	ani->add(10062);
 	animations->add(NOTOR_BANGER_STATE_READY_JUMP_LARGE, ani);
 
-	// jump
-	sprites->addSprite(10071, NOTOR_BANGER_ID_TEXTURE, 181, 0, 48, 48); // 48 x 48
+
 
 	ani = new CAnimation(600);
 	ani->add(10071);
 	animations->add(NOTOR_BANGER_STATE_JUMP, ani);
 
-	// touch floor
-	sprites->addSprite(10081, NOTOR_BANGER_ID_TEXTURE, 128, 2, 48, 48);
-	sprites->addSprite(10082, NOTOR_BANGER_ID_TEXTURE, 76, 2, 48, 48); // 48 x 48
-	sprites->addSprite(10083, NOTOR_BANGER_ID_TEXTURE, 18, 2, 48, 48);
+
 
 	ani = new CAnimation(30);
 	ani->add(10081);
@@ -273,13 +271,9 @@ void NotorBanger::loadResources()
 	ani->add(10083);
 	animations->add(NOTOR_BANGER_STATE_TOUCH_FLOOR, ani);
 
-	// die
-	sprites->addSprite(10091, NOTOR_BANGER_ID_TEXTURE, 8, 168, 18, 8);
-	sprites->addSprite(10092, NOTOR_BANGER_ID_TEXTURE, 32, 165, 11, 12);
-	sprites->addSprite(10093, NOTOR_BANGER_ID_TEXTURE, 47, 157, 22, 23);
-	sprites->addSprite(10094, NOTOR_BANGER_ID_TEXTURE, 74, 157, 19, 20);
 
-	for (int i = 0; i < 4; i++)
+
+	for (int i = 0; i < 4; ++i)
 	{
 		ani = new CAnimation(100);
 		ani->add(10091 + i);
@@ -313,6 +307,31 @@ void NotorBanger::setPositionForListBullet()
 	}
 }
 
+void NotorBanger::setResetBound()
+{
+	resetBound.x = x;
+	resetBound.y = y;
+	resetBound.width = 40;
+	resetBound.height = 48;
+}
+
+void NotorBanger::updateWeapon(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
+{
+	for (auto bullet = _weapons.begin(); bullet != _weapons.end(); )
+	{
+		bullet[0]->update(dt, staticObjects);
+		if (bullet[0]->getIsDelete())
+		{
+			int x = bullet[0]->x - 16;
+			int y = bullet[0]->y - 20;
+			collisionEffect->createEffect(x, y);
+			delete bullet[0];
+			bullet = _weapons.erase(bullet);
+		}
+		else ++bullet;
+	}
+}
+
 void NotorBanger::createBullet()
 {	
 	int x, y;
@@ -340,16 +359,9 @@ void NotorBanger::createBullet()
 		false,
 		this->getDistance()
 	);
-	notorBangerBullet->loadResources();
-	notorBangerBullet->setState(NOTOR_BANGER_BULLET_STATE_DEFAULT);
+
 	_weapons.emplace_back(notorBangerBullet);
 
-}
-
-void NotorBanger::resetPosition()
-{
-	this->x = this->initX;
-	this->y = this->initY;
 }
 
 void NotorBanger::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -358,11 +370,6 @@ void NotorBanger::getBoundingBox(float & left, float & top, float & right, float
 	top = y;
 	right = x + 40;
 	bottom = y + 48;
-}
-
-NotorBanger * NotorBanger::clone(int id, int x, int y)
-{
-	return nullptr;
 }
 
 void NotorBanger::createExplosion(float x, float y)
@@ -401,6 +408,7 @@ void NotorBanger::collisionStatic(unordered_map<int, GameObject*>* staticObjects
 	vector<CollisionEvent*> coEventsResult;
 
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
+
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -417,5 +425,23 @@ void NotorBanger::collisionStatic(unordered_map<int, GameObject*>* staticObjects
 	}
 	UINT size = coEvents.size();
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];
+}
+
+void NotorBanger::renderNormal(DWORD dt, D3DCOLOR colorBrush)
+{
+	if (_attacked)
+	{
+		timeAttacked.update();
+		if (timeAttacked.isStop())
+		{
+			_attacked = false;
+		}
+		else colorBrush = LIGHTCYAN(128);
+	}
+	auto center = cameraGlobal->transform(x, y);
+	if (nx != true)
+		_animations[state]->render(center.x, center.y, false, colorBrush);
+	else _animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
+	shotEffect->render(dt, true);
 }
 

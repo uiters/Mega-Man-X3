@@ -33,7 +33,7 @@ public:
 	// waring !!!
 	void findCollisions(DWORD dt, LPObject objectMove, const unordered_map<int, GameObject*>& objects, vector<LPCollisionEvent> &coEvents);
 	void findCollisions(DWORD dt, LPObject objectMove, vector<GameObject*> *objects, vector<LPCollisionEvent> &coEvents);
-
+	bool findCollision(DWORD dt, LPObject objectMove, LPObject objectCollision);
 
 	static ColllisionDirect getCollisionDirect(float normalx, float normaly);
 	// Filter Collision

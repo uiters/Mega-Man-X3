@@ -14,7 +14,7 @@ void WallSlide::loadResources()
 	{
 		ani->add(SlideAnimation + i);
 	}
-	animationsGlobal->add(TSlide, ani);
+	//animationsGlobal->add(TSlide, ani);
 	this->animation = ani;
 }
 

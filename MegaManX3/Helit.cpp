@@ -60,30 +60,32 @@ void Helit::loadResources()
 
 
 }
+
 #pragma endregion
 
 #pragma region Coontructor
-Helit::Helit()
-{
 
-}
-
-Helit::Helit(int id, float x, float y, bool toLeft)
+Helit::Helit(int id, float x, float y, bool toLeft) : DynamicObject(id, x, y, 0, 0)
 {
-	this->_id = id;
-	this->visible = true;
-	this->_idObject = id;
-	this->x = x;
-	this->y = y;
-	this->toLeft = toLeft;
-	loadResources();
-	timeDeath.start();
-	timeFire.start();
 	_effects.emplace_back(WallSlide::getInstance());
 	_effects.emplace_back(ExplosionEffect::getInstance());
-	speed.vx = 0;
-	speed.vy = 0;
-	_hp = 2;
+
+	this->toLeft = toLeft;
+	this->initToLeft = toLeft;
+	loadResources();
+
+	timeFire.start();
+
+	initHP = _hp = 2;
+	setResetBound();
+}
+
+void Helit::setResetBound()
+{
+	resetBound.x = x;
+	resetBound.y = y;
+	resetBound.width = 22;
+	resetBound.height = 30;
 }
 #pragma endregion
 
@@ -97,56 +99,36 @@ void Helit::getBoundingBox(float & left, float & top, float & right, float & bot
 	bottom = y + 30;
 }
 
-Helit * Helit::clone(int id, int x, int y)
-{
-	auto helit = new Helit();
-	helit->x = x;
-	helit->y = y;
-	helit->_animations = this->_animations;//copy animation
-	return helit;
-}
 
 void Helit::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
+	updateWeapon(dt, staticObjects);
+
 	if (!visible) return;
+
 	if (_death)
 	{
-		timeDeath.update();
-		if (timeDeath.isStop())
-		{
-			visible = false;
-		}
-		else
-		{
-			calculateDie();
-		}
+		calculateDie();
 	}
 	else
 	{
-		timeDeath.update();
-		if (timeDeath.isStop())
+		timeFire.update();
+		if (timeFire.isStop())
 		{
-			setAnimationDie();
+			setAnimationFire();
+			timeFire.start();
 		}
-		else
-		{
-			timeFire.update();
-			if (timeFire.isStop())
-			{
-				setAnimationFire();
-				timeFire.start();
-			}
-			if (body == HelitBody2 && --timeSwitchBody == 0)
-				body = HelitBody1, toLeft = !toLeft;
-
-			updateBullet(dt, staticObjects);
-		}
+		if (body == HelitBody2 && --timeSwitchBody == 0)
+			body = HelitBody1, toLeft = !toLeft;
 	}
 }
 
 void Helit::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	_effects[HELIT_EFFECT_EXPLOSION]->render(dt, true);
+	renderWeapon(dt, colorBrush);
+
 	if (visible)
 	{
 		if (_death) 
@@ -157,7 +139,7 @@ void Helit::render(DWORD dt, D3DCOLOR colorBrush)
 		{
 			renderNormal(dt);
 		}
-		_effects[HELIT_EFFECT_EXPLOSION]->render(dt, true);
+		
 	}
 }
 
@@ -193,8 +175,6 @@ void Helit::setAnimationDie()
 {
 	_death = true;
 	dieX[0] = dieX[1] = dieX[2] = { x, y };
-	timeDeath.setTimeUp(2000);
-	timeDeath.start();
 	speed.vy = -0.0125f *dt;
 	speed.vx = 0.0002f * dt;
 	this->showColor = true;
@@ -214,12 +194,9 @@ void Helit::renderDie(DWORD dt)
 }
 
 
-
 void Helit::renderNormal(DWORD dt)
 {
 	auto pos = cameraGlobal->transform(x, y);
-	debugOut(L"%i %i %i\n", _id, x, y);
-
 	if (toLeft)
 	{
 		_animations[body]->render(pos.x, pos.y);
@@ -229,12 +206,8 @@ void Helit::renderNormal(DWORD dt)
 		_animations[body]->renderFlipX(pos.x, pos.y);
 	}
 	_animations[HelitAnimation]->render(pos.x + 11.35f, pos.y - 3.25f, true);
-	for each (auto weapon in _weapons)
-	{
-		weapon->render(dt);
-	}
-	_effects[HELIT_EFFECT_FIRE]->render(dt, true);
 	
+	_effects[HELIT_EFFECT_FIRE]->render(dt, true);	
 }
 
 void Helit::setAnimationFire()
@@ -251,7 +224,7 @@ void Helit::setAnimationFire()
 }
 
 
-void Helit::updateBullet(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
+void Helit::updateWeapon(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
 	for (auto it = _weapons.begin(); it != _weapons.end();)
 	{

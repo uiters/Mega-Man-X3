@@ -132,9 +132,11 @@
     <ClInclude Include="AnimationOneTime.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BulletCollision.h" />
+    <ClInclude Include="BusterCollision.h" />
     <ClInclude Include="BusterShot.h" />
+    <ClInclude Include="Charged1Collision.h" />
+    <ClInclude Include="Charged2Collision.h" />
     <ClInclude Include="ChargedEffect.h" />
-    <ClInclude Include="ChargedExplosion.h" />
     <ClInclude Include="ChargedShot1.h" />
     <ClInclude Include="ChargedShot2.h" />
     <ClInclude Include="CKey.h" />
@@ -181,22 +183,26 @@
     <ClInclude Include="Shurikein.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
+    <ClInclude Include="StageController.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="WallKick.h" />
     <ClInclude Include="WallSlide.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponEffectController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationOneTime.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BulletCollision.cpp" />
+    <ClCompile Include="BusterCollision.cpp" />
     <ClCompile Include="BusterShot.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Charged1Collision.cpp" />
+    <ClCompile Include="Charged2Collision.cpp" />
     <ClCompile Include="ChargedEffect.cpp" />
-    <ClCompile Include="ChargedExplosion.cpp" />
     <ClCompile Include="ChargedShot1.cpp" />
     <ClCompile Include="ChargedShot2.cpp" />
     <ClCompile Include="CKey.cpp" />
@@ -238,12 +244,14 @@
     <ClCompile Include="Shurikein.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="StageController.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="WallKick.cpp" />
     <ClCompile Include="WallSlide.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="WeaponEffectController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />

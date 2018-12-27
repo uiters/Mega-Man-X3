@@ -31,23 +31,25 @@
 class NotorBanger : public DynamicObject
 {
 public:
-	NotorBanger(int id, float x, float y, bool nx);
+	NotorBanger(UINT id, float x, float y, bool nx);
 	~NotorBanger();
-	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
-	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+
+public:
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0) override;
+	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
+	void loadResources() override;
+	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
+	void createExplosion(float x, float y) override;
+	void setAnimationDie() override;
+
+private:
 	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void calculateDie();
 	void setState(int state);
-	void loadResources();
 	void setPositionForListBullet();
-	void resetPosition();
-	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
-	NotorBanger* clone(int id, int x, int y) override;
-	void createExplosion(float x, float y);
-	void setAnimationDie() override;
+	void setResetBound() override;
+	void updateWeapon(DWORD dt, unordered_map<int, GameObject*>* staticObjects) override;
 private:
-	float initX;
-	float initY;
 	int repeat;
 	bool nx;
 	PointF die[4];
@@ -55,8 +57,10 @@ private:
 	WallSlide* shotEffect = WallSlide::getInstance();
 	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
+private:
 	void createBullet();
 	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
+	void renderNormal(DWORD dt, D3DCOLOR colorBrush);
 };
 
 struct  Distance

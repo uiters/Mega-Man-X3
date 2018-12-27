@@ -24,12 +24,11 @@ private:
 	void setHurt();
 
 	KeyController* keyController;
-	MegamanX* clone(int id, int x, int y) override;
 	MegamanEffectFactory* effect;
 	MegamanWeapon *weapon;
 	MegamanX() {}
 private:
-
+	Elevator* elevator = null;
 	CTime countDissapear = (800);
 	CTime timePreDie = (500);
 	PointF p1 = { 400, 290 };
@@ -41,7 +40,7 @@ private:
 	PointF p7 = { 390, 310 };
 	PointF p8 = { 390, 290 };
 public:
-	MegamanX(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
+	MegamanX(UINT id, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	~MegamanX();
 
 	bool isFlipX = false; //lật hình (mặc định hướng về phải)
@@ -69,7 +68,7 @@ public:
 	void onKeyUp(int) override;
 	void keyState(BYTE*) override;
 	void getBoundingBox(float& left, float& top, float& right, float &bottom) override;
-
+	void setFloor(StaticObject* obj) { keyController->setFloor(obj); }
 private:
 	void dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects);
 	void bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);

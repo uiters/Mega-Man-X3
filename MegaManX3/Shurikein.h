@@ -21,7 +21,7 @@ public:
 	ExplosionEffect* effectExplosion = ExplosionEffect::getInstance();
 	Shurikein();
 	~Shurikein();
-	Shurikein(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
+	Shurikein(UINT id, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	void loadResources() override;
 	Shurikein* clone(int id, int x, int y);
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0) override;

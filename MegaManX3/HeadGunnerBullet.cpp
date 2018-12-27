@@ -7,6 +7,8 @@ HeadGunnerBullet::HeadGunnerBullet(float x, float y, bool nx, bool ny)
 	this->y = y;
 	this->nx = nx;
 	this->ny = ny;
+	loadResources();
+	setState(bullet_head_gun_state_default);
 }
 
 HeadGunnerBullet::HeadGunnerBullet(int id, float x, float y, bool nx, bool ny)
@@ -51,25 +53,7 @@ void HeadGunnerBullet::setState(int state)
 
 void HeadGunnerBullet::loadResources()
 {
-	CTextures * textures = CTextures::getInstance();
-
-	if (textures->getTexture(HEAD_GUNNER_BULLET_ID_TEXTURE) == NULL)
-		textures->add(HEAD_GUNNER_BULLET_ID_TEXTURE, L"Resource\\Textures\\HeadeGunnerBullets.png", 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-
-	CSprites * sprites = CSprites::getInstance();
-	CAnimations * animations = CAnimations::getInstance();
-
-	LPANIMATION ani;
-
-	// default
-	sprites->addSprite(10001, HEAD_GUNNER_BULLET_ID_TEXTURE, 71, 13, 7, 7);
-
-	ani = new CAnimation(200);
-	ani->add(10001);
-	animations->add(HEAD_GUNNER_BULLET_STATE_DEFAULT, ani);
-
-	// add animations
-	this->addAnimation(HEAD_GUNNER_BULLET_STATE_DEFAULT);
+	_animations[bullet_head_gun_state_default] = animationsGlobal->get(bullet_head_gun_state_default);
 }
 
 void HeadGunnerBullet::setPosition(float x, float y)

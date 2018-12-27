@@ -12,27 +12,39 @@ protected:
 	bool _death = false;
 	vector<Weapon*> _weapons;//animation weapon
 	vector<Effect*> _effects;
-	int _hp = 0; //for reset
-	int baseDamage;
+	int initHP = 0; //for reset
+	float initX = 0;
+	float initY = 0;
+	bool initToLeft = 0;
+	CTime timeHide = (2000);
+	CRectangle resetBound;
+	int timeSwitchColor = 0;
+	bool showColor = true;
+
+	bool _attacked = false;
+	CTime timeAttacked = (100);
+protected:
 	virtual void setAnimationDie() {};
-public:
-	int hp = 0;
-	bool canMove = true;
-	bool canControl = false;
+	virtual void updateWeapon(DWORD , unordered_map<int, GameObject*>* staticObjects) {};
+	virtual void renderWeapon(DWORD dt, D3DCOLOR colorBrush);
+	virtual void setResetBound() {}
+protected:
+	int _hp = 0;
+	bool _isReset = true;
 public:
 	DynamicObject(UINT idTexture, float x, float y, float vx, float vy);
 	DynamicObject();
-	int getDamage();
+
+public:
 	bool isDeath();
 
 public:
-	virtual GameObject* clone(int id, int x, int y) = 0;
-	virtual void getBoundingBox(float & left, float & top, float & right, float & bottom) override = 0;
+	
 	virtual void receiveDamage(int damage);
-	virtual void reset();
+	virtual void reset() override;
 	virtual vector<Weapon*>* getWeapons();
 	virtual void createExplosion(float x, float y) {}
-	
+	virtual void setReset() override { _isReset = false; }
 };
 
 #endif // !_DynamicObject_H

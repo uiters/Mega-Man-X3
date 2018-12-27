@@ -1,73 +1,88 @@
 #include "Controller.h"
 #include "CollisionEvent.h"
 #include "NotorBanger.h"
-Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
-{
-	this->rootStatic = rootStatic;
-	this->rootDynamic = rootDynamic;
-	this->main = main;
-	tilesControll = new ScenceController();
-	main->state = stand;
-	shurikein  = new Shurikein(TShurikein, 2518, 920);
-	shurikein->state = manifest;
-	brick1 = new Brick(0, 2297, 895, 22, 52);
-	brick2 = new Brick(0, 2546, 895, 22, 52);
-}
+#include "StageController.h"
 
-Controller::~Controller()
+void Controller::filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& objects)
 {
-	delete tilesControll;
-	QNode::clear(rootDynamic);
-	QNode::clear(rootStatic);
-}
-
-void Controller::update(DWORD dt)
-{
-	tilesControll->update(viewPortGlobal);
-	
-	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);//current static 
-	rootDynamic->getObjectsIn(viewPortGlobal, currentDynamic);//current dynamic 
-
-	//currentDynamic[-1] = shurikein;
-	for (auto i = currentDynamic.begin(); i != currentDynamic.end();)
+	for (auto i = objects.begin(); i != objects.end();)
 	{
 		GameObject* obj = (*i).second;
 		if (obj->getBoundBox().intersectsWith(*viewPortGlobal))
 		{
+			obj->setReset();
+			currentDynamic[obj->getID()] = obj;
 			obj->update(dt, &currentStatic);
-			++i;
 		}
-		else i = currentDynamic.erase(i);
+		else
+		{
+			obj->reset();
+		}
+		++i;
 	}
+}
 
-	if (elevator)
-	{
-		elevator->update(dt);
-		currentStatic[elevator->getID()] = elevator;
-	}
-	else
-	{
-		for (auto kv : currentStatic) {
-			elevator = dynamic_cast<Elevator*>(kv.second);
-			if (elevator) break;
-		}
-	}
-	//helit->update(dt, &currentStatic, &currentDynamic);
+void Controller::update(DWORD dt)
+{
+	currentStatic.clear();
+	tilesController->update(viewPortGlobal);
+	stageController->update(dt);
+
+	if (!enableUpdate) return;
+
+	
+	unordered_map<int, GameObject*> dynamicObjects;// dynamic quatree
+
+	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);// static quadtree
+	rootDynamic->getObjectsIn(viewPortGlobal, dynamicObjects);// dynamic quatree
+
+	filterAndUpdate(dt, dynamicObjects);//filter Dynamic Object => current dynamic
+	
 	main->update(dt, &currentStatic, &currentDynamic);
+	stageController->updateElevator(dt);
 }
 
 void Controller::render(DWORD dt)
 {
-	tilesControll->render(dt);
-	for (auto kv : currentDynamic) {
+	tilesController->render(dt);
+
+	for (auto kv : currentDynamic) 
+	{
 		kv.second->render(dt);
 	}
-	for each (auto item in currentStatic)
-	{
-		item.second->render(dt);
-	}
-	if (elevator) elevator->render(dt);
+
+	weaponEffect->render(dt); //render effect dynamic
+
+	stageController->renderElevator(dt);
+
 	main->render(dt);
-	//shurikein->render(dt);
-	//helit->render(dt);
+
+}
+
+
+Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
+{
+	stageController = StageController::getInstance();
+	weaponEffect = WeaponEffectController::getIntance();
+	stageController->setCurrentDynamic(&currentDynamic);
+	stageController->setCurrentStatic(&currentStatic);
+	enableUpdate = true;
+	stageController->setEnableUpdateController(&enableUpdate);
+
+	this->rootStatic = rootStatic;
+	this->rootDynamic = rootDynamic;
+	this->main = main;
+
+	tilesController = new ScenceController();
+
+	main->state = stand;
+	//shurikein = new Shurikein(TShurikein, 2518, 920);
+	//shurikein->state = manifest;
+}
+
+Controller::~Controller()
+{
+	delete tilesController;
+	QNode::clear(rootDynamic);
+	QNode::clear(rootStatic);
 }

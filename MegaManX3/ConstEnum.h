@@ -35,8 +35,10 @@ enum TextureID
 	Megaman = 1,
 	TElevator = 2,
 	TExplosion = 3,
-	TChargedExplosion = 4,
-	TShurikein = 3,
+	TChargedCollision = 4,
+	TShurikein = 5,
+
+	THeadGun = 16,
 
 	TDashSmoke = 2000,
 	TDashSpark = 2001,
@@ -45,7 +47,6 @@ enum TextureID
 	TCharged1 = 2004,
 	TCharged2 = 2005,
 	THelit = 2006,
-
 };
 enum ShurikeinAnimation
 {
@@ -61,6 +62,9 @@ enum WeaponID
 	bullet_lv1 = 13000,
 	bullet_lv2 = 13100,
 	bullet_lv3 = 13200,
+
+	bullet_head_gun_state_default = 13250,
+	bullet_head_gun_state_2 = 13260,
 
 };
 enum Animation {
@@ -84,9 +88,11 @@ enum Animation {
 	HelitBulletAnimation = 12125, // 1cells
 	HelitBulletSmoke = 12130, // 6cells,
 	ExplosionAnimation = 12140, //7 cells
-	Charged1_Explosion_Animation = 12150, // 2 cells
-	Charged2_Explosion_Animation = 12155, // 2 cells
-	Buster_Explosion_Animation = 12160, //3 cells
+	Charged1_Collision_Animation = 12150, // 2 cells
+	Charged2_Collision_Animation = 12155, // 2 cells
+	Buster_Collision_Animation = 12160, //3 cells
+	//Buster_Collision_Animation = 12170, //3cell
+
 };
 
 

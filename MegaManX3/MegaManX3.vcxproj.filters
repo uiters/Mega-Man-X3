@@ -31,9 +31,6 @@
     <Filter Include="Lib">
       <UniqueIdentifier>{493712ec-be8c-4bfa-b8ed-6f911b7461e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Lib\Camera">
-      <UniqueIdentifier>{8bc14e06-a487-4c43-8e45-26e67af23d8a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lib\Collision">
       <UniqueIdentifier>{00f08798-19c3-4be1-8e0d-98ba48b8807b}</UniqueIdentifier>
     </Filter>
@@ -145,6 +142,21 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{7a5d865b-a794-4041-8277-abd1cc9c2609}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Controls\Stage">
+      <UniqueIdentifier>{ed34d7f8-652b-499e-b72b-cb9504cd7849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{8bc14e06-a487-4c43-8e45-26e67af23d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effect\Weapon">
+      <UniqueIdentifier>{2006c248-b1e4-4e65-b070-b240d2c7daa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effect\Megaman\Weapon">
+      <UniqueIdentifier>{37ea04de-69f2-4474-9bd6-2724caccf568}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Controls\Weapon Effect">
+      <UniqueIdentifier>{4c3106ae-5c9d-42d0-a7ec-a55f9e0fde72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -157,7 +169,7 @@
       <Filter>Game\Constaint</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Lib\Camera</Filter>
+      <Filter>Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CollisionEvent.h">
       <Filter>Lib\Collision</Filter>
@@ -309,12 +321,6 @@
     <ClInclude Include="ExplosionEffect.h">
       <Filter>Game\Effect\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="ChargedExplosion.h">
-      <Filter>Game\Effect\Megaman</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletCollision.h">
-      <Filter>Game\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="HeadGunnerBullet.h">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClInclude>
@@ -324,6 +330,24 @@
     <ClInclude Include="Shurikein.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="StageController.h">
+      <Filter>Game\Controls\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponEffectController.h">
+      <Filter>Game\Controls\Weapon Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletCollision.h">
+      <Filter>Game\Effect\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="BusterCollision.h">
+      <Filter>Game\Effect\Megaman\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Charged1Collision.h">
+      <Filter>Game\Effect\Megaman\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Charged2Collision.h">
+      <Filter>Game\Effect\Megaman\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -331,7 +355,7 @@
       <Filter>Game\Constaint</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Lib\Camera</Filter>
+      <Filter>Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CollisionEvent.cpp">
       <Filter>Lib\Collision</Filter>
@@ -474,12 +498,6 @@
     <ClCompile Include="ExplosionEffect.cpp">
       <Filter>Game\Effect\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="ChargedExplosion.cpp">
-      <Filter>Game\Effect\Megaman</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletCollision.cpp">
-      <Filter>Game\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="HeadGunnerBullet.cpp">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClCompile>
@@ -488,6 +506,24 @@
     </ClCompile>
     <ClCompile Include="Shurikein.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="StageController.cpp">
+      <Filter>Game\Controls\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponEffectController.cpp">
+      <Filter>Game\Controls\Weapon Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletCollision.cpp">
+      <Filter>Game\Effect\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BusterCollision.cpp">
+      <Filter>Game\Effect\Megaman\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Charged1Collision.cpp">
+      <Filter>Game\Effect\Megaman\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Charged2Collision.cpp">
+      <Filter>Game\Effect\Megaman\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
