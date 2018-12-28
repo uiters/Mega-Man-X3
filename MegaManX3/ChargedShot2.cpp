@@ -20,7 +20,8 @@ ChargedShot2::ChargedShot2(float x, float y, bool toLeft)
 
 ChargedShot2::~ChargedShot2()
 {
-
+	if (_isCollision)
+		_weaponEffect->createCharged2Effect(x, y, toLeft);
 }
 
 void ChargedShot2::getBoundingBox(float & left, float & top, float & right, float & bottom)

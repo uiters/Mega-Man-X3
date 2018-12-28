@@ -21,7 +21,8 @@ ChargedShot1::ChargedShot1(float x, float y, bool toLeft)
 
 ChargedShot1::~ChargedShot1()
 {
-
+	if (_isCollision)
+		_weaponEffect->createCharged1Effect(x, y, toLeft);
 }
 
 void ChargedShot1::getBoundingBox(float & left, float & top, float & right, float & bottom)

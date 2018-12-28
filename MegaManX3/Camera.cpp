@@ -365,6 +365,7 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 {
 	viewport.x = (x / 256) * 256;
 	viewport.y = (y / 256) * 256;
+	//1
 	nAnimation = 1;
 	state = &Camera::state1;
 	minValue = 0;
@@ -372,6 +373,7 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	lockTop = true;
 	lockLeft = true;
 
+	//2
 	//nAnimation = 2;
 	//aniSwitchState = true;
 	//state = &Camera::state2;
@@ -380,11 +382,18 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//minValue = 0;
 	//maxValue = 512;
 	
+	//shuriken
 	//maxValue = 2432;
 	//minValue = 2432;
 	//lockTop = true;
 	//lockLeft = true;
-	////test
+	
+	//nAnimation = 10;
+	//lockTop = true;
+	//lockLeft = true;
+	//minValue = 7424;
+	//maxValue = 7552;
+	//state = &Camera::state10;
 
 	//nAnimation = 5;
 	//switch (nAnimation)

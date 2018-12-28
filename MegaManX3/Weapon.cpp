@@ -11,7 +11,7 @@ Weapon::Weapon()
 
 }
 
-void Weapon::setAnimationCollsion()
+void Weapon::setAnimationEnd()
 {
 	_isCollision = true;
 }

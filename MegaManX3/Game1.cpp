@@ -5,10 +5,11 @@ void Game1::initGolbals()
 	texturesGlobal = CTextures::getInstance();
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
-	//cameraGlobal = new Camera(0, 512, 256, 222);
-	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
+
+	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
 	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
 	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);
+	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
 
 	viewPortGlobal = &cameraGlobal->viewport;
 }
@@ -32,8 +33,9 @@ void Game1::loadResource()
 
 	main = new MegamanX(Megaman, 100, 650);
 	//main = new MegamanX(Megaman, 768, 650);
-
+	//7715 1681
 	//main = new MegamanX(Megaman, 2344, 910);
+	//main = new MegamanX(Megaman, 7715, 1681);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);

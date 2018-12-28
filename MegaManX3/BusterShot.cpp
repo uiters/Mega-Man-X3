@@ -18,7 +18,8 @@ BusterShot::BusterShot(float x, float y,bool toLeft)
 
 BusterShot::~BusterShot()
 {
-	//if()
+	if (_isCollision)
+		_weaponEffect->createBusterEffect(x, y, toLeft);
 }
 
 void BusterShot::getBoundingBox(float & left, float & top, float & right, float & bottom)

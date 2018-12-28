@@ -411,6 +411,7 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				}
 				else
 				{
+					bullet[0]->setAnimationEnd();
 					delete *bullet;
 					bullet = _weapons.erase(bullet);
 				}

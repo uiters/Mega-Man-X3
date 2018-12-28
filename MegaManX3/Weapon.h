@@ -15,7 +15,7 @@ public:
 	Weapon();
 
 public:
-	void setAnimationCollsion(); //for bullet megaman collision with another dynamic object
+	void setAnimationEnd(); //for bullet megaman collision with another dynamic object
 
 public:
 	virtual ~Weapon();

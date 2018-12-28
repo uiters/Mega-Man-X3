@@ -12,10 +12,10 @@ void BusterCollision::loadResources()
 	spritesGlobal->addSprite(Buster_Collision_Animation, TChargedCollision, 5, 7, 12, 12);
 	spritesGlobal->addSprite(Buster_Collision_Animation + 1, TChargedCollision, 22, 6, 13, 13);
 	spritesGlobal->addSprite(Buster_Collision_Animation + 2, TChargedCollision, 40, 5, 15, 15);
-	auto ani = new AnimationOneTime(50);
-	ani->add(Buster_Collision_Animation);
-	ani->add(Buster_Collision_Animation + 1);
-	ani->add(Buster_Collision_Animation + 2);
+	auto ani = new AnimationOneTime(30);
+	ani->add(Buster_Collision_Animation, 30);
+	ani->add(Buster_Collision_Animation + 1, 20);
+	ani->add(Buster_Collision_Animation + 2, 20);
 	this->animation = ani;
 }
 
