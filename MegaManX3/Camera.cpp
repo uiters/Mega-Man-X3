@@ -366,12 +366,12 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	viewport.x = (x / 256) * 256;
 	viewport.y = (y / 256) * 256;
 	//1
-	nAnimation = 1;
-	state = &Camera::state1;
-	minValue = 0;
-	maxValue = 650;
-	lockTop = true;
-	lockLeft = true;
+	//nAnimation = 1;
+	//state = &Camera::state1;
+	//minValue = 0;
+	//maxValue = 650;
+	//lockTop = true;
+	//lockLeft = true;
 
 	//2
 	//nAnimation = 2;
@@ -388,12 +388,13 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//lockTop = true;
 	//lockLeft = true;
 	
-	//nAnimation = 10;
-	//lockTop = true;
-	//lockLeft = true;
-	//minValue = 7424;
-	//maxValue = 7552;
-	//state = &Camera::state10;
+	//boss
+	nAnimation = 10;
+	lockTop = true;
+	lockLeft = true;
+	minValue = 7424;
+	maxValue = 7552;
+	state = &Camera::state10;
 
 	//nAnimation = 5;
 	//switch (nAnimation)

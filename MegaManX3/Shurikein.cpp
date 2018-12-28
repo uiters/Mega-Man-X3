@@ -182,6 +182,7 @@ void Shurikein::loadResources()
 #pragma endregion
 
 }
+
 Shurikein::Shurikein(UINT id, float x, float y, float vx, float vy) :DynamicObject(id, x, y, vx, vy)
 {
 	loadResources();
@@ -189,10 +190,7 @@ Shurikein::Shurikein(UINT id, float x, float y, float vx, float vy) :DynamicObje
 	srand(time(NULL));
 	_hp = 30;
 }
-Shurikein * Shurikein::clone(int id, int x, int y)
-{
-	return nullptr;
-}
+
 
 void Shurikein::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
@@ -290,6 +288,7 @@ void Shurikein::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects,
 	GameObject::update(dt);
 	collisionStatic(staticObjects);
 }
+
 void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;

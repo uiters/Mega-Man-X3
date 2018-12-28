@@ -57,6 +57,10 @@
 #define HEAD_GUN L"Resource\\Textures\\HeadeGunnerBullets.png"
 #pragma endregion
 
+#pragma region BlastHornet
+#define BLASTHORNET L"Resource\\Textures\\BlastHornet.png"
+#pragma endregion
+
 
 #define ID_BLOCK_BACK_WARD -100
 #define ID_ELEVATOR -101

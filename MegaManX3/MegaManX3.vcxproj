@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationOneTime.h" />
+    <ClInclude Include="BlastHornet.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BulletCollision.h" />
     <ClInclude Include="BusterCollision.h" />
@@ -195,6 +196,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationOneTime.cpp" />
+    <ClCompile Include="BlastHornet.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BulletCollision.cpp" />
     <ClCompile Include="BusterCollision.cpp" />

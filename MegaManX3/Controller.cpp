@@ -55,6 +55,8 @@ void Controller::render(DWORD dt)
 
 	stageController->renderElevator(dt);
 
+	blastHornet->render(dt);
+
 	main->render(dt);
 
 }
@@ -78,6 +80,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	main->state = stand;
 	//shurikein = new Shurikein(TShurikein, 2518, 920);
 	//shurikein->state = manifest;
+	blastHornet = new BlastHornet();
 }
 
 Controller::~Controller()

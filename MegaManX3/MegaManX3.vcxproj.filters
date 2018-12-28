@@ -348,6 +348,9 @@
     <ClInclude Include="Charged2Collision.h">
       <Filter>Game\Effect\Megaman\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="BlastHornet.h">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -524,6 +527,9 @@
     </ClCompile>
     <ClCompile Include="Charged2Collision.cpp">
       <Filter>Game\Effect\Megaman\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BlastHornet.cpp">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

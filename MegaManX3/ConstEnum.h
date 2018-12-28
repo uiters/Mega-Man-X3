@@ -39,6 +39,7 @@ enum TextureID
 	TShurikein = 5,
 
 	THeadGun = 16,
+	TBlastHornet = 999,
 
 	TDashSmoke = 2000,
 	TDashSpark = 2001,
@@ -93,6 +94,20 @@ enum Animation {
 	Buster_Collision_Animation = 12160, //3 cells
 	//Buster_Collision_Animation = 12170, //3cell
 
+	Hornet_Stand = 90000,
+	Hornet_Prepare_Prick = 99000,
+	Hornet_Prick = 99900,
+	Hornet_Drop_Bee = 99990,
+	Hornet_Die = 99999,
+	Hornet_Explosion = 999969,
+	Hornet_Bee_Type_1 = 96000,
+	Hornet_Bee_Type_2 = 96900,
+	Hornet_Bee_Die_1 = 96960,
+	Hornet_Bee_Die_2 = 96969,
+	Hornet_Bee_Explosion = 969690,
+	Hornet_Wing = 969696,
+	Hornet_Aim = 800000,
+	Hornet_Aimming = 800000,
 };
 
 

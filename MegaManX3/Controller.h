@@ -10,6 +10,7 @@
 #include "Shurikein.h"
 #include "StageController.h"
 #include "WeaponEffectController.h"
+#include "BlastHornet.h"
 class Controller
 {
 
@@ -25,7 +26,7 @@ private:
 	QNode* rootDynamic;//dynamic Objects;
 	GameObject* elevator;
 	bool enableUpdate;
-	
+	BlastHornet* blastHornet;
 	Brick* brick1;
 	Brick* brick2;
 	Shurikein* shurikein;
