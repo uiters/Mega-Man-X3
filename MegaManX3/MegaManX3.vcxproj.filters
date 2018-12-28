@@ -333,6 +333,9 @@
     <ClInclude Include="CarryArm.h">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Solskjær.h">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -506,6 +509,9 @@
     </ClCompile>
     <ClCompile Include="CarryArm.cpp">
       <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Solskjær.cpp">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

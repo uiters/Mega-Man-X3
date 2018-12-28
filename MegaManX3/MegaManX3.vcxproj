@@ -182,6 +182,7 @@
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
     <ClInclude Include="Shurikein.h" />
+    <ClInclude Include="Solskjær.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StaticObject.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="ScenceController.cpp" />
     <ClCompile Include="Shurikein.cpp" />
+    <ClCompile Include="Solskjær.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StaticObject.cpp" />
