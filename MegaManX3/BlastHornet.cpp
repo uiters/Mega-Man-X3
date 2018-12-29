@@ -10,6 +10,7 @@ BlastHornet::BlastHornet()
 	loadResources();
 	mech = &BlastHornet::start;
 	toLeft = true;
+	srand(time(NULL));
 }
 
 
@@ -20,6 +21,7 @@ BlastHornet::~BlastHornet()
 
 void BlastHornet::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
+	this->currentStatic = staticObjects;
 	GameObject::update(dt);
 	(this->*mech)();
 
@@ -49,8 +51,45 @@ void BlastHornet::getBoundingBox(float & left, float & top, float & right, float
 {
 	left = x;
 	top = y;
-	top = x + width;
+	right = x + width;
 	bottom = y + height;
+}
+
+void BlastHornet::fly()
+{
+	float distanceX = 0;
+	float distanceY = 1562 - y;
+	if (isFirst)
+	{
+		isFirst = false;
+		toLeft = true;
+		distanceX = 7863 - x;
+	}
+	else
+	{
+		toLeft = rand() % 3;
+		if (toLeft)
+		{
+			distanceX = 7863 - x;
+		}
+		else
+			distanceX = 7707 - x;
+	}
+	lockDirection = true;
+
+	speed.vy = distanceY / 1500.f; //calculate speed
+	speed.vx = distanceX / 1500.f;
+	
+
+}
+
+void BlastHornet::aimPrick()
+{
+	float distanceX = mainGlobal->x - x;
+	float distanceY = mainGlobal->y - y;
+
+	speed.vy = distanceY / 500.f; //calculate speed
+	speed.vx = distanceX / 400.f;
 }
 
 void BlastHornet::start()
@@ -92,19 +131,83 @@ void BlastHornet::addHP()
 	if (_hp == 64.0f)
 	{
 		mech = &BlastHornet::mech1;
-		speed.vy = -0.15f;
+		fly();
 	}
 }
 
 //prick
 void BlastHornet::mech1()
 {
-	setDirection();
+	if (y < 1562)
+	{
+		mech = &BlastHornet::prickShow;
+		state = Hornet_Prepare_Prick;
+		_animations[state]->reset();
+		lockDirection = false;
+	}
+	else
+		y += dy, x += dx;
+}
+
+void BlastHornet::prickShow()
+{
+	if (_animations[Hornet_Prepare_Prick]->isLastFrame())
+	{
+		state = Hornet_Prick;
+		mech = &BlastHornet::prick;
+		_animations[state]->reset();
+		aimPrick();
+		setDirection();
+	}
+}
+
+void BlastHornet::prick()
+{
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	collision->findCollisions(dt, this, *currentStatic, coEvents);
+	UINT size = coEvents.size();
+
+	if (size == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		x += min_tx * dx + nx * 1.f;
+		y += min_ty * dy + ny * 0.4f;
+
+		if (ny != 0 || nx != 0)
+		{
+			speed.vx = 0.0f;
+			speed.vy = 0.0f;
+			state = Hornet_Prick_End;
+			mech = &BlastHornet::prickEnd;
+			_animations[state]->reset();
+		}
+	}
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
+}
+
+void BlastHornet::prickEnd()
+{
+	if (_animations[Hornet_Prick_End]->isLastFrame())
+	{
+		state = Hornet_Stand;
+		mech = &BlastHornet::mech1;
+		fly();
+	}
 }
 
 //drop bee
 void BlastHornet::mech2()
 {
+
 }
 
 void BlastHornet::setDirection()
@@ -204,22 +307,28 @@ void BlastHornet::loadResources()
 	_animations[Hornet_Stand] = ani;
 
 	//prick
-	ani = new CAnimation(100);
+	ani = new AnimationOneTime(100);
 	ani->add(Hornet_Stand, 200);
 	for (int i = 0; i < 12; ++i)
 	{
 		ani->add(Hornet_Prepare_Prick + i);
 	}
-	ani->add(Hornet_Prepare_Prick + 5, 5000);
+	ani->add(Hornet_Prepare_Prick + 5, 500);
+	_animations[Hornet_Prepare_Prick] = ani;
+
+	//prick 
+	ani = new CAnimation(100);
+	ani->add(Hornet_Prepare_Prick + 5);
+
 	_animations[Hornet_Prick] = ani;
 
 	//prick end
-	ani = new CAnimation(200);
+	ani = new AnimationOneTime(200);
 	for (int i = 5; i > -1; --i)
 	{
 		ani->add(Hornet_Prepare_Prick + i);
 	}
-	ani->add(Hornet_Stand, 5000);
+	ani->add(Hornet_Stand, 500);
 	_animations[Hornet_Prick_End] = ani;
 
 #pragma endregion

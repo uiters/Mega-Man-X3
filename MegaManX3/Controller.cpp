@@ -38,7 +38,7 @@ void Controller::update(DWORD dt)
 
 	filterAndUpdate(dt, dynamicObjects);//filter Dynamic Object => current dynamic
 
-	blastHornet->update(dt);
+	blastHornet->update(dt, &currentStatic);
 
 	main->update(dt, &currentStatic, &currentDynamic);
 	stageController->updateElevator(dt);
