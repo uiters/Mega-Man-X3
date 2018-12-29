@@ -19,6 +19,16 @@ Solskjær::~Solskjær()
 
 void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
+	for (int i = 0; i < listBullet.size(); i++) {
+		if (listBullet[i].getIsDelete()) {
+			/*int x = listBullet[i].x - 16;
+			int y = listBullet[i].y - 20;
+			collisionEffect->createEffect(x, y);*/
+			listBullet.erase(listBullet.begin() + i);
+		}
+		else listBullet[i].update(dt, staticObjects);
+	}
+
 	this->dt = dt;
 	if (this->_death) {
 		generatePosition();
@@ -28,13 +38,19 @@ void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 	isRender = isRepeat;
 
 	if (_animations[state]->isLastFrame()) {
+		if (state == SOLSKJÆR_STATE_SHOT) {
+			createBullet();
+		}
+
 		if (isRepeat) {
 			state += 100;
 		}
+
 		if (state > 300) {
 			state = 0;
 			isRepeat = false;
 		}
+
 		setState(state);
 	}
 }
@@ -49,6 +65,11 @@ void Solskjær::render(DWORD dt, D3DCOLOR colorBrush)
 	if (isRender) {
 		auto center = cameraGlobal->transform(x, y);
 		_animations[state]->render(center.x, center.y);
+	}
+
+	for (int i = 0; i < listBullet.size(); i++)
+	{
+		listBullet[i].render(dt);
 	}
 }
 
@@ -201,4 +222,10 @@ void Solskjær::loadResources()
 	this->addAnimation(SOLSKJÆR_STATE_READY_SHOT);
 	this->addAnimation(SOLSKJÆR_STATE_SHOT);
 	this->addAnimation(SOLSKJÆR_STATE_EXIT);
+}
+
+void Solskjær::createBullet()
+{
+	SolskjærBullet* bullet = new SolskjærBullet(x + 10, y + 18);
+	listBullet.push_back(*bullet);
 }

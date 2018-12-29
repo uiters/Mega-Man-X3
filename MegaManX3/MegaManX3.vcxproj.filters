@@ -336,6 +336,9 @@
     <ClInclude Include="Solskjær.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="SolskjærBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -512,6 +515,9 @@
     </ClCompile>
     <ClCompile Include="Solskjær.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="SolskjærBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

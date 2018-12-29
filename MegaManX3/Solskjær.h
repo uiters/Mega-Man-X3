@@ -1,10 +1,14 @@
 #pragma once
+#include<vector>
 
 #include "DynamicObject.h";
 #include "ConstGlobals.h"
 #include "Camera.h"
 #include "CollisionEvent.h"
 #include "Brick.h"
+
+#include "BulletCollision.h"
+#include "SolskjærBullet.h"
 
 #define SOLSKJÆR_STATE_INIT 0
 #define SOLSKJÆR_STATE_READY_SHOT 100
@@ -32,8 +36,12 @@ public:
 
 private:
 	PointF die[3];// **
+	vector<SolskjærBullet> listBullet;
+	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
 	void setState(int state);
 	void loadResources();
+
+	void createBullet();
 };
 

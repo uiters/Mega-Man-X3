@@ -129,7 +129,7 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 
 	shotEffect->render(dt, true);
 	collisionEffect->render(dt, false);
-		
+	
 }
 
 void NotorBanger::drawLine(LPDIRECT3DDEVICE9 Device_Interface, int x, int y, D3DCOLOR color)
