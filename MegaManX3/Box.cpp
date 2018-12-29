@@ -1,9 +1,8 @@
 #include "Box.h"
 
 
-Box::Box(int id, float x, float y)
+Box::Box(float x, float y)
 {
-	this->_id = id;
 	this->x = x;
 	this->y = y;
 	this->isNext = false;

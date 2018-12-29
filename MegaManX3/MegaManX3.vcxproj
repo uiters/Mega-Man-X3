@@ -184,6 +184,7 @@
     <ClInclude Include="Shurikein.h" />
     <ClInclude Include="Solskjær.h" />
     <ClInclude Include="SolskjærBullet.h" />
+    <ClInclude Include="SolskjærController.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StaticObject.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="Shurikein.cpp" />
     <ClCompile Include="Solskjær.cpp" />
     <ClCompile Include="SolskjærBullet.cpp" />
+    <ClCompile Include="SolskjærController.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StaticObject.cpp" />

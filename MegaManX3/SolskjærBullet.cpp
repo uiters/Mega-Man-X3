@@ -92,12 +92,20 @@ void SolskjærBullet::loadResources()
 
 	LPANIMATION ani;
 
-	sprites->addSprite(20001, SOLSKJÆR_BULLET_ID_TEXTURE, 57, 256, 14, 16);
-	sprites->addSprite(20002, SOLSKJÆR_BULLET_ID_TEXTURE, 193, 256, 14, 16);
+	sprites->addSprite(20001, SOLSKJÆR_BULLET_ID_TEXTURE, 215, 254, 18, 18);
+	sprites->addSprite(20002, SOLSKJÆR_BULLET_ID_TEXTURE, 238, 255, 18, 18);
+	sprites->addSprite(20003, SOLSKJÆR_BULLET_ID_TEXTURE, 263, 255, 18, 18);
+	sprites->addSprite(20004, SOLSKJÆR_BULLET_ID_TEXTURE, 290, 255, 18, 18);
+	sprites->addSprite(20005, SOLSKJÆR_BULLET_ID_TEXTURE, 319, 256, 18, 18);
+	sprites->addSprite(20006, SOLSKJÆR_BULLET_ID_TEXTURE, 345, 256, 18, 18);
 
-	ani = new CAnimation(50);
+	ani = new CAnimation(10);
 	ani->add(20001);
 	ani->add(20002);
+	ani->add(20003);
+	ani->add(20004);
+	ani->add(20005);
+	ani->add(20006);
 	animations->add(SOLSKJÆR_BULLET_STATE_ONLY, ani);
 
 	this->addAnimation(SOLSKJÆR_BULLET_STATE_ONLY);

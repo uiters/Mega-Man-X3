@@ -339,6 +339,9 @@
     <ClInclude Include="SolskjærBullet.h">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="SolskjærController.h">
+      <Filter>Game\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -518,6 +521,9 @@
     </ClCompile>
     <ClCompile Include="SolskjærBullet.cpp">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SolskjærController.cpp">
+      <Filter>Game\Controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

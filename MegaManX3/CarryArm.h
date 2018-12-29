@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdlib>
+#include <ctime>
 
 #include "DynamicObject.h";
 #include "ConstGlobals.h"
@@ -23,7 +25,15 @@ class CarryArm :
 	public DynamicObject
 {
 public:
-	CarryArm(int id, float x, float y);
+	float putBoxX;
+	float putBoxY;
+	bool isDie;
+	bool isComplete;
+	bool isPutBox;
+	bool isLeft;
+	bool isNext;
+
+	CarryArm(float x, float y, bool isNext);
 	~CarryArm();
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
@@ -41,9 +51,6 @@ private:
 	float vy;
 	int counter;
 	bool isSwitch;
-	bool isLeft;
-	bool isPutBox;
-	bool isNext;
 	bool isDamage;
 	bool isInjure;
 

@@ -8,7 +8,7 @@
 #include "CollisionEvent.h"
 #include "ScenceController.h"
 
-#include "BarrierSystem.h"
+#include "SolskjærController.h"
 
 #include "Elevator.h"
 #include "Helit.h"
@@ -29,7 +29,7 @@ private:
 	GameObject* elevator;
 
 	ScenceController* tilesControll;
-	BarrierSystem* barrier;
+	SolskjærController* solskjærController;
 
 	Shurikein* shurikein;
 

@@ -19,7 +19,7 @@ public:
 	bool isNext;
 	bool isLeft;
 
-	Box(int id, float x, float y);
+	Box(float x, float y);
 	~Box();
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));

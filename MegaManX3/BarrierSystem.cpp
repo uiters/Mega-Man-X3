@@ -12,9 +12,6 @@ BarrierSystem::BarrierSystem()
 		
 	this->setState(BARRIER_SYSTEM_SPEED_PART_1);
 	this->loadResources();
-
-	solskjær = new Solskjær();
-	carryArm = new CarryArm(this->_id, initX + 36, initY - 20);
 }
 
 BarrierSystem::~BarrierSystem()
@@ -23,7 +20,7 @@ BarrierSystem::~BarrierSystem()
 
 void BarrierSystem::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	if (this->isHidden == true) {
+	if (this->isHidden) {
 		if (state == BARRIER_SYSTEM_STATE_PART_2) {
 			y -= speed.vy * dt;
 			if (y <= 770) {
@@ -54,24 +51,17 @@ void BarrierSystem::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 		y += speed.vy * dt;
 		if (y >= 855) {
 			y = 855;
-
-			carryArm->update(dt);
-			solskjær->update(dt);
 		}
 	}
 }
 
 void BarrierSystem::render(DWORD dt, D3DCOLOR colorBrush)
-{		
-	solskjær->render(dt);
-
+{	
 	auto center = cameraGlobal->transform(x, y);
 	_animations[BARRIER_SYSTEM_STATE_PART_2]->render(center.x, center.y);
 
 	center = cameraGlobal->transform(initX, initY);
 	_animations[BARRIER_SYSTEM_STATE_PART_1]->render(center.x, center.y);
-
-	carryArm->render(dt);
 }
 
 void BarrierSystem::setState(int state)

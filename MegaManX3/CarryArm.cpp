@@ -1,23 +1,27 @@
 #include "CarryArm.h"
 
 
-CarryArm::CarryArm(int id, float x, float y)
+CarryArm::CarryArm(float x, float y, bool isNext)
 {
-	this->isNext = true;
-	this->isLeft = true;
+	srand(time(NULL));
+	int number = rand() % 10 + 1;
 
-	this->_id = id;
+	this->isNext = isNext;
+	this->isLeft = number >= 5 ? true : false;
+
 	this->x = isLeft ? (!isNext ? x : x + 59) : (!isNext ? x + 200 : x + 200 + 59);
 	this->y = y;
 	this->counter = 0;
 	this->isSwitch = false;
 	this->isPutBox = false;
 	this->isInjure = false;
+	this->isDie = false;
+	this->isComplete = false;
 
 	this->loadResources();
 	this->setState(CARRY_ARM_STATE_FLY);
 
-	box = new Box(this->_id, this->x - 6, this->y + 59);
+	box = new Box(this->x - 6, this->y + 59);
 	box->isNext = this->isNext;
 	box->isLeft = this->isLeft;
 }
@@ -29,7 +33,7 @@ CarryArm::~CarryArm()
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
-	if (this->_death) {
+	if (this->isDie) {
 		generatePosition2();
 		return;
 	}
@@ -53,6 +57,8 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 					isPutBox = false;
 				}
 				speed.vx = 0;
+				putBoxX = x - 6;
+				putBoxY = y + 59;
 			}
 			else
 			{
@@ -73,6 +79,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 				x = initX;
 				y = initY;
 				this->isDamage = false;
+				this->isComplete = true;
 			}
 			return;
 		}
@@ -126,6 +133,8 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 					isPutBox = false;
 				}
 				speed.vx = 0;
+				putBoxX = x - 6;
+				putBoxY = y + 59;
 			}
 			else
 			{
@@ -145,6 +154,8 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 				speed.vy = 0;
 				x = initX;
 				y = initY;
+				this->isDamage = false;
+				this->isComplete = true;
 			}
 			return;
 		}
@@ -181,7 +192,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (this->_death) {
+	if (this->isDie) {
 		renderDie(dt);
 		return;
 	}
