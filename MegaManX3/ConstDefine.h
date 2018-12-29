@@ -59,6 +59,7 @@
 
 #pragma region BlastHornet
 #define BLASTHORNET L"Resource\\Textures\\BlastHornet.png"
+#define HPBAR L"Resource\\Textures\\HPBar.png"
 #pragma endregion
 
 

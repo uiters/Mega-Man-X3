@@ -30,6 +30,8 @@ private:
 	Brick* brick1;
 	Brick* brick2;
 	Shurikein* shurikein;
+	HPBar* hpBarMain;
+	HPBar* hpBarBoss;
 private:
 	void filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& objects);
 public:

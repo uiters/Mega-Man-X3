@@ -6,7 +6,7 @@ class Weapon :
 	public GameObject
 {
 protected:
-	int _damage = 0;
+	float _damage = 0;
 	bool isDelete;
 	bool _isCollision = false;
 	static WeaponEffectController* _weaponEffect;

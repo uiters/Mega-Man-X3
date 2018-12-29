@@ -37,7 +37,9 @@ void Controller::update(DWORD dt)
 	rootDynamic->getObjectsIn(viewPortGlobal, dynamicObjects);// dynamic quatree
 
 	filterAndUpdate(dt, dynamicObjects);//filter Dynamic Object => current dynamic
-	
+
+	blastHornet->update(dt);
+
 	main->update(dt, &currentStatic, &currentDynamic);
 	stageController->updateElevator(dt);
 }
@@ -58,6 +60,8 @@ void Controller::render(DWORD dt)
 	blastHornet->render(dt);
 
 	main->render(dt);
+	hpBarMain->render(true);
+	hpBarBoss->render(true);
 
 }
 
@@ -76,11 +80,15 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->main = main;
 
 	tilesController = new ScenceController();
+	blastHornet = new BlastHornet();
 
 	main->state = stand;
 	//shurikein = new Shurikein(TShurikein, 2518, 920);
 	//shurikein->state = manifest;
-	blastHornet = new BlastHornet();
+	
+	hpBarMain = new HPBar(*main->getHp(), 38.0f, 2.0f, true);
+	hpBarBoss = new HPBar(*blastHornet->getHp(), 64.f, 2.0f, false);
+
 }
 
 Controller::~Controller()

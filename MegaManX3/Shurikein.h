@@ -27,7 +27,7 @@ public:
 	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
-	void receiveDamage(int damage) override;
+	void receiveDamage(float damage) override;
 	void createExplosion(float x, float y) override;
 };
 

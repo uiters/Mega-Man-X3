@@ -8,7 +8,8 @@ void Charged1Collision::loadResources()
 	//spritesGlobal->addSprite(Charged1_Collision_Animation + 1, TChargedCollision, 82, 0, 22, 23);
 	auto ani = new AnimationOneTime(20);
 	ani->add(Charged1_Collision_Animation);
-	//ani->add(Charged1_Collision_Animation + 1);
+	ani->add(Charged1_Collision_Animation + 1);
+	ani->add(Charged1_Collision_Animation);
 	this->animation = ani;
 }
 

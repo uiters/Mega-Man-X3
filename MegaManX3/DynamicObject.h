@@ -12,7 +12,7 @@ protected:
 	bool _death = false;
 	vector<Weapon*> _weapons;//animation weapon
 	vector<Effect*> _effects;
-	int initHP = 0; //for reset
+	float initHP = 0; //for reset
 	float initX = 0;
 	float initY = 0;
 	bool initToLeft = 0;
@@ -29,7 +29,7 @@ protected:
 	virtual void renderWeapon(DWORD dt, D3DCOLOR colorBrush);
 	virtual void setResetBound() {}
 protected:
-	int _hp = 0;
+	float _hp = 0;
 	bool _isReset = true;
 public:
 	DynamicObject(UINT idTexture, float x, float y, float vx, float vy);
@@ -37,10 +37,10 @@ public:
 
 public:
 	bool isDeath();
-
+	float* getHp() { return &_hp; }
 public:
 	
-	virtual void receiveDamage(int damage);
+	virtual void receiveDamage(float damage);
 	virtual void reset() override;
 	virtual vector<Weapon*>* getWeapons();
 	virtual void createExplosion(float x, float y) {}

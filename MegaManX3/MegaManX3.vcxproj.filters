@@ -351,6 +351,7 @@
     <ClInclude Include="BlastHornet.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="HPBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -531,6 +532,7 @@
     <ClCompile Include="BlastHornet.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="HPBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

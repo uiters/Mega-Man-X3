@@ -429,7 +429,7 @@ void Shurikein::getBoundingBox(float & left, float & top, float & right, float &
 	bottom = y + 20;
 }
 
-void Shurikein::receiveDamage(int damage)
+void Shurikein::receiveDamage(float damage)
 {
 	//{
 	if (_hp > 0)

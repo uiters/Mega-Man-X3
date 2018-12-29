@@ -29,7 +29,7 @@ bool DynamicObject::isDeath()
 	return _death;
 }
 
-void DynamicObject::receiveDamage(int damage)
+void DynamicObject::receiveDamage(float damage)
 {
 	if (_hp > 0)
 	{

@@ -32,6 +32,17 @@ void Game1::loadResource()
 	texturesGlobal->add(THeadGun, HEAD_GUN, 0, 0, D3DCOLOR_XRGB(255, 0, 255));
 
 	texturesGlobal->add(TBlastHornet, BLASTHORNET, 0, 0, D3DCOLOR_XRGB(0, 128, 128));
+	texturesGlobal->add(THPBar, HPBAR);
+
+#pragma region HpBar
+	spritesGlobal->addSprite(HpHead, THPBar, 0, 0, 14, 4);
+	spritesGlobal->addSprite(HpBody, THPBar, 0, 5, 14, 16);
+	spritesGlobal->addSprite(HpTailBoss, THPBar, 0, 22, 14, 16);
+	spritesGlobal->addSprite(HpTailMain, THPBar, 0, 39, 14, 16);
+	spritesGlobal->addSprite(HpEntry, THPBar, 0, 56, 14, 2);
+#pragma endregion
+
+
 
 	//main = new MegamanX(Megaman, 100, 650);
 	//main = new MegamanX(Megaman, 768, 650);

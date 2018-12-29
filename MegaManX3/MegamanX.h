@@ -12,6 +12,7 @@
 #include "MegamanEffectFactory.h"
 #include "MegamanWeapon.h"
 #include "ConstGlobals.h"
+#include "HPBar.h"
 class KeyController;
 class MegamanX :
 	public DynamicObject,
@@ -26,7 +27,7 @@ private:
 	KeyController* keyController;
 	MegamanEffectFactory* effect;
 	MegamanWeapon *weapon;
-	MegamanX() {}
+
 private:
 	Elevator* elevator = null;
 	CTime countDissapear = (800);

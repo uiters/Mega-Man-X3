@@ -95,6 +95,7 @@ MegamanX::MegamanX(UINT id, float x, float y, float vx, float vy) :DynamicObject
 	keyController = new KeyController(this, effect, weapon, false);
 	width = Stand_Shoot_Width;
 	height = Stand_Shoot_Height;
+	_hp = 38.0f;
 }
 
 MegamanX::~MegamanX()
@@ -143,7 +144,6 @@ void MegamanX::updateState(DWORD dt)
 
 void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 {
-
 	if (_death)
 	{
 		if (timePreDie.isRunning())

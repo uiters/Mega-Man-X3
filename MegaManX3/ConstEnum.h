@@ -48,6 +48,7 @@ enum TextureID
 	TCharged1 = 2004,
 	TCharged2 = 2005,
 	THelit = 2006,
+	THPBar = 2222
 };
 enum ShurikeinAnimation
 {
@@ -113,7 +114,14 @@ enum Animation {
 	Hornet_Wing = 969696,
 	Hornet_Aim = 800000,
 	Hornet_Aimming = 811000,
+
+	Hornet_Show = 811100,
 	
+	HpHead = 22000,
+	HpTailMain = 22222,
+	HpTailBoss = 22220,
+	HpBody = 222200,
+	HpEntry = 22002,
 };
 
 

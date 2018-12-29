@@ -57,6 +57,11 @@ bool AnimationOneTime::isFinish()
 	return isDone;
 }
 
+bool AnimationOneTime::isLastFrame()
+{
+	return isDone;
+}
+
 
 AnimationOneTime::~AnimationOneTime()
 {
