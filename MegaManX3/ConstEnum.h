@@ -97,7 +97,12 @@ enum Animation {
 	Hornet_Stand = 90000,
 	Hornet_Prepare_Prick = 99000,
 	Hornet_Prick = 99900,
-	Hornet_Drop_Bee = 99990,
+	Hornet_Drop_Bee_1 = 99990,
+	Hornet_Drop_Bee_1_1 = 99890,
+	Hornet_Drop_Bee_1_End = 98790,
+	Hornet_Drop_Bee_2 = 80010,
+	Hornet_Drop_Bee_2_End = 81810,
+	Hornet_Prick_End = 80810,
 	Hornet_Die = 99999,
 	Hornet_Explosion = 999969,
 	Hornet_Bee_Type_1 = 96000,
@@ -107,7 +112,8 @@ enum Animation {
 	Hornet_Bee_Explosion = 969690,
 	Hornet_Wing = 969696,
 	Hornet_Aim = 800000,
-	Hornet_Aimming = 800000,
+	Hornet_Aimming = 811000,
+	
 };
 
 

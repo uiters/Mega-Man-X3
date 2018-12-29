@@ -26,7 +26,7 @@ void BlastHornet::loadResources()
 
 	//explosion
 	spritesGlobal->addSprite(Hornet_Explosion, TBlastHornet, 102, 231, 16, 16);
-	spritesGlobal->addSprite(Hornet_Explosion + 1, TBlastHornet, 123, 233, 32, 32);
+	spritesGlobal->addSprite(Hornet_Explosion + 1, TBlastHornet, 123, 223, 32, 32);
 	spritesGlobal->addSprite(Hornet_Explosion + 2, TBlastHornet, 159, 226, 28, 24);
 	spritesGlobal->addSprite(Hornet_Explosion + 3, TBlastHornet, 192, 224, 30, 27);
 	spritesGlobal->addSprite(Hornet_Explosion + 4, TBlastHornet, 230, 223, 32, 27);
@@ -35,11 +35,11 @@ void BlastHornet::loadResources()
 	spritesGlobal->addSprite(Hornet_Explosion + 7, TBlastHornet, 352, 220, 32, 30);
 
 	// Drop bee
-	spritesGlobal->addSprite(Hornet_Drop_Bee, TBlastHornet, 263, 6, 51, 62);
-	spritesGlobal->addSprite(Hornet_Drop_Bee + 1, TBlastHornet, 320, 6, 48, 67);
-	spritesGlobal->addSprite(Hornet_Drop_Bee + 2, TBlastHornet, 377, 5, 47, 72);
-	spritesGlobal->addSprite(Hornet_Drop_Bee + 3, TBlastHornet, 429 - 2, 4, 47 + 2, 72);
-	spritesGlobal->addSprite(Hornet_Drop_Bee + 4, TBlastHornet, 482, 6, 47, 72);
+	spritesGlobal->addSprite(Hornet_Drop_Bee_1, TBlastHornet, 263, 6, 51, 62);
+	spritesGlobal->addSprite(Hornet_Drop_Bee_1 + 1, TBlastHornet, 320, 6, 48, 67);
+	spritesGlobal->addSprite(Hornet_Drop_Bee_1 + 2, TBlastHornet, 377, 5, 47, 72);
+	spritesGlobal->addSprite(Hornet_Drop_Bee_1 + 3, TBlastHornet, 429 - 2, 4, 47 + 2, 72);
+	spritesGlobal->addSprite(Hornet_Drop_Bee_1 + 4, TBlastHornet, 482, 6, 47, 72);
 
 	//wing
 	spritesGlobal->addSprite(Hornet_Wing, TBlastHornet, 417, 154, 96, 41);
@@ -47,17 +47,17 @@ void BlastHornet::loadResources()
 	spritesGlobal->addSprite(Hornet_Wing + 2, TBlastHornet, 444, 250, 47, 41);
 
 	//bee type 1
-	spritesGlobal->addSprite(Hornet_Bee_Type_1, TBlastHornet, 17, 172, 19, 22);
-	spritesGlobal->addSprite(Hornet_Bee_Type_1 + 1, TBlastHornet, 41, 176, 19, 18);
+	spritesGlobal->addSprite(Hornet_Bee_Type_1, TBlastHornet, 17 - 2, 172, 19 + 2, 22);
+	spritesGlobal->addSprite(Hornet_Bee_Type_1 + 1, TBlastHornet, 41 - 2, 172, 19 + 2, 22);
 	//type 2
-	spritesGlobal->addSprite(Hornet_Bee_Type_2, TBlastHornet, 64, 174, 22, 20);
+	spritesGlobal->addSprite(Hornet_Bee_Type_2, TBlastHornet, 64, 172, 22, 22);
 
 	//bee die_1
-	spritesGlobal->addSprite(Hornet_Bee_Die_1, TBlastHornet, 17, 198, 19, 22);
-	spritesGlobal->addSprite(Hornet_Bee_Die_1 + 1, TBlastHornet, 41, 202, 19, 18);
+	spritesGlobal->addSprite(Hornet_Bee_Die_1, TBlastHornet, 17 -2, 198, 19 + 2, 22);
+	spritesGlobal->addSprite(Hornet_Bee_Die_1 + 1, TBlastHornet, 41 - 2, 198, 19 + 2, 22);
 
 	//bee die_2
-	spritesGlobal->addSprite(Hornet_Bee_Die_2, TBlastHornet, 64, 200, 22, 20);
+	spritesGlobal->addSprite(Hornet_Bee_Die_2, TBlastHornet, 64, 198, 22, 22);
 
 	//bee explosion
 	spritesGlobal->addSprite(Hornet_Bee_Explosion, TBlastHornet, 186, 186, 16, 16);
@@ -75,7 +75,7 @@ void BlastHornet::loadResources()
 
 	//aiming
 	spritesGlobal->addSprite(Hornet_Aimming, TBlastHornet, 131, 182, 23, 23);
-	spritesGlobal->addSprite(Hornet_Aimming + 1, TBlastHornet, 158, 186, 23, 23);
+	spritesGlobal->addSprite(Hornet_Aimming + 1, TBlastHornet, 158, 182, 23, 23);
 
 	//stand
 	CAnimation* ani = new CAnimation(100);
@@ -89,24 +89,127 @@ void BlastHornet::loadResources()
 	{
 		ani->add(Hornet_Prepare_Prick + i);
 	}
-	ani->add(Hornet_Prepare_Prick + 5, 10000);
+	ani->add(Hornet_Prepare_Prick + 5, 5000);
 	_animations[Hornet_Prick] = ani;
 
-	//drop bee
+	//prick end
+	ani = new CAnimation(200);
+	for (int i = 5; i > -1; --i)
+	{
+		ani->add(Hornet_Prepare_Prick + i);
+	}
+	ani->add(Hornet_Stand, 5000);
+	_animations[Hornet_Prick_End] = ani;
+
+	//drop bee 1
 	ani = new CAnimation(200);
 	ani->add(Hornet_Stand, 300);
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
-		ani->add(Hornet_Drop_Bee + i);
+		ani->add(Hornet_Drop_Bee_1 + i);
 	}
-	_animations[Hornet_Drop_Bee] = ani;
+	_animations[Hornet_Drop_Bee_1] = ani;
 
-	
+	//drop bee 1_1
+	ani = new CAnimation(200);
+	ani->add(Hornet_Drop_Bee_1 + 3);
+	_animations[Hornet_Drop_Bee_1_1] = ani;
+
+	//drop bee_1 end
+	ani = new CAnimation(1000);
+	ani->add(Hornet_Drop_Bee_1 + 4);
+	ani->add(Hornet_Drop_Bee_1 + 1);
+	ani->add(Hornet_Drop_Bee_1);
+	ani->add(Hornet_Stand, 5000);
+
+	_animations[Hornet_Drop_Bee_1_End] = ani;
+
+	//drop bee 2
+	ani = new CAnimation(40);
+	for (int i = 0; i < 3; ++i)
+	{
+		ani->add(Hornet_Prepare_Prick + i);
+	}
+	ani->add(Hornet_Prepare_Prick + 3, 1000);
+	_animations[Hornet_Drop_Bee_2] = ani;
+
+	//drp bee 2 end
+	ani = new CAnimation(100);
+	for (int i = 2; i > -1; --i)
+	{
+		ani->add(Hornet_Prepare_Prick + i);
+	}
+	ani->add(Hornet_Stand, 2000);
+	_animations[Hornet_Drop_Bee_2_End] = ani;
+
+	//swing
 	ani = new CAnimation(40);
 	ani->add(Hornet_Wing);
 	ani->add(Hornet_Wing + 1);
 	ani->add(Hornet_Wing + 2);
 	_animations[Hornet_Wing] = ani;
+
+#pragma region Bee
+	//bee 1
+	ani = new CAnimation(50);
+	ani->add(Hornet_Bee_Type_1);
+	ani->add(Hornet_Bee_Type_1 + 1);
+	animationsGlobal->add(Hornet_Bee_Type_1, ani);
+
+	//bee 2
+	ani = new CAnimation(1000);
+	ani->add(Hornet_Bee_Type_2);
+	animationsGlobal->add(Hornet_Bee_Type_2, ani);
+
+	//bee die 1
+	ani = new CAnimation(50);
+	ani->add(Hornet_Bee_Die_1);
+	ani->add(Hornet_Bee_Die_1 + 1);
+	animationsGlobal->add(Hornet_Bee_Die_1, ani);
+
+	//bee die 2
+	ani = new CAnimation(50);
+	ani->add(Hornet_Bee_Die_2);
+	animationsGlobal->add(Hornet_Bee_Die_2, ani);
+
+	//bee explosion
+	ani = new AnimationOneTime(50);
+	int time = 130;
+	for (int i = 0; i < 6; ++i)
+	{
+		ani->add(Hornet_Bee_Explosion + i, time - i * 15);
+	}
+	animationsGlobal->add(Hornet_Bee_Explosion, ani);
+#pragma endregion
+
+#pragma region Aim
+	ani = new CAnimation(100);
+	ani->add(Hornet_Aim);
+	ani->add(Hornet_Aim + 1);
+	_animations[Hornet_Aim] = ani;
+
+	ani = new CAnimation(100);
+	ani->add(Hornet_Aimming);
+	ani->add(Hornet_Aimming + 1);
+	_animations[Hornet_Aimming] = ani;
+#pragma endregion
+
+	//bee explosion
+	ani = new AnimationOneTime(50);
+	time = 120;
+	for (int i = 0; i < 8; ++i)
+	{
+		ani->add(Hornet_Explosion + i, time - i * 12);
+	}
+	animationsGlobal->add(Hornet_Explosion, ani);
+
+	_animations[Hornet_Explosion] = ani;
+
+	//bee die
+	ani = new CAnimation(5000);
+	ani->add(Hornet_Die);
+	_animations[Hornet_Die] = ani;
+
 
 	state = Hornet_Prick;
 }
@@ -138,6 +241,7 @@ void BlastHornet::render(DWORD dt, D3DCOLOR colorBrush)
 	
 	_animations[Hornet_Wing]->render(pos.x + 27, pos.y - 2, true);
 	_animations[state]->render(pos.x, pos.y);
+
 
 }
 
