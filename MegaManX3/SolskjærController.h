@@ -4,7 +4,6 @@
 #include "BarrierSystem.h"
 #include "Solskjær.h"
 #include "CarryArm.h"
-#include "Box.h"
 
 class SolskjærController
 {
@@ -14,14 +13,17 @@ public:
 	void update(DWORD dt);
 	void render(DWORD dt);
 	void generateCarryArm(DWORD dt);
+	void generateSolskjær(DWORD dt);
 
 private:
 	BarrierSystem* barrier;
 	Solskjær* solskjær;
-	CarryArm* carryArm;
-	Box* tempBoxLeft;
-	Box* tempBoxRight;
+	CarryArm* carryArmFirst;
+	CarryArm* carryArmSecond;
 
-	int counterCarryArm;
+	bool isOnlyOne_1;
+	bool isOnlyOne_2;
+	
+	int counter;
 };
 

@@ -43,7 +43,7 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 		}
 		else
 		{
-			if (x >= 4944 - 6 + 59 && x < 4985 + 25 - 6 + 59) {
+			if (x >= 4944 + 25 - 6 && x < 4985 + 25 - 6 + 59) {
 				speed.vy = 0;
 			}
 

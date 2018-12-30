@@ -24,6 +24,7 @@ class Solskjær :
 public:
 	bool isRepeat;
 	bool isRender;
+	bool isDie;
 
 	Solskjær();
 	~Solskjær();

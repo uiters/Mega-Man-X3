@@ -7,6 +7,7 @@ Solskjær::Solskjær()
 	this->y = 849;
 	this->isRepeat = true;
 	this->isRender = false;
+	this->isDie = false;
 
 	this->setState(SOLSKJÆR_STATE_INIT);
 	this->loadResources();
@@ -21,16 +22,13 @@ void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 {
 	for (int i = 0; i < listBullet.size(); i++) {
 		if (listBullet[i].getIsDelete()) {
-			/*int x = listBullet[i].x - 16;
-			int y = listBullet[i].y - 20;
-			collisionEffect->createEffect(x, y);*/
 			listBullet.erase(listBullet.begin() + i);
 		}
 		else listBullet[i].update(dt, staticObjects);
 	}
 
 	this->dt = dt;
-	if (this->_death) {
+	if (this->isDie) {
 		generatePosition();
 		return;
 	}
@@ -57,7 +55,7 @@ void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 void Solskjær::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (this->_death) {
+	if (this->isDie) {
 		renderDie(dt);
 		return;
 	}
@@ -226,6 +224,6 @@ void Solskjær::loadResources()
 
 void Solskjær::createBullet()
 {
-	SolskjærBullet* bullet = new SolskjærBullet(x + 10, y + 18);
+	SolskjærBullet* bullet = new SolskjærBullet(x + 7, y + 18);
 	listBullet.push_back(*bullet);
 }

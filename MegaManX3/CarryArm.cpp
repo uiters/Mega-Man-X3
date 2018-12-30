@@ -102,7 +102,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 		}
 		else
 		{
-			if (x >= 4944 + 59 && x < 4985 + 25 + 59) {
+			if (x >= 4944 + 25 && x < 4985 + 25 + 59) {
 				speed.vy = 0;
 			}
 
