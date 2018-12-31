@@ -324,6 +324,24 @@
     <ClInclude Include="Shurikein.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="BarrierSystem.h">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="CarryArm.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Solskjær.h">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="SolskjærBullet.h">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SolskjærController.h">
+      <Filter>Game\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -488,6 +506,24 @@
     </ClCompile>
     <ClCompile Include="Shurikein.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BarrierSystem.cpp">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="CarryArm.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Solskjær.cpp">
+      <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="SolskjærBullet.cpp">
+      <Filter>Game\GameObject\Weapon\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SolskjærController.cpp">
+      <Filter>Game\Controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

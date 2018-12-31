@@ -349,13 +349,17 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 {
 	viewport.x = (x / 256) * 256;
 	viewport.y = (y / 256) * 256;
-	nAnimation = 1;
-	state = &Camera::state1;
-	minValue = 0;
-	maxValue = 650;
-
+	//nAnimation = 1;
+	//state = &Camera::state1;
+	//minValue = 0;
+	//maxValue = 650;
+	nAnimation = 5;
+	state = &Camera::state5;
+	minValue = 2432;
+	maxValue = 2432;
 	lockTop = true;
 	lockLeft = false;
+	//enable = false;
 	////test
 
 	//nAnimation = 5;

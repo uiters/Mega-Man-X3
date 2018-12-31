@@ -11,7 +11,6 @@ HeadGunner::HeadGunner(int id, float x, float y, bool nx)
 	this->initX = x;
 	this->initY = y;
 
-
 	_death = false;
 	_hp = 5;
 }
@@ -106,13 +105,13 @@ void HeadGunner::calculateDie()
 	dy = speed.vy * dt;
 
 	die[0].x += dx;
-	die[1].x += dx * 2;
+	die[1].x += dx * 0.75;
 	die[2].x -= dx;
-	die[3].x -= dx * 2;
+	die[3].x -= dx * 1.25;
 
-	die[0].y += dy;
-	die[1].y += dy;
-	die[2].y += dy;
+	die[0].y += dy * 2;
+	die[1].y += dy * 0.5;
+	die[2].y += dy * 1.5;
 	die[3].y += dy;
 }
 
@@ -137,8 +136,8 @@ void HeadGunner::getBoundingBox(float & left, float & top, float & right, float 
 {
 	left = x;
 	top = y;
-	right = x + 40;
-	bottom = y + 48;
+	right = x + 41;
+	bottom = y + 45;
 }
 
 void HeadGunner::loadResources()

@@ -1,13 +1,20 @@
 #ifndef _Controller_H_
+
 #define _Controller_H_
+
 #include "GameObject.h"
 #include "MegamanX.h"
 #include "QNode.h"
 #include "CollisionEvent.h"
 #include "ScenceController.h"
+
+#include "SolskjærController.h"
+
 #include "Elevator.h"
 #include "Helit.h"
+
 #include "Shurikein.h"
+
 class Controller
 {
 
@@ -22,14 +29,14 @@ private:
 	GameObject* elevator;
 
 	ScenceController* tilesControll;
-	Brick* brick1;
-	Brick* brick2;
+	SolskjærController* solskjærController;
+
 	Shurikein* shurikein;
+
+
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();
-
-public:
 	void update(DWORD dt);
 	void render(DWORD dt);
 };

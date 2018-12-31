@@ -8,10 +8,12 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->main = main;
 	tilesControll = new ScenceController();
 	main->state = stand;
-	shurikein  = new Shurikein(TShurikein, 2518, 920);
-	shurikein->state = manifest;
-	brick1 = new Brick(0, 2297, 895, 22, 52);
-	brick2 = new Brick(0, 2546, 895, 22, 52);
+
+	solskjærController = new SolskjærController(); // **
+
+	//shurikein = new Shurikein(TShurikein, 2402, 920);
+	//shurikein->state = manifest;
+
 }
 
 Controller::~Controller()
@@ -52,8 +54,12 @@ void Controller::update(DWORD dt)
 			if (elevator) break;
 		}
 	}
-	//helit->update(dt, &currentStatic, &currentDynamic);
 	main->update(dt, &currentStatic, &currentDynamic);
+
+	//helit->update(dt, &currentStatic, &currentDynamic);
+	//shurikein->update(dt, &currentStatic);
+
+	solskjærController->update(dt);// **
 }
 
 void Controller::render(DWORD dt)
@@ -67,7 +73,11 @@ void Controller::render(DWORD dt)
 		item.second->render(dt);
 	}
 	if (elevator) elevator->render(dt);
+
 	main->render(dt);
+
 	//shurikein->render(dt);
 	//helit->render(dt);
+
+	solskjærController->render(dt);// **
 }

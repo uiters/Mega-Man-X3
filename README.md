@@ -40,7 +40,7 @@ Click [here](https://en.wikipedia.org/wiki/Mega_Man_X3) for more details.
 
 Have a bug or an issue with this project? [Open a new issue](https://github.com/tvc12/Mega-Man-X3/issues) here on GitHub.
 
-## Authors
+## Team
 
 | [![Thien Chi Vi](https://github.com/tvc12.png?size=100)](https://github.com/tvc12) | [![Cuong Duy Nguyen](https://github.com/jade28.png?size=100)](https://github.com/jade28) | [![Phuoc Van Le](https://github.com/TokumeiShi.png?size=100)](https://github.com/TokumeiShi) |
 | :---: | :---: | :---: |

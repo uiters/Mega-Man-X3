@@ -6,8 +6,8 @@ void Game1::initGolbals()
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
 	//cameraGlobal = new Camera(0, 512, 256, 222);
-	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
-	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);
+	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
+	cameraGlobal = new Camera(5000, 870, CAMERA_WIDTH, CAMERA_HEIGHT);
 
 	viewPortGlobal = &cameraGlobal->viewport;
 }
@@ -28,7 +28,7 @@ void Game1::loadResource()
 	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
 	texturesGlobal->add(TExplosion, EXPLOISION);
 
-	main = new MegamanX(Megaman, 100, 650);
+	main = new MegamanX(Megaman, 5000, 870);
 
 
 	//main = new MegamanX(Megaman, 2344, 910);
