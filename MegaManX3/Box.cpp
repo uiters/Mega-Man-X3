@@ -133,12 +133,12 @@ void Box::generatePosition()
 
 void Box::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 48;
+	bottom = y + 48;
 }
 
-Box * Box::clone(int id, int x, int y)
-{
-	return nullptr;
-}
 
 void Box::setState(int state)
 {

@@ -59,7 +59,7 @@ void Controller::update(DWORD dt)
 	//helit->update(dt, &currentStatic, &currentDynamic);
 	//shurikein->update(dt, &currentStatic);
 
-	solskjærController->update(dt);// **
+	solskjærController->update(dt, &currentStatic, main);// **
 }
 
 void Controller::render(DWORD dt)
@@ -74,10 +74,11 @@ void Controller::render(DWORD dt)
 	}
 	if (elevator) elevator->render(dt);
 
-	main->render(dt);
+	
 
 	//shurikein->render(dt);
 	//helit->render(dt);
 
 	solskjærController->render(dt);// **
+	main->render(dt);
 }

@@ -21,31 +21,21 @@ SolskjærBullet::~SolskjærBullet()
 void SolskjærBullet::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	counter++;
-	if (counter >= 60) {
-		counter = 60;
-
+	GameObject::update(dt);
+	if(!clone)
+		collisionStatic(staticObjects);
+	else
+	{
 		x += speed.vx * dt;
-		y += speed.vy * dt;
-
-		if (y >= 930) {
-			speed.vy = 0;
-			if (!isClone) {
-				if (isOnly) {
-					clone = new SolskjærBullet(x, y);
-					clone->isClone = true;
-					clone->setState(SOLSKJÆR_BULLET_STATE_ONLY);
-					isOnly = false;
-				}
-				clone->update(dt);
-			}
-		}
+		clone->update(dt, staticObjects);
 	}
 }
 
 void SolskjærBullet::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (isClone) debugOut(L"clone x = %i \n", x);
-	else debugOut(L"not clone x = %i \n", x);
+	//if (isClone) debugOut(L"clone x = %i \n", x);
+	//else debugOut(L"not clone x = %i \n", x);
+
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
 	if (!isClone && clone != NULL) 
@@ -119,8 +109,8 @@ void SolskjærBullet::collisionStatic(unordered_map<int, GameObject*>* staticObje
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
 	if (coEvents.size() == 0)
 	{
-		x += speed.vx * dt;
-		y += speed.vy * dt;
+		x += dx;
+		y += dy;
 	}
 	else
 	{
@@ -130,7 +120,16 @@ void SolskjærBullet::collisionStatic(unordered_map<int, GameObject*>* staticObje
 		x += min_tx * dx + nx * 1.f;
 		y += min_ty * dy + ny * 1.f;
 
-		isDelete = true;
+		//isDelete = true;
+		speed.vy = 0;
+		if (!clone) {
+			if (isOnly) {
+				clone = new SolskjærBullet(x, y);
+				clone->isClone = true;
+				clone->setState(SOLSKJÆR_BULLET_STATE_ONLY);
+				isOnly = false;
+			}
+		}
 	}
 	UINT size = coEvents.size();
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];

@@ -43,7 +43,7 @@ public:
 	void generatePosition2();// **
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	CarryArm* clone(int id, int x, int y) override;
-
+	Box* getBox() { return box; }
 private:
 	float initX;
 	float initY;

@@ -1,7 +1,6 @@
 #include "SolskjærController.h"
 
 
-
 SolskjærController::SolskjærController()
 {
 	barrier = new BarrierSystem();
@@ -17,8 +16,10 @@ SolskjærController::~SolskjærController()
 {
 }
 
-void SolskjærController::update(DWORD dt)
+void SolskjærController::update(DWORD dt, unordered_map<int, GameObject*>* staticObject, MegamanX* main)
 {
+	this->staticObject = staticObject;
+	objects.clear();
 	barrier->update(dt);
 	
 	if (!barrier->isHidden) {
@@ -28,6 +29,14 @@ void SolskjærController::update(DWORD dt)
 		}
 	}
 	if (solskjær->isDie) barrier->isHidden = true;
+
+	if (carryArmFirst)
+		objects[4] = carryArmFirst->getBox();
+
+	if (carryArmSecond)
+		objects[5] = carryArmSecond->getBox();
+
+	collisionMain(main);
 }
 
 void SolskjærController::render(DWORD dt)
@@ -36,11 +45,104 @@ void SolskjærController::render(DWORD dt)
 		solskjær->render(dt);
 		barrier->render(dt);
 		carryArmFirst->render(dt);
+
 		if (carryArmSecond != NULL) carryArmSecond->render(dt);
+
 	}
 	else
 	{
 		barrier->render(dt);
+	}
+}
+
+void SolskjærController::collisionMain(MegamanX* main)
+{
+	bulletCollisionDynamic(main);//like main bullet collision dynamic
+	if (main->protect()) return;
+	dynamicCollisionMain(main); //like dynamic obejct bullet collision this
+}
+
+void SolskjærController::bulletCollisionDynamic(MegamanX* main)
+{
+	auto dynamicObjects = &objects;
+	for (auto it = dynamicObjects->begin(); it != dynamicObjects->end(); )
+	{
+		if (!(*it).second) return; //null
+
+		DynamicObject* obj = dynamic_cast<DynamicObject*>((*it).second);
+		
+		// bullet main collision enemies or boss (use single & swept aabb)
+		auto objBox = obj->getBoundBox();
+		auto weapons = main->getWeapons();
+		for (auto bullet = weapons->begin(); bullet != weapons->end();)
+		{
+			if (obj->isDeath()) break;
+			if (bullet[0]->getBoundBox().intersectsWith(objBox) //single aabb collision
+				||
+				main->collisionGameObject(*bullet, obj)) //colision bullet with dynamic with swept aabb
+			{
+				obj->receiveDamage(bullet[0]->getDamage());
+				if (obj->isDeath())
+				{
+					if (dynamic_cast<BusterShot*>(*bullet)) // don't cross delete bullet
+					{
+						delete *bullet;
+						bullet = weapons->erase(bullet);
+					}
+				}
+				else
+				{
+					delete *bullet;
+					bullet = weapons->erase(bullet);
+				}
+				break;// out for bullet
+			}
+			else // bullet main collision bullet enemies or boss (use swept aabb)
+			{
+				++bullet;
+			}
+		}
+		++it;
+	}
+}
+
+void SolskjærController::dynamicCollisionMain(MegamanX* main)
+{
+	auto megamanBox = main->getBoundBox();
+	auto dynamicObjects = &objects;//dynamic object
+
+	for (auto kv : *dynamicObjects)
+	{
+		// object collision main (include bullet) (use single & swept aabb)
+		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second);
+		if (!obj || obj->isDeath()) continue;
+
+		if (kv.second->getBoundBox().intersectsWith(megamanBox) //single
+			||
+			main->collisionGameObject(obj, main)) // swpet
+		{
+			main->setHurt();
+			return;
+		}
+
+		auto bullets = obj->getWeapons();
+		for (auto bullet = bullets->begin(); bullet != bullets->end(); )
+		{
+			if (bullet[0]->getBoundBox().intersectsWith(megamanBox) //single
+				||
+				main->collisionBullet(obj, *bullet, main)) //swept
+			{
+				if (bullet[0]->toLeft)
+					obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);
+				else
+					obj->createExplosion(bullet[0]->x - 10, bullet[0]->y);
+				delete *bullet;
+				bullet = bullets->erase(bullet);
+				main->setHurt();
+				return;
+			}
+			else ++bullet;
+		}
 	}
 }
 
@@ -52,7 +154,7 @@ void SolskjærController::generateCarryArm(DWORD dt)
 			isOnlyOne_1 = false;
 		}
 		carryArmFirst->update(dt);
-
+		objects[2] = carryArmFirst;
 		return;
 	}
 	
@@ -62,9 +164,11 @@ void SolskjærController::generateCarryArm(DWORD dt)
 			isOnlyOne_2 = false;
 		}
 		carryArmSecond->update(dt);
-
+		objects[3] = carryArmSecond;
+		
 		return;
 	}
+
 
 	carryArmFirst->update(dt);
 	if (carryArmSecond != NULL) carryArmSecond->update(dt);
@@ -78,8 +182,8 @@ void SolskjærController::generateSolskjær(DWORD dt)
 			solskjær = new Solskjær();
 			counter = 0;
 		}
-		solskjær->update(dt);
-
+		solskjær->update(dt, staticObject);
+		objects[1] = solskjær;
 		return;
 	}
 }

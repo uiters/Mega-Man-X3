@@ -37,7 +37,6 @@ public:
 
 private:
 	PointF die[3];// **
-	vector<SolskjærBullet> listBullet;
 	BulletCollision* collisionEffect = BulletCollision::getInstance();
 
 	void setState(int state);

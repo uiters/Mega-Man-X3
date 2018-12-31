@@ -20,12 +20,18 @@ Solskjær::~Solskjær()
 
 void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	for (int i = 0; i < listBullet.size(); i++) {
-		if (listBullet[i].getIsDelete()) {
-			listBullet.erase(listBullet.begin() + i);
+	for (auto bullet = _weapons.begin(); bullet != _weapons.end();)
+	{
+		bullet[0]->update(dt, staticObjects);
+		if (bullet[0]->getIsDelete())
+		{
+			delete bullet[0];
+			bullet = _weapons.erase(bullet);
 		}
-		else listBullet[i].update(dt, staticObjects);
+		else ++bullet;
 	}
+
+
 
 	this->dt = dt;
 	if (this->isDie) {
@@ -65,10 +71,12 @@ void Solskjær::render(DWORD dt, D3DCOLOR colorBrush)
 		_animations[state]->render(center.x, center.y);
 	}
 
-	for (int i = 0; i < listBullet.size(); i++)
+	int size = _weapons.size();
+	for (int i = 0; i < size; ++i)
 	{
-		listBullet[i].render(dt);
+		_weapons[i]->render(dt);
 	}
+
 }
 
 void Solskjær::renderDie(DWORD dt, D3DCOLOR colorBrush)
@@ -103,6 +111,10 @@ void Solskjær::generatePosition()
 
 void Solskjær::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 32;
+	bottom = y + 23;
 }
 
 Solskjær * Solskjær::clone(int id, int x, int y)
@@ -225,5 +237,5 @@ void Solskjær::loadResources()
 void Solskjær::createBullet()
 {
 	SolskjærBullet* bullet = new SolskjærBullet(x + 7, y + 18);
-	listBullet.push_back(*bullet);
+	_weapons.emplace_back(bullet);
 }

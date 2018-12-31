@@ -26,7 +26,7 @@ public:
 	void renderDamage(DWORD dt, D3DCOLOR colorBrush = WHITE(255));// **
 	void generatePosition();// **
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
-	Box* clone(int id, int x, int y) override;
+	Box* clone(int id, int x, int y) { return null; };
 
 private:
 	PointF damage[4];// **
