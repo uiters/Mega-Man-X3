@@ -13,6 +13,8 @@ private:
 	bool stop = false;
 	bool lockDirection = false;
 	bool isFirst = true;
+	int checkX = 1;
+	int checkY = -1;
 	HPBar* hpbar;
 	int width, height;
 	unordered_map<int, GameObject*>* currentStatic;

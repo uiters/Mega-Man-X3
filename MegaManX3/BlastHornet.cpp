@@ -3,17 +3,27 @@
 
 BlastHornet::BlastHornet()
 {
-	//x = 7863;
-	x = 7663;
-	y = 1485;
+	x = 7863;
+	//x = 7663;
+	//y = 1485;
+	y = 1555;
 	speed.vy = 0.55f;
 	loadResources();
 	mech = &BlastHornet::start;
+
+	mech = &BlastHornet::flyArround;
+	state = Hornet_Stand;
+
 	toLeft = true;
 	srand(time(NULL));
 
-	speed.vx = 0.15f;
-	speed.vy = -0.15;
+	speed.vx = -0.195f;
+	speed.vy = 0.059f;
+
+	
+
+	width = 44;
+	height = 57;
 }
 
 
@@ -60,8 +70,53 @@ void BlastHornet::getBoundingBox(float & left, float & top, float & right, float
 
 void BlastHornet::flyArround()
 {
-	y += dy;
-	x += dx;
+	setDirection();
+	if (x > 7750 && x < 7820)
+	{
+		if(speed.vy < 0) speed.vy = 0.030f;
+		checkY = 1;
+
+	}
+	else
+	{
+		if (x < 7710)
+		{
+			if(speed.vx < 0) speed.vx = 0.f;
+			checkX = 1;
+		}else
+			if (x > 7870)
+			{
+				if (speed.vx > 0) speed.vx = 0.f;
+				checkX = -1;
+			}
+		//else checkX = -1;
+
+		if (speed.vy > 0) speed.vy = -0.030f;//speed.vy = -1 * speed.vy;speed.vy
+		checkY = -1;
+	}
+		speed.vx += checkX * 0.0001f * dt;
+		speed.vy += checkY * 0.00025f * dt;
+
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	collision->findCollisions(dt, this, *currentStatic, coEvents);
+	UINT size = coEvents.size();
+
+	if (size == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+	}
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
 
 void BlastHornet::fly()
@@ -268,7 +323,7 @@ void BlastHornet::dropBeeEnd()
 
 void BlastHornet::mech3()
 {
-	if()
+	//if()
 	flyArround();
 }
 
