@@ -3,14 +3,17 @@
 
 BlastHornet::BlastHornet()
 {
-	x = 7863;
-	//x = 7763;
+	//x = 7863;
+	x = 7663;
 	y = 1485;
 	speed.vy = 0.55f;
 	loadResources();
 	mech = &BlastHornet::start;
 	toLeft = true;
 	srand(time(NULL));
+
+	speed.vx = 0.15f;
+	speed.vy = -0.15;
 }
 
 
@@ -55,6 +58,12 @@ void BlastHornet::getBoundingBox(float & left, float & top, float & right, float
 	bottom = y + height;
 }
 
+void BlastHornet::flyArround()
+{
+	y += dy;
+	x += dx;
+}
+
 void BlastHornet::fly()
 {
 	float distanceX = 0;
@@ -74,11 +83,12 @@ void BlastHornet::fly()
 		}
 		else
 			distanceX = 7707 - x;
+		toLeft = !toLeft;
 	}
 	lockDirection = true;
 
-	speed.vy = distanceY / 1500.f; //calculate speed
-	speed.vx = distanceX / 1500.f;
+	speed.vy = distanceY / 1000.f; //calculate speed
+	speed.vx = distanceX / 1000.f;
 	
 
 }
@@ -130,7 +140,7 @@ void BlastHornet::addHP()
 	++_hp;
 	if (_hp == 64.0f)
 	{
-		mech = &BlastHornet::mech1;
+		mech = &BlastHornet::mech3;
 		fly();
 	}
 }
@@ -138,18 +148,21 @@ void BlastHornet::addHP()
 //prick
 void BlastHornet::mech1()
 {
-	if (y < 1562)
+	if (y + dy <= 1562)
 	{
-		mech = &BlastHornet::prickShow;
+		y = 1562;
+		mech = &BlastHornet::prickPrepare;
 		state = Hornet_Prepare_Prick;
 		_animations[state]->reset();
 		lockDirection = false;
+		width = 44;
+		height = 57;
 	}
 	else
 		y += dy, x += dx;
 }
 
-void BlastHornet::prickShow()
+void BlastHornet::prickPrepare()
 {
 	if (_animations[Hornet_Prepare_Prick]->isLastFrame())
 	{
@@ -199,7 +212,7 @@ void BlastHornet::prickEnd()
 	if (_animations[Hornet_Prick_End]->isLastFrame())
 	{
 		state = Hornet_Stand;
-		mech = &BlastHornet::mech1;
+		mech = &BlastHornet::mech2;
 		fly();
 	}
 }
@@ -207,7 +220,56 @@ void BlastHornet::prickEnd()
 //drop bee
 void BlastHornet::mech2()
 {
+	if (y + dy <= 1562)
+	{
+		y = 1562;
+		mech = &BlastHornet::dropBeePrepare;
+		state = Hornet_Drop_Bee_1;
+		_animations[state]->reset();
+		lockDirection = false;
+		width = 47;
+		height = 72;
+		setDirection();
+	}
+	else
+		y += dy, x += dx;
+}
 
+void BlastHornet::dropBeePrepare()
+{
+	if (_animations[state]->isLastFrame())
+	{
+		state = Hornet_Drop_Bee_1_1;
+		mech = &BlastHornet::dropBee;
+		_animations[state]->reset();
+	}
+}
+
+void BlastHornet::dropBee()
+{
+	if (_animations[state]->isLastFrame())
+	{
+		state = Hornet_Drop_Bee_1_End;
+		mech = &BlastHornet::dropBeeEnd;
+		_animations[state]->reset();
+	}
+}
+
+void BlastHornet::dropBeeEnd()
+{
+	if (_animations[state]->isLastFrame())
+	{
+		state = Hornet_Stand;
+		mech = &BlastHornet::mech1;
+		//fly();
+	}
+}
+
+
+void BlastHornet::mech3()
+{
+	if()
+	flyArround();
 }
 
 void BlastHornet::setDirection()
@@ -335,25 +397,26 @@ void BlastHornet::loadResources()
 
 #pragma region Drop bee
 	//drop bee 1
-	ani = new CAnimation(200);
+	ani = new AnimationOneTime(200);
 	ani->add(Hornet_Stand, 300);
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		ani->add(Hornet_Drop_Bee_1 + i);
 	}
+	ani->add(Hornet_Drop_Bee_1 + 2, 500);
 	_animations[Hornet_Drop_Bee_1] = ani;
 
 	//drop bee 1_1
-	ani = new CAnimation(200);
+	ani = new AnimationOneTime(500);
 	ani->add(Hornet_Drop_Bee_1 + 3);
 	_animations[Hornet_Drop_Bee_1_1] = ani;
 
 	//drop bee_1 end
-	ani = new CAnimation(1000);
+	ani = new AnimationOneTime(200);
 	ani->add(Hornet_Drop_Bee_1 + 4);
 	ani->add(Hornet_Drop_Bee_1 + 1);
 	ani->add(Hornet_Drop_Bee_1);
-	ani->add(Hornet_Stand, 5000);
+	ani->add(Hornet_Stand, 500);
 
 	_animations[Hornet_Drop_Bee_1_End] = ani;
 

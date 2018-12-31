@@ -26,6 +26,7 @@ public:
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 
 private:
+	void flyArround();
 	void fly();
 	void aimPrick();
 
@@ -33,12 +34,16 @@ private:
 	void addHP();
 	void mech1();//prick
 	
-	void prickShow();
+	void prickPrepare();
 	void prick();
 	void prickEnd();
 
 	void mech2();
+	void dropBeePrepare();
+	void dropBee();
+	void dropBeeEnd();
 
+	void mech3();
 	void setDirection();
 };
 
