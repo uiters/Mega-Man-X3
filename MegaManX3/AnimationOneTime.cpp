@@ -33,21 +33,18 @@ AnimationOneTime::AnimationOneTime(int defaultTime) : CAnimation(defaultTime)
 
 void AnimationOneTime::render(float x, float y, bool center, D3DCOLOR colorBrush)
 {
-	if (!isDone)
 		_updateFrame(),
 		frames[currentFrame]->getSprite()->draw(x, y, center, colorBrush);
 }
 
 void AnimationOneTime::renderFlipX(float x, float y, bool center, D3DCOLOR colorBrush)
 {
-	if (!isDone)
 		_updateFrame(),
 		frames[currentFrame]->getSprite()->drawFlipX(x, y, center, colorBrush);
 }
 
 void AnimationOneTime::renderFlipY(float x, float y, bool center, D3DCOLOR colorBrush)
 {
-	if (!isDone)
 		_updateFrame(),
 		frames[currentFrame]->getSprite()->drawFlipY(x, y, center, colorBrush);
 }

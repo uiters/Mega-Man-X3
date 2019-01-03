@@ -1,12 +1,18 @@
 #ifndef _Controller_H_
+
 #define _Controller_H_
+
 #include "GameObject.h"
 #include "MegamanX.h"
 #include "QNode.h"
 #include "CollisionEvent.h"
 #include "ScenceController.h"
+
+#include "SolskjærController.h"
+
 #include "Elevator.h"
 #include "Helit.h"
+
 #include "Shurikein.h"
 #include "StageController.h"
 #include "WeaponEffectController.h"
@@ -38,8 +44,6 @@ private:
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();
-
-public:
 	void update(DWORD dt);
 	void render(DWORD dt);
 };

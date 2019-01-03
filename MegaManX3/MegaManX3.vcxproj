@@ -130,6 +130,8 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationOneTime.h" />
+    <ClInclude Include="BarrierSystem.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="BackgroundController.h" />
     <ClInclude Include="Bee.h" />
     <ClInclude Include="BeeExplosion.h" />
@@ -138,6 +140,7 @@
     <ClInclude Include="BulletCollision.h" />
     <ClInclude Include="BusterCollision.h" />
     <ClInclude Include="BusterShot.h" />
+    <ClInclude Include="CarryArm.h" />
     <ClInclude Include="Charged1Collision.h" />
     <ClInclude Include="Charged2Collision.h" />
     <ClInclude Include="ChargedEffect.h" />
@@ -188,6 +191,9 @@
     <ClInclude Include="QNode.h" />
     <ClInclude Include="ScenceController.h" />
     <ClInclude Include="Shurikein.h" />
+    <ClInclude Include="Solskjær.h" />
+    <ClInclude Include="SolskjærBullet.h" />
+    <ClInclude Include="SolskjærController.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StageController.h" />
@@ -202,6 +208,8 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationOneTime.cpp" />
+    <ClCompile Include="BarrierSystem.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="BackgroundController.cpp" />
     <ClCompile Include="Bee.cpp" />
     <ClCompile Include="BeeExplosion.cpp" />
@@ -211,6 +219,7 @@
     <ClCompile Include="BusterCollision.cpp" />
     <ClCompile Include="BusterShot.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CarryArm.cpp" />
     <ClCompile Include="Charged1Collision.cpp" />
     <ClCompile Include="Charged2Collision.cpp" />
     <ClCompile Include="ChargedEffect.cpp" />
@@ -256,6 +265,9 @@
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="ScenceController.cpp" />
     <ClCompile Include="Shurikein.cpp" />
+    <ClCompile Include="Solskjær.cpp" />
+    <ClCompile Include="SolskjærBullet.cpp" />
+    <ClCompile Include="SolskjærController.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StageController.cpp" />

@@ -106,6 +106,7 @@ void NotorBanger::render(DWORD dt, D3DCOLOR colorBrush)
 	}
 }
 
+
 void NotorBanger::calculateDie()
 {
 	speed.vy += 0.00115f * dt;
@@ -115,13 +116,13 @@ void NotorBanger::calculateDie()
 	dy = speed.vy * dt;
 
 	die[0].x += dx;
-	die[1].x += dx * 2;
+	die[1].x += dx * 1.25;
 	die[2].x -= dx;
 	die[3].x -= dx * 2;
 
-	die[0].y += dy;
-	die[1].y += dy;
-	die[2].y += dy;
+	die[0].y += dy * 2;
+	die[1].y += dy * 1.5;
+	die[2].y += dy * 0.75;
 	die[3].y += dy;
 }
 
@@ -366,10 +367,19 @@ void NotorBanger::createBullet()
 
 void NotorBanger::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
-	right = x + 40;
-	bottom = y + 48;
+	if (nx) {
+		left = x + 0;
+		top = y;
+		right = x + 20;
+		bottom = y + 48;
+	}
+	else //default 
+	{
+		left = x + 20;
+		top = y;
+		right = x + 40;
+		bottom = y + 48;
+	}
 }
 
 void NotorBanger::createExplosion(float x, float y)

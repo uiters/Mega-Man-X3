@@ -22,7 +22,7 @@ private:
 	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
 	void collisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);
 
-	void setHurt();
+	
 
 	KeyController* keyController;
 	MegamanEffectFactory* effect;
@@ -48,6 +48,7 @@ public:
 	int  onWall = 0; //đang ở trên tường -1 left - 1 right
 	bool onAir = false; //đang ở trên không trung
 	bool hurt() { return isHurt; }
+	void setHurt();
 private:
 	bool isHurt = false;
 	bool isProtect = false;
@@ -62,6 +63,7 @@ private:
 	void resetPoint();
 	void config(Point& center);
 public:
+	bool protect() { return isProtect; }
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects) override;
 	void updateState(DWORD dt);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
