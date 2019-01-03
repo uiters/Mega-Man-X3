@@ -91,7 +91,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 		y += speed.vy * dt;
 
 		if (!isNext) {
-			if (x >= 4944 && x < 4985 + 25) {
+			if (x >= 4944 - 30 && x < 4985 + 25) {
 				speed.vy = 0;
 			}
 
@@ -318,6 +318,12 @@ void CarryArm::getBoundingBox(float & left, float & top, float & right, float & 
 CarryArm* CarryArm::clone(int id, int x, int y)
 {
 	return nullptr;
+}
+
+void CarryArm::reset()
+{
+	this->setState(CARRY_ARM_STATE_FLY);
+	this->isSwitch = true;
 }
 
 void CarryArm::setState(int state)

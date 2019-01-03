@@ -7,6 +7,7 @@ Box::Box(float x, float y)
 	this->y = y;
 	this->isNext = false;
 	this->isLeft = true;
+	this->isComplete = false;
 
 	this->loadResources();
 	this->setState(BOX_STATE_DEFAULT);
@@ -19,7 +20,7 @@ Box::~Box()
 void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
-	if (_death) {
+	if (this->_death) {
 		generatePosition();
 		return;
 	}
@@ -32,7 +33,7 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 		y += speed.vy * dt;
 
 		if (!isNext) {
-			if (x >= 4944 - 6 && x < 4985 + 25 - 6) {
+			if (x >= 4944 - 6 - 30 && x < 4985 + 25 - 6) {
 				speed.vy = 0;
 			}
 
@@ -56,6 +57,7 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 
 		if (y >= 820 + 59) {
 			y = 820 + 59;
+			this->isComplete = true;
 		}
 	}
 	else
@@ -83,13 +85,14 @@ void Box::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 
 		if (y >= 820 + 59) {
 			y = 820 + 59;
+			this->isComplete = true;
 		}
 	}
 }
 
 void Box::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (_death) {
+	if (this->_death) {
 		renderDamage(dt);
 		return;
 	}

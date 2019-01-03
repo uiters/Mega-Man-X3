@@ -18,6 +18,7 @@ class Box :
 public:
 	bool isNext;
 	bool isLeft;
+	bool isComplete;
 
 	Box(float x, float y);
 	~Box();
@@ -27,7 +28,9 @@ public:
 	void generatePosition();// **
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	Box* clone(int id, int x, int y) { return null; };
-
+	bool getIsDeath() { return _death; }
+	void setIsDeath(bool value) { _death = value; }
+	
 private:
 	PointF damage[4];// **
 

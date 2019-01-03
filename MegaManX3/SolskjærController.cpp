@@ -7,8 +7,11 @@ SolskjærController::SolskjærController()
 	solskjær = new Solskjær();
 	carryArmFirst = new CarryArm(barrier->initX + 36, barrier->initY - 20, false);
 
-	isOnlyOne_1 = isOnlyOne_2 = true;
-	counter = 0;
+	isOnlyOne = true;
+	isDisplayBoss = false;
+	clock = 0;
+	clockForCarryArm = 0;
+	clockForSolskjær = 0;
 }
 
 
@@ -26,6 +29,18 @@ void SolskjærController::update(DWORD dt, unordered_map<int, GameObject*>* stati
 		if (barrier->y >= 855) {
 			generateCarryArm(dt);
 			generateSolskjær(dt);
+			if (!isDisplayBoss) {
+				clock++;
+				if (clock > 3000) {
+					if (( carryArmFirst->isComplete && carryArmSecond != NULL && carryArmSecond->isComplete ) ||
+						(carryArmFirst->isComplete && carryArmSecond == NULL) ||
+						(carryArmFirst->isDie && carryArmSecond != NULL && carryArmSecond->isDie) ||
+						(carryArmFirst->isDie && carryArmSecond == NULL)
+					)
+						barrier->isHidden = true;
+				}
+			}
+			else clock = 0;
 		}
 	}
 	if (solskjær->isDie) barrier->isHidden = true;
@@ -47,7 +62,6 @@ void SolskjærController::render(DWORD dt)
 		carryArmFirst->render(dt);
 
 		if (carryArmSecond != NULL) carryArmSecond->render(dt);
-
 	}
 	else
 	{
@@ -148,27 +162,35 @@ void SolskjærController::dynamicCollisionMain(MegamanX* main)
 
 void SolskjærController::generateCarryArm(DWORD dt)
 {
-	if (carryArmFirst->isDie) {
-		if (isOnlyOne_1) {
+	if (carryArmFirst->getBox()->getIsDeath()) {
+		clockForCarryArm++;
+		if (clockForCarryArm > 300) {
 			carryArmFirst = new CarryArm(barrier->initX + 36, barrier->initY - 20, false);
-			isOnlyOne_1 = false;
+			carryArmFirst->getBox()->setIsDeath(false);
+			objects[2] = carryArmFirst;
+
+			this->isOnlyOne = true;
+
+			clockForCarryArm = 0;
 		}
-		carryArmFirst->update(dt);
-		objects[2] = carryArmFirst;
-		return;
 	}
 	
-	if (!carryArmFirst->isDie && carryArmFirst->isComplete) {
-		if (isOnlyOne_2) {
-			carryArmSecond = new CarryArm(barrier->initX + 36, barrier->initY - 20, true);
-			isOnlyOne_2 = false;
-		}
-		carryArmSecond->update(dt);
-		objects[3] = carryArmSecond;
-		
-		return;
-	}
+	if ((carryArmSecond == NULL && !carryArmFirst->getBox()->getIsDeath() && carryArmFirst->isComplete ) ||
+		carryArmSecond != NULL && carryArmSecond->getBox()->getIsDeath()
+	) {
+		if (this->isOnlyOne) {
+			clockForCarryArm++;
+			if (clockForCarryArm > 300) {
+				carryArmSecond = new CarryArm(barrier->initX + 36, barrier->initY - 20, true);
+				carryArmSecond->getBox()->setIsDeath(false);
+				objects[3] = carryArmSecond;
 
+				this->isOnlyOne = false;
+
+				clockForCarryArm = 0;
+			}
+		}
+	}
 
 	carryArmFirst->update(dt);
 	if (carryArmSecond != NULL) carryArmSecond->update(dt);
@@ -176,14 +198,35 @@ void SolskjærController::generateCarryArm(DWORD dt)
 
 void SolskjærController::generateSolskjær(DWORD dt)
 {
-	if (carryArmSecond != NULL && carryArmSecond->isComplete) {
-		counter++;
-		if (counter >= 800) {
+	if (carryArmSecond != NULL && 
+		!carryArmFirst->getBox()->getIsDeath() && 
+		!carryArmSecond->getBox()->getIsDeath() && 
+		carryArmFirst->isComplete &&
+		carryArmSecond->isComplete
+	) {
+		clockForSolskjær++;
+		if (clockForSolskjær >= 700) {
 			solskjær = new Solskjær();
-			counter = 0;
+			clockForSolskjær = 0;
+			isDisplayBoss = true;
 		}
 		solskjær->update(dt, staticObject);
 		objects[1] = solskjær;
-		return;
+	}
+
+	if (carryArmSecond != NULL &&
+		( carryArmFirst->getBox()->getIsDeath() || carryArmSecond->getBox()->getIsDeath() ) && 
+		carryArmFirst->isComplete &&
+		carryArmSecond->isComplete
+	){
+		if (solskjær->isRepeat) solskjær->reset();
+		clockForSolskjær++;
+		if (clockForSolskjær >= 700) {
+			solskjær->isRepeat = false;
+			clockForSolskjær = 0;
+			isDisplayBoss = false;
+		}
+		solskjær->update(dt, staticObject);
+		objects[1] = solskjær;
 	}
 }

@@ -32,7 +32,6 @@ void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 	}
 
 
-
 	this->dt = dt;
 	if (this->isDie) {
 		generatePosition();
@@ -120,6 +119,17 @@ void Solskjær::getBoundingBox(float & left, float & top, float & right, float & 
 Solskjær * Solskjær::clone(int id, int x, int y)
 {
 	return nullptr;
+}
+
+void Solskjær::reset()
+{
+	this->x = 4970;
+	this->y = 849;
+	this->isRepeat = true;
+	this->isRender = true;
+	this->isDie = false;
+
+	this->setState(SOLSKJÆR_STATE_EXIT);
 }
 
 void Solskjær::setState(int state)

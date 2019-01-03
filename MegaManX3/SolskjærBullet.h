@@ -9,8 +9,8 @@
 #include "Brick.h"
 
 
-#define SOLSKJÆR_BULLET_SPEED_X -0.025f;
-#define SOLSKJÆR_BULLET_SPEED_Y 0.02f
+#define SOLSKJÆR_BULLET_SPEED_X -0.055f;
+#define SOLSKJÆR_BULLET_SPEED_Y 0.05f
 
 #define SOLSKJÆR_BULLET_STATE_ONLY 0
 

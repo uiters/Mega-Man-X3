@@ -44,15 +44,16 @@ public:
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	CarryArm* clone(int id, int x, int y) override;
 	Box* getBox() { return box; }
+	void reset();
 private:
 	float initX;
 	float initY;
 	float vx;
 	float vy;
 	int counter;
-	bool isSwitch;
 	bool isDamage;
 	bool isInjure;
+	bool isSwitch;
 
 	Box* box;
 	PointF damage[10];// **
