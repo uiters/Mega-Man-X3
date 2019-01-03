@@ -157,6 +157,12 @@
     <Filter Include="Game\Controls\Weapon Effect">
       <UniqueIdentifier>{4c3106ae-5c9d-42d0-a7ec-a55f9e0fde72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Other">
+      <UniqueIdentifier>{77d4439a-7263-4308-98eb-ae91ae9478f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effect\Boss">
+      <UniqueIdentifier>{7533d48e-c238-49aa-afa2-435c280ba61b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -351,7 +357,24 @@
     <ClInclude Include="BlastHornet.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="HPBar.h" />
+    <ClInclude Include="BackgroundController.h">
+      <Filter>Game\Controls\Scence</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>Game\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="HornetPoint.h">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="BeeExplosion.h">
+      <Filter>Game\Effect\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Bee.h">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HornetExplosion.h">
+      <Filter>Game\Effect\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -532,7 +555,24 @@
     <ClCompile Include="BlastHornet.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="HPBar.cpp" />
+    <ClCompile Include="BackgroundController.cpp">
+      <Filter>Game\Controls\Scence</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>Game\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="HornetPoint.cpp">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="BeeExplosion.cpp">
+      <Filter>Game\Effect\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Bee.cpp">
+      <Filter>Game\GameObject\DynamicObject\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HornetExplosion.cpp">
+      <Filter>Game\Effect\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico">

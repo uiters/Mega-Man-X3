@@ -1,7 +1,9 @@
 ﻿#include "MegamanX.h"
 #include "Elevator.h"
 #include "ConstGlobals.h"
+#include "Bee.h"
 #include <vector>
+
 void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
@@ -343,6 +345,23 @@ void MegamanX::getBoundingBox(float & left, float & top, float & right, float & 
 
 }
 
+void MegamanX::receiveDamage(float damage)
+{
+	if (_hp > 0)
+	{
+		_hp -= damage;
+		_attacked = true;
+		timeAttacked.start();
+		setHurt();
+	}
+	if (_hp <= 0)
+	{
+		setAnimationDie();
+		timeHide.start();
+		_death = true;
+	}
+}
+
 void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects)
 {
 	auto megamanBox = this->getBoundBox();
@@ -352,11 +371,12 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObje
 		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second);
 		if (!obj || obj->isDeath()) continue;
 
-		if (kv.second->getBoundBox().intersectsWith(megamanBox) //single
+		if (obj->getBoundBox().intersectsWith(megamanBox) //single
 			||
 			collisionGameObject(obj, this)) // swpet
 		{
-			setHurt();
+
+			this->receiveDamage(obj->getDamage());
 			return;
 		}
 
@@ -365,15 +385,23 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObje
 		{
 			if (bullet[0]->getBoundBox().intersectsWith(megamanBox) //single
 				||
-				collisionBullet(obj, *bullet, this)) //swept
+				collisionBullet(*bullet, this)) //swept
 			{
-				if (bullet[0]->toLeft)
-					obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);
+				this->receiveDamage(bullet[0]->getDamage());
+				if (dynamic_cast<Bee*>(bullet[0]))
+				{
+					bullet[0]->setAnimationEnd();
+				}
 				else
-					obj->createExplosion(bullet[0]->x - 10, bullet[0]->y);
+				{
+					if (bullet[0]->toLeft)
+						obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);
+					else
+						obj->createExplosion(bullet[0]->x - 10, bullet[0]->y);
+				}
+
 				delete *bullet;
 				bullet = bullets->erase(bullet);
-				setHurt();
 				return;
 			}
 			else ++bullet;
@@ -396,7 +424,8 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 		for (auto bullet = _weapons.begin(); bullet != _weapons.end();)
 		{
 			if (obj->isDeath()) break;
-			if (bullet[0]->getBoundBox().intersectsWith(objBox) //single aabb collision
+			auto box = bullet[0]->getBoundBox();
+			if (box.intersectsWith(objBox) //single aabb collision
 				||
 				collisionGameObject(*bullet, obj)) //colision bullet with dynamic with swept aabb
 			{
@@ -423,12 +452,21 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				bool noDelete = true;
 				for (auto bulletDynamic = dynamicBullets->begin(); bulletDynamic != dynamicBullets->end();)
 				{
-					if (collisionBullet(obj, *bulletDynamic, *bullet))
+					if (box.intersectsWith(bulletDynamic[0]->getBoundBox())
+						||
+						collisionBullet(*bulletDynamic, *bullet))
 					{
-						if (bulletDynamic[0]->toLeft)
-							obj->createExplosion(bulletDynamic[0]->x + 10, bulletDynamic[0]->y);
+						if (dynamic_cast<Bee*>(bulletDynamic[0]))
+						{
+							bulletDynamic[0]->createExplosion(bulletDynamic[0]->x, bulletDynamic[0]->y);
+						}
 						else
-							obj->createExplosion(bulletDynamic[0]->x - 10, bulletDynamic[0]->y);
+						{
+							if (bulletDynamic[0]->toLeft)
+								obj->createExplosion(bulletDynamic[0]->x + 10, bulletDynamic[0]->y);
+							else
+								obj->createExplosion(bulletDynamic[0]->x - 10, bulletDynamic[0]->y);
+						}
 
 						delete bulletDynamic[0];
 						bulletDynamic = dynamicBullets->erase(bulletDynamic);
@@ -446,32 +484,6 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				if (noDelete) ++bullet;
 			}
 		}
-
 		++it;
 	}
 }
-
-bool MegamanX::collisionGameObject(GameObject* obj1, GameObject* obj2)
-{
-	auto e = collision->sweptAABBEx(dt, obj1, obj2);
-	if (e->t > 0 && e->t <= 1.0f)
-	{
-		delete e;
-		return true;
-	}
-	delete e;
-	return false;
-}
-
-bool MegamanX::collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject* obj2)
-{
-	auto e = Collision::getInstance()->sweptAABBEx(dt, bullet1, obj2);
-	if (e->t > 0 && e->t <= 1.0f)
-	{
-		delete e;
-		return true;
-	}
-	delete e;
-	return false;
-}
-

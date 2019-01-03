@@ -37,6 +37,7 @@ public:
 	GameObject(UINT id, float x = 0, float y = 0, float vx = 0, float vy = 0);
 
 	GameObject() {}
+	
 	~GameObject();
 
 public:
@@ -51,6 +52,11 @@ public:
 	virtual void reset() {}
 	virtual void loadResources() = 0;
 	virtual void setReset() {}
+
+public:
+	bool collisionBullet(GameObject * bullet1, GameObject * obj2);
+	bool collisionGameObject(GameObject * obj1, GameObject * obj2);
+
 };
 
 #endif //! _GameObject_H

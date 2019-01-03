@@ -1,5 +1,5 @@
-#ifndef _DynamicObject_H
-#define _DynamicObject_H
+#ifndef _DynamicObject_H_
+#define _DynamicObject_H_
 #include "GameObject.h"
 #include "ConstGlobals.h"
 #include "Weapon.h"
@@ -15,18 +15,19 @@ protected:
 	float initHP = 0; //for reset
 	float initX = 0;
 	float initY = 0;
+	float initDamage = 0;
 	bool initToLeft = 0;
 	CTime timeHide = (2000);
 	CRectangle resetBound;
 	int timeSwitchColor = 0;
 	bool showColor = true;
-
 	bool _attacked = false;
 	CTime timeAttacked = (100);
+
 protected:
 	virtual void setAnimationDie() {};
 	virtual void updateWeapon(DWORD , unordered_map<int, GameObject*>* staticObjects) {};
-	virtual void renderWeapon(DWORD dt, D3DCOLOR colorBrush);
+	virtual void renderWeapon(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	virtual void setResetBound() {}
 protected:
 	float _hp = 0;
@@ -39,12 +40,12 @@ public:
 	bool isDeath();
 	float* getHp() { return &_hp; }
 public:
-	
 	virtual void receiveDamage(float damage);
 	virtual void reset() override;
 	virtual vector<Weapon*>* getWeapons();
 	virtual void createExplosion(float x, float y) {}
 	virtual void setReset() override { _isReset = false; }
+	float getDamage() { return initDamage; }
 };
 
-#endif // !_DynamicObject_H
+#endif // !_DynamicObject_H_

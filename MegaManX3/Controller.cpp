@@ -39,13 +39,14 @@ void Controller::update(DWORD dt)
 	filterAndUpdate(dt, dynamicObjects);//filter Dynamic Object => current dynamic
 
 	blastHornet->update(dt, &currentStatic);
-
+	currentDynamic[-999] = blastHornet;
 	main->update(dt, &currentStatic, &currentDynamic);
 	stageController->updateElevator(dt);
 }
 
 void Controller::render(DWORD dt)
 {
+	background->render(dt);
 	tilesController->render(dt);
 
 	for (auto kv : currentDynamic) 
@@ -60,9 +61,9 @@ void Controller::render(DWORD dt)
 	blastHornet->render(dt);
 
 	main->render(dt);
+	blastHornet->getHoretPoint()->render(dt);
 	hpBarMain->render(true);
 	hpBarBoss->render(true);
-
 }
 
 
@@ -74,7 +75,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	stageController->setCurrentStatic(&currentStatic);
 	enableUpdate = true;
 	stageController->setEnableUpdateController(&enableUpdate);
-
+	background = new BackgroundController();
 	this->rootStatic = rootStatic;
 	this->rootDynamic = rootDynamic;
 	this->main = main;
@@ -87,7 +88,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	//shurikein->state = manifest;
 	
 	hpBarMain = new HPBar(*main->getHp(), 38.0f, 2.0f, true);
-	hpBarBoss = new HPBar(*blastHornet->getHp(), 64.f, 2.0f, false);
+	hpBarBoss = new HPBar(*blastHornet->getHp(), 64.0f, 2.0f, false);
 
 }
 

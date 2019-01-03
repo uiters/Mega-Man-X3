@@ -11,12 +11,13 @@
 #include "StageController.h"
 #include "WeaponEffectController.h"
 #include "BlastHornet.h"
+#include "BackgroundController.h"
 class Controller
 {
 
 private:
 	MegamanX* main;
-
+	BackgroundController* background;
 	unordered_map<int, GameObject*> currentStatic;//current Static objects
 	unordered_map<int, GameObject*> currentDynamic;//current Dynaimc Objects;
 	StageController* stageController;

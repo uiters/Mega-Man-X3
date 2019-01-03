@@ -19,6 +19,8 @@ public:
 
 public:
 	virtual ~Weapon();
+	virtual void createExplosion(float x, float y) { _weaponEffect->createExplosion(x, y); }
+public:
 	virtual bool getIsDelete() { return isDelete; };
 	virtual int getDamage() { return _damage; };
 };

@@ -48,7 +48,8 @@ enum TextureID
 	TCharged1 = 2004,
 	TCharged2 = 2005,
 	THelit = 2006,
-	THPBar = 2222
+	THPBar = 2222,
+	TBackgroundBoss = 2223,
 };
 enum ShurikeinAnimation
 {
@@ -101,15 +102,16 @@ enum Animation {
 	Hornet_Drop_Bee_1 = 99990,
 	Hornet_Drop_Bee_1_1 = 99890,
 	Hornet_Drop_Bee_1_End = 98790,
+	Hornet_Drop_Bee_2_Prepare = 88010,
 	Hornet_Drop_Bee_2 = 80010,
 	Hornet_Drop_Bee_2_End = 81810,
 	Hornet_Prick_End = 80810,
 	Hornet_Die = 99999,
 	Hornet_Explosion = 999969,
 	Hornet_Bee_Type_1 = 96000,
-	Hornet_Bee_Type_2 = 96900,
+	Hornet_Bee_Type_2 = 96002,
 	Hornet_Bee_Die_1 = 96960,
-	Hornet_Bee_Die_2 = 96969,
+	Hornet_Bee_Die_2 = 96962,
 	Hornet_Bee_Explosion = 969690,
 	Hornet_Wing = 969696,
 	Hornet_Aim = 800000,
@@ -122,6 +124,7 @@ enum Animation {
 	HpTailBoss = 22220,
 	HpBody = 222200,
 	HpEntry = 22002,
+	BackgroundBoss = 22019,
 };
 
 

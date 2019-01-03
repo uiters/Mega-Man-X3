@@ -31,7 +31,29 @@ void GameObject::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects
 	dx = speed.vx * dt;
 	dy = speed.vy * dt;
 }
+bool GameObject::collisionGameObject(GameObject* obj1, GameObject* obj2)
+{
+	auto e = collision->sweptAABBEx(dt, obj1, obj2);
+	if (e->t > 0 && e->t <= 1.0f)
+	{
+		delete e;
+		return true;
+	}
+	delete e;
+	return false;
+}
 
+bool GameObject::collisionBullet(GameObject* bullet1, GameObject* obj2)
+{
+	auto e = Collision::getInstance()->sweptAABBEx(dt, bullet1, obj2);
+	if (e->t > 0 && e->t <= 1.0f)
+	{
+		delete e;
+		return true;
+	}
+	delete e;
+	return false;
+}
 GameObject::~GameObject()
 {
 

@@ -130,6 +130,9 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationOneTime.h" />
+    <ClInclude Include="BackgroundController.h" />
+    <ClInclude Include="Bee.h" />
+    <ClInclude Include="BeeExplosion.h" />
     <ClInclude Include="BlastHornet.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BulletCollision.h" />
@@ -173,6 +176,8 @@
     <ClInclude Include="HeadGunnerBullet2.h" />
     <ClInclude Include="Helit.h" />
     <ClInclude Include="HelitBullet.h" />
+    <ClInclude Include="HornetExplosion.h" />
+    <ClInclude Include="HornetPoint.h" />
     <ClInclude Include="HPBar.h" />
     <ClInclude Include="KeyController.h" />
     <ClInclude Include="MegamanEffectFactory.h" />
@@ -197,6 +202,9 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationOneTime.cpp" />
+    <ClCompile Include="BackgroundController.cpp" />
+    <ClCompile Include="Bee.cpp" />
+    <ClCompile Include="BeeExplosion.cpp" />
     <ClCompile Include="BlastHornet.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BulletCollision.cpp" />
@@ -235,6 +243,8 @@
     <ClCompile Include="HeadGunnerBullet2.cpp" />
     <ClCompile Include="Helit.cpp" />
     <ClCompile Include="HelitBullet.cpp" />
+    <ClCompile Include="HornetExplosion.cpp" />
+    <ClCompile Include="HornetPoint.cpp" />
     <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="KeyController.cpp" />
     <ClCompile Include="main.cpp" />

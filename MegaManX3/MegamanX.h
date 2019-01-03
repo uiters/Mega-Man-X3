@@ -1,5 +1,5 @@
-﻿#ifndef _MegamanX_H
-#define _MegamanX_H
+﻿#ifndef _MegamanX_H_
+#define _MegamanX_H_
 #pragma once
 #include "DynamicObject.h"
 #include "GameObject.h"
@@ -70,12 +70,9 @@ public:
 	void keyState(BYTE*) override;
 	void getBoundingBox(float& left, float& top, float& right, float &bottom) override;
 	void setFloor(StaticObject* obj) { keyController->setFloor(obj); }
+	void receiveDamage(float damage) override;
 private:
 	void dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects);
 	void bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);
-
-	bool collisionGameObject(GameObject* obj1, GameObject* obj2);
-	bool collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject* obj2);
-	
 };
-#endif // !_MegamanX_H
+#endif // !_MegamanX_H_
