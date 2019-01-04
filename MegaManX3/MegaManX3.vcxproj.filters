@@ -103,9 +103,6 @@
     <Filter Include="Game\Stage">
       <UniqueIdentifier>{0c2f7f65-b4fa-442f-8127-faa249bac674}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Controls\Sound">
-      <UniqueIdentifier>{a9520e34-4d42-4f1f-bf53-82c06a626484}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Controls\Scence">
       <UniqueIdentifier>{5ebf49d0-b6b6-44be-939d-207a76897259}</UniqueIdentifier>
     </Filter>
@@ -180,9 +177,6 @@
     <ClInclude Include="dsutil.h">
       <Filter>Lib\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="dxsound.h">
-      <Filter>Lib\Sound</Filter>
-    </ClInclude>
     <ClInclude Include="dxutil.h">
       <Filter>Lib\Sound</Filter>
     </ClInclude>
@@ -215,9 +209,6 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Lib\Font</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Game\Controls\Sound</Filter>
     </ClInclude>
     <ClInclude Include="ScenceController.h">
       <Filter>Game\Controls\Scence</Filter>
@@ -324,6 +315,9 @@
     <ClInclude Include="Shurikein.h">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CSounds.h">
+      <Filter>Lib\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -354,9 +348,6 @@
     <ClCompile Include="dsutil.cpp">
       <Filter>Lib\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="dxsound.cpp">
-      <Filter>Lib\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="dxutil.cpp">
       <Filter>Lib\Sound</Filter>
     </ClCompile>
@@ -383,9 +374,6 @@
     </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Lib\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Game\Controls\Sound</Filter>
     </ClCompile>
     <ClCompile Include="ScenceController.cpp">
       <Filter>Game\Controls\Scence</Filter>
@@ -488,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="Shurikein.cpp">
       <Filter>Game\GameObject\DynamicObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CSounds.cpp">
+      <Filter>Lib\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

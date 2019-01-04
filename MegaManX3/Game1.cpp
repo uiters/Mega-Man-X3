@@ -1,5 +1,6 @@
 #include "Game1.h"
 #include "Helit.h"
+#include "CSounds.h"
 void Game1::initGolbals()
 {
 	texturesGlobal = CTextures::getInstance();
@@ -320,6 +321,27 @@ void Game1::loadResource()
 	main->addAnimation(die);
 #pragma endregion
 	
+#pragma region Sounds
+	CSounds*sounds = CSounds::getInstance();
+	soundsGlobal = sounds;
+	sounds->add(sound_bul_fly, L"Resource\\Sounds\\sound_bul_fly.wav");
+	sounds->add(sound_bul_lv1, L"Resource\\Sounds\\sound_bul_lv1.wav");
+	sounds->add(sound_bul_lv2, L"Resource\\Sounds\\sound_bul_lv2.wav");
+	sounds->add(sound_bul_lv3, L"Resource\\Sounds\\sound_bul_lv3.wav");
+	sounds->add(sound_charge_lv1, L"Resource\\Sounds\\sound_charge_lv1.wav");
+	sounds->add(sound_charge_lv2, L"Resource\\Sounds\\sound_charge_lv2.wav");
+	sounds->add(sound_MX_shock, L"Resource\\Sounds\\sound_MX_shock.wav");
+	sounds->add(sound_MX_revival, L"Resource\\Sounds\\sound_MX_revival.wav");
+	sounds->add(sound_MX_dash, L"Resource\\Sounds\\sound_MX_dash.wav");
+	sounds->add(sound_MX_jump, L"Resource\\Sounds\\sound_MX_jump.wav");
+	sounds->add(sound_MX_heal, L"Resource\\Sounds\\sound_MX_heal.wav");
+	sounds->add(sound_MX_die, L"Resource\\Sounds\\sound_MX_die.wav");
+	sounds->add(sound_MX_grounding, L"Resource\\Sounds\\sound_MX_grounding.wav");
+	sounds->add(sound_explosion, L"Resource\\Sounds\\sound_explosion.wav");
+	sounds->add(sound_theme, L"Resource\\Sounds\\sound_theme.wav");
+#pragma endregion
+
+	sounds->playInfinity(sound_theme,-2200);
 }
 
 

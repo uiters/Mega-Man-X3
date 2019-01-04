@@ -12,6 +12,7 @@
 #include "Debugs.h"
 #include "Animation.h"
 #include "CollisionEvent.h"
+#include "CSounds.h"
 class GameObject;
 class CTextures;
 

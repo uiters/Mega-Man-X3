@@ -3,6 +3,7 @@
 #include "ConstGlobals.h"
 #include <vector>
 
+
 void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
@@ -281,14 +282,17 @@ void MegamanX::onKeyDown(int keyCode)
 	case DIK_RIGHT:
 		keyController->addKeyArrow(false);
 		break;
-	case DIK_Z:
+	case DIK_Z:		
 		keyController->addKeyZ();
+		
 		break;
 	case DIK_X:
 		keyController->addKeyX();
+		soundsGlobal->play(sound_MX_jump);
 		break;
 	case DIK_C:
 		keyController->addKeyC();
+		soundsGlobal->play(sound_MX_dash);
 		break;
 	default:
 		break;

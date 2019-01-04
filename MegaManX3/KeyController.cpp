@@ -213,6 +213,7 @@ void KeyController::updateShoot()
 		timePressZ.update();
 		if (timePressZ.getTime() > 500 && levelShoot == 0)
 			effect->createShoot(++levelShoot);
+
 		else
 			if (timePressZ.getTime() > 2500 && levelShoot == 1)
 				effect->createShoot(++levelShoot);
