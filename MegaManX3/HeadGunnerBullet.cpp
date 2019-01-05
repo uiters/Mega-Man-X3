@@ -9,15 +9,7 @@ HeadGunnerBullet::HeadGunnerBullet(float x, float y, bool nx, bool ny)
 	this->ny = ny;
 	loadResources();
 	setState(bullet_head_gun_state_default);
-}
-
-HeadGunnerBullet::HeadGunnerBullet(int id, float x, float y, bool nx, bool ny)
-{
-	this->_id = id;
-	this->x = x;
-	this->y = y;
-	this->nx = nx;
-	this->ny = ny;
+	_damage = 2;
 }
 
 HeadGunnerBullet::~HeadGunnerBullet()

@@ -131,6 +131,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationOneTime.h" />
     <ClInclude Include="BarrierSystem.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="BackgroundController.h" />
     <ClInclude Include="Bee.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationOneTime.cpp" />
     <ClCompile Include="BarrierSystem.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="BackgroundController.cpp" />
     <ClCompile Include="Bee.cpp" />

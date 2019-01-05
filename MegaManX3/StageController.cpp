@@ -19,9 +19,9 @@ StageController * StageController::getInstance()
 
 void StageController::getStaticObject(DWORD dt)
 {
-	auto brick = camera->getBlock();
-	if (brick)
-		currentStatic[0][ID_BLOCK_BACK_WARD] = brick;
+	auto block = camera->getBlock();
+	if (block)
+		currentStatic[0][ID_BLOCK_BACK_WARD] = block;
 
 	if (camera->viewport.x > 576 && camera->getState() < 4)
 	{

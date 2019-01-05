@@ -135,7 +135,7 @@ void KeyController::updateState()
 		case StatusJump::Slide:
 			state = MegaManAnimation::slide;
 			stateShoot = slide_shoot;
-			main->speed.vy -= 0.0001f * main->dt;
+			//main->speed.vy -= 0.0001f * main->dt;
 			width = Slide_Shoot_Width;
 			height = Slide_Shoot_Height;
 			break;
@@ -250,7 +250,7 @@ void KeyController::addKeyX()
 
 	if (onAir)
 	{
-		if (isWall && timeKick.isStop())
+		if (isWall && timeKick.isStop() && !dynamic_cast<Block*>(wall))
 			kickWall();
 	}
 	else
@@ -316,7 +316,7 @@ void KeyController::updateJump()
 			}
 		}
 		else
-		if (statusJump == StatusJump::Fall && wall && pressArrow == 1 && isWallLeft == toLeft)
+		if (statusJump == StatusJump::Fall && wall && !dynamic_cast<Block*>(wall) && pressArrow == 1 && isWallLeft == toLeft)
 		{
 			statusJump = StatusJump::Slide;
 			return;

@@ -25,7 +25,12 @@ private:
 	MegamanX* main;
 	BackgroundController* background;
 	unordered_map<int, GameObject*> currentStatic;//current Static objects
-	unordered_map<int, GameObject*> currentDynamic;//current Dynaimc Objects;
+	unordered_map<int, GameObject*>* currentDynamic;//current Dynaimc Objects;
+	unordered_map<int, GameObject*>* saveDynamic;//save
+
+	unordered_map<int, GameObject*> dynamicObject1;
+	unordered_map<int, GameObject*> dynamicObject2;
+
 	StageController* stageController;
 	ScenceController* tilesController;
 	WeaponEffectController* weaponEffect;
@@ -39,6 +44,7 @@ private:
 	Shurikein* shurikein;
 	HPBar* hpBarMain;
 	HPBar* hpBarBoss;
+
 private:
 	void filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& objects);
 public:

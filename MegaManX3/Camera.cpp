@@ -60,7 +60,7 @@ void Camera::state1(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 736, 512, 31, 256);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 736, 512, 32, 256);
 		nextAnimation();
 		lockLeft = true;
 		lockTop = true;
@@ -117,7 +117,7 @@ void Camera::state3(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 992, 0, 32, 256);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 992, 0, 32, 256);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -143,7 +143,7 @@ void Camera::state4(int cameraX, int cameraY)
 	if (cameraX > maxValue)
 	{
 		delete blockBackward;
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 2297, 895, 22, 52);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 2297, 895, 22, 52);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -194,12 +194,12 @@ void Camera::state5(int cameraX, int cameraY)
 	if (cameraX > maxValue) //next
 	{
 		delete blockBackward;
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 2546, 895, 22, 52);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 2546, 895, 22, 52);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
 		minValue = 2560;
-		maxValue = 5536;
+		maxValue = 5504;
 		state = &Camera::state6;
 		return;
 	}
@@ -212,7 +212,7 @@ void Camera::state6(int cameraX, int cameraY)
 	if (cameraX > maxValue)
 	{
 		delete blockBackward;
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 5632, 895, 17, 61);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 5632, 895, 13, 61);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -257,7 +257,7 @@ void Camera::state7(int cameraX, int cameraY)
 	if (cameraX > maxValue)
 	{
 		delete blockBackward;
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 5898, 895, 23, 61);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 5890, 895, 10, 61);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -274,7 +274,7 @@ void Camera::state8(int cameraX, int cameraY)
 	if (cameraX > maxValue)
 	{
 		delete blockBackward;
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 7392, 1663, 62, 66);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 7412, 1663, 16, 66);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -344,7 +344,7 @@ void Camera::state9(int cameraX, int cameraY)
 	if (cameraX > maxValue)
 	{
 		delete blockBackward;
-		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 7393, 1662, 16, 80);
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 7680, 1662, 14, 80);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -366,12 +366,12 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	viewport.x = (x / 256) * 256;
 	viewport.y = (y / 256) * 256;
 	//1
-	//nAnimation = 1;
-	//state = &Camera::state1;
-	//minValue = 0;
-	//maxValue = 650;
-	//lockTop = true;
-	//lockLeft = true;
+	nAnimation = 1;
+	state = &Camera::state1;
+	minValue = 0;
+	maxValue = 650;
+	lockTop = true;
+	lockLeft = true;
 
 	//2
 	//nAnimation = 2;
@@ -388,13 +388,13 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//lockTop = true;
 	//lockLeft = true;
 	
-	//boss
-	nAnimation = 10;
-	lockTop = true;
-	lockLeft = true;
-	minValue = 7424;
-	maxValue = 7552;
-	state = &Camera::state10;
+	////boss
+	//nAnimation = 10;
+	//lockTop = true;
+	//lockLeft = true;
+	//minValue = 7424;
+	//maxValue = 7552;
+	//state = &Camera::state10;
 
 	//nAnimation = 5;
 	//switch (nAnimation)

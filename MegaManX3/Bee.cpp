@@ -13,6 +13,7 @@ void Bee::loadResources()
 
 Bee::Bee(float x, float y, float vx, float vy, bool toLeft, bool isChase)
 {
+	_damage = 1.f;
 	loadResources();
 	this->x = x;
 	this->y = y;

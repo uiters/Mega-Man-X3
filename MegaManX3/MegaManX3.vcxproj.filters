@@ -163,6 +163,9 @@
     <Filter Include="Game\Effect\Boss">
       <UniqueIdentifier>{7533d48e-c238-49aa-afa2-435c280ba61b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Controls\Boss">
+      <UniqueIdentifier>{efc0577e-7e39-42c7-adbc-19dc92d17e38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -390,8 +393,11 @@
     <ClInclude Include="SolskjærBullet.h">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClInclude>
     <ClInclude Include="SolskjærController.h">
-      <Filter>Game\Controls</Filter>
+      <Filter>Game\Controls\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -606,8 +612,11 @@
     <ClCompile Include="SolskjærBullet.cpp">
       <Filter>Game\GameObject\Weapon\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Game\GameObject\Static Object\Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="SolskjærController.cpp">
-      <Filter>Game\Controls</Filter>
+      <Filter>Game\Controls\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

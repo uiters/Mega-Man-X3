@@ -1,12 +1,12 @@
-#ifndef _Camera_H
-#define _Camera_H
-
+#ifndef _Camera_H_
+#define _Camera_H_
+#pragma once
 #include "ConstGlobals.h"
 #include "Game.h"
-#include "Brick.h"
+#include "Block.h"
 #include "Elevator.h"
 
-class Brick;
+class Block;
 
 class Camera {
 private:
@@ -15,7 +15,7 @@ private:
 	void(Camera::*state) (int, int);
 
 	int nAnimation = 1;
-	Brick* blockBackward; //Block ,main backward 
+	Block* blockBackward; //Block ,main backward 
 
 	bool lockLeft = false;
 	bool lockTop = false;
@@ -47,7 +47,7 @@ public:
 	const Point transform(const int& x,const int& y) const;
 
 public:
-	Brick* getBlock() { return blockBackward; }
+	Block* getBlock() { return blockBackward; }
 	int getState() { return nAnimation; }
 
 public:

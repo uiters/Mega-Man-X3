@@ -67,6 +67,7 @@ void Helit::loadResources()
 
 Helit::Helit(int id, float x, float y, bool toLeft) : DynamicObject(id, x, y, 0, 0)
 {
+	initDamage = 2.f;
 	_effects.emplace_back(WallSlide::getInstance());
 	_effects.emplace_back(ExplosionEffect::getInstance());
 

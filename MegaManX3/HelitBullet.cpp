@@ -16,6 +16,7 @@ HelitBullet::HelitBullet(int x, int y, bool toLeft)
 	this->speed.vx = toLeft ? -0.125f : 0.125f;
 	this->speed.vy = 0.00f;
 	this->toLeft = toLeft;
+	_damage = 1;
 }
 
 HelitBullet::~HelitBullet()

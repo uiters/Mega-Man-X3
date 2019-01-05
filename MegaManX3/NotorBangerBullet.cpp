@@ -11,20 +11,9 @@ NotorBangerBullet::NotorBangerBullet(float x, float y, bool nx, bool ny, int dis
 	this->distance = distance;
 	loadResources();
 	setState(bullet_head_gun_state_default);
+	_damage = 1;
 }
 
-NotorBangerBullet::NotorBangerBullet(int id, float x, float y, bool nx, bool ny, int distance)
-{
-	this->_id = id;
-	this->x = x;
-	this->y = y;
-	this->nx = nx;
-	this->ny = ny;
-	this->isDelete = false;
-	this->distance = distance;
-	loadResources();
-	setState(bullet_head_gun_state_default);
-}
 
 NotorBangerBullet::~NotorBangerBullet()
 {

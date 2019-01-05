@@ -11,8 +11,9 @@ void Controller::filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& obje
 		if (obj->getBoundBox().intersectsWith(*viewPortGlobal))
 		{
 			obj->setReset();
-			currentDynamic[obj->getID()] = obj;
+			currentDynamic[0][obj->getID()] = obj;
 			obj->update(dt, &currentStatic);
+			//debugOut(L"%f %f \n", obj->x, obj->y);
 		}
 		else
 		{
@@ -24,24 +25,27 @@ void Controller::filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& obje
 
 void Controller::update(DWORD dt)
 {
-	currentStatic.clear();
+	currentStatic.clear(); 
+	currentDynamic->clear();
+
 	tilesController->update(viewPortGlobal);
 	stageController->update(dt);
 
 	if (!enableUpdate) return;
 
-	
-	unordered_map<int, GameObject*> dynamicObjects;// dynamic quatree
-
 	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);// static quadtree
-	rootDynamic->getObjectsIn(viewPortGlobal, dynamicObjects);// dynamic quatree
+	rootDynamic->getObjectsIn(viewPortGlobal, *saveDynamic);// dynamic quatree
 
-	filterAndUpdate(dt, dynamicObjects);//filter Dynamic Object => current dynamic
+	filterAndUpdate(dt, *saveDynamic);//filter Dynamic Object => current dynamic
 
-	blastHornet->update(dt, &currentStatic);
-	currentDynamic[-999] = blastHornet;
-	main->update(dt, &currentStatic, &currentDynamic);
+	main->update(dt, &currentStatic, currentDynamic);
 	stageController->updateElevator(dt);
+
+	//switch current -> save && save ->current
+	auto temp = currentDynamic;
+	currentDynamic = saveDynamic;
+	saveDynamic = temp;
+	stageController->setCurrentDynamic(currentDynamic);
 }
 
 void Controller::render(DWORD dt)
@@ -49,7 +53,7 @@ void Controller::render(DWORD dt)
 	background->render(dt);
 	tilesController->render(dt);
 
-	for (auto kv : currentDynamic) 
+	for (auto kv : *saveDynamic) 
 	{
 		kv.second->render(dt);
 	}
@@ -61,9 +65,9 @@ void Controller::render(DWORD dt)
 	blastHornet->render(dt);
 
 	main->render(dt);
-	blastHornet->getHoretPoint()->render(dt);
+
 	hpBarMain->render(true);
-	hpBarBoss->render(true);
+	//hpBarBoss->render(true);
 }
 
 
@@ -71,7 +75,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 {
 	stageController = StageController::getInstance();
 	weaponEffect = WeaponEffectController::getIntance();
-	stageController->setCurrentDynamic(&currentDynamic);
+	
 	stageController->setCurrentStatic(&currentStatic);
 	enableUpdate = true;
 	stageController->setEnableUpdateController(&enableUpdate);
@@ -79,6 +83,8 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->rootStatic = rootStatic;
 	this->rootDynamic = rootDynamic;
 	this->main = main;
+	currentDynamic = &dynamicObject1;
+	saveDynamic = &dynamicObject2;
 
 	tilesController = new ScenceController();
 	blastHornet = new BlastHornet();

@@ -18,7 +18,6 @@ public:
 	bool ny;
 
 	HeadGunnerBullet(float x, float y, bool nx, bool ny);
-	HeadGunnerBullet(int id, float x, float y, bool nx, bool ny);
 	~HeadGunnerBullet();
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));

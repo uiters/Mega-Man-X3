@@ -11,6 +11,7 @@ HeadGunnerBullet2::HeadGunnerBullet2(float x, float y, bool nx, bool ny)
 	setState(bullet_head_gun_state_2);
 	if (nx) speed.vx = abs(speed.vx); // right
 	else speed.vx = -abs(speed.vx);
+	_damage = 1;
 }
 
 HeadGunnerBullet2::~HeadGunnerBullet2()

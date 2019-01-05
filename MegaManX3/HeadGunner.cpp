@@ -3,6 +3,7 @@
 
 HeadGunner::HeadGunner(UINT id, float x, float y, bool nx) : DynamicObject(id, x, y, 0, 0)
 {
+	initDamage = 4.0f;
 	this->nx = nx;
 	this->initToLeft = !nx;
 	this->repeat = 0;

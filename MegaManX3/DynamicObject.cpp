@@ -55,6 +55,8 @@ void DynamicObject::reset()
 		visible = true;
 		x = initX;
 		y = initY;
+		speed.vx = 0;
+		speed.vy = 0;
 		toLeft = initToLeft;
 		for (auto it = _weapons.begin(); it != _weapons.end();)
 		{
