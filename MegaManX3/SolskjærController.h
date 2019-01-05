@@ -30,6 +30,7 @@ private:
 	int clock;
 	int clockForCarryArm;
 	int clockForSolskjær;
+	int limitTime;
 
 	void collisionMain(MegamanX* main);
 	void bulletCollisionDynamic(MegamanX* main);

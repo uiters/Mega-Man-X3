@@ -23,8 +23,7 @@ class Solskjær :
 {
 public:
 	bool isRepeat;
-	bool isRender;
-	bool isDie;
+	bool* isDie = &_death;
 
 	Solskjær();
 	~Solskjær();
@@ -44,5 +43,6 @@ private:
 	void loadResources();
 
 	void createBullet();
+	void createCloneBullet();
 };
 

@@ -27,7 +27,7 @@ class CarryArm :
 public:
 	float putBoxX;
 	float putBoxY;
-	bool isDie;
+	bool* isDie = &_death;
 	bool isComplete;
 	bool isPutBox;
 	bool isLeft;
@@ -45,6 +45,7 @@ public:
 	CarryArm* clone(int id, int x, int y) override;
 	Box* getBox() { return box; }
 	void reset();
+	void receiveDamage(int damage);
 private:
 	float initX;
 	float initY;
