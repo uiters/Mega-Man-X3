@@ -383,18 +383,20 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//maxValue = 512;
 	
 	//shuriken
-	//maxValue = 2432;
-	//minValue = 2432;
-	//lockTop = true;
-	//lockLeft = true;
-	
-	//boss
-	nAnimation = 10;
+	nAnimation = 5;
+	maxValue = 2432;
+	minValue = 2432;
 	lockTop = true;
 	lockLeft = true;
-	minValue = 7424;
-	maxValue = 7552;
-	state = &Camera::state10;
+	state = &Camera::state5;
+
+	////boss
+	//nAnimation = 10;
+	//lockTop = true;
+	//lockLeft = true;
+	//minValue = 7424;
+	//maxValue = 7552;
+	//state = &Camera::state10;
 
 	//nAnimation = 5;
 	//switch (nAnimation)

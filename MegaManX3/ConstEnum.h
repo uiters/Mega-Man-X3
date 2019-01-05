@@ -149,4 +149,19 @@ enum MegaManAnimation {
 	slide_shoot = 11700,
 
 };
+enum Sounds {
+	sound_bul_lv1 = 21,
+	sound_bul_lv2 = 22,
+	sound_bul_lv3 = 23,
+	sound_charge_lv1 = 24,
+	sound_charge_lv2 = 25,
+	sound_MX_shock = 26,
+	sound_MX_revival = 27,
+	sound_MX_dash = 28,
+	sound_MX_jump = 29,
+	sound_MX_heal = 30,
+	sound_MX_die = 31,
+	sound_explosion = 33,
+	sound_theme = 34,
+};
 #endif // !_ConstEnum_H_

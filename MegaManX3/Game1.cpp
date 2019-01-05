@@ -1,5 +1,6 @@
 #include "Game1.h"
 #include "Helit.h"
+#include "CSounds.h"
 void Game1::initGolbals()
 {
 	texturesGlobal = CTextures::getInstance();
@@ -8,8 +9,8 @@ void Game1::initGolbals()
 
 	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
 	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
-	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);
-	cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
+	cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);
+	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
 
 	viewPortGlobal = &cameraGlobal->viewport;
 }
@@ -47,8 +48,8 @@ void Game1::loadResource()
 	//main = new MegamanX(Megaman, 100, 650);
 	//main = new MegamanX(Megaman, 768, 650);
 	//7715 1681
-	//main = new MegamanX(Megaman, 2344, 910);
-	main = new MegamanX(Megaman, 7715, 1681);
+	main = new MegamanX(Megaman, 2344, 910);
+	//main = new MegamanX(Megaman, 7715, 1681);
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -366,6 +367,25 @@ void Game1::loadResource()
 	main->addAnimation(die);
 #pragma endregion
 	
+#pragma region Sounds
+	CSounds*sounds = CSounds::getInstance();
+	soundsGlobal = sounds;
+	sounds->add(sound_bul_lv1, L"Resource\\Sounds\\sound_bul_lv1.wav");
+	sounds->add(sound_bul_lv2, L"Resource\\Sounds\\sound_bul_lv2.wav");
+	sounds->add(sound_bul_lv3, L"Resource\\Sounds\\sound_bul_lv3.wav");
+	sounds->add(sound_charge_lv1, L"Resource\\Sounds\\sound_charge_lv1.wav");
+	sounds->add(sound_charge_lv2, L"Resource\\Sounds\\sound_charge_lv2.wav");
+	sounds->add(sound_MX_shock, L"Resource\\Sounds\\sound_MX_shock.wav");
+	sounds->add(sound_MX_revival, L"Resource\\Sounds\\sound_MX_revival.wav");
+	sounds->add(sound_MX_dash, L"Resource\\Sounds\\sound_MX_dash.wav");
+	sounds->add(sound_MX_jump, L"Resource\\Sounds\\sound_MX_jump.wav");
+	sounds->add(sound_MX_heal, L"Resource\\Sounds\\sound_MX_heal.wav");
+	sounds->add(sound_MX_die, L"Resource\\Sounds\\sound_MX_die.wav");
+	sounds->add(sound_explosion, L"Resource\\Sounds\\sound_explosion.wav");
+	sounds->add(sound_theme, L"Resource\\Sounds\\sound_theme.wav");
+#pragma endregion
+
+	sounds->playInfinity(sound_theme,-2200);
 #pragma region Headgun
 	spritesGlobal->addSprite(bullet_head_gun_state_default, THeadGun, 71, 13, 7, 7);
 	spritesGlobal->addSprite(bullet_head_gun_state_2, THeadGun, 33, 13, 23, 7);

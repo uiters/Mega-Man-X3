@@ -194,10 +194,23 @@ Shurikein::Shurikein(UINT id, float x, float y, float vx, float vy) :DynamicObje
 
 void Shurikein::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-
+	if (!visible)
+	{
+		return;
+	}
 	if (_death)
 	{
-		//todo
+		timeHide.update();
+		if (timeHide.isStop())
+		{
+			visible = false;
+		}
+		timeDelayExplosion.update();
+		if (timeDelayExplosion.isStop())
+		{
+			createExplosion(x - 22 + rand() % 46, y - 22 + rand() % 46);
+			timeDelayExplosion.start();
+		}
 
 		return;
 	}
@@ -410,14 +423,15 @@ void Shurikein::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 
 void Shurikein::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (_death)
-	{
-		effectExplosion->render(dt, true);
-		return;
-	}
+	if (!visible) return;
 	auto pos = cameraGlobal->transform(x, y);
 	//_animations[state]->render(pos.x, pos.y, true, colorBrush);
 	_animations[state]->render(pos.x, pos.y, true, hit ? RED(255) : WHITE(255));
+	if (_death)
+	{
+		effectExplosion->render(dt, true);
+	}
+
 }
 
 void Shurikein::getBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -431,27 +445,24 @@ void Shurikein::getBoundingBox(float & left, float & top, float & right, float &
 
 void Shurikein::receiveDamage(float damage)
 {
-	//{
 	if (_hp > 0)
 	{
 		_hp -= damage;
-	}
-
-	if (_hp <= 0)
-	{
-		createExplosion(x, y);
-		_death = true;
-	}
-	else
-	{
 		hit = true;
 		timeBeHit.start();
 	}
-
+	else
+	{
+		state = normal;
+		_death = true;
+		timeHide.start();
+		timeDelayExplosion.start();
+	}
 }
 
 void Shurikein::createExplosion(float x, float y)
 {
+	soundsGlobal->play(sound_explosion);
 	effectExplosion->createEffect(x, y);
 }
 

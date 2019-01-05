@@ -154,12 +154,12 @@
     <ClInclude Include="ConstGlobals.h" />
     <ClInclude Include="ConstStruct.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="CSounds.h" />
     <ClInclude Include="CTime.h" />
     <ClInclude Include="DashSmoke.h" />
     <ClInclude Include="DashSpark.h" />
     <ClInclude Include="DiePoint.h" />
     <ClInclude Include="dsutil.h" />
-    <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="Effect.h" />
@@ -194,7 +194,6 @@
     <ClInclude Include="Solskjær.h" />
     <ClInclude Include="SolskjærBullet.h" />
     <ClInclude Include="SolskjærController.h" />
-    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StageController.h" />
     <ClInclude Include="StaticObject.h" />
@@ -229,13 +228,13 @@
     <ClCompile Include="CollisionEvent.cpp" />
     <ClCompile Include="ConstGlobals.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="CSounds.cpp" />
     <ClCompile Include="CTime.cpp" />
     <ClCompile Include="DashSmoke.cpp" />
     <ClCompile Include="DashSpark.cpp" />
     <ClCompile Include="Debugs.cpp" />
     <ClCompile Include="DiePoint.cpp" />
     <ClCompile Include="dsutil.cpp" />
-    <ClCompile Include="dxsound.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -268,7 +267,6 @@
     <ClCompile Include="Solskjær.cpp" />
     <ClCompile Include="SolskjærBullet.cpp" />
     <ClCompile Include="SolskjærController.cpp" />
-    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StageController.cpp" />
     <ClCompile Include="StaticObject.cpp" />

@@ -38,8 +38,14 @@ void Controller::update(DWORD dt)
 
 	filterAndUpdate(dt, dynamicObjects);//filter Dynamic Object => current dynamic
 
-	blastHornet->update(dt, &currentStatic);
-	currentDynamic[-999] = blastHornet;
+	//blastHornet->update(dt, &currentStatic);
+	//currentDynamic[-999] = blastHornet;
+	currentStatic[-2] = brick1;
+	currentStatic[-3] = brick2;
+	shurikein->update(dt, &currentStatic);
+	currentDynamic[-999] = shurikein;
+
+
 	main->update(dt, &currentStatic, &currentDynamic);
 	stageController->updateElevator(dt);
 }
@@ -58,12 +64,12 @@ void Controller::render(DWORD dt)
 
 	stageController->renderElevator(dt);
 
-	blastHornet->render(dt);
+	shurikein->render(dt);
 
 	main->render(dt);
-	blastHornet->getHoretPoint()->render(dt);
+	//blastHornet->getHoretPoint()->render(dt);
 	hpBarMain->render(true);
-	hpBarBoss->render(true);
+	//hpBarBoss->render(true);
 }
 
 
@@ -84,12 +90,13 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	blastHornet = new BlastHornet();
 
 	main->state = stand;
-	//shurikein = new Shurikein(TShurikein, 2518, 920);
-	//shurikein->state = manifest;
+	shurikein = new Shurikein(TShurikein, 2518, 920);
+	shurikein->state = manifest;
 	
 	hpBarMain = new HPBar(*main->getHp(), 38.0f, 2.0f, true);
 	hpBarBoss = new HPBar(*blastHornet->getHp(), 64.0f, 2.0f, false);
-
+	brick1 = new Brick(0, 2297, 895, 22, 52);
+	brick2 = new Brick(0, 2546, 895, 22, 52);
 }
 
 Controller::~Controller()

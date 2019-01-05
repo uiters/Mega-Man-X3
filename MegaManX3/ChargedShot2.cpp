@@ -16,6 +16,7 @@ ChargedShot2::ChargedShot2(float x, float y, bool toLeft)
 	dy = 0;
 	this->toLeft = toLeft;
 	_damage = 3;
+	soundsGlobal->play(sound_bul_lv3);
 }
 
 ChargedShot2::~ChargedShot2()

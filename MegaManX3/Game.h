@@ -6,6 +6,7 @@
 #include "Sprites.h"
 #include "Textures.h"
 #include "CKey.h"
+#include "dsutil.h"
 class Game
 {
 protected:
@@ -20,6 +21,7 @@ protected:
 public:
 	void init(int nCmdShow);
 	void initKeyboard();
+	void initSound();
 
 	void run();
 

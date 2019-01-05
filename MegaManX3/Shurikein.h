@@ -11,6 +11,8 @@ public:
 	CTime countManifest = CTime(2500);	
 	CTime timeRest = CTime(1000);
 	CTime timeBeHit = CTime(100);
+	CTime timeDelayExplosion = (250);
+	CTime timeHide = (5000);
 	bool inMech = false;
 	bool toLeft = true;
 	int mech = 0; // 1:goAround || 2:rollAndJump || 3:spinAndJump || 0:manifest
