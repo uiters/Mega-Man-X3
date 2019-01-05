@@ -112,7 +112,6 @@ enum MegaManAnimation {
 
 };
 enum Sounds {
-	sound_bul_fly = 20,
 	sound_bul_lv1 = 21,
 	sound_bul_lv2 = 22,
 	sound_bul_lv3 = 23,
@@ -124,7 +123,6 @@ enum Sounds {
 	sound_MX_jump = 29,
 	sound_MX_heal = 30,
 	sound_MX_die = 31,
-	sound_MX_grounding = 32,
 	sound_explosion = 33,
 	sound_theme = 34,
 };

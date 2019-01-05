@@ -18,6 +18,7 @@ BusterShot::BusterShot(float x, float y,bool toLeft)
 	this->speed.vy = 0.00f;
 	_damage = 1;
 	loadResources();
+	soundsGlobal->play(sound_bul_lv1);
 }
 
 BusterShot::~BusterShot()

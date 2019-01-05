@@ -241,11 +241,13 @@ void KeyController::addKeyX()
 	if (onAir)
 	{
 		if (isWall && timeKick.isStop())
-			kickWall();
+			kickWall(),
+			soundsGlobal->play(sound_MX_jump);
 	}
 	else
 	{
 		jump();
+		soundsGlobal->play(sound_MX_jump);
 	}
 }
 
@@ -369,6 +371,7 @@ void KeyController::addKeyC()
 	pressC = true;
 	isDash = true;
 	if (isHurt) return;
+	soundsGlobal->play(sound_MX_dash);
 	timeDash.start();
 	//if (toLeft)
 	if (toLeft)

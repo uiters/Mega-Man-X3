@@ -76,6 +76,7 @@ void MegamanX::setHurt()
 	timeHurt.start();
 	timeProtect.start();
 	delay = 3;
+	soundsGlobal->play(sound_MX_shock);
 }
 
 MegamanX::MegamanX(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
@@ -288,11 +289,11 @@ void MegamanX::onKeyDown(int keyCode)
 		break;
 	case DIK_X:
 		keyController->addKeyX();
-		soundsGlobal->play(sound_MX_jump);
+		
 		break;
 	case DIK_C:
 		keyController->addKeyC();
-		soundsGlobal->play(sound_MX_dash);
+		
 		break;
 	default:
 		break;

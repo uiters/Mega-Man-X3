@@ -324,7 +324,6 @@ void Game1::loadResource()
 #pragma region Sounds
 	CSounds*sounds = CSounds::getInstance();
 	soundsGlobal = sounds;
-	sounds->add(sound_bul_fly, L"Resource\\Sounds\\sound_bul_fly.wav");
 	sounds->add(sound_bul_lv1, L"Resource\\Sounds\\sound_bul_lv1.wav");
 	sounds->add(sound_bul_lv2, L"Resource\\Sounds\\sound_bul_lv2.wav");
 	sounds->add(sound_bul_lv3, L"Resource\\Sounds\\sound_bul_lv3.wav");
@@ -336,7 +335,6 @@ void Game1::loadResource()
 	sounds->add(sound_MX_jump, L"Resource\\Sounds\\sound_MX_jump.wav");
 	sounds->add(sound_MX_heal, L"Resource\\Sounds\\sound_MX_heal.wav");
 	sounds->add(sound_MX_die, L"Resource\\Sounds\\sound_MX_die.wav");
-	sounds->add(sound_MX_grounding, L"Resource\\Sounds\\sound_MX_grounding.wav");
 	sounds->add(sound_explosion, L"Resource\\Sounds\\sound_explosion.wav");
 	sounds->add(sound_theme, L"Resource\\Sounds\\sound_theme.wav");
 #pragma endregion
