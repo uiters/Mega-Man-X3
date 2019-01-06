@@ -3,12 +3,15 @@
 
 #include "Animation.h"
 #include "ConstGlobals.h"
-
+#include "Background.h"
 class BackgroundController
 {
 private:
-	CAnimation* backgroundBoss;
+
 	void loadResources();
+	unordered_map<int, Background*> backgrounds;
+	Background* currentBackground;
+	Background* preBackground;
 public:
 	BackgroundController();
 	~BackgroundController();

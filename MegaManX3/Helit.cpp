@@ -121,7 +121,7 @@ void Helit::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, uno
 			timeFire.start();
 		}
 		if (body == HelitBody2 && --timeSwitchBody == 0)
-			body = HelitBody1, toLeft = !toLeft;
+			body = HelitBody1;
 	}
 }
 

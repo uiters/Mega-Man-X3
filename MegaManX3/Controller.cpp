@@ -28,7 +28,9 @@ void Controller::update(DWORD dt)
 	currentStatic.clear(); 
 	currentDynamic->clear();
 
+	background->update(dt);
 	tilesController->update(viewPortGlobal);
+
 	stageController->update(dt);
 
 	if (!enableUpdate) return;

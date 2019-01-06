@@ -49,7 +49,8 @@ enum TextureID
 	TCharged2 = 2005,
 	THelit = 2006,
 	THPBar = 2222,
-	TBackgroundBoss = 2223,
+	TBackground2 = 2223,
+	TBackground = 2224,
 };
 enum ShurikeinAnimation
 {
@@ -125,6 +126,8 @@ enum Animation {
 	HpBody = 222200,
 	HpEntry = 22002,
 	BackgroundBoss = 22019,
+	BackgroundAni = 20210,
+	Background2Ani = 21210,
 };
 
 

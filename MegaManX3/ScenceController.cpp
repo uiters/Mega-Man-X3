@@ -53,11 +53,11 @@ ScenceController::~ScenceController()
 void ScenceController::update(Viewport * viewport)
 {
 	
-	colStart = viewport->x / width  - 0.99f; //sure
-	rowStart = viewport->y / height - 0.99f; // sure
+	colStart = viewport->x / width  - 0.9999f; //sure
+	rowStart = viewport->y / height - 0.9999f; // sure
 
-	colEnd = viewport->right() / (float)width + 1.99f;
-	rowEnd = viewport->bottom() / (float)height + 0.99f;
+	colEnd = viewport->right() / (float)width + 1.9999f;
+	rowEnd = viewport->bottom() / (float)height + 0.9999f;
 }
 
 void ScenceController::render(DWORD dt)

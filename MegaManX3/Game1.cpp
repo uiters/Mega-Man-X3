@@ -8,7 +8,7 @@ void Game1::initGolbals()
 
 	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
 	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
-	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);
+	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);//surikein
 	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
 
 	viewPortGlobal = &cameraGlobal->viewport;

@@ -45,7 +45,7 @@ public:
 	void update(int x, int y);
 	
 	const Point transform(const int& x,const int& y) const;
-
+	bool isSwitchState() { return aniSwitchState; }
 public:
 	Block* getBlock() { return blockBackward; }
 	int getState() { return nAnimation; }

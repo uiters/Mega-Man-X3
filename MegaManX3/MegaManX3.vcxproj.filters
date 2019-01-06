@@ -166,6 +166,9 @@
     <Filter Include="Game\Controls\Boss">
       <UniqueIdentifier>{efc0577e-7e39-42c7-adbc-19dc92d17e38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Background">
+      <UniqueIdentifier>{c9a71df1-0108-484f-9b62-5973997219ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstColor.h">
@@ -399,6 +402,9 @@
     <ClInclude Include="SolskjærController.h">
       <Filter>Game\Controls\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Game\Background</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -617,6 +623,9 @@
     </ClCompile>
     <ClCompile Include="SolskjærController.cpp">
       <Filter>Game\Controls\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Game\Background</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
