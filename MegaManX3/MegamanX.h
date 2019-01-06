@@ -1,5 +1,5 @@
-﻿#ifndef _MegamanX_H
-#define _MegamanX_H
+﻿#ifndef _MegamanX_H_
+#define _MegamanX_H_
 #pragma once
 #include "DynamicObject.h"
 #include "GameObject.h"
@@ -12,6 +12,7 @@
 #include "MegamanEffectFactory.h"
 #include "MegamanWeapon.h"
 #include "ConstGlobals.h"
+#include "HPBar.h"
 class KeyController;
 class MegamanX :
 	public DynamicObject,
@@ -24,12 +25,11 @@ private:
 	
 
 	KeyController* keyController;
-	MegamanX* clone(int id, int x, int y) override;
 	MegamanEffectFactory* effect;
 	MegamanWeapon *weapon;
-	MegamanX() {}
-private:
 
+private:
+	Elevator* elevator = null;
 	CTime countDissapear = (800);
 	CTime timePreDie = (500);
 	PointF p1 = { 400, 290 };
@@ -41,7 +41,7 @@ private:
 	PointF p7 = { 390, 310 };
 	PointF p8 = { 390, 290 };
 public:
-	MegamanX(UINT idTexture, float x = 0, float y = 0, float vx = 0, float vy = 0);
+	MegamanX(UINT id, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	~MegamanX();
 
 	bool isFlipX = false; //lật hình (mặc định hướng về phải)
@@ -71,14 +71,10 @@ public:
 	void onKeyUp(int) override;
 	void keyState(BYTE*) override;
 	void getBoundingBox(float& left, float& top, float& right, float &bottom) override;
-
+	void setFloor(StaticObject* obj) { keyController->setFloor(obj); }
+	void receiveDamage(float damage) override;
 private:
 	void dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects);
 	void bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);
-
-public:
-	bool collisionGameObject(GameObject* obj1, GameObject* obj2);
-	bool collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject* obj2);
-	
 };
-#endif // !_MegamanX_H
+#endif // !_MegamanX_H_

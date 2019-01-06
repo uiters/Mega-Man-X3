@@ -118,11 +118,6 @@ void Solskjær::getBoundingBox(float & left, float & top, float & right, float & 
 	bottom = y + 23;
 }
 
-Solskjær * Solskjær::clone(int id, int x, int y)
-{
-	return nullptr;
-}
-
 void Solskjær::reset()
 {
 	this->x = 4970;

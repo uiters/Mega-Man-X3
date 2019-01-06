@@ -35,8 +35,11 @@ enum TextureID
 	Megaman = 1,
 	TElevator = 2,
 	TExplosion = 3,
-	TChargedExplosion = 4,
-	TShurikein = 3,
+	TChargedCollision = 4,
+	TShurikein = 5,
+
+	THeadGun = 16,
+	TBlastHornet = 999,
 
 	TDashSmoke = 2000,
 	TDashSpark = 2001,
@@ -45,7 +48,8 @@ enum TextureID
 	TCharged1 = 2004,
 	TCharged2 = 2005,
 	THelit = 2006,
-
+	THPBar = 2222,
+	TBackgroundBoss = 2223,
 };
 enum ShurikeinAnimation
 {
@@ -61,6 +65,9 @@ enum WeaponID
 	bullet_lv1 = 13000,
 	bullet_lv2 = 13100,
 	bullet_lv3 = 13200,
+
+	bullet_head_gun_state_default = 13250,
+	bullet_head_gun_state_2 = 13260,
 
 };
 enum Animation {
@@ -84,9 +91,40 @@ enum Animation {
 	HelitBulletAnimation = 12125, // 1cells
 	HelitBulletSmoke = 12130, // 6cells,
 	ExplosionAnimation = 12140, //7 cells
-	Charged1_Explosion_Animation = 12150, // 2 cells
-	Charged2_Explosion_Animation = 12155, // 2 cells
-	Buster_Explosion_Animation = 12160, //3 cells
+	Charged1_Collision_Animation = 12150, // 2 cells
+	Charged2_Collision_Animation = 12155, // 2 cells
+	Buster_Collision_Animation = 12160, //3 cells
+	//Buster_Collision_Animation = 12170, //3cell
+
+	Hornet_Stand = 90000,
+	Hornet_Prepare_Prick = 99000,
+	Hornet_Prick = 99900,
+	Hornet_Drop_Bee_1 = 99990,
+	Hornet_Drop_Bee_1_1 = 99890,
+	Hornet_Drop_Bee_1_End = 98790,
+	Hornet_Drop_Bee_2_Prepare = 88010,
+	Hornet_Drop_Bee_2 = 80010,
+	Hornet_Drop_Bee_2_End = 81810,
+	Hornet_Prick_End = 80810,
+	Hornet_Die = 99999,
+	Hornet_Explosion = 999969,
+	Hornet_Bee_Type_1 = 96000,
+	Hornet_Bee_Type_2 = 96002,
+	Hornet_Bee_Die_1 = 96960,
+	Hornet_Bee_Die_2 = 96962,
+	Hornet_Bee_Explosion = 969690,
+	Hornet_Wing = 969696,
+	Hornet_Aim = 800000,
+	Hornet_Aimming = 811000,
+
+	Hornet_Show = 811100,
+	
+	HpHead = 22000,
+	HpTailMain = 22222,
+	HpTailBoss = 22220,
+	HpBody = 222200,
+	HpEntry = 22002,
+	BackgroundBoss = 22019,
 };
 
 
@@ -110,5 +148,20 @@ enum MegaManAnimation {
 	cling_shoot = 11600,
 	slide_shoot = 11700,
 
+};
+enum Sounds {
+	sound_bul_lv1 = 21,
+	sound_bul_lv2 = 22,
+	sound_bul_lv3 = 23,
+	sound_charge_lv1 = 24,
+	sound_charge_lv2 = 25,
+	sound_MX_shock = 26,
+	sound_MX_revival = 27,
+	sound_MX_dash = 28,
+	sound_MX_jump = 29,
+	sound_MX_heal = 30,
+	sound_MX_die = 31,
+	sound_explosion = 33,
+	sound_theme = 34,
 };
 #endif // !_ConstEnum_H_

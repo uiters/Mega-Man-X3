@@ -46,8 +46,8 @@ void Camera::switchState()
 		else viewport.x += 4;
 		break;
 	case 10:
-		if (viewport.x >= 7672)
-			aniSwitchState = false, viewport.x = 7672;
+		if (viewport.x >= 7680)
+			aniSwitchState = false, viewport.x = 7680;
 		else viewport.x += 4;
 		break;
 	default:
@@ -60,6 +60,7 @@ void Camera::state1(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 736, 512, 31, 256);
 		nextAnimation();
 		lockLeft = true;
 		lockTop = true;
@@ -84,10 +85,12 @@ void Camera::state2(int cameraX, int cameraY)
 {
 	if (cameraY < minValue + 32)
 	{
+		delete blockBackward;
+		blockBackward = null;
 		nextAnimation();
 		lockTop = true;
 		minValue = 768;
-		maxValue = 832;
+		maxValue = 896;
 		state = &Camera::state3;
 	}else
 		if (cameraY >= maxValue - 64)
@@ -114,6 +117,7 @@ void Camera::state3(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 992, 0, 32, 256);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -138,6 +142,8 @@ void Camera::state4(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
+		delete blockBackward;
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 2297, 895, 22, 52);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -187,6 +193,8 @@ void Camera::state5(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue) //next
 	{
+		delete blockBackward;
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 2546, 895, 22, 52);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -203,6 +211,8 @@ void Camera::state6(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
+		delete blockBackward;
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 5632, 895, 17, 61);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -246,6 +256,8 @@ void Camera::state7(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
+		delete blockBackward;
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 5898, 895, 23, 61);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -261,6 +273,8 @@ void Camera::state8(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
+		delete blockBackward;
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 7392, 1663, 62, 66);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -329,6 +343,8 @@ void Camera::state9(int cameraX, int cameraY)
 {
 	if (cameraX > maxValue)
 	{
+		delete blockBackward;
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 7393, 1662, 16, 80);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -342,17 +358,39 @@ void Camera::state9(int cameraX, int cameraY)
 // boss
 void Camera::state10(int cameraX, int cameraY)
 {
-	//viewport.x = 7680 - 8;
+	//viewport.x = 7680;
 }
 
 Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, height)
 {
 	viewport.x = (x / 256) * 256;
 	viewport.y = (y / 256) * 256;
+	//1
 	//nAnimation = 1;
 	//state = &Camera::state1;
 	//minValue = 0;
 	//maxValue = 650;
+	//lockTop = true;
+	//lockLeft = true;
+
+	//2
+	//nAnimation = 2;
+	//aniSwitchState = true;
+	//state = &Camera::state2;
+	//lockTop = true;
+	//lockLeft = true;
+	//minValue = 0;
+	//maxValue = 512;
+	
+	//shuriken
+	//nAnimation = 5;
+	//maxValue = 2432;
+	//minValue = 2432;
+	//lockTop = true;
+	//lockLeft = true;
+	//state = &Camera::state5;
+	
+	//mini boss 2
 	nAnimation = 5;
 	state = &Camera::state5;
 	minValue = 2432;
@@ -360,7 +398,14 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	lockTop = true;
 	lockLeft = false;
 	//enable = false;
-	////test
+
+	////boss
+	//nAnimation = 10;
+	//lockTop = true;
+	//lockLeft = true;
+	//minValue = 7424;
+	//maxValue = 7552;
+	//state = &Camera::state10;
 
 	//nAnimation = 5;
 	//switch (nAnimation)
@@ -466,14 +511,6 @@ void Camera::nextAnimation()
 {
 	nAnimation += 1;
 	aniSwitchState = true;
-}
-
-void Camera::setSizeWorld(int x, int y, int width, int height)
-{
-	world.left = x;
-	world.right = y;
-	world.right = width + x;
-	world.bottom = height + y;
 }
 
 const Point Camera::transform(const int& x, const int& y) const

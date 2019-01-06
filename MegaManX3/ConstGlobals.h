@@ -11,6 +11,8 @@
 
 
 class GameObject;
+class CSoundManager;
+class CSounds;
 typedef GameObject* LPObject;
 
 class Game;
@@ -32,6 +34,7 @@ extern CRectangle*			viewPortGlobal;
 extern LPDIRECTINPUTDEVICE8 didvGlobal;
 extern LPDIRECTINPUT8       dinputGlobal;
 extern LPObject				mainGlobal;
-
+extern CSoundManager*		soundManagerGlobal;
+extern CSounds*				soundsGlobal;
 #endif // _ConstGlobals_
 

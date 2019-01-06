@@ -11,21 +11,19 @@ class Helit :
 {
 private:
 	Helit();
-	void loadSprites();
-	void loadResources() override;
+
 	UINT body = 0;
-	CTime timeDeath = (500000);
 	CTime timeFire = (5000);
 	PointF dieX[3];
-	bool showColor = true;
-	int timeSwitchColor = 0;
+	
+
 	int timeSwitchBody = 0;
 
 public:
 	Helit(int id, float x, float y, bool toLeft);
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
-	Helit* clone(int id, int x, int y) override;
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0) override;
+	void updateWeapon(DWORD dt, unordered_map<int, GameObject*>* staticObjects) override;
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	~Helit();
 
@@ -33,11 +31,12 @@ private:
 	void calculateDie();
 	void setAnimationDie();
 	void renderDie(DWORD dt);
-
 	void renderNormal(DWORD dt);
 	void setAnimationFire();
+	void loadSprites();
+	void loadResources() override;
+	void setResetBound() override;
 
-	void updateBullet(DWORD dt, unordered_map<int, GameObject*>* staticObjects);
 	bool collisionBulletStatic(Weapon* bullet, unordered_map<int, GameObject*>* staticObjects);
 public:
 	void createExplosion(float x, float y) override;

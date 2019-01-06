@@ -5,18 +5,16 @@
 #include "Camera.h"
 #include "CollisionEvent.h"
 #include "Brick.h"
-
+#include "CTime.h"
 #define HEAD_GUNNER_BULLET2_SPEED_X 0.12f
 #define HEAD_GUNNER_BULLET2_SPEED_Y 0
 
-#define HEAD_GUNNER_BULLET2_STATE_DEFAULT 0
-
-#define HEAD_GUNNER_BULLET2_ID_TEXTURE 873
 
 class HeadGunnerBullet2 : public Weapon
 {
+private:
+	CTime timeDelaySmoke = (150);// delay create effect smoke
 public:
-	
 	bool nx;
 	bool ny;
 

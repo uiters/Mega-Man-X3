@@ -1,13 +1,18 @@
 #include "Game1.h"
 #include "Helit.h"
+#include "CSounds.h"
 void Game1::initGolbals()
 {
 	texturesGlobal = CTextures::getInstance();
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
-	//cameraGlobal = new Camera(0, 512, 256, 222);
-	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
-	cameraGlobal = new Camera(5000, 870, CAMERA_WIDTH, CAMERA_HEIGHT);
+
+	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
+	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
+	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);//shurikem
+	cameraGlobal = new Camera(5000, 870, CAMERA_WIDTH, CAMERA_HEIGHT);//minibos 2
+
+	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
 
 	viewPortGlobal = &cameraGlobal->viewport;
 }
@@ -23,15 +28,32 @@ void Game1::loadResource()
 	texturesGlobal->add(TCharged1, CHARGED_SHOOT1, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TCharged2, CHARGED_SHOOT2, 0, 0, D3DCOLOR_XRGB(64, 102, 232));
 	texturesGlobal->add(TDeath, DIE, 135, 38, D3DCOLOR_XRGB(50, 96, 166));
-	texturesGlobal->add(TChargedExplosion, CHARGED_EXPLOSION, 0, 0, D3DCOLOR_XRGB(50, 96, 166));
+	texturesGlobal->add(TChargedCollision, CHARGED_EFFECT_COLLISION, 0, 0, D3DCOLOR_XRGB(50, 96, 166));
 
 	texturesGlobal->add(THelit, HELIT, 0 , 0 , D3DCOLOR_XRGB(255, 0, 255));
 	texturesGlobal->add(TExplosion, EXPLOISION);
+	texturesGlobal->add(THeadGun, HEAD_GUN, 0, 0, D3DCOLOR_XRGB(255, 0, 255));
 
+	texturesGlobal->add(TBlastHornet, BLASTHORNET, 0, 0, D3DCOLOR_XRGB(0, 128, 128));
+	texturesGlobal->add(THPBar, HPBAR);
+
+#pragma region HpBar
+	spritesGlobal->addSprite(HpHead, THPBar, 0, 0, 14, 4);
+	spritesGlobal->addSprite(HpBody, THPBar, 0, 5, 14, 16);
+	spritesGlobal->addSprite(HpTailBoss, THPBar, 0, 22, 14, 16);
+	spritesGlobal->addSprite(HpTailMain, THPBar, 0, 39, 14, 16);
+	spritesGlobal->addSprite(HpEntry, THPBar, 0, 56, 14, 2);
+#pragma endregion
+
+
+
+	//main = new MegamanX(Megaman, 100, 650);
+	//main = new MegamanX(Megaman, 768, 650);
+	//7715 1681
+	//main = new MegamanX(Megaman, 2344, 910);//shuriken
 	main = new MegamanX(Megaman, 5000, 870);
 
-
-	//main = new MegamanX(Megaman, 2344, 910);
+	//main = new MegamanX(Megaman, 7715, 1681);//boss
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -55,6 +77,7 @@ void Game1::loadResource()
 	animationsGlobal->add(appear, ani);
 	main->addAnimation(appear);
 #pragma endregion
+
 #pragma region stand
 	spritesGlobal->add(stand, Megaman, 213, 18, 242, 51);
 	spritesGlobal->add(stand + 1, Megaman, 247, 18, 276, 51);
@@ -68,6 +91,7 @@ void Game1::loadResource()
 	animationsGlobal->add(stand, ani);
 	main->addAnimation(stand);
 #pragma endregion
+
 #pragma region run
 	spritesGlobal->add(MegaManAnimation::run, Megaman, 319, 19, 348, 52);
 	spritesGlobal->add(MegaManAnimation::run + 1, Megaman, 350, 19, 369, 52);
@@ -89,6 +113,7 @@ void Game1::loadResource()
 	animationsGlobal->add(MegaManAnimation::run, ani);
 	main->addAnimation(MegaManAnimation::run);
 #pragma endregion
+
 #pragma region jump
 	spritesGlobal->add(jump, Megaman, 5, 73, 28, 109);
 	spritesGlobal->add(jump + 1, Megaman, 34, 69, 48, 109);
@@ -101,6 +126,7 @@ void Game1::loadResource()
 	animationsGlobal->add(jump, ani);
 	main->addAnimation(jump);
 #pragma endregion
+
 #pragma region fall
 	spritesGlobal->add(fall, Megaman, 77, 69, 99, 109);
 	spritesGlobal->add(fall + 1, Megaman, 102, 68, 128, 109);
@@ -113,6 +139,7 @@ void Game1::loadResource()
 	animationsGlobal->add(fall, ani);
 	main->addAnimation(fall);
 #pragma endregion
+
 #pragma region dash
 	spritesGlobal->add(dash, Megaman, 278, 127, 314, 157);
 	spritesGlobal->add(dash + 1, Megaman, 319, 132, 356, 157);
@@ -123,6 +150,7 @@ void Game1::loadResource()
 	animationsGlobal->add(dash, ani);
 	main->addAnimation(dash);
 #pragma endregion
+
 #pragma region cling
 	spritesGlobal->add(cling, Megaman, 35, 211, 61, 253);
 
@@ -131,6 +159,7 @@ void Game1::loadResource()
 	animationsGlobal->add(cling, ani);
 	main->addAnimation(cling);
 #pragma endregion
+
 #pragma region slide
 	spritesGlobal->add(slide, Megaman, 64, 212, 91, 253);
 	ani = new CAnimation(100);
@@ -138,6 +167,7 @@ void Game1::loadResource()
 	animationsGlobal->add(slide, ani);
 	main->addAnimation(slide);
 #pragma endregion
+
 #pragma region enhance
 	spritesGlobal->add(enhance, Megaman, 470, 118, 497, 162);
 	spritesGlobal->add(enhance + 1, Megaman, 510, 118, 529, 162);
@@ -153,6 +183,7 @@ void Game1::loadResource()
 	animationsGlobal->add(enhance, ani);
 	main->addAnimation(enhance);
 #pragma endregion
+
 #pragma region shock
 	spritesGlobal->add(shock, Megaman, 10, 316, 35, 351);
 	spritesGlobal->add(shock + 1, Megaman, 39, 318, 67, 351);
@@ -174,6 +205,7 @@ void Game1::loadResource()
 	animationsGlobal->add(shock, ani);
 	main->addAnimation(shock);
 #pragma endregion
+
 #pragma region shoot
 	spritesGlobal->add(shoot, Megaman, 6, 167, 35, 200);
 	spritesGlobal->add(shoot + 1, Megaman, 41, 167, 69, 200);
@@ -184,6 +216,7 @@ void Game1::loadResource()
 	animationsGlobal->add(shoot, ani);
 	main->addAnimation(shoot);
 #pragma endregion
+
 #pragma region run_shoot
 	spritesGlobal->add(run_shoot, Megaman, 290, 71, 318, 104);
 	spritesGlobal->add(run_shoot + 1, Megaman, 319, 70, 350, 104);
@@ -204,6 +237,7 @@ void Game1::loadResource()
 	animationsGlobal->add(run_shoot, ani);
 	main->addAnimation(run_shoot);
 #pragma endregion
+
 #pragma region jump_shoot
 	spritesGlobal->add(jump_shoot, Megaman, 5, 121, 33, 157);
 	spritesGlobal->add(jump_shoot + 1, Megaman, 36, 117, 59, 157);
@@ -216,6 +250,7 @@ void Game1::loadResource()
 	animationsGlobal->add(jump_shoot, ani);
 	main->addAnimation(jump_shoot);
 #pragma endregion
+
 #pragma region dash_shoot
 	spritesGlobal->add(dash_shoot, Megaman, 367, 126, 404, 156);
 	spritesGlobal->add(dash_shoot + 1, Megaman, 410, 131, 458, 156);
@@ -226,6 +261,7 @@ void Game1::loadResource()
 	animationsGlobal->add(dash_shoot, ani);
 	main->addAnimation(dash_shoot);
 #pragma endregion
+
 #pragma region cling_shoot
 	spritesGlobal->add(cling_shoot, Megaman, 46, 259, 78, 301);
 	ani = new CAnimation(10);
@@ -233,6 +269,7 @@ void Game1::loadResource()
 	animationsGlobal->add(cling_shoot, ani);
 	main->addAnimation(cling_shoot);
 #pragma endregion
+
 #pragma region slide_shoot
 	spritesGlobal->add(slide_shoot, Megaman, 84, 258, 115, 299);
 	ani = new CAnimation(10);
@@ -240,6 +277,7 @@ void Game1::loadResource()
 	animationsGlobal->add(slide_shoot, ani);
 	main->addAnimation(slide_shoot);
 #pragma endregion
+
 #pragma region fall_shoot
 	spritesGlobal->add(fall_shoot, Megaman, 88, 117, 118, 157);
 	spritesGlobal->add(fall_shoot + 1, Megaman, 120, 116, 150, 157);
@@ -256,28 +294,39 @@ void Game1::loadResource()
 #pragma region bullet_lv1
 	spritesGlobal->add(bullet_lv1, Megaman, 5, 377, 12, 382);
 	ani = new CAnimation(50);
+	ani->add(bullet_lv1);
 	animationsGlobal->add(bullet_lv1, ani);
-	//main_bullet->addAnimation(bullet_lv1);
 #pragma endregion
+
 #pragma region bullet_lv2
 	spritesGlobal->add(bullet_lv2, Megaman, 26, 373, 39, 386);
-	spritesGlobal->add(bullet_lv2, Megaman, 48, 368, 71, 391);
-	spritesGlobal->add(bullet_lv2, Megaman, 82, 375, 109, 386);
-	spritesGlobal->add(bullet_lv2, Megaman, 120, 376, 151, 383);
-	spritesGlobal->add(bullet_lv2, Megaman, 163, 374, 200, 385);
-	spritesGlobal->add(bullet_lv2, Megaman, 216, 368, 255, 386);
-	spritesGlobal->add(bullet_lv2, Megaman, 265, 368, 300, 389);
-	ani = new CAnimation(1000);
+	spritesGlobal->add(bullet_lv2 + 1, Megaman, 48, 368, 71, 391);
+	spritesGlobal->add(bullet_lv2 + 2, Megaman, 82, 375, 109, 386);
+	spritesGlobal->add(bullet_lv2 + 3, Megaman, 120, 376, 151, 383);
+	spritesGlobal->add(bullet_lv2 + 4, Megaman, 163, 374, 200, 385);
+	spritesGlobal->add(bullet_lv2 + 5, Megaman, 216, 368, 255, 386);
+	spritesGlobal->add(bullet_lv2 + 6, Megaman, 265, 368, 300, 389);
+	ani = new CAnimation(900);
+	ani->add(bullet_lv2 + 0, 20);
+	ani->add(bullet_lv2 + 1, 30);
+	ani->add(bullet_lv2 + 2, 60);
+	ani->add(bullet_lv2 + 3, 70);
+	ani->add(bullet_lv2 + 4, 130);
+	ani->add(bullet_lv2 + 5, 500);
+	ani->add(bullet_lv2 + 6, 100);
 	animationsGlobal->add(bullet_lv2, ani);
-	//main_bullet->addAnimation(bullet_lv2);
 #pragma endregion
+
 #pragma region bullet_lv3
 	spritesGlobal->add(bullet_lv3, Megaman, 35, 496, 80, 526);
-	spritesGlobal->add(bullet_lv3, Megaman, 87, 496, 131, 524);
-	spritesGlobal->add(bullet_lv3, Megaman, 146, 495, 187, 525);
-	ani = new CAnimation(1000);
+	spritesGlobal->add(bullet_lv3 + 1, Megaman, 87, 496, 131, 524);
+	spritesGlobal->add(bullet_lv3 + 2, Megaman, 146, 495, 187, 525);
+	ani = new CAnimation(900);
+	ani->add(bullet_lv3, 100);
+	ani->add(bullet_lv3 + 1, 300);
+	ani->add(bullet_lv3 + 2, 500);
+
 	animationsGlobal->add(bullet_lv3, ani);
-	//main_bullet->addAnimation(bullet_lv3);
 #pragma endregion
 
 	main->state = appear;
@@ -322,17 +371,54 @@ void Game1::loadResource()
 	main->addAnimation(die);
 #pragma endregion
 	
+#pragma region Sounds
+	CSounds*sounds = CSounds::getInstance();
+	soundsGlobal = sounds;
+	sounds->add(sound_bul_lv1, L"Resource\\Sounds\\sound_bul_lv1.wav");
+	sounds->add(sound_bul_lv2, L"Resource\\Sounds\\sound_bul_lv2.wav");
+	sounds->add(sound_bul_lv3, L"Resource\\Sounds\\sound_bul_lv3.wav");
+	sounds->add(sound_charge_lv1, L"Resource\\Sounds\\sound_charge_lv1.wav");
+	sounds->add(sound_charge_lv2, L"Resource\\Sounds\\sound_charge_lv2.wav");
+	sounds->add(sound_MX_shock, L"Resource\\Sounds\\sound_MX_shock.wav");
+	sounds->add(sound_MX_revival, L"Resource\\Sounds\\sound_MX_revival.wav");
+	sounds->add(sound_MX_dash, L"Resource\\Sounds\\sound_MX_dash.wav");
+	sounds->add(sound_MX_jump, L"Resource\\Sounds\\sound_MX_jump.wav");
+	sounds->add(sound_MX_heal, L"Resource\\Sounds\\sound_MX_heal.wav");
+	sounds->add(sound_MX_die, L"Resource\\Sounds\\sound_MX_die.wav");
+	sounds->add(sound_explosion, L"Resource\\Sounds\\sound_explosion.wav");
+	sounds->add(sound_theme, L"Resource\\Sounds\\sound_theme.wav");
+#pragma endregion
+
+	sounds->playInfinity(sound_theme,-2200);
+#pragma region Headgun
+	spritesGlobal->addSprite(bullet_head_gun_state_default, THeadGun, 71, 13, 7, 7);
+	spritesGlobal->addSprite(bullet_head_gun_state_2, THeadGun, 33, 13, 23, 7);
+	spritesGlobal->addSprite(bullet_head_gun_state_2 + 1, THeadGun, 8, 13, 23, 7);
+
+	//default
+	ani = new CAnimation(200);
+	ani->add(bullet_head_gun_state_default);
+	animationsGlobal->add(bullet_head_gun_state_default, ani);
+
+	//state_2
+	ani = new CAnimation(50);
+	ani->add(bullet_head_gun_state_2);
+	ani->add(bullet_head_gun_state_2 + 1);
+	animationsGlobal->add(bullet_head_gun_state_2, ani);
+#pragma endregion
+
 }
 
 
 void Game1::initOption()
 {
+	mainGlobal = main;
 	auto x = Factory::getInstance()->createObjects(OBJECT_TXT);
 	root = Factory::getInstance()->createQuadTree(QUADTREE_TXT, *x);
 	auto rootdyanamic = Factory::getInstance()->createQuadTree(QUADTREE_DYNAMIC_TXT, *x);
 	delete x;
 	controller = new Controller(main, root, rootdyanamic);
-	mainGlobal = main;
+	Weapon::setWeaponEffect(WeaponEffectController::getIntance());
 
 }
 
@@ -342,18 +428,11 @@ void Game1::update(DWORD dt)
 	keyGlobal->processKeyboard();
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
-	
-	//notorBanger->update(dt);
-	//headGunner->update(dt);
 }	
 
 void Game1::render(DWORD dt)
 {
-
 	controller->render(dt);
-	
-	//notorBanger->render(dt);
-	//headGunner->render(dt);
 }
 
 Game1::~Game1()

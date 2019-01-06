@@ -1,18 +1,14 @@
 #include "HeadGunner.h"
 
 
-HeadGunner::HeadGunner(int id, float x, float y, bool nx)
+HeadGunner::HeadGunner(UINT id, float x, float y, bool nx) : DynamicObject(id, x, y, 0, 0)
 {
-	this->_id = id;
-	this->x = x;
-	this->y = y;
 	this->nx = nx;
+	this->initToLeft = !nx;
 	this->repeat = 0;
-	this->initX = x;
-	this->initY = y;
 
-	_death = false;
-	_hp = 5;
+	initHP = _hp = 5;
+	setResetBound();
 }
 
 HeadGunner::~HeadGunner()
@@ -22,11 +18,41 @@ HeadGunner::~HeadGunner()
 void HeadGunner::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
+	updateWeapon(dt, staticObjects);
+
+	if (!visible) return;
 	if (_death) {
 		calculateDie();
-		return;
 	}
+	else
+	{
+		GameObject::update(dt);
 
+		if (_animations[state]->isLastFrame()) {
+			if (state == 100 || state == 200)
+				createBullet2();
+
+
+			if (state == 300 || state == 400)
+				createBullet();
+
+			if (state == 300) {
+				if (repeat > 0) {
+					repeat = 0;
+					state += 100;
+				}
+				else repeat++;
+			}
+			else state += 100;
+
+			if (state > 400) state = 0;
+			setState(state);
+		}
+	}
+}
+
+void HeadGunner::updateWeapon(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
+{
 	for (auto bullet = _weapons.begin(); bullet != _weapons.end();)
 	{
 		bullet[0]->update(dt, staticObjects);
@@ -41,59 +67,54 @@ void HeadGunner::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects
 		}
 		else ++bullet;
 	}
-
-	GameObject::update(dt);
-
-	if (_animations[state]->isLastFrame()) {
-		if (state == 100 || state == 200)
-			createBullet2();
-
-
-		if (state == 300 || state == 400)
-			createBullet();
-		
-		if (state == 300) {
-			if (repeat > 0) {
-				repeat = 0;
-				state += 100;
-			}
-			else repeat++;
-		}
-		else state += 100;
-		
-		if (state > 400) state = 0;
-		setState(state);
-	}
 }
 
 void HeadGunner::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	collisionEffect->render(dt, false);
+	renderWeapon(dt, colorBrush);
+
+	if (!visible) return;
+
 	if (_death) {
 		renderDie(dt);
-		collisionEffect->render(dt, false);
-		return;
+		timeHide.update();
+
+		if (timeHide.isStop())
+			visible = false;
 	}
-
-	auto center = cameraGlobal->transform(x, y);
-	if (nx != true) _animations[state]->render(center.x, center.y);
-	else _animations[state]->renderFlipX(center.x, center.y);
-
-	int size = _weapons.size();
-	for (int i = 0; i < size; ++i)
+	else
 	{
-		_weapons[i]->render(dt);
+		renderNormal(dt);
 	}
 
-	shotEffect->render(dt, true);
-	collisionEffect->render(dt, false);
 }
 
 void HeadGunner::renderDie(DWORD dt, D3DCOLOR colorBrush)
 {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; ++i) {
 		auto center = cameraGlobal->transform(die[i].x, die[i].y);
-		_animations[HEAD_GUNNER_STATE_DIE + i]->render(center.x, center.y);
+		_animations[HEAD_GUNNER_STATE_DIE + i]->render(center.x, center.y, 0, this->showColor ? WHITE(100) : WHITE(255));
 	}
+	if (++timeSwitchColor == 2)
+		showColor = !showColor, timeSwitchColor = 0;
+}
+
+void HeadGunner::renderNormal(DWORD dt, D3DCOLOR colorBrush)
+{
+	if (_attacked)
+	{
+		timeAttacked.update();
+		if (timeAttacked.isStop())
+		{
+			_attacked = false;
+		}
+		else colorBrush = LIGHTCYAN(128);
+	}
+	auto center = cameraGlobal->transform(x, y);
+	if (nx != true) _animations[state]->render(center.x, center.y, false, colorBrush);
+	else _animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
+	shotEffect->render(dt, true);
 }
 
 void HeadGunner::calculateDie()
@@ -121,17 +142,6 @@ void HeadGunner::setState(int state)
 	_animations[state]->reset();
 }
 
-HeadGunner * HeadGunner::clone(int id, int x, int y)
-{
-	return nullptr;
-}
-
-void HeadGunner::resetPosition()
-{
-	this->x = this->initX;
-	this->y = this->initY;
-}
-
 void HeadGunner::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x;
@@ -143,26 +153,43 @@ void HeadGunner::getBoundingBox(float & left, float & top, float & right, float 
 void HeadGunner::loadResources()
 {
 	CTextures * textures = CTextures::getInstance();
-	if(!textures->getTexture(HEAD_GUNNER_ID_TEXTURE))
-		textures->add(HEAD_GUNNER_ID_TEXTURE, L"Resource\\Textures\\enemies.png", 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-
 	CSprites * sprites = CSprites::getInstance();
 	CAnimations * animations = CAnimations::getInstance();
-
 	LPANIMATION ani;
+
+	if (textures->getTexture(HEAD_GUNNER_ID_TEXTURE)) goto LoadAni;
+
+	textures->add(HEAD_GUNNER_ID_TEXTURE, L"Resource\\Textures\\enemies.png", 0, 0, D3DCOLOR_XRGB(255, 0, 255));
 
 	// default
 	sprites->addSprite(20001, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);// 41 x 45
-	
-	ani = new CAnimation(2000);
-	ani->add(20001);
-	animations->add(HEAD_GUNNER_STATE_DEFAULT, ani);
-
 	// shot top
 	sprites->addSprite(20011, HEAD_GUNNER_ID_TEXTURE, 45, 334, 41, 45);// 41 x 45
 	sprites->addSprite(20012, HEAD_GUNNER_ID_TEXTURE, 87, 334, 41, 45);
 	sprites->addSprite(20013, HEAD_GUNNER_ID_TEXTURE, 128, 334, 41, 45);
 	sprites->addSprite(20014, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);
+	// shot bottom
+	sprites->addSprite(20021, HEAD_GUNNER_ID_TEXTURE, 5, 389, 41, 45);// 41 x 45
+	sprites->addSprite(20022, HEAD_GUNNER_ID_TEXTURE, 48, 389, 41, 45);
+	sprites->addSprite(20023, HEAD_GUNNER_ID_TEXTURE, 89, 388, 41, 45);
+	sprites->addSprite(20024, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);
+	// shot left
+	sprites->addSprite(20031, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);
+	// shot right
+	sprites->addSprite(20041, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);
+	// die
+	sprites->addSprite(20051, HEAD_GUNNER_ID_TEXTURE, 177, 353, 15, 16);
+	sprites->addSprite(20052, HEAD_GUNNER_ID_TEXTURE, 195, 353, 8, 12);
+	sprites->addSprite(20053, HEAD_GUNNER_ID_TEXTURE, 209, 357, 19, 8);
+	sprites->addSprite(20054, HEAD_GUNNER_ID_TEXTURE, 208, 368, 7, 13);
+
+LoadAni:
+
+	ani = new CAnimation(2000);
+	ani->add(20001);
+	animations->add(HEAD_GUNNER_STATE_DEFAULT, ani);
+
+
 
 	ani = new CAnimation(200);
 	ani->add(20011);
@@ -171,11 +198,7 @@ void HeadGunner::loadResources()
 	ani->add(20014);
 	animations->add(HEAD_GUNNER_STATE_SHOT_TOP, ani);
 
-	// shot bottom
-	sprites->addSprite(20021, HEAD_GUNNER_ID_TEXTURE, 5, 389, 41, 45);// 41 x 45
-	sprites->addSprite(20022, HEAD_GUNNER_ID_TEXTURE, 48, 389, 41, 45);
-	sprites->addSprite(20023, HEAD_GUNNER_ID_TEXTURE, 89, 388, 41, 45);
-	sprites->addSprite(20024, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);
+
 
 	ani = new CAnimation(200);
 	ani->add(20021);
@@ -184,25 +207,19 @@ void HeadGunner::loadResources()
 	ani->add(20024);
 	animations->add(HEAD_GUNNER_STATE_SHOT_BOTTOM, ani);
 
-	// shot left
-	sprites->addSprite(20031, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);
+
 
 	ani = new CAnimation(1000);
 	ani->add(20031);
 	animations->add(HEAD_GUNNER_STATE_SHOT_LEFT, ani);
 
-	// shot right
-	sprites->addSprite(20041, HEAD_GUNNER_ID_TEXTURE, 4, 334, 41, 45);
+
 
 	ani = new CAnimation(1000);
 	ani->add(20041);
 	animations->add(HEAD_GUNNER_STATE_SHOT_RIGHT, ani);
 
-	// die
-	sprites->addSprite(20051, HEAD_GUNNER_ID_TEXTURE, 177, 353, 15, 16);
-	sprites->addSprite(20052, HEAD_GUNNER_ID_TEXTURE, 195, 353, 8, 12);
-	sprites->addSprite(20053, HEAD_GUNNER_ID_TEXTURE, 209, 357, 19, 8);
-	sprites->addSprite(20054, HEAD_GUNNER_ID_TEXTURE, 208, 368, 7, 13);
+
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -231,6 +248,15 @@ void HeadGunner::setAnimationDie()
 	speed.vy = -0.0195f *dt;
 	speed.vx = 0.0032f * dt;
 	collisionEffect->createEffect(x, y);
+	timeHide.start();
+}
+
+void HeadGunner::setResetBound()
+{
+	resetBound.x = x;
+	resetBound.y = y;
+	resetBound.width = 40;
+	resetBound.height = 48;
 }
 
 void HeadGunner::createBullet()
@@ -268,8 +294,6 @@ void HeadGunner::createBullet()
 		this->nx,
 		true
 	);
-	bullet->loadResources();
-	bullet->setState(HEAD_GUNNER_BULLET_STATE_DEFAULT);
 
 	_weapons.emplace_back(bullet);
 
@@ -311,8 +335,6 @@ void HeadGunner::createBullet2()
 		this->nx,
 		true
 	);
-	bullet2->loadResources();
-	bullet2->setState(HEAD_GUNNER_BULLET2_STATE_DEFAULT);
 
 	_weapons.emplace_back(bullet2);
 }

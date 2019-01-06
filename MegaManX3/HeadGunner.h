@@ -23,29 +23,34 @@ class HeadGunner :
 	public DynamicObject
 {
 public:
-	HeadGunner(int id, float x, float y, bool nx);
+	HeadGunner(UINT id, float x, float y, bool nx);
 	~HeadGunner();
-	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0);
-	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
-	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
-	void calculateDie();
-	void setState(int state);
-	HeadGunner* clone(int id, int x, int y) override;
-	void resetPosition();
+
+public:
+	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects = 0, unordered_map<int, GameObject*>* dynamicObjects = 0) override;
+	void updateWeapon(DWORD, unordered_map<int, GameObject*>*) override;
+	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void loadResources() override;
 	void createExplosion(float x, float y) override;
 	void setAnimationDie() override;
+
+private:
+	void calculateDie();
+	void setState(int state);
+
 private:
 	bool nx;
-	float initX;
-	float initY;
 	int repeat;
 	PointF die[4];
 	WallSlide* shotEffect = WallSlide::getInstance();
 	BulletCollision* collisionEffect = BulletCollision::getInstance();
+	void setResetBound() override;
 
+private:
 	void createBullet();
 	void createBullet2();
+	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void renderNormal(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 };
 

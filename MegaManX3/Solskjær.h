@@ -32,7 +32,6 @@ public:
 	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));// **
 	void generatePosition();// **
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
-	Solskjær* clone(int id, int x, int y) override;
 	void reset();
 
 private:

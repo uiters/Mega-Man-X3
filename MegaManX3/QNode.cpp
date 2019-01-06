@@ -20,7 +20,6 @@ QNode::QNode(UINT id, int x, int y, UINT width, UINT height) : rect(x, y, width,
 
 void QNode::getObjectsIn(Viewport * viewport, unordered_map<int, GameObject*>& objs)
 {
-	objs.clear();
 	this->getObjects(viewport, objs);
 }
 

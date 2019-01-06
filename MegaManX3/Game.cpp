@@ -33,13 +33,16 @@ void Game::init(int nCmdShow) {
 
 	//RECT rectangle;
 	//GetClientRect(hWnd, &rectangle);
-	d3dpp.BackBufferHeight = CAMERA_WIDTH;//rectangle.bottom + 1;
-	d3dpp.BackBufferWidth = CAMERA_HEIGHT;// rectangle.right + 1;
+	d3dpp.BackBufferHeight = CAMERA_HEIGHT;//rectangle.bottom + 1;
+	d3dpp.BackBufferWidth = CAMERA_WIDTH;// rectangle.right + 1;
 	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3ddv);
 	if (!d3ddv) return;
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
+	//d3ddv->create
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 	initKeyboard();
+	initSound();
+
 	initGolbals();
 	loadResource();
 	initOption();
@@ -88,6 +91,25 @@ void Game::initKeyboard()
 	}
 }
 
+void Game::initSound()
+{
+	HRESULT result;
+
+	// create DirectSound manager object;
+	soundManagerGlobal = new CSoundManager();
+	//initialize DirectSound
+	result = soundManagerGlobal->Initialize(hWndGlobal, DSSCL_PRIORITY);
+	if (result != DS_OK) {
+		debugOut(L"[FAILED] Can not init directx sound");
+	}
+
+	//set the primary buffer format
+	result = soundManagerGlobal->SetPrimaryBufferFormat(2, 22050, 16);
+	if (result != DS_OK)
+	{
+		debugOut(L"[FAILED] Can not set the primary buffer");
+	}
+}
 
 void Game::run()
 {

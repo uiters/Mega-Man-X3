@@ -21,7 +21,6 @@ public:
 	bool canBreak();
 	virtual void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	void loadResources() override {}
-	virtual void run() {}
 };
 
 #endif // !_StaticObject_H

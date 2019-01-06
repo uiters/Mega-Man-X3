@@ -10,14 +10,6 @@ LPCollisionEvent Collision::sweptAABBEx(DWORD dt, LPObject objectMove, LPObject 
 
 	objectCollision->getBoundingBox(sl, st, sr, sb);
 
-	// deal with moving object: m speed = original m speed - collide object speed
-	float svx, svy;
-	svx = objectCollision->speed.vx;
-	svy = objectCollision->speed.vy;
-
-	float sdx = svx * dt;
-	float sdy = svy * dt;
-
 	float dx = objectMove->dx - objectCollision->dx;
 	float dy = objectMove->dy - objectCollision->dy;
 
@@ -67,6 +59,17 @@ void Collision::findCollisions(DWORD dt, LPObject objectMove, vector<GameObject*
 		else delete e;
 	}
 	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
+}
+
+bool Collision::findCollision(DWORD dt, LPObject objectMove, LPObject objectCollision)
+{
+	LPCollisionEvent e = sweptAABBEx(dt, objectMove, objectCollision);
+	bool check = false;
+	if (e->t > 0 && e->t <= 1.0f)
+		check = true;
+
+	delete e;
+	return check;
 }
 
 void Collision::filterCollision(vector<LPCollisionEvent>& coEvents, vector<LPCollisionEvent>& coEventsResult, float & min_tx, float & min_ty, float & nx, float & ny)

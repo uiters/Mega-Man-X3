@@ -49,32 +49,28 @@ void KeyController::update()
 
 	if (wall)
 	{
-		int distanceLeft = wall->x - (main->x + width);
-		int distanceRight = main->x - (wall->x + wall->width);
-
-		if (distanceLeft > 3 || distanceRight > 3) //5 is safe collision
-			isWall = false,
-			wall = NULL;
-		else
+		auto rect = wall->getBoundBox();
+		rect.x -= 5;
+		rect.y -= 5;
+		rect.width += 10;
+		rect.height += 10;
+		if (!rect.intersectsWith(main->getBoundBox()))
 		{
-			
-			int distanceTop = wall->y - (main->y + this->height);
-
-			int distanceBottom = main->y - (wall->y + wall->height);
-			if (distanceTop >4)
-				isWall = false,
-				wall = NULL;
+			isWall = false;
+			wall = null;
 		}
 	}
 
 	if (this->floor && !onAir)
 	{
-		int distanceLeft = floor->x - (main->x + width);
-		int distanceRight = main->x - (floor->x + floor->width);
-		if (distanceLeft > 5 || distanceRight > 5)
-			onAir = true,
-			statusJump = StatusJump::Fall,
-			floor = NULL;
+		auto rect = floor->getBoundBox();
+		rect.y -= 5;
+		if (!rect.intersectsWith(main->getBoundBox()))
+		{
+			floor = null;
+			onAir = true;
+			statusJump = StatusJump::Fall;
+		}
 	}
 
 	_update();
@@ -189,23 +185,28 @@ void KeyController::removeKeyZ()
 {
 	pressZ = false;
 	isShot = true;
+	effect->stopShoot();
+	timePressZ.stop();
+
 	if (isHurt)
 	{
-		timePressZ.stop();
 		timeShoot.stop();
 		return;
 	}
-
-	timePressZ.stop();
-	timeShoot.start();
-	effect->stopShoot();
-
-	bool left = this->statusJump == StatusJump::Slide ? !toLeft : toLeft;
-
-	if (left)
-		weapon->createWeapon(main->x, main->y + height / 2 - 2, levelShoot, true);
 	else
-		weapon->createWeapon(main->x + width, main->y + height / 2 - 2, levelShoot, false);
+	{
+		timeShoot.start();
+		bool left = this->statusJump == StatusJump::Slide ? !toLeft : toLeft;
+
+		if (left)
+			weapon->createWeapon(main->x, main->y + height / 2 - 2, levelShoot, true);
+		else
+			weapon->createWeapon(main->x + width, main->y + height / 2 - 2, levelShoot, false);
+	}
+
+
+
+
 }
 
 void KeyController::stopShoot() 
@@ -223,6 +224,7 @@ void KeyController::updateShoot()
 		timePressZ.update();
 		if (timePressZ.getTime() > 500 && levelShoot == 0)
 			effect->createShoot(++levelShoot);
+
 		else
 			if (timePressZ.getTime() > 2500 && levelShoot == 1)
 				effect->createShoot(++levelShoot);
@@ -250,11 +252,13 @@ void KeyController::addKeyX()
 	if (onAir)
 	{
 		if (isWall && timeKick.isStop())
-			kickWall();
+			kickWall(),
+			soundsGlobal->play(sound_MX_jump);
 	}
 	else
 	{
 		jump();
+		soundsGlobal->play(sound_MX_jump);
 	}
 }
 
@@ -287,7 +291,7 @@ void KeyController::updateJump()
 		if (timeKick.isRunning())
 		{
 			timeKick.update();
-			main->x += toLeft ? 1.5 : -1.5;
+			main->x += toLeft ? 0.05f * main->dt : -0.05f * main->dt;
 		}
 		else statusJump = Jump;
 		timeslideDelay.start();
@@ -380,6 +384,7 @@ void KeyController::addKeyC()
 	pressC = true;
 	isDash = true;
 	if (isHurt) return;
+	soundsGlobal->play(sound_MX_dash);
 	timeDash.start();
 	//if (toLeft)
 	if (toLeft)

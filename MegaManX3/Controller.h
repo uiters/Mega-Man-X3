@@ -1,4 +1,4 @@
-#ifndef _Controller_H_
+Ôªø#ifndef _Controller_H_
 
 #define _Controller_H_
 
@@ -8,32 +8,41 @@
 #include "CollisionEvent.h"
 #include "ScenceController.h"
 
-#include "SolskjÊrController.h"
+#include "Solskj√¶rController.h"
 
 #include "Elevator.h"
 #include "Helit.h"
 
 #include "Shurikein.h"
-
+#include "StageController.h"
+#include "WeaponEffectController.h"
+#include "BlastHornet.h"
+#include "BackgroundController.h"
+#include "Solskj√¶rController.h"
 class Controller
 {
 
 private:
 	MegamanX* main;
-
+	BackgroundController* background;
 	unordered_map<int, GameObject*> currentStatic;//current Static objects
 	unordered_map<int, GameObject*> currentDynamic;//current Dynaimc Objects;
-
+	StageController* stageController;
+	ScenceController* tilesController;
+	WeaponEffectController* weaponEffect;
 	QNode* rootStatic;//static Objects
 	QNode* rootDynamic;//dynamic Objects;
 	GameObject* elevator;
-
-	ScenceController* tilesControll;
-	SolskjÊrController* solskjÊrController;
-
+	bool enableUpdate;
+	BlastHornet* blastHornet;
+	Brick* brick1;
+	Brick* brick2;
 	Shurikein* shurikein;
-
-
+	HPBar* hpBarMain;
+	HPBar* hpBarBoss;
+	Solskj√¶rController* solskj√¶rController;
+private:
+	void filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& objects);
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();

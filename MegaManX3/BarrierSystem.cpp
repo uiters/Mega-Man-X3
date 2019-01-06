@@ -110,10 +110,7 @@ void BarrierSystem::loadResources()
 	this->addAnimation(BARRIER_SYSTEM_STATE_PART_2);
 }
 
-BarrierSystem * BarrierSystem::clone(int id, int x, int y)
-{
-	return nullptr;
-}
+
 
 void BarrierSystem::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {

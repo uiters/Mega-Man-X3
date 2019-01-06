@@ -147,7 +147,7 @@ void SolskjærController::dynamicCollisionMain(MegamanX* main)
 		{
 			if (bullet[0]->getBoundBox().intersectsWith(megamanBox) //single
 				||
-				main->collisionBullet(obj, *bullet, main)) //swept
+				main->collisionBullet(*bullet, main)) //swept
 			{
 				if (bullet[0]->toLeft)
 					obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);

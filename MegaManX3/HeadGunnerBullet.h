@@ -11,10 +11,6 @@
 #define HEAD_GUNNER_BULLET_SPEED_X 0.12f
 #define HEAD_GUNNER_BULLET_SPEED_Y -0.15f
 
-#define HEAD_GUNNER_BULLET_STATE_DEFAULT 0
-
-#define HEAD_GUNNER_BULLET_ID_TEXTURE 833
-
 class HeadGunnerBullet : public Weapon
 {
 public:

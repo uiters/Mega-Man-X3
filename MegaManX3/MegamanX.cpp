@@ -1,7 +1,9 @@
 ﻿#include "MegamanX.h"
 #include "Elevator.h"
 #include "ConstGlobals.h"
+#include "Bee.h"
 #include <vector>
+
 
 void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
@@ -10,6 +12,7 @@ void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 	
 	collision->findCollisions(dt, this, *staticObjects, coEvents);
 	UINT size = coEvents.size();
+	
 	if (size == 0)
 	{
 		x += dx;
@@ -20,12 +23,12 @@ void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 		float min_tx, min_ty, nx = 0, ny;
 		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
+		float reY = y;
 		x += min_tx * dx + nx * 1.f;
-		y += min_ty * dy + ny * 1.f;
+		y += min_ty * dy + ny * 0.4f;
 		
-		if (nx != 0) speed.vx = 0;
-		if (ny != 0) speed.vy = 0;
-
+		if (nx != 0) speed.vx = 0.0f;
+		if (ny != 0) speed.vy = 0.0f;
 		
 		for (UINT i = 0; i < coEventsResult.size(); ++i)
 		{
@@ -37,22 +40,37 @@ void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 				{
 					keyController->stopFallOrSlide();
 					keyController->setFloor(obj);
+
+					elevator = dynamic_cast<Elevator *>(obj);
+
+					if (elevator)
+					{
+						if (!elevator->getIsRun())
+						{
+							elevator->run();
+						}
+						speed.vy = elevator->speed.vy;
+						y = reY + elevator->speed.vy * dt;
+						//y += elevator->speed.vy * dt;
+					}
 				}
 				else if(e->ny > 0)
 				{
 					keyController->stopJump();
 					keyController->setFloor(obj);
+
+					//speed.vy = 0.005*dt;
 				}
 				else if (e->nx !=0)
 				{
 					keyController->stopDash();
 					keyController->setNearWall(e->nx > 0, obj);
 				}
-				obj->run();
 			}
 		}
 	}
 	keyController->update();
+	
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
 
@@ -71,25 +89,23 @@ void MegamanX::setHurt()
 	timeHurt.start();
 	timeProtect.start();
 	delay = 3;
+	soundsGlobal->play(sound_MX_shock);
 }
 
-MegamanX::MegamanX(UINT idTexture, float x, float y, float vx, float vy) :DynamicObject(idTexture, x, y, vx, vy)
+MegamanX::MegamanX(UINT id, float x, float y, float vx, float vy) :DynamicObject(id, x, y, vx, vy)
 {
 	weapon = new MegamanWeapon(&_weapons);
 	effect = new MegamanEffectFactory();
 	keyController = new KeyController(this, effect, weapon, false);
 	width = Stand_Shoot_Width;
 	height = Stand_Shoot_Height;
+	_hp = 38.0f;
 }
 
 MegamanX::~MegamanX()
 {
 }
 
-MegamanX * MegamanX::clone(int id, int x, int y)
-{
-	return nullptr;
-}
 
 void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
@@ -100,6 +116,7 @@ void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
+
 
 	if (isProtect)
 	{
@@ -173,49 +190,49 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 void MegamanX::dissapear(DWORD dt, D3DCOLOR colorBrush)
 {
 	
-	speed.vx = 0.2;
-	speed.vy = -0.2;
+	speed.vx = 0.2f;
+	speed.vy = -0.2f;
 	p1.x += speed.vx*dt;
 	p1.y += speed.vy*dt;
 	auto pos = cameraGlobal->transform(p1.x, p1.y);
 	_animations[die]->render(pos.x, pos.y, colorBrush);
 
-	speed.vx = 0.2;
-	speed.vy = 0.2;
+	speed.vx = 0.2f;
+	speed.vy = 0.2f;
 	p2.x += speed.vx*dt;
 	p2.y += speed.vy*dt;
 	pos = cameraGlobal->transform(p2.x, p2.y);
 	_animations[die]->render(pos.x, pos.y, colorBrush);
 	
-	speed.vx = -0.2;
-	speed.vy = 0.2;
+	speed.vx = -0.2f;
+	speed.vy = 0.2f;
 	p3.x += speed.vx*dt;
 	p3.y += speed.vy*dt;
 	pos = cameraGlobal->transform(p3.x, p3.y);
 	_animations[die]->render(pos.x, pos.y, colorBrush);
 
-	speed.vx = -0.2;
-	speed.vy = -0.2;
+	speed.vx = -0.2f;
+	speed.vy = -0.2f;
 	p4.x += speed.vx*dt;
 	p4.y += speed.vy*dt;
 	pos = cameraGlobal->transform(p4.x, p4.y);
 	_animations[die]->render(pos.x, pos.y, colorBrush);
 
-	speed.vx = 0.2;
-	speed.vy = 0;
+	speed.vx = 0.2f;
+	speed.vy = 0.f;
 	p5.x += speed.vx*dt;
 	p5.y += speed.vy*dt;
 	pos = cameraGlobal->transform(p5.x, p5.y);
 	_animations[die]->render(pos.x, pos.y, colorBrush);
 
 	speed.vx = 0;
-	speed.vy = 0.2;
+	speed.vy = 0.2f;
 	p6.x += speed.vx*dt;
 	p6.y += speed.vy*dt;
 	pos = cameraGlobal->transform(p6.x, p6.y);
 	_animations[die]->render(pos.x, pos.y, colorBrush);
 
-	speed.vx = -0.2;
+	speed.vx = -0.2f;
 	speed.vy = 0;
 	p7.x += speed.vx*dt;
 	p7.y += speed.vy*dt;
@@ -223,7 +240,7 @@ void MegamanX::dissapear(DWORD dt, D3DCOLOR colorBrush)
 	_animations[die]->render(pos.x, pos.y, colorBrush);
 
 	speed.vx = 0;
-	speed.vy = -0.2;
+	speed.vy = -0.2f;
 	p8.x += speed.vx*dt;
 	p8.y += speed.vy*dt;
 	pos = cameraGlobal->transform(p8.x, p8.y);
@@ -277,14 +294,17 @@ void MegamanX::onKeyDown(int keyCode)
 	case DIK_RIGHT:
 		keyController->addKeyArrow(false);
 		break;
-	case DIK_Z:
+	case DIK_Z:		
 		keyController->addKeyZ();
+		
 		break;
 	case DIK_X:
 		keyController->addKeyX();
+		
 		break;
 	case DIK_C:
 		keyController->addKeyC();
+		
 		break;
 	default:
 		break;
@@ -330,6 +350,23 @@ void MegamanX::getBoundingBox(float & left, float & top, float & right, float & 
 
 }
 
+void MegamanX::receiveDamage(float damage)
+{
+	if (_hp > 0)
+	{
+		_hp -= damage;
+		_attacked = true;
+		timeAttacked.start();
+		setHurt();
+	}
+	if (_hp <= 0)
+	{
+		setAnimationDie();
+		timeHide.start();
+		_death = true;
+	}
+}
+
 void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects)
 {
 	auto megamanBox = this->getBoundBox();
@@ -339,11 +376,12 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObje
 		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second);
 		if (!obj || obj->isDeath()) continue;
 
-		if (kv.second->getBoundBox().intersectsWith(megamanBox) //single
+		if (obj->getBoundBox().intersectsWith(megamanBox) //single
 			||
 			collisionGameObject(obj, this)) // swpet
 		{
-			setHurt();
+
+			this->receiveDamage(obj->getDamage());
 			return;
 		}
 
@@ -352,15 +390,23 @@ void MegamanX::dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObje
 		{
 			if (bullet[0]->getBoundBox().intersectsWith(megamanBox) //single
 				||
-				collisionBullet(obj, *bullet, this)) //swept
+				collisionBullet(*bullet, this)) //swept
 			{
-				if (bullet[0]->toLeft)
-					obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);
+				this->receiveDamage(bullet[0]->getDamage());
+				if (dynamic_cast<Bee*>(bullet[0]))
+				{
+					bullet[0]->setAnimationEnd();
+				}
 				else
-					obj->createExplosion(bullet[0]->x - 10, bullet[0]->y);
+				{
+					if (bullet[0]->toLeft)
+						obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);
+					else
+						obj->createExplosion(bullet[0]->x - 10, bullet[0]->y);
+				}
+
 				delete *bullet;
 				bullet = bullets->erase(bullet);
-				setHurt();
 				return;
 			}
 			else ++bullet;
@@ -383,7 +429,8 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 		for (auto bullet = _weapons.begin(); bullet != _weapons.end();)
 		{
 			if (obj->isDeath()) break;
-			if (bullet[0]->getBoundBox().intersectsWith(objBox) //single aabb collision
+			auto box = bullet[0]->getBoundBox();
+			if (box.intersectsWith(objBox) //single aabb collision
 				||
 				collisionGameObject(*bullet, obj)) //colision bullet with dynamic with swept aabb
 			{
@@ -398,6 +445,7 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				}
 				else
 				{
+					bullet[0]->setAnimationEnd();
 					delete *bullet;
 					bullet = _weapons.erase(bullet);
 				}
@@ -409,12 +457,21 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				bool noDelete = true;
 				for (auto bulletDynamic = dynamicBullets->begin(); bulletDynamic != dynamicBullets->end();)
 				{
-					if (collisionBullet(obj, *bulletDynamic, *bullet))
+					if (box.intersectsWith(bulletDynamic[0]->getBoundBox())
+						||
+						collisionBullet(*bulletDynamic, *bullet))
 					{
-						if (bulletDynamic[0]->toLeft)
-							obj->createExplosion(bulletDynamic[0]->x + 10, bulletDynamic[0]->y);
+						if (dynamic_cast<Bee*>(bulletDynamic[0]))
+						{
+							bulletDynamic[0]->createExplosion(bulletDynamic[0]->x, bulletDynamic[0]->y);
+						}
 						else
-							obj->createExplosion(bulletDynamic[0]->x - 10, bulletDynamic[0]->y);
+						{
+							if (bulletDynamic[0]->toLeft)
+								obj->createExplosion(bulletDynamic[0]->x + 10, bulletDynamic[0]->y);
+							else
+								obj->createExplosion(bulletDynamic[0]->x - 10, bulletDynamic[0]->y);
+						}
 
 						delete bulletDynamic[0];
 						bulletDynamic = dynamicBullets->erase(bulletDynamic);
@@ -432,32 +489,6 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				if (noDelete) ++bullet;
 			}
 		}
-
 		++it;
 	}
 }
-
-bool MegamanX::collisionGameObject(GameObject* obj1, GameObject* obj2)
-{
-	auto e = collision->sweptAABBEx(dt, obj1, obj2);
-	if (e->t > 0 && e->t <= 1.0f)
-	{
-		delete e;
-		return true;
-	}
-	delete e;
-	return false;
-}
-
-bool MegamanX::collisionBullet(DynamicObject* obj1, Weapon* bullet1, GameObject* obj2)
-{
-	auto e = Collision::getInstance()->sweptAABBEx(dt, bullet1, obj2);
-	if (e->t > 0 && e->t <= 1.0f)
-	{
-		delete e;
-		return true;
-	}
-	delete e;
-	return false;
-}
-

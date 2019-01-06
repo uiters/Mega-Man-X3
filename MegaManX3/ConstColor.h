@@ -20,6 +20,9 @@
 #define DARKGRAY(alpha)      D3DCOLOR_ARGB(alpha, 73, 73, 73)
 #define DARKERGRAY(alpha)    D3DCOLOR_ARGB(alpha, 31, 31, 31)
 #define BACKGROUND_COLOR	 D3DCOLOR_XRGB(255, 255, 255)
+#define PALETURQUOISE(alpha) D3DCOLOR_ARGB(alpha, 175, 238, 238)	
+#define AQUAMARINE(alpha)	 D3DCOLOR_ARGB(alpha, 127, 255, 212)
+#define LIGHTCYAN(alpha)	 D3DCOLOR_ARGB(alpha, 224, 255, 255)
 	//#define BLACK				 D3DCOLOR_XRGB(255, 255, 255)
 
 #endif /* _COLORS_H_ */

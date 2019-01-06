@@ -2,11 +2,7 @@
 
 void BusterShot::loadResources()
 {
-	spritesGlobal->add(bullet_lv1, Megaman, 5, 377, 12, 382);
-	auto ani = new CAnimation(50);
-	ani->add(bullet_lv1);
-	animationsGlobal->add(bullet_lv1, ani);
-	_animations[bullet_lv1] = ani;
+	_animations[bullet_lv1] = animationsGlobal->get(bullet_lv1);
 }
 
 BusterShot::BusterShot(float x, float y,bool toLeft)
@@ -18,11 +14,13 @@ BusterShot::BusterShot(float x, float y,bool toLeft)
 	this->speed.vy = 0.00f;
 	_damage = 1;
 	loadResources();
+	soundsGlobal->play(sound_bul_lv1);
 }
 
 BusterShot::~BusterShot()
 {
-	delete _animations[bullet_lv1];
+	if (_isCollision)
+		_weaponEffect->createBusterEffect(x, y, toLeft);
 }
 
 void BusterShot::getBoundingBox(float & left, float & top, float & right, float & bottom)

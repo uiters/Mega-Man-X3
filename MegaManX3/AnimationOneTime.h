@@ -14,7 +14,8 @@ public:
 	void renderFlipX(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	void renderFlipY(float x, float y, bool center = false, D3DCOLOR colorBrush = WHITE(255)) override;
 	bool isFinish();
-	bool isLastFrame();
+	bool isLastFrame() override;
+	void reset() override;
 	~AnimationOneTime();
 };
 #endif // !_AnimationOneTime_h_

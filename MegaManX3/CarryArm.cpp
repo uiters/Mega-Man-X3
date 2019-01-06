@@ -23,7 +23,7 @@ CarryArm::CarryArm(float x, float y, bool isNext)
 	box = new Box(this->x - 6, this->y + 59);
 	box->isNext = this->isNext;
 	box->isLeft = this->isLeft;
-	hp = _hp = 2;
+	initHP = _hp = 2;
 }
 
 CarryArm::~CarryArm()
@@ -327,10 +327,7 @@ void CarryArm::getBoundingBox(float & left, float & top, float & right, float & 
 	bottom = y + 57;
 }
 
-CarryArm* CarryArm::clone(int id, int x, int y)
-{
-	return nullptr;
-}
+
 
 void CarryArm::reset()
 {

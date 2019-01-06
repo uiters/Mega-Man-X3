@@ -1,5 +1,5 @@
 #include "Factory.h"
-
+#include "StageController.h"
 Factory * Factory::_instance = 0;
 
 Factory* Factory::getInstance()
@@ -38,8 +38,8 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 		switch (idNameObject)
 		{
 		case 3:
-			obj = new Elevator(TElevator, x, y);
-			break;
+			StageController::getInstance()->setElevator(new Elevator(TElevator, x, y));
+			continue;
 		case 4:
 			obj = NULL;
 			break;
@@ -53,7 +53,6 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 			break;
 		case 7:
 			obj = new Helit(id, x, y, toLeft);
-
 			break;
 		default:
 			obj = new Brick(id, x, y, width, height);

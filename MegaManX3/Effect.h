@@ -24,7 +24,7 @@ protected:
 public:
 
 	Effect();
-	~Effect();
+	virtual ~Effect();
 
 	virtual void createEffect(float x, float y);//create effect one time at point x, y 
 	virtual void createEffectInfinity(float x, float y);

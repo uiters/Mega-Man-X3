@@ -59,6 +59,13 @@ bool AnimationOneTime::isLastFrame()
 	return isDone;
 }
 
+void AnimationOneTime::reset()
+{
+
+	isDone = false;
+	currentFrame = -1;
+}
+
 
 AnimationOneTime::~AnimationOneTime()
 {
