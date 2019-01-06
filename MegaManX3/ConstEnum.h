@@ -59,6 +59,9 @@ enum ShurikeinAnimation
 	fast_roll = 14300,
 	normal = 14400,
 	fast_spin = 14500,
+	fly = 15000,
+	jet = 15100,
+	illuminate = 15200,
 };
 enum WeaponID
 {

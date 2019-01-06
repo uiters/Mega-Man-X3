@@ -42,6 +42,7 @@ void Controller::update(DWORD dt)
 	//currentDynamic[-999] = blastHornet;
 	currentStatic[-2] = brick1;
 	currentStatic[-3] = brick2;
+	genjibo->update(dt);
 	shurikein->update(dt, &currentStatic);
 	currentDynamic[-999] = shurikein;
 
@@ -63,7 +64,7 @@ void Controller::render(DWORD dt)
 	weaponEffect->render(dt); //render effect dynamic
 
 	stageController->renderElevator(dt);
-
+	genjibo->render(dt);
 	shurikein->render(dt);
 
 	main->render(dt);
@@ -90,9 +91,11 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	blastHornet = new BlastHornet();
 
 	main->state = stand;
+	genjibo = new Genjibo(TGenjibo, 2518, 700);
 	shurikein = new Shurikein(TShurikein, 2518, 920);
 	shurikein->state = manifest;
-	
+	shurikein->visible = false;
+	genjibo->setShurikein(shurikein);
 	hpBarMain = new HPBar(*main->getHp(), 38.0f, 2.0f, true);
 	hpBarBoss = new HPBar(*blastHornet->getHp(), 64.0f, 2.0f, false);
 	brick1 = new Brick(0, 2297, 895, 22, 52);

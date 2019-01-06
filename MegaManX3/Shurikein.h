@@ -8,6 +8,7 @@ class Shurikein :
 public:
 	bool jumped = false;
 	bool jumping = false;
+	bool enable = false;
 	CTime countManifest = CTime(2500);	
 	CTime timeRest = CTime(1000);
 	CTime timeBeHit = CTime(100);
@@ -15,6 +16,7 @@ public:
 	CTime timeHide = (5000);
 	bool inMech = false;
 	bool toLeft = true;
+	int color = 255;
 	int mech = 0; // 1:goAround || 2:rollAndJump || 3:spinAndJump || 0:manifest
 	CTime timeMech1 = CTime(4750); //goAround
 	CTime timeMech2 = CTime(4900); //rollAndJump

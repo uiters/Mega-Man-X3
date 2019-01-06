@@ -387,6 +387,9 @@
     <ClInclude Include="CSounds.h">
       <Filter>Lib\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="Genjibo.h">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -599,6 +602,9 @@
     </ClCompile>
     <ClCompile Include="CSounds.cpp">
       <Filter>Lib\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Genjibo.cpp">
+      <Filter>Game\GameObject\DynamicObject\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

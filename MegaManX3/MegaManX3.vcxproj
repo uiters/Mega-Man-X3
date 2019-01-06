@@ -173,6 +173,7 @@
     <ClInclude Include="Debugs.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Gate.h" />
+    <ClInclude Include="Genjibo.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HeadGunner.h" />
     <ClInclude Include="HeadGunnerBullet.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="Game1.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gate.cpp" />
+    <ClCompile Include="Genjibo.cpp" />
     <ClCompile Include="HeadGunner.cpp" />
     <ClCompile Include="HeadGunnerBullet.cpp" />
     <ClCompile Include="HeadGunnerBullet2.cpp" />
