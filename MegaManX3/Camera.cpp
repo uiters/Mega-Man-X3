@@ -152,6 +152,11 @@ void Camera::state4(int cameraX, int cameraY)
 		state = &Camera::state5;
 		return;
 	}
+	if (!lockLeft && cameraX > maxValue - 128)
+	{
+		lockLeft = true;
+	}
+
 	if (cameraX < minValue)
 	{
 		if (!lockLeft)
@@ -169,20 +174,28 @@ void Camera::state4(int cameraX, int cameraY)
 			viewport.x = 1536;
 		}
 	}
-	else if (lockLeft) lockLeft = false;
+	else if (lockLeft && cameraX <= maxValue - 128) lockLeft = false;
 
-	if (cameraY <= 64 || cameraY >= 768)
+	if (cameraY <= 64 || cameraY >= 640)
 	{
+		if (cameraY > 640)
+		{
+			if (viewport.y + 5 < 768)
+				viewport.y += 5;
+			else viewport.y = 768;
+		}
 		if (lockTop) return;
 
 		lockTop = true;
-		viewport.y = cameraY < 64 ? 0 : 768;
+		//viewport.y = cameraY < 64 ? 0 : 768;
 	}
 	else 
 		if (lockTop)
 		{
-			if (cameraY > 64 && viewport.y - cameraY < 0)
+			if (cameraY > 64 && cameraY < 256 && viewport.y - cameraY < 0)
 				viewport.y += 10;
+			else if (cameraY < 640 && viewport.y - cameraY > 0)
+				viewport.y -= 5;
 			else
 				lockTop = false;
 		}
@@ -221,6 +234,8 @@ void Camera::state6(int cameraX, int cameraY)
 		state = &Camera::state7;
 		return;
 	}
+	if (!lockLeft && cameraX > maxValue - 128)
+		lockLeft = true;
 	if (cameraX <= minValue)
 	{
 		if (!lockLeft) 
@@ -229,8 +244,19 @@ void Camera::state6(int cameraX, int cameraY)
 			viewport.x = minValue;
 		}
 	}
-	else if (lockLeft)
+	else if (lockLeft && cameraX <= maxValue - 128)
 		lockLeft = false;
+
+
+	if (cameraY <= 576)
+	{
+		if (viewport.y > 512)
+			viewport.y -= 5;
+		else viewport.y = 512;
+
+		if (lockTop) return;
+		lockTop = true;
+	}
 
 	if (cameraY >= 672)
 	{
@@ -246,9 +272,10 @@ void Camera::state6(int cameraX, int cameraY)
 	{
 		if (cameraY < 672 && viewport.y - cameraY > 0)
 			viewport.y -= 5;
-		else
+		else if(cameraY >= 576)
 		lockTop = false;
 	}
+
 }
 
 //bit or byte
@@ -283,6 +310,8 @@ void Camera::state8(int cameraX, int cameraY)
 		state = &Camera::state9;
 		return;
 	}
+	if (!lockLeft && cameraX > maxValue - 128)
+		lockLeft = true;
 	if ((cameraX <= minValue) || (cameraX < 6144 && cameraY < 1472))
 	{
 		if (!lockLeft)
@@ -291,7 +320,7 @@ void Camera::state8(int cameraX, int cameraY)
 			viewport.x = minValue;
 		}
 	}
-	else if (lockLeft)
+	else if (lockLeft && cameraX <= maxValue - 128)
 		lockLeft = false;
 
 	if (cameraY <= 800)
