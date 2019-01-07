@@ -1,11 +1,13 @@
 #pragma once
 #include "Stage.h"
 #include "Gate.h"
+#include "ConstGlobals.h"
 class Stage4 :
 	public Stage
 {
 private:
 	Gate* gate;
+	CRectangle gateBox;
 	bool draw = false;
 public:
 	Stage4();

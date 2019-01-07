@@ -1,7 +1,5 @@
 #include "Controller.h"
-#include "CollisionEvent.h"
-#include "NotorBanger.h"
-#include "StageController.h"
+
 
 void Controller::filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& objects)
 {
@@ -27,27 +25,31 @@ void Controller::update(DWORD dt)
 {
 	currentStatic.clear(); 
 	currentDynamic->clear();
+	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);// static quadtree
+	stageController->getStaticObjects(currentStatic);//get static from stage
 
 	background->update(dt);
 	tilesController->update(viewPortGlobal);
+	stageController->update(dt, &currentStatic);
+	
+	if (enableUpdate)
+	{
+		rootDynamic->getObjectsIn(viewPortGlobal, *saveDynamic);// dynamic quatree
 
-	stageController->update(dt);
+		filterAndUpdate(dt, *saveDynamic);//filter Dynamic Object => current dynamic
 
-	if (!enableUpdate) return;
+		main->update(dt, &currentStatic, currentDynamic);
+		
+		stageController->getDynamicObjects(stageObjects);
+		main->updateStage(dt, &stageObjects);
 
-	rootStatic->getObjectsIn(viewPortGlobal, currentStatic);// static quadtree
-	rootDynamic->getObjectsIn(viewPortGlobal, *saveDynamic);// dynamic quatree
-
-	filterAndUpdate(dt, *saveDynamic);//filter Dynamic Object => current dynamic
-
-	main->update(dt, &currentStatic, currentDynamic);
-	stageController->updateElevator(dt);
-
-	//switch current -> save && save ->current
-	auto temp = currentDynamic;
-	currentDynamic = saveDynamic;
-	saveDynamic = temp;
-	stageController->setCurrentDynamic(currentDynamic);
+		//switch current -> save && save ->current
+		auto temp = currentDynamic;
+		currentDynamic = saveDynamic;
+		saveDynamic = temp;
+	}
+	if(!hpBarBoss && cameraGlobal->getState() == 10)
+		hpBarBoss = stageController->getHPBar();
 }
 
 void Controller::render(DWORD dt)
@@ -61,15 +63,13 @@ void Controller::render(DWORD dt)
 	}
 
 	weaponEffect->render(dt); //render effect dynamic
-
-	stageController->renderElevator(dt);
-
-	blastHornet->render(dt);
-
+	stageController->render(dt);
 	main->render(dt);
 
 	hpBarMain->render(true);
-	//hpBarBoss->render(true);
+
+	if(hpBarBoss)
+		hpBarBoss->render(true);
 }
 
 
@@ -77,27 +77,19 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 {
 	stageController = StageController::getInstance();
 	weaponEffect = WeaponEffectController::getIntance();
-	
-	stageController->setCurrentStatic(&currentStatic);
-	enableUpdate = true;
-	stageController->setEnableUpdateController(&enableUpdate);
 	background = new BackgroundController();
+	tilesController = new ScenceController();
+	hpBarMain = new HPBar(*main->getHp(), 38.0f, 2.0f, true);
+
+	this->enableUpdate = true;
 	this->rootStatic = rootStatic;
 	this->rootDynamic = rootDynamic;
 	this->main = main;
-	currentDynamic = &dynamicObject1;
-	saveDynamic = &dynamicObject2;
+	this->currentDynamic = &dynamicObject1;
+	this->saveDynamic = &dynamicObject2;
+	this->main->state = stand;
 
-	tilesController = new ScenceController();
-	blastHornet = new BlastHornet();
-
-	main->state = stand;
-	//shurikein = new Shurikein(TShurikein, 2518, 920);
-	//shurikein->state = manifest;
-	
-	hpBarMain = new HPBar(*main->getHp(), 38.0f, 2.0f, true);
-	hpBarBoss = new HPBar(*blastHornet->getHp(), 64.0f, 2.0f, false);
-
+	stageController->setEnableUpdateController(&enableUpdate);
 }
 
 Controller::~Controller()

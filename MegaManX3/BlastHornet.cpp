@@ -114,6 +114,30 @@ void BlastHornet::getBoundingBox(float & left, float & top, float & right, float
 	bottom = y + height;
 }
 
+void BlastHornet::reset()
+{
+	x = 7863;
+	y = 1485;
+
+	speed.vy = 0.55f;
+
+	mech = &BlastHornet::start;
+	mechBerk = &BlastHornet::berserkDropBeePrepare;
+
+	toLeft = true;
+
+	//y = 1555;
+	//mech = &BlastHornet::flyArround;
+	//state = Hornet_Stand;
+	//speed.vx = -0.195f;
+	//speed.vy = 0.025f;
+
+
+	initHP = 64.0f; //hp
+	width = 44;
+	height = 57;
+}
+
 void BlastHornet::flyArround()
 {
 	setDirection();

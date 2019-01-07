@@ -7,11 +7,11 @@ void Game1::initGolbals()
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
 
-	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
+	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
 	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
 	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);//surikein
 	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
-
+	cameraGlobal = new Camera(2288, 810, CAMERA_WIDTH, CAMERA_HEIGHT);
 	viewPortGlobal = &cameraGlobal->viewport;
 }
 
@@ -44,8 +44,10 @@ void Game1::loadResource()
 #pragma endregion
 
 
+	
+	main = new MegamanX(Megaman, 2188, 810);
 
-	main = new MegamanX(Megaman, 100, 650);
+	//main = new MegamanX(Megaman, 100, 650);
 	//main = new MegamanX(Megaman, 768, 650);
 	//7715 1681
 	//main = new MegamanX(Megaman, 2344, 910);
@@ -405,8 +407,11 @@ void Game1::loadResource()
 
 #pragma region Gate
 	// gate 1 (boss) room 8 9 10
+	ani = new AnimationOneTime(5000);
+	spritesGlobal->addSprite(Gate1Open - 1, TGate, 50, 0, 16, 48);
+	ani->add(Gate1Open - 1);
+	animationsGlobal->add(GateOpen, ani);
 	ani = new AnimationOneTime(50);
-	spritesGlobal->addSprite(Gate1Open - 1, TGate, 50 , 0, 16, 48);
 	ani->add(Gate1Open - 1);
 	for (int i = 0; i < 9; ++i)
 	{
@@ -429,7 +434,7 @@ void Game1::loadResource()
 
 	// gate 2 miniboss 5 6 7  
 	ani = new AnimationOneTime(70);
-	ani->add(Gate1Open - 1);
+	ani->add(Gate1Open - 1, 500);
 	for (int i = 0; i < 17; ++i)
 	{
 		spritesGlobal->addSprite(Gate2Open + i, TGate, 2 + i * 18, 59, 16, 48);

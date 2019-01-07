@@ -1,7 +1,5 @@
 #include "Genjibo.h"
 
-
-
 Genjibo::Genjibo()
 {	
 }
@@ -9,17 +7,21 @@ Genjibo::~Genjibo()
 {
 }
 
-
 void Genjibo::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	GameObject::update(dt);
-	timeWaiting.update();
 	if (!visible)
 	{
 		return;
 	}
 	else
 	{
+		GameObject::update(dt);
+		timeWaiting.update();
+		if (y < 690) 
+		{
+			visible = false;
+			return;
+		}
 		if (y >= 880 && !dropShurikein)
 		{
 			timeWaiting.start();
@@ -82,9 +84,9 @@ void Genjibo::setShurikein(Shurikein * obj)
 	this->obj = obj;
 }
 
-
 void Genjibo::loadResources()
 {
+		if(!texturesGlobal->getTexture(TShurikein))
 		texturesGlobal->add(TShurikein, L"Resource\\Textures\\Shurikein.png", 555, 468, D3DCOLOR_XRGB(64, 48, 72));
 #pragma region fly
 		auto ani = new CAnimation(50);
@@ -97,8 +99,7 @@ void Genjibo::loadResources()
 		{
 			ani->add(fly + i);
 		}
-		animationsGlobal->add(fly, ani);
-		this->addAnimation(fly);
+		_animations[fly] = ani;
 #pragma endregion
 #pragma region jet
 		ani = new CAnimation(50);
@@ -111,15 +112,13 @@ void Genjibo::loadResources()
 		{
 			ani->add(jet + i);
 		}
-		animationsGlobal->add(jet, ani);
-		this->addAnimation(jet);
+		_animations[jet] = ani;
 #pragma endregion
 #pragma region illuminate 
 		ani = new CAnimation(100);
 		spritesGlobal->addSprite(illuminate, TShurikein, 281, 10, 31, 48);
 		ani->add(illuminate);
-		animationsGlobal->add(illuminate, ani);
-		this->addAnimation(illuminate);
+		_animations[illuminate] = ani;
 #pragma endregion
 
 

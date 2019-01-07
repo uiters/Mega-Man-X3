@@ -58,6 +58,8 @@ void ScenceController::update(Viewport * viewport)
 
 	colEnd = viewport->right() / (float)width + 1.49999f;
 	rowEnd = viewport->bottom() / (float)height + 1.49999f;
+	if (rowEnd > rows) rowEnd = rows;
+	if (colEnd > cols) colEnd = cols;
 }
 
 void ScenceController::render(DWORD dt)

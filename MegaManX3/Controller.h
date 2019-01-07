@@ -2,48 +2,40 @@
 
 #define _Controller_H_
 
-#include "GameObject.h"
 #include "MegamanX.h"
 #include "QNode.h"
 #include "CollisionEvent.h"
 #include "ScenceController.h"
-
-#include "SolskjærController.h"
-
-#include "Elevator.h"
-#include "Helit.h"
-#include "Genjibo.h"
-
 #include "Shurikein.h"
 #include "StageController.h"
 #include "WeaponEffectController.h"
-#include "BlastHornet.h"
 #include "BackgroundController.h"
+#include "CollisionEvent.h"
+#include "NotorBanger.h"
+#include "StageController.h"
+
 class Controller
 {
 
 private:
 	MegamanX* main;
 	BackgroundController* background;
-	unordered_map<int, GameObject*> currentStatic;//current Static objects
+
 	unordered_map<int, GameObject*>* currentDynamic;//current Dynaimc Objects;
 	unordered_map<int, GameObject*>* saveDynamic;//save
 
 	unordered_map<int, GameObject*> dynamicObject1;
 	unordered_map<int, GameObject*> dynamicObject2;
+	unordered_map<int, GameObject*> stageObjects; //state objects
+	unordered_map<int, GameObject*> currentStatic;//current Static objects
 
 	StageController* stageController;
 	ScenceController* tilesController;
 	WeaponEffectController* weaponEffect;
 	QNode* rootStatic;//static Objects
 	QNode* rootDynamic;//dynamic Objects;
-	GameObject* elevator;
 	bool enableUpdate;
-	BlastHornet* blastHornet;
-	Brick* brick1;
-	Brick* brick2;
-	Genjibo* genjibo;
-	Shurikein* shurikein;
+
 	HPBar* hpBarMain;
 	HPBar* hpBarBoss;
 

@@ -139,8 +139,9 @@ enum Animation {
 	Gate1Lock = 30400,
 	Gate2Lock = 30401,
 	GateLock = 33000,
-	GateOpen = 33001,
-	GateClose = 33002,
+	GateOpening = 33001,
+	GateOpen = 33002,
+	GateClose = 33003,
 };
 
 

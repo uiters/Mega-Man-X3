@@ -201,10 +201,11 @@
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage4.h" />
+    <ClInclude Include="Stage8.h" />
     <ClInclude Include="StageBoss.h" />
     <ClInclude Include="StageByte.h" />
     <ClInclude Include="StageController.h" />
-    <ClInclude Include="StageElevetor.h" />
+    <ClInclude Include="StageElevator.h" />
     <ClInclude Include="StageMiniBoss1.h" />
     <ClInclude Include="StageMiniBoss2.h" />
     <ClInclude Include="StageWaitBoss.h" />
@@ -286,10 +287,11 @@
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage4.cpp" />
+    <ClCompile Include="Stage8.cpp" />
     <ClCompile Include="StageBoss.cpp" />
     <ClCompile Include="StageByte.cpp" />
     <ClCompile Include="StageController.cpp" />
-    <ClCompile Include="StageElevetor.cpp" />
+    <ClCompile Include="StageElevator.cpp" />
     <ClCompile Include="StageMiniBoss1.cpp" />
     <ClCompile Include="StageMiniBoss2.cpp" />
     <ClCompile Include="StageWaitBoss.cpp" />

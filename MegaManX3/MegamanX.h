@@ -65,6 +65,8 @@ private:
 public:
 	bool protect() { return isProtect; }
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects) override;
+	void updateStage(DWORD dt, unordered_map<int, GameObject*>*dynamicObjects);
+
 	void updateState(DWORD dt);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void onKeyDown(int) override;

@@ -371,8 +371,7 @@ void Shurikein::loadResources()
 	{
 		ani->add(manifest + i);
 	}
-	animationsGlobal->add(manifest, ani);
-	this->addAnimation(manifest);
+	_animations[manifest] = ani;
 #pragma endregion
 #pragma region roll
 	ani = new CAnimation(30);
@@ -391,8 +390,7 @@ void Shurikein::loadResources()
 	{
 		ani->add(roll + i);
 	}
-	animationsGlobal->add(roll, ani);
-	this->addAnimation(roll);
+	_animations[roll] = ani;
 #pragma endregion
 #pragma region spin
 	ani = new CAnimation(11);
@@ -413,23 +411,22 @@ void Shurikein::loadResources()
 	spritesGlobal->add(spin + 14, TShurikein, 504, 412, 511, 460);
 	spritesGlobal->add(spin + 15, TShurikein, 518, 412, 524, 460);
 
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < 16; ++i)
 	{
 		ani->add(spin + i, 16);
 	}
-	for (int i = 14; i > 0; i--)
+	for (int i = 14; i > 0; --i)
 	{
 		ani->add(spin + i);
 	}
-	animationsGlobal->add(spin, ani);
-	this->addAnimation(spin);
+	_animations[spin] = ani;
 #pragma endregion
 #pragma region normal 
 	ani = new CAnimation(100);
 	spritesGlobal->add(normal, TShurikein, 328, 10, 374, 58);
 	ani->add(normal);
-	animationsGlobal->add(normal, ani);
-	this->addAnimation(normal);
+	_animations[normal] = ani;
+
 #pragma endregion
 #pragma region fast_roll
 	ani = new CAnimation(15);
@@ -439,12 +436,11 @@ void Shurikein::loadResources()
 	spritesGlobal->add(fast_roll + 3, TShurikein, 335, 354, 383, 402);
 	spritesGlobal->add(fast_roll + 4, TShurikein, 498, 353, 544, 399);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 5; ++i)
 	{
 		ani->add(fast_roll + i);
 	}
-	animationsGlobal->add(fast_roll, ani);
-	this->addAnimation(fast_roll);
+	_animations[fast_roll] = ani;
 #pragma endregion
 #pragma region fast_spin
 	ani = new CAnimation(15);
@@ -455,16 +451,15 @@ void Shurikein::loadResources()
 	spritesGlobal->add(fast_spin + 4, TShurikein, 465, 412, 476, 460);
 	spritesGlobal->add(fast_spin + 5, TShurikein, 518, 412, 524, 460);
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 6; ++i)
 	{
 		ani->add(fast_spin + i);
 	}
-	for (int i = 5; i > 0; i--)
+	for (int i = 5; i > 0; --i)
 	{
 		ani->add(fast_spin + i);
 	}
-	animationsGlobal->add(fast_spin, ani);
-	this->addAnimation(fast_spin);
+	_animations[fast_spin] = ani;
 #pragma endregion
 
 }

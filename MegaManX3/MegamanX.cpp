@@ -118,7 +118,6 @@ void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 {
 	if (_death) return;
 	GameObject::update(dt);
-
 	speed.vy += 0.0012f * dt;
 
 	collisionStatic(staticObjects);
@@ -141,6 +140,13 @@ void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 	weapon->update(dt);
 
+}
+
+void MegamanX::updateStage(DWORD dt, unordered_map<int, GameObject*>* dynamicObjects)
+{
+	if (_death) return;
+	GameObject::update(dt);
+	collisionDynamic(dynamicObjects);
 }
 
 void MegamanX::updateState(DWORD dt) 

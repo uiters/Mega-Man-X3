@@ -1,8 +1,18 @@
 #pragma once
 #include "Stage.h"
-
-class StageMiniBoss2 : Stage
+#include "SolskjærController.h"
+class StageMiniBoss2 : public Stage
 {
+private:
+	SolskjærController* boss;
+	Gate* gateLeft;
+	Gate* gateRight;
+
+	bool miniBoss;
+	bool doneMiniBoss;
+	MegamanX* main;
+	bool drawLeft;
+	bool drawRight;
 public:
 	StageMiniBoss2();
 	~StageMiniBoss2();
@@ -14,5 +24,6 @@ public:
 public:
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
+	void reset();
 };
 

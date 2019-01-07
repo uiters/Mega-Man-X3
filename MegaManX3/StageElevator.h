@@ -1,15 +1,21 @@
 #pragma once
 #include "Stage.h"
-
-class StageByte : public Stage
+#include "Elevator.h"
+class StageElevator :
+	public Stage
 {
 private:
-	Gate* gateLeft;
-	Gate* gateRight;
-
+	Camera* camera;
+	Elevator* elevator;
+	bool isResetLocation = false;
+	int wait = 0;
+	float initX;
+	float initY;
 public:
-	StageByte();
-	~StageByte();
+	StageElevator();
+	~StageElevator();
+
+
 public:
 	void getStaticObjects(unordered_map<int, GameObject*> *saticObjects);
 	void getDynamicObjects(unordered_map<int, GameObject*> *dynamicObjects);

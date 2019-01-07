@@ -4,7 +4,9 @@
 
 Stage4::Stage4()
 {
-	gate = new Gate(2280, 894, 16, 48, false);
+	gate = new Gate(2288, 896, 16, 48, false);
+	gate->state = GateLock;
+	gateBox = gate->getBoundBox();
 }
 
 
@@ -22,9 +24,15 @@ void Stage4::getDynamicObjects(unordered_map<int, GameObject*>* dynamicObjects)
 
 void Stage4::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
-	if (gate->getBoundBox().contains(viewPortGlobal))
+	if(gateBox.intersectsWith(*viewPortGlobal))
 	{
 		draw = true;
+		if (gateBox.intersectsWith(mainGlobal->getBoundBox())
+			||
+			mainGlobal->collisionGameObject(mainGlobal, gate))
+		{
+			gate->state = GateOpening;
+		}
 	}
 	else draw = false;
 }

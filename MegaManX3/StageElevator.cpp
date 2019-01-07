@@ -1,8 +1,8 @@
-#include "StageElevetor.h"
+#include "StageElevator.h"
 
 
 
-StageElevetor::StageElevetor()
+StageElevator::StageElevator()
 {
 	camera = cameraGlobal;
 	elevator = new Elevator(0, 847, 690);
@@ -11,21 +11,22 @@ StageElevetor::StageElevetor()
 }
 
 
-StageElevetor::~StageElevetor()
+StageElevator::~StageElevator()
 {
 
 }
 
-void StageElevetor::getStaticObjects(unordered_map<int, GameObject*>* saticObjects)
+void StageElevator::getStaticObjects(unordered_map<int, GameObject*>* saticObjects)
 {
-	saticObjects[0][ID_ELEVATOR] = elevator;
+	if(elevator->getBoundBox().intersectsWith(camera->viewport))
+		saticObjects[0][ID_ELEVATOR] = elevator;
 }
 
-void StageElevetor::getDynamicObjects(unordered_map<int, GameObject*>* dynamicObjects)
+void StageElevator::getDynamicObjects(unordered_map<int, GameObject*>* dynamicObjects)
 {
 }
 
-void StageElevetor::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
+void StageElevator::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
 	elevator->update(dt);
 
@@ -56,12 +57,12 @@ void StageElevetor::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 	}
 }
 
-void StageElevetor::render(DWORD dt, D3DCOLOR colorBrush)
+void StageElevator::render(DWORD dt, D3DCOLOR colorBrush)
 {
 	elevator->render(dt, colorBrush);
 }
 
-void StageElevetor::reset()
+void StageElevator::reset()
 {
 	elevator->x = initX;
 	elevator->y = initY;
