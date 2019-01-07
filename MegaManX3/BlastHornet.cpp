@@ -80,8 +80,13 @@ void BlastHornet::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		if (_death)
 		{
+			if (color > 50)
+			{
+				color -= 1;
+			}
 			auto pos = cameraGlobal->transform(x, y);
-			_animations[state]->renderFlipX(pos.x, pos.y);
+			if (toLeft) _animations[state]->render(pos.x, pos.y, false, WHITE(color));
+				else _animations[state]->renderFlipX(pos.x, pos.y, false, WHITE(color));
 			effect->render(dt, true);
 			return;
 		}

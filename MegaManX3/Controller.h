@@ -12,6 +12,7 @@
 
 #include "Elevator.h"
 #include "Helit.h"
+#include "Genjibo.h"
 
 #include "Shurikein.h"
 #include "StageController.h"
@@ -41,6 +42,7 @@ private:
 	BlastHornet* blastHornet;
 	Brick* brick1;
 	Brick* brick2;
+	Genjibo* genjibo;
 	Shurikein* shurikein;
 	HPBar* hpBarMain;
 	HPBar* hpBarBoss;

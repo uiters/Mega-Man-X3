@@ -24,6 +24,7 @@ private:
 	int maxRound = 0;
 	int maxBee = 2;
 	int bees = 0;
+	int color = 255;
 	void(BlastHornet::*mech) ();
 	void(BlastHornet::*mechBerk) ();
 

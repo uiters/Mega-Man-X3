@@ -224,6 +224,7 @@ void KeyController::updateShoot()
 		timePressZ.update();
 		if (timePressZ.getTime() > 500 && levelShoot == 0)
 			effect->createShoot(++levelShoot);
+
 		else
 			if (timePressZ.getTime() > 2500 && levelShoot == 1)
 				effect->createShoot(++levelShoot);
@@ -251,11 +252,13 @@ void KeyController::addKeyX()
 	if (onAir)
 	{
 		if (isWall && timeKick.isStop() && !dynamic_cast<Block*>(wall))
-			kickWall();
+			kickWall(),
+			soundsGlobal->play(sound_MX_jump);
 	}
 	else
 	{
 		jump();
+		soundsGlobal->play(sound_MX_jump);
 	}
 }
 
@@ -381,6 +384,7 @@ void KeyController::addKeyC()
 	pressC = true;
 	isDash = true;
 	if (isHurt) return;
+	soundsGlobal->play(sound_MX_dash);
 	timeDash.start();
 	//if (toLeft)
 	if (toLeft)

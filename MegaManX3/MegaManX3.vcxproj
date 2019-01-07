@@ -156,13 +156,13 @@
     <ClInclude Include="ConstGlobals.h" />
     <ClInclude Include="ConstStruct.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="CSounds.h" />
     <ClInclude Include="CTime.h" />
     <ClInclude Include="DashSmoke.h" />
     <ClInclude Include="DashSpark.h" />
     <ClInclude Include="DeadPoint.h" />
     <ClInclude Include="DiePoint.h" />
     <ClInclude Include="dsutil.h" />
-    <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="Effect.h" />
@@ -176,6 +176,7 @@
     <ClInclude Include="Debugs.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Gate.h" />
+    <ClInclude Include="Genjibo.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HeadGunner.h" />
     <ClInclude Include="HeadGunnerBullet.h" />
@@ -197,7 +198,6 @@
     <ClInclude Include="Solskjær.h" />
     <ClInclude Include="SolskjærBullet.h" />
     <ClInclude Include="SolskjærController.h" />
-    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage4.h" />
@@ -242,6 +242,7 @@
     <ClCompile Include="CollisionEvent.cpp" />
     <ClCompile Include="ConstGlobals.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="CSounds.cpp" />
     <ClCompile Include="CTime.cpp" />
     <ClCompile Include="DashSmoke.cpp" />
     <ClCompile Include="DashSpark.cpp" />
@@ -249,7 +250,6 @@
     <ClCompile Include="Debugs.cpp" />
     <ClCompile Include="DiePoint.cpp" />
     <ClCompile Include="dsutil.cpp" />
-    <ClCompile Include="dxsound.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -261,6 +261,7 @@
     <ClCompile Include="Game1.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gate.cpp" />
+    <ClCompile Include="Genjibo.cpp" />
     <ClCompile Include="HeadGunner.cpp" />
     <ClCompile Include="HeadGunnerBullet.cpp" />
     <ClCompile Include="HeadGunnerBullet2.cpp" />
@@ -282,7 +283,6 @@
     <ClCompile Include="Solskjær.cpp" />
     <ClCompile Include="SolskjærBullet.cpp" />
     <ClCompile Include="SolskjærController.cpp" />
-    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage4.cpp" />

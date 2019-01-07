@@ -5,6 +5,7 @@
 #include <vector>
 #include "DeadPoint.h"
 
+
 void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
@@ -95,6 +96,7 @@ void MegamanX::setHurt()
 	timeHurt.start();
 	timeProtect.start();
 	delay = 3;
+	soundsGlobal->play(sound_MX_shock);
 }
 
 MegamanX::MegamanX(UINT id, float x, float y, float vx, float vy) :DynamicObject(id, x, y, vx, vy)
@@ -299,14 +301,17 @@ void MegamanX::onKeyDown(int keyCode)
 	case DIK_RIGHT:
 		keyController->addKeyArrow(false);
 		break;
-	case DIK_Z:
+	case DIK_Z:		
 		keyController->addKeyZ();
+		
 		break;
 	case DIK_X:
 		keyController->addKeyX();
+		
 		break;
 	case DIK_C:
 		keyController->addKeyC();
+		
 		break;
 	default:
 		break;
