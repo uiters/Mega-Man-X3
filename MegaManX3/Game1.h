@@ -14,6 +14,7 @@
 class Game1 :
 	public Game
 {
+	int time;
 	QNode* root;
 	MegamanX* main;
 	Controller* controller;

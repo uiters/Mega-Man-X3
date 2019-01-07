@@ -408,6 +408,30 @@
     <ClInclude Include="DeadPoint.h">
       <Filter>Game\GameObject\Static Object\Others</Filter>
     </ClInclude>
+    <ClInclude Include="Stage4.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageMiniBoss1.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageByte.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageMiniBoss2.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageWaitBoss.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageBoss.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageElevetor.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -632,6 +656,30 @@
     </ClCompile>
     <ClCompile Include="DeadPoint.cpp">
       <Filter>Game\GameObject\Static Object\Others</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage4.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageMiniBoss1.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageByte.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageMiniBoss2.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageWaitBoss.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageBoss.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageElevetor.cpp">
+      <Filter>Game\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -33,7 +33,7 @@ void Game1::loadResource()
 
 	texturesGlobal->add(TBlastHornet, BLASTHORNET, 0, 0, D3DCOLOR_XRGB(0, 128, 128));
 	texturesGlobal->add(THPBar, HPBAR);
-
+	texturesGlobal->add(TGate, GATE);
 #pragma region HpBar
 	spritesGlobal->addSprite(HpHead, THPBar, 0, 0, 14, 4);
 	spritesGlobal->addSprite(HpBody, THPBar, 0, 5, 14, 16);
@@ -381,6 +381,52 @@ void Game1::loadResource()
 	ani->add(bullet_head_gun_state_2);
 	ani->add(bullet_head_gun_state_2 + 1);
 	animationsGlobal->add(bullet_head_gun_state_2, ani);
+#pragma endregion
+
+#pragma region Gate
+	// gate 1 (boss) room 8 9 10
+	ani = new AnimationOneTime(50);
+	spritesGlobal->addSprite(Gate1Open - 1, TGate, 50 , 0, 16, 48);
+	ani->add(Gate1Open - 1);
+	for (int i = 0; i < 9; ++i)
+	{
+		spritesGlobal->addSprite(Gate1Open + i, TGate, 71 + i * 19, 0, 16, 48);
+		ani->add(Gate1Open + i);
+	}
+	animationsGlobal->add(Gate1Close, ani);
+	ani = new AnimationOneTime(50);
+	
+	for (int i = 8; i > -1; --i)
+	{
+		ani->add(Gate1Open + i);
+	}
+	ani->add(Gate1Open - 1);
+	animationsGlobal->add(Gate1Open, ani);
+	ani = new CAnimation(100000);
+	ani->add(Gate1Open + 8);
+	animationsGlobal->add(Gate1Lock, ani);
+
+
+	// gate 2 miniboss 5 6 7  
+	ani = new AnimationOneTime(70);
+	ani->add(Gate1Open - 1);
+	for (int i = 0; i < 17; ++i)
+	{
+		spritesGlobal->addSprite(Gate2Open + i, TGate, 2 + i * 18, 59, 16, 48);
+		ani->add(Gate2Open + i);
+	}
+	animationsGlobal->add(Gate2Close, ani);
+	ani = new AnimationOneTime(70);
+	
+	for (int i = 16; i > -1; --i)
+	{
+		ani->add(Gate2Open + i);
+	}
+	ani->add(Gate1Open - 1);
+	animationsGlobal->add(Gate2Open, ani);
+	ani = new CAnimation(100000);
+	ani->add(Gate2Open + 16);
+	animationsGlobal->add(Gate2Lock, ani);
 #pragma endregion
 
 }

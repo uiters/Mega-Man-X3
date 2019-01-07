@@ -51,6 +51,7 @@ enum TextureID
 	THPBar = 2222,
 	TBackground2 = 2223,
 	TBackground = 2224,
+	TGate = 2225,
 };
 enum ShurikeinAnimation
 {
@@ -128,6 +129,15 @@ enum Animation {
 	BackgroundBoss = 22019,
 	BackgroundAni = 20210,
 	Background2Ani = 21210,
+	Gate1Open = 30000,
+	Gate1Close = 30100,
+	Gate2Open = 30200,
+	Gate2Close = 30300,
+	Gate1Lock = 30400,
+	Gate2Lock = 30401,
+	GateLock = 33000,
+	GateOpen = 33001,
+	GateClose = 33002,
 };
 
 

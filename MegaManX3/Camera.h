@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "Block.h"
 #include "Elevator.h"
-
+#include "Gate.h"
 class Block;
 
 class Camera {

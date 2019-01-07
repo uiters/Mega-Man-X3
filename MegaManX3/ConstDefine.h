@@ -62,6 +62,7 @@
 #define HPBAR L"Resource\\Textures\\HPBar.png"
 #define BACK_GROUND L"Resource\\Images\\BlastHornetStage\\tile\\background.png"
 #define BACK_GROUND_2 L"Resource\\Images\\BlastHornetStage\\tile\\background2.png"
+#define GATE L"Resource\\Textures\\gate.png"
 #pragma endregion
 
 

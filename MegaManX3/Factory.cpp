@@ -42,7 +42,7 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 			obj = new DeadPoint(id, x, y, width, height);
 			break;
 		case 3:
-			StageController::getInstance()->setElevator(new Elevator(TElevator, x, y));
+			
 			continue;
 		case 4:
 			obj = NULL;
