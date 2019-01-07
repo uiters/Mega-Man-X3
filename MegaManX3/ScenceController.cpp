@@ -56,8 +56,8 @@ void ScenceController::update(Viewport * viewport)
 	colStart = viewport->x / width  - 0.9999f; //sure
 	rowStart = viewport->y / height - 0.9999f; // sure
 
-	colEnd = viewport->right() / (float)width + 1.9999f;
-	rowEnd = viewport->bottom() / (float)height + 0.9999f;
+	colEnd = viewport->right() / (float)width + 1.49999f;
+	rowEnd = viewport->bottom() / (float)height + 1.49999f;
 }
 
 void ScenceController::render(DWORD dt)

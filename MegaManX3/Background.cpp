@@ -24,7 +24,7 @@ void Background::update(Viewport * viewport)
 	rowStart = (viewport->y - initY) / height - 0.9999f; // sure
 
 	colEnd = infinityX ? (viewport->right() - initX) / (float)width + 1.49999f : 1;
-	rowEnd = infinityY ? (viewport->bottom() - initY) / (float)height + 0.99999f : 1;
+	rowEnd = infinityY ? (viewport->bottom() - initY) / (float)height + 1.499999f : 1;
 }
 
 void Background::render(DWORD dt, D3DCOLOR colorBrush)

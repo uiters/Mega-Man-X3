@@ -1,5 +1,6 @@
 #include "Factory.h"
 #include "StageController.h"
+#include "DeadPoint.h"
 Factory * Factory::_instance = 0;
 
 Factory* Factory::getInstance()
@@ -37,6 +38,9 @@ unordered_map<UINT, GameObject*>*Factory::createObjects(wchar_t * file)
 
 		switch (idNameObject)
 		{
+		case 2:
+			obj = new DeadPoint(id, x, y, width, height);
+			break;
 		case 3:
 			StageController::getInstance()->setElevator(new Elevator(TElevator, x, y));
 			continue;

@@ -3,6 +3,7 @@
 #include "ConstGlobals.h"
 #include "Bee.h"
 #include <vector>
+#include "DeadPoint.h"
 
 void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
@@ -32,6 +33,12 @@ void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 		for (UINT i = 0; i < coEventsResult.size(); ++i)
 		{
 			auto e = coEventsResult[i];
+			if (dynamic_cast<DeadPoint *>(e->obj))
+			{
+				receiveDamage(9999.9f);
+				break;
+			}
+			
 			StaticObject* obj = dynamic_cast<StaticObject *>(e->obj);
 			if (obj)
 			{
@@ -137,7 +144,7 @@ void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 void MegamanX::updateState(DWORD dt) 
 {
 	int statePre = keyController->getState(isFlipX);
-	if (state != statePre && (statePre == dash || statePre == run || statePre == jump || statePre == run_shoot))
+	if (state != statePre && (statePre == dash || statePre == run || statePre == jump || statePre == fall || statePre == run_shoot))
 	{
 		_animations[statePre]->reset();
 	}

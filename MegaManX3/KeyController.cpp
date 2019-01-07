@@ -143,7 +143,7 @@ void KeyController::updateState()
 			break;
 		}
 		return;
-	}
+	}else
 	if (isRun && !isStand)
 	{
 		state = MegaManAnimation::run;

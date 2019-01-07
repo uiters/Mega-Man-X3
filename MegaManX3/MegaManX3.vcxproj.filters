@@ -405,6 +405,9 @@
     <ClInclude Include="Background.h">
       <Filter>Game\Background</Filter>
     </ClInclude>
+    <ClInclude Include="DeadPoint.h">
+      <Filter>Game\GameObject\Static Object\Others</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -626,6 +629,9 @@
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>Game\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadPoint.cpp">
+      <Filter>Game\GameObject\Static Object\Others</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

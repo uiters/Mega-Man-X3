@@ -1,7 +1,10 @@
-0 Name 0
-1 Name 1
-2 Name 2
-3 Name 3
-4 Name 5
-5 Name 6
-6 Name 7
+0 Brick
+1 Conveyor
+2 Death
+3 Elevator
+4 Gate
+5 Notor Banger
+6 Head Gunner
+7 Helit
+8 Box
+9 Box-Wall

@@ -159,6 +159,7 @@
     <ClInclude Include="CTime.h" />
     <ClInclude Include="DashSmoke.h" />
     <ClInclude Include="DashSpark.h" />
+    <ClInclude Include="DeadPoint.h" />
     <ClInclude Include="DiePoint.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxsound.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="CTime.cpp" />
     <ClCompile Include="DashSmoke.cpp" />
     <ClCompile Include="DashSpark.cpp" />
+    <ClCompile Include="DeadPoint.cpp" />
     <ClCompile Include="Debugs.cpp" />
     <ClCompile Include="DiePoint.cpp" />
     <ClCompile Include="dsutil.cpp" />
