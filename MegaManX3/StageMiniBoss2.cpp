@@ -48,9 +48,9 @@ void StageMiniBoss2::update(DWORD dt, unordered_map<int, GameObject*>* staticObj
 		}
 		else // in miniboss
 		{
-			if (viewPortGlobal->x + 5 < 4864.f)
+			if (viewPortGlobal->x + 5 < 4856.f)
 				viewPortGlobal->x += 5;
-			else viewPortGlobal->x = 4864.f;
+			else viewPortGlobal->x = 4856.f;
 			boss->update(dt, staticObjects, main);
 			//if (true)
 			//{

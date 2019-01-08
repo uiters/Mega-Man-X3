@@ -32,6 +32,7 @@ CarryArm::~CarryArm()
 
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
+	box->update(dt);
 	this->dt = dt;
 	if (*isDie) {
 		generatePosition2();
@@ -195,11 +196,12 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 	}
 	
 
-	box->update(dt);
+	
 }
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 {
+	box->render(dt);
 	if (*isDie) {
 		renderDie(dt);
 		return;
@@ -208,7 +210,7 @@ void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
 
-	box->render(dt);
+	
 
 	if (this->isDamage || this->isInjure) {
 		renderDamage(dt);
