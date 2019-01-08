@@ -48,7 +48,7 @@ void Controller::update(DWORD dt)
 		currentDynamic = saveDynamic;
 		saveDynamic = temp;
 	}
-	if(!hpBarBoss && cameraGlobal->getState() == 10)
+	if(cameraGlobal->getState() == 10)
 		hpBarBoss = stageController->getHPBar();
 }
 
@@ -66,7 +66,12 @@ void Controller::render(DWORD dt)
 	stageController->render(dt);
 	main->render(dt);
 
+	auto hornetPoint = stageController->getHornetPoit();
+	if (hornetPoint)
+		hornetPoint->render(dt);
+
 	hpBarMain->render(true);
+
 
 	if(hpBarBoss)
 		hpBarBoss->render(true);

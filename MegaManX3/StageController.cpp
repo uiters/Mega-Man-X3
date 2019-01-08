@@ -104,3 +104,15 @@ HPBar * StageController::getHPBar()
 	}
 	return null;
 }
+
+HornetPoint * StageController::getHornetPoit()
+{
+	if (stage)
+	{
+		auto stageBoss = dynamic_cast<StageBoss*>(stage);
+		if (stageBoss)
+			return stageBoss->getHornetPoint();
+	}
+	return null;
+}
+

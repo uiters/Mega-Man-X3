@@ -17,6 +17,8 @@ public:
 	void generateCarryArm(DWORD dt);
 	void generateSolskjær(DWORD dt);
 
+	bool getIsFinish() { return barrier->isFinish; }
+
 private:
 	BarrierSystem* barrier;
 	Solskjær* solskjær;

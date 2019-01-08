@@ -589,6 +589,10 @@ void MegamanX::updateRevivaling(DWORD dt, unordered_map<int, GameObject*>* stati
 	{
 		x += dx;
 		y += dy;
+		if (state != appear + 1)
+		{
+			state = appear;
+		}
 	}
 	else
 	{

@@ -19,14 +19,6 @@ BlastHornet::BlastHornet()
 
 	toLeft = true;
 	
-
-	//y = 1555;
-	//mech = &BlastHornet::flyArround;
-	//state = Hornet_Stand;
-	//speed.vx = -0.195f;
-	//speed.vy = 0.025f;
-
-	
 	initHP = 64.0f; //hp
 	width = 44;
 	height = 57;
@@ -120,22 +112,26 @@ void BlastHornet::reset()
 	y = 1485;
 
 	speed.vy = 0.55f;
-
+	this->dx = 0;
+	this->dy = 0;
 	mech = &BlastHornet::start;
 	mechBerk = &BlastHornet::berserkDropBeePrepare;
 
 	toLeft = true;
-
-	//y = 1555;
-	//mech = &BlastHornet::flyArround;
-	//state = Hornet_Stand;
-	//speed.vx = -0.195f;
-	//speed.vy = 0.025f;
-
-
+	_hp = 0;
 	initHP = 64.0f; //hp
 	width = 44;
 	height = 57;
+	this->setState(Hornet_Show);
+
+	delete hornetPoint;
+	hornetPoint = new HornetPoint();
+	auto size = _weapons.size();
+	for (int i = 0; i < size; ++i)
+	{
+		delete _weapons.at(i);
+	}
+	_weapons.clear();
 }
 
 void BlastHornet::flyArround()
@@ -413,8 +409,8 @@ void BlastHornet::createBee()
 
 	for (int i = 0; i < 6; ++i)
 	{
-		vy = (distanceY) / 1200.f; //calculate speed
-		vx = (distanceX - i * 40.f) / 1200.f;
+		vy = (distanceY) / 1000.f; //calculate speed
+		vx = (distanceX - i * 40.f) / 1000.f;
 		if(toLeft)
 			_weapons.emplace_back(new Bee(x, y, vx, vy, toLeft, false));
 		else

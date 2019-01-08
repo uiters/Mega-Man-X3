@@ -377,7 +377,7 @@ void Camera::state9(int cameraX, int cameraY)
 	if (cameraX > maxValue)
 	{
 		delete blockBackward;
-		blockBackward = new Block(ID_BLOCK_BACK_WARD, 7680, 1662, 14, 80);
+		blockBackward = new Brick(ID_BLOCK_BACK_WARD, 7680, 1662, 14, 80);
 		nextAnimation();
 		lockTop = true;
 		lockLeft = true;
@@ -432,12 +432,12 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//lockLeft = true;
 	//
 	//after shuriken
-	//nAnimation = 6;
-	//state = &Camera::state6;
-	//minValue = 2560;
-	//maxValue = 5504;
-	//lockTop = true;
-	//lockLeft = true;
+	nAnimation = 6;
+	state = &Camera::state6;
+	minValue = 2560;
+	maxValue = 5504;
+	lockTop = true;
+	lockLeft = true;
 
 	//after byte
 	//nAnimation = 8;
@@ -522,6 +522,8 @@ void Camera::resetState()
 		mainGlobal->x = viewport.x = 2600;
 		mainGlobal->y = 760;
 		viewport.y = 768;
+
+		mainGlobal->x = 4704;
 	}
 	else if (nAnimation < 9)
 	{
@@ -549,10 +551,10 @@ void Camera::resetState()
 		minValue = 7296;
 		maxValue = 7552;
 		state = &Camera::state9;
-
-		mainGlobal->x = 7450;
+	
+		mainGlobal->x = 7460;
 		viewport.x = 7424;
-		mainGlobal->y = 1536;
+		mainGlobal->y = 1525;
 		viewport.y = 1536;
 
 		if (blockBackward)

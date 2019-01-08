@@ -17,6 +17,7 @@ public:
 	float initX;
 	float initY;
 	bool isHidden;
+	bool isFinish;
 
 	BarrierSystem();
 	~BarrierSystem();

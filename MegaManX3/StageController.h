@@ -43,6 +43,7 @@ public:
 	void getStaticObjects(unordered_map<int, GameObject*>& objs);
 	void getDynamicObjects(unordered_map<int, GameObject*>& objs);
 	HPBar* getHPBar();
+	HornetPoint* getHornetPoit();
 };
 
 #endif // !_StageController_H_
