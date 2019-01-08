@@ -24,6 +24,7 @@ CarryArm::CarryArm(float x, float y, bool isNext)
 	box->isNext = this->isNext;
 	box->isLeft = this->isLeft;
 	initHP = _hp = 2;
+	initDamage = 2.0f;
 }
 
 CarryArm::~CarryArm()

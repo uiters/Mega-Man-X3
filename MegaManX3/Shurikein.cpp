@@ -21,7 +21,8 @@ Shurikein::Shurikein(UINT id, float x, float y, float vx, float vy) :DynamicObje
 	loadResources();
 	countManifest.start();
 	srand(time(NULL));
-	_hp = 1.30;
+	_hp = 18.0f;
+	initDamage = 3.0f;
 }
 
 

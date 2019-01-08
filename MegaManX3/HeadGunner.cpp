@@ -8,7 +8,7 @@ HeadGunner::HeadGunner(UINT id, float x, float y, bool nx) : DynamicObject(id, x
 	this->initToLeft = !nx;
 	this->repeat = 0;
 
-	initHP = _hp = 5;
+	initHP = _hp = 4;
 	setResetBound();
 }
 

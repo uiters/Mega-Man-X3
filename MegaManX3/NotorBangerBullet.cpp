@@ -11,7 +11,7 @@ NotorBangerBullet::NotorBangerBullet(float x, float y, bool nx, bool ny, int dis
 	this->distance = distance;
 	loadResources();
 	setState(bullet_head_gun_state_default);
-	_damage = 1;
+	_damage = 2;
 }
 
 

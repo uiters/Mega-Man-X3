@@ -6,6 +6,9 @@
 #include "ExplosionEffect.h"
 #define HELIT_EFFECT_FIRE 0
 #define HELIT_EFFECT_EXPLOSION 1
+#include <cstdlib>
+#include <ctime>
+
 class Helit :
 	public DynamicObject
 {
@@ -16,6 +19,8 @@ private:
 	CTime timeFire = (5000);
 	PointF dieX[3];
 	
+	CTime timeChangeDirection = (600);
+	bool flyUp = true;
 
 	int timeSwitchBody = 0;
 

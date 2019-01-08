@@ -79,6 +79,7 @@ Helit::Helit(int id, float x, float y, bool toLeft) : DynamicObject(id, x, y, 0,
 
 	initHP = _hp = 2;
 	setResetBound();
+	timeChangeDirection.start();
 }
 
 void Helit::setResetBound()
@@ -106,6 +107,7 @@ void Helit::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, uno
 	this->dt = dt;
 	updateWeapon(dt, staticObjects);
 
+
 	if (!visible) return;
 
 	if (_death)
@@ -114,6 +116,18 @@ void Helit::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, uno
 	}
 	else
 	{
+		timeChangeDirection.update();
+		if (timeChangeDirection.isStop())
+		{
+			speed.vx = 0.0f;
+			speed.vy = (flyUp) ? -1.0 / (rand() % (20 - 12 + 1) + 12) : 1.0 / (rand() % (20 - 12 + 1) + 12);
+			flyUp = !flyUp;
+			timeChangeDirection.start();
+		}
+
+		GameObject::update(dt);
+		y += dy;
+
 		timeFire.update();
 		if (timeFire.isStop())
 		{

@@ -13,7 +13,7 @@ SolskjærBullet::SolskjærBullet(float x, float y)
 
 	this->setState(SOLSKJÆR_BULLET_STATE_ONLY);
 	this->loadResources();
-	_damage = 1;
+	_damage = 2;
 }
 
 SolskjærBullet::~SolskjærBullet()

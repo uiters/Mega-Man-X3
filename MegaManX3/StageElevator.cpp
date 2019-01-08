@@ -60,7 +60,7 @@ void StageElevator::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 		auto mainBox = main->getBoundBox();
 		if (mainBox.bottom() >= elevatorBox.y && elevatorBox.intersectsWith(mainBox))
 		{
-			main->y = elevatorBox.y - 0.1f;
+			main->y = elevatorBox.y - 0.15f;
 		}
 	}
 }

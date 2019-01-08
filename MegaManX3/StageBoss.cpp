@@ -7,7 +7,7 @@ StageBoss::StageBoss()
 	gateLeft = new Gate(7680, 1664, 16, 48, true);
 	gateLeft->state = GateOpen;
 	boss = new BlastHornet();
-	hpBarBoss = new HPBar(*boss->getHp(), 64.0f, 2.0f, false);
+	hpBarBoss = new HPBar(*boss->getHp(), 32.0f, 1.0f, false);
 	ready = false;
 	gateLeftClose = false;
 }

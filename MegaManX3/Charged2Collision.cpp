@@ -41,9 +41,9 @@ void Charged2Collision::render(DWORD dt, bool center, D3DCOLOR colorBrush)
 		auto ani = &(*it).animation;
 		auto pos = cameraGlobal->transform((*it).point.x, (*it).point.y);
 		if (isLeft)
-			ani->renderFlipX(pos.x, pos.y, center, colorBrush);
+			ani->renderFlipX(pos.x - 55, pos.y, center, colorBrush);
 		else
-			ani->render(pos.x, pos.y, center, colorBrush);
+			ani->render(pos.x + 30, pos.y, center, colorBrush);
 		if (ani->isFinish())
 		{
 			it = animations.erase(it);

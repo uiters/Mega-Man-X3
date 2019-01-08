@@ -1,7 +1,6 @@
 #include "Bee.h"
 
 
-
 void Bee::loadResources()
 {
 	this->addAnimation(Hornet_Bee_Type_1);
@@ -13,7 +12,7 @@ void Bee::loadResources()
 
 Bee::Bee(float x, float y, float vx, float vy, bool toLeft, bool isChase)
 {
-	_damage = 1.f;
+	
 	loadResources();
 	this->x = x;
 	this->y = y;
@@ -29,10 +28,12 @@ Bee::Bee(float x, float y, float vx, float vy, bool toLeft, bool isChase)
 	if (isChase)
 	{
 		mech = &Bee::chase;
+		_damage = 4.0f;
 	}
 	else
 	{
 		mech = &Bee::fly;
+		_damage = 2.0f;
 	}
 
 }
@@ -80,6 +81,7 @@ void Bee::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unord
 		this->staticObjects = staticObjects;
 		GameObject::update(dt);
 		(this->*mech)();
+		
 	}
 }
 

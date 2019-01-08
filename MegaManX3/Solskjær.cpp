@@ -11,6 +11,7 @@ Solskjær::Solskjær()
 
 	this->setState(SOLSKJÆR_STATE_INIT);
 	this->loadResources();
+	initDamage = 2.0f;
 }
 
 

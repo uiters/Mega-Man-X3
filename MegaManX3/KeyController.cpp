@@ -178,7 +178,8 @@ void KeyController::addKeyZ()
 {
 	pressZ = true;
 	timePressZ.start();
-	levelShoot = 0;
+	levelShoot = 0; 
+	soundsGlobal->play(sound_charge_lv2);
 }
 
 void KeyController::removeKeyZ()
@@ -203,10 +204,8 @@ void KeyController::removeKeyZ()
 		else
 			weapon->createWeapon(main->x + width, main->y + height / 2 - 2, levelShoot, false);
 	}
-
-
-
-
+	soundsGlobal->stop(sound_charge_lv1);
+	soundsGlobal->stop(sound_charge_lv2);
 }
 
 void KeyController::stopShoot() 
@@ -223,11 +222,18 @@ void KeyController::updateShoot()
 	{
 		timePressZ.update();
 		if (timePressZ.getTime() > 500 && levelShoot == 0)
+		{
 			effect->createShoot(++levelShoot);
-
-		else
-			if (timePressZ.getTime() > 2500 && levelShoot == 1)
-				effect->createShoot(++levelShoot);
+						
+		}
+		else if (timePressZ.getTime() > 2500 && levelShoot == 1)
+		{
+			effect->createShoot(++levelShoot);
+		}
+		if (!soundsGlobal->isPlaying(sound_charge_lv2) && !soundsGlobal->isPlaying(sound_charge_lv1))
+		{
+			soundsGlobal->play(sound_charge_lv1);
+		}
 	}
 	if(isShot)
 	{

@@ -27,7 +27,7 @@ BlastHornet::BlastHornet()
 	//speed.vy = 0.025f;
 
 	
-	initHP = 64.0f; //hp
+	initHP = 32.0f; //hp
 	width = 44;
 	height = 57;
 }
@@ -318,6 +318,7 @@ void BlastHornet::aimPrick()
 
 	speed.vy = distanceY / 350.f; //calculate speed
 	speed.vx = distanceX / 350.f;
+	initDamage = 8.0f;
 }
 
 void BlastHornet::prick()
@@ -360,6 +361,7 @@ void BlastHornet::prickEnd()
 		state = Hornet_Stand;
 		mech = &BlastHornet::mech2;
 		fly();
+		initDamage = 3.0f;
 	}
 }
 

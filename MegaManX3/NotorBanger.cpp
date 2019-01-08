@@ -3,7 +3,7 @@
 
 NotorBanger::NotorBanger(UINT id, float x, float y, bool nx) :DynamicObject(id, x, y, 0, 0)
 {
-	initDamage = 2.f;
+	initDamage = 2.0f;
 	this->nx = nx;
 	this->repeat = 0;
 	initHP = _hp = 3;
