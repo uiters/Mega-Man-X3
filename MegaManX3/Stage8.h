@@ -8,6 +8,8 @@ private:
 	Gate* gateRight;
 	bool drawLeft;
 	bool drawRight;
+	bool ready;
+	bool gateLeftClose;
 public:
 	Stage8();
 	~Stage8();

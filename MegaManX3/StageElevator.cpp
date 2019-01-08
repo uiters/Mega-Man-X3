@@ -55,6 +55,14 @@ void StageElevator::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 		else
 			isResetLocation = true;
 	}
+	else
+	{
+		auto mainBox = main->getBoundBox();
+		if (mainBox.bottom() >= elevatorBox.y && elevatorBox.intersectsWith(mainBox))
+		{
+			main->y = elevatorBox.y - 0.1f;
+		}
+	}
 }
 
 void StageElevator::render(DWORD dt, D3DCOLOR colorBrush)

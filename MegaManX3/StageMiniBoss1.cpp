@@ -47,7 +47,7 @@ void StageMiniBoss1::update(DWORD dt, unordered_map<int, GameObject*>* staticObj
 		if (!main->enable && shurikein->state != manifest)
 			main->setEnable(true);
 
-		if (!shurikein->visible && main->enable &&
+		if (!shurikein->visible && 
 			mainGlobal->getBoundBox().intersectsWith(gateRight->getBoundBox()))
 		{
 			gateRight->state = GateOpening;

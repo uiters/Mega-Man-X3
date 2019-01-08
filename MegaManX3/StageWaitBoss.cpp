@@ -9,6 +9,8 @@ StageWaitBoss::StageWaitBoss()
 
 	gateLeft->state = GateOpen;
 	gateRight->state = GateLock;
+	ready = false;
+	gateLeftClose = false;
 }
 
 
@@ -26,6 +28,42 @@ void StageWaitBoss::getDynamicObjects(unordered_map<int, GameObject*>* dynamicOb
 
 void StageWaitBoss::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
+	if (ready)
+	{
+		if (mainGlobal->getBoundBox().intersectsWith(gateRight->getBoundBox()))
+		{
+			gateRight->state = GateOpening;
+			main->enable = false;
+			main->speed.vx = 0.005f * dt;
+			ready = false;
+		}
+	}
+	else
+	{
+		if (gateRight->state == GateLock)
+		{
+			if (gateLeftClose && gateLeft->state == GateLock)
+				ready = true,
+				main->setEnable(true);
+			updateMain(dt);
+		}
+
+		else
+			if (!main->enable && gateRight->state == GateOpen)
+			{
+				updateMain(dt);
+			}
+
+		if (gateLeft->state == GateOpen && !mainGlobal->getBoundBox().intersectsWith(gateLeft->getBoundBox()))
+		{
+			gateLeft->state = GateClose;
+			gateLeftClose = true;
+			updateMain(dt);
+			main->speed.vx = 0.0f;
+			main->dx = 0;
+			main->state = stand;
+		}
+	}
 }
 
 void StageWaitBoss::render(DWORD dt, D3DCOLOR colorBrush)
@@ -38,4 +76,6 @@ void StageWaitBoss::reset()
 {
 	gateLeft->state = GateOpen;
 	gateRight->state = GateLock;
+	ready = false;
+	gateLeftClose = false;
 }

@@ -6,7 +6,8 @@ class StageWaitBoss : public Stage
 private:
 	Gate* gateLeft;
 	Gate* gateRight;
-
+	bool ready = false;
+	bool gateLeftClose = false;
 public:
 	StageWaitBoss();
 	~StageWaitBoss();

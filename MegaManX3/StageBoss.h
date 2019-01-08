@@ -4,9 +4,12 @@
 class StageBoss : public Stage
 {
 private:
-	Gate* gate;
+	Gate* gateLeft;
 	BlastHornet* boss;
 	HPBar* hpBarBoss;
+
+	bool ready = false;
+	bool gateLeftClose = false;
 public:
 	StageBoss();
 	~StageBoss();
