@@ -23,10 +23,9 @@ private:
 
 	bool* enableUpdateController;
 	static StageController* _instance;
-
+	bool isReset = false;
 private:
 	StageController();
-	void getEnemies(DWORD dt);
 public:
 	static StageController* getInstance();
 	~StageController();
@@ -44,6 +43,7 @@ public:
 	void getStaticObjects(unordered_map<int, GameObject*>& objs);
 	void getDynamicObjects(unordered_map<int, GameObject*>& objs);
 	HPBar* getHPBar();
+	HornetPoint* getHornetPoit();
 };
 
 #endif // !_StageController_H_

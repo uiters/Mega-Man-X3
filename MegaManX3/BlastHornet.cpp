@@ -19,14 +19,6 @@ BlastHornet::BlastHornet()
 
 	toLeft = true;
 	
-
-	//y = 1555;
-	//mech = &BlastHornet::flyArround;
-	//state = Hornet_Stand;
-	//speed.vx = -0.195f;
-	//speed.vy = 0.025f;
-
-	
 	initHP = 32.0f; //hp
 	width = 44;
 	height = 57;
@@ -61,6 +53,7 @@ void BlastHornet::update(DWORD dt, unordered_map<int, GameObject*>* staticObject
 				{
 					effect->createEffect(x + 32 + rand() % 50 - 10, y + 10 + rand() % 40 - 10);
 					timeDelayExplosion.start();
+					soundsGlobal->play(sound_explosion);
 				}
 			}
 			
@@ -80,7 +73,7 @@ void BlastHornet::render(DWORD dt, D3DCOLOR colorBrush)
 	{
 		if (_death)
 		{
-			if (color > 50)
+			if (color > 10)
 			{
 				color -= 1;
 			}
@@ -120,22 +113,26 @@ void BlastHornet::reset()
 	y = 1485;
 
 	speed.vy = 0.55f;
-
+	this->dx = 0;
+	this->dy = 0;
 	mech = &BlastHornet::start;
 	mechBerk = &BlastHornet::berserkDropBeePrepare;
 
 	toLeft = true;
-
-	//y = 1555;
-	//mech = &BlastHornet::flyArround;
-	//state = Hornet_Stand;
-	//speed.vx = -0.195f;
-	//speed.vy = 0.025f;
-
-
+	_hp = 0;
 	initHP = 64.0f; //hp
 	width = 44;
 	height = 57;
+	this->setState(Hornet_Show);
+
+	delete hornetPoint;
+	hornetPoint = new HornetPoint();
+	auto size = _weapons.size();
+	for (int i = 0; i < size; ++i)
+	{
+		delete _weapons.at(i);
+	}
+	_weapons.clear();
 }
 
 void BlastHornet::flyArround()
@@ -279,6 +276,7 @@ void BlastHornet::addHP()
 	{
 		mech = &BlastHornet::mech1;
 		fly();
+		initDamage = 3.0f;
 	}
 }
 
@@ -412,8 +410,8 @@ void BlastHornet::createBee()
 
 	for (int i = 0; i < 6; ++i)
 	{
-		vy = (distanceY) / 1200.f; //calculate speed
-		vx = (distanceX - i * 40.f) / 1200.f;
+		vy = (distanceY) / 1000.f; //calculate speed
+		vx = (distanceX - i * 40.f) / 1000.f;
 		if(toLeft)
 			_weapons.emplace_back(new Bee(x, y, vx, vy, toLeft, false));
 		else
@@ -539,7 +537,7 @@ void BlastHornet::receiveDamage(float damage)
 	}
 	if (_hp <= 0.0f)
 	{
-		timeHide = (10000);
+		timeHide = (8000);
 		timeHide.start();
 
 		timeDelayExplosion = (200);

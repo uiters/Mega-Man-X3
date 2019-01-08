@@ -57,16 +57,17 @@ void StageMiniBoss2::update(DWORD dt, unordered_map<int, GameObject*>* staticObj
 				viewPortGlobal->x += 5;
 			else viewPortGlobal->x = 4856.f;
 			boss->update(dt, staticObjects, main);
-			//if (true)
-			//{
-			//	cameraGlobal->setEnable(true);
-			//	miniBoss = false;
-			//}
+			if (boss->getIsFinish())
+			{
+				cameraGlobal->setEnable(true);
+				miniBoss = false;
+			}
 		}
+
 		if (gateRight->getBoundBox().intersectsWith(*viewPortGlobal))
 		{
 			drawRight = true;
-			if(mainGlobal->getBoundBox().intersectsWith(gateRight->getBoundBox()))
+			if (mainGlobal->getBoundBox().intersectsWith(gateRight->getBoundBox()))
 			{
 				gateRight->state = GateOpening;
 				main->enable = false;
@@ -117,12 +118,18 @@ void StageMiniBoss2::reset()
 	miniBoss = false;
 	doneMiniBoss = false;
 	cameraGlobal->setEnable(true);
-	gateLeft->state = GateOpen;
+
 	gateRight->state = GateLock;
 	delete boss;
 	boss = new SolskjærController();
-	ready = false;
+
 	gateLeftClose = false;
 	drawLeft = true;
 	drawRight = false;
+	if (pointRevival)
+		ready = true,
+		gateLeft->state = GateLock;
+	else
+		ready = false,
+		gateLeft->state = GateOpen;
 }

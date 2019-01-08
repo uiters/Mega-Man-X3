@@ -9,6 +9,7 @@ SolskjærController::SolskjærController()
 
 	isOnlyOne = true;
 	isDisplayBoss = false;
+
 	clock = 0;
 	clockForCarryArm = 0;
 	clockForSolskjær = 0;
@@ -33,18 +34,15 @@ void SolskjærController::update(DWORD dt, unordered_map<int, GameObject*>* stati
 			if (!isDisplayBoss) {
 				clock++;
 				if (clock > limitTime) {
-					if (( carryArmFirst->isComplete && carryArmSecond != NULL && carryArmSecond->isComplete ) ||
-						(carryArmFirst->isComplete && carryArmSecond == NULL) ||
-						(carryArmFirst->isDie[0] && carryArmSecond != NULL && carryArmSecond->isDie[0]) ||
-						(carryArmFirst->isDie[0] && carryArmSecond == NULL)
+					if ((carryArmFirst->getBox()->getIsDeath() && carryArmSecond != NULL && carryArmSecond->getBox()->getIsDeath()) ||
+						(carryArmFirst->getBox()->getIsDeath() && carryArmSecond == NULL)
 					)
 						barrier->isHidden = true;
 				}
 			}
-			else clock = 0;
+			else clock = limitTime / 3;
 		}
 	}
-	//if (solskjær->isDie) barrier->isHidden = true;
 
 	if (carryArmFirst)
 		objects[4] = carryArmFirst->getBox(),
@@ -93,7 +91,7 @@ void SolskjærController::bulletCollisionDynamic(MegamanX* main)
 		auto weapons = main->getWeapons();
 		for (auto bullet = weapons->begin(); bullet != weapons->end();)
 		{
-			if (obj->isDeath()) break;
+			if (obj->isDeath() || !obj->visible) break;
 			if (bullet[0]->getBoundBox().intersectsWith(objBox) //single aabb collision
 				||
 				main->collisionGameObject(*bullet, obj)) //colision bullet with dynamic with swept aabb
@@ -132,13 +130,13 @@ void SolskjærController::dynamicCollisionMain(MegamanX* main)
 	{
 		// object collision main (include bullet) (use single & swept aabb)
 		DynamicObject* obj = dynamic_cast<DynamicObject*>(kv.second);
-		if (!obj || obj->isDeath() || !obj->visible) continue;
+		if (!obj || obj->isDeath()) continue;
 
-		if (kv.second->getBoundBox().intersectsWith(megamanBox) //single
+		if (obj->visible && ( kv.second->getBoundBox().intersectsWith(megamanBox) //single
 			||
-			main->collisionGameObject(obj, main)) // swpet
+			main->collisionGameObject(obj, main))) // swpet
 		{
-			main->setHurt();
+			main->receiveDamage(obj->getDamage());
 			return;
 		}
 
@@ -153,9 +151,10 @@ void SolskjærController::dynamicCollisionMain(MegamanX* main)
 					obj->createExplosion(bullet[0]->x + 10, bullet[0]->y);
 				else
 					obj->createExplosion(bullet[0]->x - 10, bullet[0]->y);
+				main->receiveDamage(bullet[0]->getDamage());
+
 				delete *bullet;
 				bullet = bullets->erase(bullet);
-				main->setHurt();
 				return;
 			}
 			else ++bullet;
@@ -201,11 +200,11 @@ void SolskjærController::generateCarryArm(DWORD dt)
 
 void SolskjærController::generateSolskjær(DWORD dt)
 {
-	if (carryArmSecond != NULL && 
-		!carryArmFirst->getBox()->getIsDeath() && 
-		!carryArmSecond->getBox()->getIsDeath() && 
-		carryArmFirst->isComplete &&
-		carryArmSecond->isComplete
+	if (carryArmSecond != NULL &&
+		!carryArmFirst->getBox()->getIsDeath() &&
+		!carryArmSecond->getBox()->getIsDeath() &&
+		carryArmFirst->isCompleteHalf &&
+		carryArmSecond->isCompleteHalf
 	) {
 		clockForSolskjær++;
 		if (clockForSolskjær >= 700) {
@@ -218,9 +217,7 @@ void SolskjærController::generateSolskjær(DWORD dt)
 	}
 
 	if (carryArmSecond != NULL &&
-		( carryArmFirst->getBox()->getIsDeath() || carryArmSecond->getBox()->getIsDeath() ) && 
-		carryArmFirst->isComplete &&
-		carryArmSecond->isComplete
+		( carryArmFirst->getBox()->getIsDeath() || carryArmSecond->getBox()->getIsDeath() )
 	){
 		if (solskjær->isRepeat) solskjær->reset();
 		clockForSolskjær++;

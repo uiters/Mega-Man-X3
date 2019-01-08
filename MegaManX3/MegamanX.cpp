@@ -4,8 +4,8 @@
 #include "Bee.h"
 #include <vector>
 #include "DeadPoint.h"
-
-
+#include "BlastHornet.h"
+#include "ITemHP.h"
 void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
@@ -96,7 +96,6 @@ void MegamanX::setHurt()
 	timeHurt.start();
 	timeProtect.start();
 	delay = 3;
-	soundsGlobal->play(sound_MX_shock);
 }
 
 MegamanX::MegamanX(UINT id, float x, float y, float vx, float vy) :DynamicObject(id, x, y, vx, vy)
@@ -106,7 +105,8 @@ MegamanX::MegamanX(UINT id, float x, float y, float vx, float vy) :DynamicObject
 	keyController = new KeyController(this, effect, weapon, false);
 	width = Stand_Shoot_Width;
 	height = Stand_Shoot_Height;
-	_hp = 38.0f;
+	initHP = _hp = 24.0f;
+	_death = true;
 }
 
 MegamanX::~MegamanX()
@@ -118,10 +118,27 @@ void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 {
 	weapon->update(dt);
 
-	if (!enable || _death) return;
-
 	GameObject::update(dt);
 	speed.vy += 0.0012f * dt;
+
+	if (_death)
+	{
+		timeRevival.update();
+		if (timeRevival.isStop())
+		{
+			this->revival();
+		}
+		return;
+	}
+	if (this->isRevivaling)
+	{
+		updateRevivaling(dt, staticObjects);
+		return;
+	}else
+	if (!enable) return;
+
+
+
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
@@ -146,6 +163,15 @@ void MegamanX::updateStage(DWORD dt, unordered_map<int, GameObject*>* dynamicObj
 	if (!enable || _death) return;
 	GameObject::update(dt);
 	collisionDynamic(dynamicObjects);
+}
+
+void MegamanX::addHP(float hp)
+{
+	if (_hp + hp > initHP)
+		_hp = initHP;
+	else
+		_hp += hp;
+	soundsGlobal->play(sound_MX_heal);
 }
 
 void MegamanX::updateState(DWORD dt) 
@@ -178,24 +204,39 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 		dissapear(dt, colorBrush);
 		return;
 	}
-	if(enable)
-		updateState(dt);
-	
-	if (!isHurt && isProtect)
+
+	if (this->isRevivaling)
 	{
-		colorBrush = showblur ? WHITE(128) : WHITE(255);
-		if (delay < 0) delay = 3, showblur = !showblur; //delay two frames 
+		auto pos = &cameraGlobal->transform(x, y);
+		_animations[state]->render(pos->x + width / 2, pos->y + 20, true);
+		if (state == appear + 1 && _animations[state]->isLastFrame())
+		{
+			_animations[state]->reset();
+			isRevivaling = false;
+			setEnable(true);
+			keyController->setToLeft(false);
+		}
 	}
-
-
-	Point center = { 0, 0 };
-	config(center);
-	auto spriteHandler = gameGlobal->getSpriteHandler();
-	if (isFlipX)
-		_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
 	else
-		_animations[state]->render(center.x, center.y, false, colorBrush);
+	{
+		if (enable)
+			updateState(dt);
 
+		if (!isHurt && isProtect)
+		{
+			colorBrush = showblur ? WHITE(128) : WHITE(255);
+			if (delay < 0) delay = 3, showblur = !showblur; //delay two frames 
+		}
+
+
+		Point center = { 0, 0 };
+		config(center);
+
+		if (isFlipX)
+			_animations[state]->renderFlipX(center.x, center.y, false, colorBrush);
+		else
+			_animations[state]->render(center.x, center.y, false, colorBrush);
+	}
 	effect->render(dt, x, y, width, height);
 	weapon->render(dt);
 }
@@ -357,26 +398,36 @@ void MegamanX::getBoundingBox(float & left, float & top, float & right, float & 
 {
 	left = x;
 	top = y;
-	keyController->getSize(width, height);
-	right = x + width;
-	bottom = height + y;
-
+	if (isRevivaling)
+	{
+		right = x + width;
+		bottom = y + height;
+	}
+	else
+	{
+		keyController->getSize(width, height);
+		right = x + width;
+		bottom = height + y;
+	}
 }
 
 void MegamanX::receiveDamage(float damage)
 {
-	if (_hp > 0)
+	if (_hp - damage > 0)
 	{
 		_hp -= damage;
 		_attacked = true;
 		timeAttacked.start();
 		setHurt();
 	}
-	if (_hp <= 0)
+	else
 	{
+		_hp -= damage;
+		timeRevival.start();
 		setAnimationDie();
 		timeHide.start();
 		_death = true;
+		soundsGlobal->play(sound_MX_die);
 	}
 }
 
@@ -461,6 +512,7 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				obj->receiveDamage(bullet[0]->getDamage());
 				if (obj->isDeath())
 				{
+					createItems(obj);
 					if (dynamic_cast<BusterShot*>(*bullet)) // don't cross delete bullet
 					{
 						delete *bullet;
@@ -515,4 +567,68 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 		}
 		++it;
 	}
+}
+
+void MegamanX::revival()
+{
+	this->reset();
+	isRevivaling = true;
+	soundsGlobal->play(sound_MX_revival);
+}
+
+void MegamanX::reset()
+{
+	width = Stand_Shoot_Width;
+	height = Stand_Shoot_Height;
+	_hp = initHP;
+	state = appear;
+	enable = false;
+	_death = false;
+
+}
+
+void MegamanX::updateRevivaling(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
+{
+	
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	collision->findCollisions(dt, this, *staticObjects, coEvents);
+	UINT size = coEvents.size();
+
+	if (size == 0)
+	{
+		x += dx;
+		y += dy;
+		if (state != appear + 1)
+		{
+			state = appear;
+		}
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		collision->filterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		y += min_ty * dy + ny * 0.4f;
+
+		if (nx != 0) speed.vx = 0.0f;
+		if (ny != 0) speed.vy = 0.0f;
+
+		if (state != appear + 1)
+		{
+			state = appear + 1;
+			//height = 40;
+		}
+
+	}
+
+	for (UINT i = 0; i < size; ++i) delete coEvents[i];
+}
+
+void MegamanX::createItems(DynamicObject* obj)
+{
+	if (dynamic_cast<BlastHornet*>(obj)) return;
+	ITemHP* item = ITemHP::tryCreateITemHP(obj->x, obj->y);
+	if (item)
+		items->emplace_back(item);
 }

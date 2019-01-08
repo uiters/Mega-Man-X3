@@ -69,4 +69,8 @@ void StageBoss::reset()
 	gateLeft->state = GateOpen;
 	ready = false;
 	gateLeftClose = false;
+	delete boss;
+	boss = new BlastHornet();
+	delete hpBarBoss;
+	hpBarBoss = new HPBar(*boss->getHp(), 32.0f, 1.0f, false);
 }

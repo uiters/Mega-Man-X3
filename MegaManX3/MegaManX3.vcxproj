@@ -186,6 +186,7 @@
     <ClInclude Include="HornetExplosion.h" />
     <ClInclude Include="HornetPoint.h" />
     <ClInclude Include="HPBar.h" />
+    <ClInclude Include="ITemHP.h" />
     <ClInclude Include="KeyController.h" />
     <ClInclude Include="MegamanEffectFactory.h" />
     <ClInclude Include="MegamanWeapon.h" />
@@ -271,6 +272,7 @@
     <ClCompile Include="HornetExplosion.cpp" />
     <ClCompile Include="HornetPoint.cpp" />
     <ClCompile Include="HPBar.cpp" />
+    <ClCompile Include="ITemHP.cpp" />
     <ClCompile Include="KeyController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MegamanEffectFactory.cpp" />

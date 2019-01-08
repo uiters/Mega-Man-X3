@@ -16,6 +16,8 @@ CarryArm::CarryArm(float x, float y, bool isNext)
 	this->isPutBox = false;
 	this->isInjure = false;
 	this->isComplete = false;
+	this->isCompleteHalf = false;
+	this->isDamage = false;
 
 	this->loadResources();
 	this->setState(CARRY_ARM_STATE_FLY);
@@ -34,6 +36,8 @@ CarryArm::~CarryArm()
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
+	box->update(dt);
+
 	if (*isDie) {
 		generatePosition2();
 		return;
@@ -60,6 +64,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 				else setState(CARRY_ARM_STATE_PUT_BOX);
 				if (_animations[state]->isLastFrame()) {
 					isPutBox = false;
+					isCompleteHalf = true;
 				}
 				speed.vx = 0;
 				putBoxX = x - 6;
@@ -140,6 +145,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 				else setState(CARRY_ARM_STATE_PUT_BOX);
 				if (_animations[state]->isLastFrame()) {
 					isPutBox = false;
+					isCompleteHalf = true;
 				}
 				speed.vx = 0;
 				putBoxX = x - 6;
@@ -196,7 +202,6 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 	}
 	
 
-	box->update(dt);
 }
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
@@ -210,7 +215,7 @@ void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
 
-	if (this->isDamage || this->isInjure) {
+	if (this->isDamage) {
 		renderDamage(dt);
 	}
 }
@@ -335,15 +340,16 @@ void CarryArm::reset()
 	this->isSwitch = true;
 }
 
-void CarryArm::receiveDamage(int damage)
+void CarryArm::receiveDamage(float damage)
 {
-	if (_hp > 0)
+	if (_hp - damage > 0)
 	{
 		_hp -= damage;
-		if (_hp < 1.5f) this->isDamage = true;
-
+		if (_hp < 1.5f) {
+			this->isDamage = true;
+		}
 	}
-	if (_hp <= 0)
+	else
 	{
 		setAnimationDie();
 		_death = true;

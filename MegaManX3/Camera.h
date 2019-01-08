@@ -6,6 +6,7 @@
 #include "Block.h"
 #include "Elevator.h"
 #include "Gate.h"
+#include "Brick.h"
 class Block;
 
 class Camera {
@@ -15,7 +16,7 @@ private:
 	void(Camera::*state) (int, int);
 
 	int nAnimation = 1;
-	Block* blockBackward; //Block ,main backward 
+	StaticObject* blockBackward; //Block ,main backward 
 
 	bool lockLeft = false;
 	bool lockTop = false;
@@ -47,9 +48,9 @@ public:
 	const Point transform(const int& x,const int& y) const;
 	bool isSwitchState() { return aniSwitchState; }
 public:
-	Block* getBlock() { return blockBackward; }
+	StaticObject* getBlock() { return blockBackward; }
 	int getState() { return nAnimation; }
-
+	void resetState();
 public:
 	void setEnable(bool value) { this->enable = value; }
 };

@@ -53,7 +53,7 @@ public:
 	virtual void reset() {}
 	virtual void loadResources() = 0;
 	virtual void setReset() {}
-
+	virtual void addHP(float hp) {}
 public:
 	bool collisionBullet(GameObject * bullet1, GameObject * obj2);
 	bool collisionGameObject(GameObject * obj1, GameObject * obj2);

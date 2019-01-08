@@ -138,6 +138,7 @@ public:
 	
 	void getSize(int&width, int& height);
 	UINT getState(bool& isLeft);
+	void setToLeft(bool toLeft) { this->toLeft = toLeft; };
 };
 
 #endif //! _KeyController_H_

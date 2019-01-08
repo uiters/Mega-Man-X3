@@ -77,6 +77,8 @@ void HornetPoint::show()
 
 void HornetPoint::chase()
 {
+	if (dynamic_cast<MegamanX*>(mainGlobal)->isDeath())
+		return;
 	float distanceX = mainGlobal->x - x;
 	float distanceY = mainGlobal->y - y;
 
@@ -85,6 +87,7 @@ void HornetPoint::chase()
 	speed.vy = distanceY / time; //calculate speed
 	speed.vx = distanceX / time;
 
+	
 	collisionMain();
 }
 

@@ -25,6 +25,7 @@ public:
 	void reset();
 
 public:
-	HPBar* getHPBar() { return hpBarBoss; }
+	HPBar* getHPBar() { if (ready && !main->isRevivaling) return hpBarBoss; else return null; }
+	HornetPoint* getHornetPoint() { if (boss->isDeath() && !main->isRevivaling) return null; else return boss->getHoretPoint(); }
 };
 
