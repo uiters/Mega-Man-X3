@@ -6,7 +6,8 @@ class StageByte : public Stage
 private:
 	Gate* gateLeft;
 	Gate* gateRight;
-
+	bool ready;
+	bool gateLeftClose;
 public:
 	StageByte();
 	~StageByte();

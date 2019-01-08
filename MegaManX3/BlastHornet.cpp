@@ -410,8 +410,8 @@ void BlastHornet::createBee()
 
 	for (int i = 0; i < 6; ++i)
 	{
-		vy = (distanceY) / 1500.f; //calculate speed
-		vx = (distanceX - i * 40.f) / 1500.f;
+		vy = (distanceY) / 1200.f; //calculate speed
+		vx = (distanceX - i * 40.f) / 1200.f;
 		if(toLeft)
 			_weapons.emplace_back(new Bee(x, y, vx, vy, toLeft, false));
 		else
@@ -504,9 +504,16 @@ void BlastHornet::berserkDropBee()
 	{
 		delay.update();
 		if (bees < maxBee && delay.isStop())
-			_weapons.emplace_back(new Bee(x, y, 0, 0, toLeft, true)),
-			delay.start(),
-			bees +=1;
+		{
+			if(toLeft)
+				_weapons.emplace_back(new Bee(x + 9, y + 47, 0, 0, toLeft, true));
+			else
+				_weapons.emplace_back(new Bee(x + 27, y + 47, 0, 0, toLeft, true));
+
+			delay.start();
+			bees += 1;
+		}
+
 	}
 }
 

@@ -7,12 +7,14 @@ void Game1::initGolbals()
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
 
-	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
-	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
+	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
+	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//elevator
 	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);//surikein
 	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
 	//cameraGlobal = new Camera(2288, 810, CAMERA_WIDTH, CAMERA_HEIGHT); before surikein
-	cameraGlobal = new Camera(2560, 896, CAMERA_WIDTH, CAMERA_HEIGHT);// after surikein
+	//cameraGlobal = new Camera(2560, 896, CAMERA_WIDTH, CAMERA_HEIGHT);// after  surikein
+	//cameraGlobal = new Camera(7324, 1664, CAMERA_WIDTH, CAMERA_HEIGHT);// after byte
+
 	viewPortGlobal = &cameraGlobal->viewport;
 }
 
@@ -49,9 +51,10 @@ void Game1::loadResource()
 	//main = new MegamanX(Megaman, 2188, 810);//before shurikein
 	
 	//main = new MegamanX(Megaman, 2560, 896);//after shurikein
-	main = new MegamanX(Megaman, 4704, 896);//miniboss 2
-
-	//main = new MegamanX(Megaman, 100, 650); //start
+	//main = new MegamanX(Megaman, 4704, 896);//miniboss 2
+	//main = new MegamanX(Megaman, 5376, 896);//before bytes
+	//main = new MegamanX(Megaman, 7324, 1664);//before wait boss
+	main = new MegamanX(Megaman, 100, 650); //start
 	//main = new MegamanX(Megaman, 768, 650); //elevator
 	//7715 1681
 	//main = new MegamanX(Megaman, 2344, 910); // shuriken

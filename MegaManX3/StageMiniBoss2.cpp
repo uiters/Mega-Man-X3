@@ -16,8 +16,8 @@ StageMiniBoss2::StageMiniBoss2()
 	drawLeft = true;
 	drawRight = false;
 
-	ready = true;//test
-
+	//ready = true;//test
+	//gateLeft->state = GateLock;//test
 }
 
 
@@ -35,6 +35,11 @@ void StageMiniBoss2::getDynamicObjects(unordered_map<int, GameObject*>* dynamicO
 
 void StageMiniBoss2::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
+	if (gateLeft->getBoundBox().intersectsWith(*viewPortGlobal))
+	{
+		drawLeft = true;
+	}else drawLeft = false;
+
 	if (ready)
 	{
 		if (!main->enable && gateLeft->state == GateLock)
@@ -58,18 +63,18 @@ void StageMiniBoss2::update(DWORD dt, unordered_map<int, GameObject*>* staticObj
 			//	miniBoss = false;
 			//}
 		}
-
-		if (gateLeft->getBoundBox().intersectsWith(*viewPortGlobal))
+		if (gateRight->getBoundBox().intersectsWith(*viewPortGlobal))
 		{
-			drawLeft = true;
+			drawRight = true;
+			if(mainGlobal->getBoundBox().intersectsWith(gateRight->getBoundBox()))
+			{
+				gateRight->state = GateOpening;
+				main->enable = false;
+				main->speed.vx = 0.005f * dt;
+				ready = false;
+			}
 		}
-		else
-		{
-			drawLeft = true;
-			if (gateRight->getBoundBox().intersectsWith(*viewPortGlobal))
-				drawRight = true;
-			else drawRight = false;
-		}
+		else drawRight = false;
 	}
 	else
 	{
@@ -103,7 +108,6 @@ void StageMiniBoss2::render(DWORD dt, D3DCOLOR colorBrush)
 
 	if (drawLeft)
 		gateLeft->render(dt);
-	else 
 	if (drawRight)
 		gateRight->render(dt);
 }

@@ -35,7 +35,7 @@ private:
 
 	HornetPoint* hornetPoint;
 	CTime timeDelayExplosion = (300);
-	CTime delay = (100);
+	CTime delay = (200);
 	bool isCollisionStatic = false;
 	HornetExplosion* effect;
 public:
