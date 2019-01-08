@@ -432,6 +432,9 @@
     <ClInclude Include="StageElevator.h">
       <Filter>Game\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="ITemHP.h">
+      <Filter>Game\GameObject\Static Object\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -683,6 +686,9 @@
     </ClCompile>
     <ClCompile Include="StageElevator.cpp">
       <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ITemHP.cpp">
+      <Filter>Game\GameObject\Static Object\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

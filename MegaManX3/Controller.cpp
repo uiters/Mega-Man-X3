@@ -21,6 +21,33 @@ void Controller::filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& obje
 	}
 }
 
+void Controller::updateItems(DWORD dt)
+{
+	for (auto it = items.begin(); it != items.end();)
+	{
+		it[0]->update(dt, &currentStatic);
+
+		if (!it[0]->visible ||
+			!it[0]->getBoundBox().intersectsWith(cameraGlobal->viewport))
+		{
+			delete (*it);
+			it = items.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
+void Controller::renderItems(DWORD dt)
+{
+	for (auto it = items.begin(); it != items.end(); ++it)
+	{
+		it[0]->render(dt);
+	}
+}
+
 void Controller::update(DWORD dt)
 {
 	currentStatic.clear(); 
@@ -48,6 +75,7 @@ void Controller::update(DWORD dt)
 		currentDynamic = saveDynamic;
 		saveDynamic = temp;
 	}
+	updateItems(dt);
 	if(cameraGlobal->getState() == 10)
 		hpBarBoss = stageController->getHPBar();
 }
@@ -64,6 +92,9 @@ void Controller::render(DWORD dt)
 
 	weaponEffect->render(dt); //render effect dynamic
 	stageController->render(dt);
+
+	renderItems(dt);
+
 	main->render(dt);
 
 	auto hornetPoint = stageController->getHornetPoit();
@@ -95,6 +126,7 @@ Controller::Controller(MegamanX* main, QNode * rootStatic, QNode * rootDynamic)
 	this->main->state = stand;
 
 	stageController->setEnableUpdateController(&enableUpdate);
+	main->setItems(&items);
 }
 
 Controller::~Controller()

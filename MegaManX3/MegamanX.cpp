@@ -4,8 +4,8 @@
 #include "Bee.h"
 #include <vector>
 #include "DeadPoint.h"
-
-
+#include "BlastHornet.h"
+#include "ITemHP.h"
 void MegamanX::collisionStatic(unordered_map<int, GameObject*>* staticObjects)
 {
 	vector<CollisionEvent*> coEvents;
@@ -106,7 +106,7 @@ MegamanX::MegamanX(UINT id, float x, float y, float vx, float vy) :DynamicObject
 	keyController = new KeyController(this, effect, weapon, false);
 	width = Stand_Shoot_Width;
 	height = Stand_Shoot_Height;
-	_hp = 38.0f;
+	initHP = _hp = 38.0f;
 	_death = true;
 }
 
@@ -164,6 +164,14 @@ void MegamanX::updateStage(DWORD dt, unordered_map<int, GameObject*>* dynamicObj
 	if (!enable || _death) return;
 	GameObject::update(dt);
 	collisionDynamic(dynamicObjects);
+}
+
+void MegamanX::addHP(float hp)
+{
+	if (_hp + hp > initHP)
+		_hp = initHP;
+	else
+		_hp += hp;
 }
 
 void MegamanX::updateState(DWORD dt) 
@@ -503,6 +511,7 @@ void MegamanX::bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicOb
 				obj->receiveDamage(bullet[0]->getDamage());
 				if (obj->isDeath())
 				{
+					createItems(obj);
 					if (dynamic_cast<BusterShot*>(*bullet)) // don't cross delete bullet
 					{
 						delete *bullet;
@@ -569,7 +578,7 @@ void MegamanX::reset()
 {
 	width = Stand_Shoot_Width;
 	height = Stand_Shoot_Height;
-	_hp = 38.0f;
+	_hp = initHP;
 	state = appear;
 	enable = false;
 	_death = false;
@@ -614,3 +623,10 @@ void MegamanX::updateRevivaling(DWORD dt, unordered_map<int, GameObject*>* stati
 	for (UINT i = 0; i < size; ++i) delete coEvents[i];
 }
 
+void MegamanX::createItems(DynamicObject* obj)
+{
+	if (dynamic_cast<BlastHornet*>(obj)) return;
+	ITemHP* item = ITemHP::tryCreateITemHP(obj->x, obj->y);
+	if (item)
+		items->emplace_back(item);
+}

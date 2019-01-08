@@ -52,6 +52,7 @@ enum TextureID
 	TBackground2 = 2223,
 	TBackground = 2224,
 	TGate = 2225,
+	Titem = 2226,
 };
 enum ShurikeinAnimation
 {
@@ -142,6 +143,9 @@ enum Animation {
 	GateOpening = 33001,
 	GateOpen = 33002,
 	GateClose = 33003,
+	ItemBig = 33100,
+	ItemSmall = 33200,
+
 };
 
 

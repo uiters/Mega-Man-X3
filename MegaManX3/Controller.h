@@ -29,6 +29,7 @@ private:
 	unordered_map<int, GameObject*> stageObjects; //state objects
 	unordered_map<int, GameObject*> currentStatic;//current Static objects
 
+	vector<GameObject*> items;
 	StageController* stageController;
 	ScenceController* tilesController;
 	WeaponEffectController* weaponEffect;
@@ -41,6 +42,8 @@ private:
 
 private:
 	void filterAndUpdate(DWORD dt, unordered_map<int, GameObject*>& objects);
+	void updateItems(DWORD dt);
+	void renderItems(DWORD dt);
 public:
 	Controller(MegamanX *main, QNode * rootStatic, QNode* rootDynamic);
 	~Controller();

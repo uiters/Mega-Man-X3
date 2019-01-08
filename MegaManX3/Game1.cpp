@@ -38,6 +38,7 @@ void Game1::loadResource()
 	texturesGlobal->add(TBlastHornet, BLASTHORNET, 0, 0, D3DCOLOR_XRGB(0, 128, 128));
 	texturesGlobal->add(THPBar, HPBAR);
 	texturesGlobal->add(TGate, GATE);
+	texturesGlobal->add(Titem, ITEM);
 #pragma region HpBar
 	spritesGlobal->addSprite(HpHead, THPBar, 0, 0, 14, 4);
 	spritesGlobal->addSprite(HpBody, THPBar, 0, 5, 14, 16);
@@ -462,6 +463,23 @@ void Game1::loadResource()
 	ani = new CAnimation(100000);
 	ani->add(Gate2Open + 16);
 	animationsGlobal->add(Gate2Lock, ani);
+#pragma endregion
+
+#pragma region Items
+	
+	spritesGlobal->addSprite(ItemBig, Titem, 0, 12, 14, 12);
+	spritesGlobal->addSprite(ItemBig + 1, Titem, 16, 12, 16, 12);
+	spritesGlobal->addSprite(ItemBig + 2, Titem, 35, 12, 16, 12);
+	spritesGlobal->addSprite(ItemBig + 3, Titem, 53, 12, 16, 12);
+
+
+
+	spritesGlobal->addSprite(ItemSmall, Titem, 3, 0, 8, 8);
+	spritesGlobal->addSprite(ItemSmall + 1, Titem, 20, 0, 10, 8);
+	spritesGlobal->addSprite(ItemSmall + 2, Titem, 38, 0, 10, 8);
+	spritesGlobal->addSprite(ItemSmall + 3, Titem, 56, 0, 10, 8);
+
+
 #pragma endregion
 
 }

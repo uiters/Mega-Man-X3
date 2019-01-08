@@ -22,7 +22,7 @@ private:
 	void collisionStatic(unordered_map<int, GameObject*>* staticObjects);
 	void collisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);
 
-	
+	vector<GameObject*>* items;
 
 	KeyController* keyController;
 	MegamanEffectFactory* effect;
@@ -54,7 +54,6 @@ public:
 	bool hurt() { return isHurt; }
 	void setHurt();
 private:
-	
 	bool isHurt = false;
 	bool isProtect = false;
 	CTime timeHurt = (500); //animation hurt
@@ -72,7 +71,7 @@ public:
 	bool protect() { return isProtect; }
 	void update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects) override;
 	void updateStage(DWORD dt, unordered_map<int, GameObject*>*dynamicObjects);
-
+	void addHP(float hp) override;
 	void updateState(DWORD dt);
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) override;
 	void onKeyDown(int) override;
@@ -88,5 +87,9 @@ private:
 	void revival();
 	void reset() override;
 	void updateRevivaling(DWORD dt, unordered_map<int, GameObject*>* staticObjects);
+	void createItems(DynamicObject * obj);
+
+public:
+	void setItems(vector<GameObject*>* items) { this->items = items; }
 };
 #endif // !_MegamanX_H_
