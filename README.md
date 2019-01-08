@@ -8,10 +8,10 @@
 
 <p align="center">
   <a href="#">
-    <img src="https://img.shields.io/codeship/d6c1ddd0-16a3-0132-5f85-2e35c05e22b1/master.svg"/>
+    <img src="https://travis-ci.org/jade28/dotfiles.svg?branch=master"/>
   </a>
   
-  <a href="https://github.com/jade28/ting-music/blob/master/LICENSE">
+  <a href="https://github.com/tvc12/Mega-Man-X3/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/tvc12/Mega-Man-X3.svg"/>
   </a>
 </p>
