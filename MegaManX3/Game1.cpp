@@ -7,10 +7,10 @@ void Game1::initGolbals()
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
 
-	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
+	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
 	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//elevator
 	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);//surikein
-	cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
+	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
 	//cameraGlobal = new Camera(2288, 810, CAMERA_WIDTH, CAMERA_HEIGHT); before surikein
 	//cameraGlobal = new Camera(2560, 896, CAMERA_WIDTH, CAMERA_HEIGHT);// after  surikein
 	//cameraGlobal = new Camera(7324, 1664, CAMERA_WIDTH, CAMERA_HEIGHT);// after byte
@@ -388,7 +388,6 @@ void Game1::loadResource()
 	sounds->add(sound_bul_lv3, L"Resource\\Sounds\\sound_bul_lv3.wav");
 	sounds->add(sound_charge_lv1, L"Resource\\Sounds\\sound_charge_lv1.wav");
 	sounds->add(sound_charge_lv2, L"Resource\\Sounds\\sound_charge_lv2.wav");
-	sounds->add(sound_MX_shock, L"Resource\\Sounds\\sound_MX_shock.wav");
 	sounds->add(sound_MX_revival, L"Resource\\Sounds\\sound_MX_revival.wav");
 	sounds->add(sound_MX_dash, L"Resource\\Sounds\\sound_MX_dash.wav");
 	sounds->add(sound_MX_jump, L"Resource\\Sounds\\sound_MX_jump.wav");
