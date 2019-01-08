@@ -24,11 +24,13 @@ private:
 	CarryArm* carryArmSecond;
 	unordered_map<int, GameObject*> objects;
 	unordered_map<int, GameObject*>* staticObject;
-
-	bool isOnlyOne_1;
-	bool isOnlyOne_2;
 	
-	int counter;
+	bool isOnlyOne;
+	bool isDisplayBoss;
+	int clock;
+	int clockForCarryArm;
+	int clockForSolskjær;
+	int limitTime;
 
 	void collisionMain(MegamanX* main);
 	void bulletCollisionDynamic(MegamanX* main);

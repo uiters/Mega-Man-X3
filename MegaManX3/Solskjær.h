@@ -23,8 +23,7 @@ class Solskjær :
 {
 public:
 	bool isRepeat;
-	bool isRender;
-	bool isDie;
+	bool* isDie = &_death;
 
 	Solskjær();
 	~Solskjær();
@@ -33,6 +32,7 @@ public:
 	void renderDie(DWORD dt, D3DCOLOR colorBrush = WHITE(255));// **
 	void generatePosition();// **
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
+	void reset();
 
 private:
 	PointF die[3];// **
@@ -42,5 +42,6 @@ private:
 	void loadResources();
 
 	void createBullet();
+	void createCloneBullet();
 };
 

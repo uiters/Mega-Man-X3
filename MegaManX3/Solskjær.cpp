@@ -6,8 +6,8 @@ Solskjær::Solskjær()
 	this->x = 4970;
 	this->y = 849;
 	this->isRepeat = true;
-	this->isRender = false;
-	this->isDie = false;
+	this->visible = false;
+	*isDie = false;
 
 	this->setState(SOLSKJÆR_STATE_INIT);
 	this->loadResources();
@@ -20,6 +20,8 @@ Solskjær::~Solskjær()
 
 void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
+	createCloneBullet();
+
 	for (auto bullet = _weapons.begin(); bullet != _weapons.end();)
 	{
 		bullet[0]->update(dt, staticObjects);
@@ -32,14 +34,13 @@ void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 	}
 
 
-
 	this->dt = dt;
-	if (this->isDie) {
+	if (*isDie) {
 		generatePosition();
 		return;
 	}
 
-	isRender = isRepeat;
+	visible = isRepeat;
 
 	if (_animations[state]->isLastFrame()) {
 		if (state == SOLSKJÆR_STATE_SHOT) {
@@ -61,12 +62,12 @@ void Solskjær::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 void Solskjær::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (this->isDie) {
+	if (*isDie) {
 		renderDie(dt);
 		return;
 	}
 
-	if (isRender) {
+	if (visible) {
 		auto center = cameraGlobal->transform(x, y);
 		_animations[state]->render(center.x, center.y);
 	}
@@ -115,6 +116,17 @@ void Solskjær::getBoundingBox(float & left, float & top, float & right, float & 
 	top = y;
 	right = x + 32;
 	bottom = y + 23;
+}
+
+void Solskjær::reset()
+{
+	this->x = 4970;
+	this->y = 849;
+	this->isRepeat = true;
+	this->visible = true;
+	*isDie = false;
+
+	this->setState(SOLSKJÆR_STATE_EXIT);
 }
 
 void Solskjær::setState(int state)
@@ -233,4 +245,19 @@ void Solskjær::createBullet()
 {
 	SolskjærBullet* bullet = new SolskjærBullet(x + 7, y + 18);
 	_weapons.emplace_back(bullet);
+}
+
+void Solskjær::createCloneBullet()
+{
+	int size = _weapons.size();
+	for (int i = 0; i < size; ++i) {
+		auto bullet = dynamic_cast<SolskjærBullet*>(_weapons[i]);
+		if (bullet && !bullet->getIsClone() && bullet->getIsCreateClone()) {
+			bullet->setIsClone(true);
+
+			SolskjærBullet* cloneBullet = new SolskjærBullet(bullet->x, bullet->y);
+			cloneBullet->setIsClone(true);
+			_weapons.emplace_back(cloneBullet);
+		}
+	}
 }

@@ -9,8 +9,8 @@
 #include "Brick.h"
 
 
-#define SOLSKJÆR_BULLET_SPEED_X -0.025f;
-#define SOLSKJÆR_BULLET_SPEED_Y 0.02f
+#define SOLSKJÆR_BULLET_SPEED_X -0.02f;
+#define SOLSKJÆR_BULLET_SPEED_Y 0.03f
 
 #define SOLSKJÆR_BULLET_STATE_ONLY 0
 
@@ -25,9 +25,12 @@ public:
 	void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255));
 	void setPosition(float x, float y);
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
+	bool getIsClone() { return isClone; }
+	bool getIsCreateClone() { return isCreateClone; }
+	void setIsClone(bool value) { isClone = value; }
 
 private:
-	SolskjærBullet* clone;
+	bool isCreateClone;
 	bool isClone;
 	int counter;
 	bool isOnly;

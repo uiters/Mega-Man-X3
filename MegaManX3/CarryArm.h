@@ -27,7 +27,7 @@ class CarryArm :
 public:
 	float putBoxX;
 	float putBoxY;
-	bool isDie;
+	bool* isDie = &_death;
 	bool isComplete;
 	bool isPutBox;
 	bool isLeft;
@@ -43,15 +43,17 @@ public:
 	void generatePosition2();// **
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	Box* getBox() { return box; }
+	void reset();
+	void receiveDamage(int damage);
 private:
 	float initX;
 	float initY;
 	float vx;
 	float vy;
 	int counter;
-	bool isSwitch;
 	bool isDamage;
 	bool isInjure;
+	bool isSwitch;
 
 	Box* box;
 	PointF damage[10];// **

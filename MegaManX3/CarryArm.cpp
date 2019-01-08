@@ -15,7 +15,6 @@ CarryArm::CarryArm(float x, float y, bool isNext)
 	this->isSwitch = false;
 	this->isPutBox = false;
 	this->isInjure = false;
-	this->isDie = false;
 	this->isComplete = false;
 
 	this->loadResources();
@@ -24,6 +23,7 @@ CarryArm::CarryArm(float x, float y, bool isNext)
 	box = new Box(this->x - 6, this->y + 59);
 	box->isNext = this->isNext;
 	box->isLeft = this->isLeft;
+	initHP = _hp = 2;
 }
 
 CarryArm::~CarryArm()
@@ -33,7 +33,7 @@ CarryArm::~CarryArm()
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
-	if (this->isDie) {
+	if (*isDie) {
 		generatePosition2();
 		return;
 	}
@@ -47,6 +47,10 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 			counter = 0;
 			isSwitch = true;
 			isPutBox = true;
+		}
+		else
+		{
+			if (this->isInjure) setState(CARRY_ARM_STATE_INJURE);
 		}
 
 		if (isSwitch) {
@@ -91,7 +95,7 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 		y += speed.vy * dt;
 
 		if (!isNext) {
-			if (x >= 4944 && x < 4985 + 25) {
+			if (x >= 4944 - 30 && x < 4985 + 25) {
 				speed.vy = 0;
 			}
 
@@ -123,6 +127,10 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 			counter = 0;
 			isSwitch = true;
 			isPutBox = true;
+		}
+		else
+		{
+			if (this->isInjure) setState(CARRY_ARM_STATE_INJURE);
 		}
 
 		if (isSwitch) {
@@ -192,19 +200,19 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 {
-	if (this->isDie) {
+	if (*isDie) {
 		renderDie(dt);
 		return;
-	}
-
-	if (this->isDamage) {
-		renderDamage(dt);
 	}
 
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
 
 	box->render(dt);
+
+	if (this->isDamage || this->isInjure) {
+		renderDamage(dt);
+	}
 }
 
 void CarryArm::renderDamage(DWORD dt, D3DCOLOR colorBrush)
@@ -313,9 +321,35 @@ void CarryArm::generatePosition2()
 
 void CarryArm::getBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + 44;
+	bottom = y + 57;
 }
 
 
+
+void CarryArm::reset()
+{
+	this->setState(CARRY_ARM_STATE_FLY);
+	this->isSwitch = true;
+}
+
+void CarryArm::receiveDamage(int damage)
+{
+	if (_hp > 0)
+	{
+		_hp -= damage;
+		if (_hp < 1.5f) this->isDamage = true;
+
+	}
+	if (_hp <= 0)
+	{
+		setAnimationDie();
+		_death = true;
+		*isDie = true;
+	}
+}
 
 void CarryArm::setState(int state)
 {
@@ -383,7 +417,7 @@ void CarryArm::loadResources()
 	sprites->addSprite(20024, CARRY_ARM_ID_TEXTURE, 639, 94, 32, 41);
 	sprites->addSprite(20025, CARRY_ARM_ID_TEXTURE, 681, 94, 32, 41);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(60);
 	ani->add(20021);
 	ani->add(20022);
 	ani->add(20023);

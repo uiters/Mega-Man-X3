@@ -6,6 +6,7 @@ SolskjærBullet::SolskjærBullet(float x, float y)
 	this->x = x;
 	this->y = y;
 	isDelete = false;
+	isCreateClone = false;
 	isClone = false;
 	counter = 0;
 	isOnly = true;
@@ -23,13 +24,8 @@ void SolskjærBullet::update(DWORD dt, unordered_map<int, GameObject*>* staticObj
 {
 	counter++;
 	GameObject::update(dt);
-	if(!clone)
-		collisionStatic(staticObjects);
-	else
-	{
-		x += speed.vx * dt;
-		clone->update(dt, staticObjects);
-	}
+	collisionStatic(staticObjects);
+	x += speed.vx * dt;
 }
 
 void SolskjærBullet::render(DWORD dt, D3DCOLOR colorBrush)
@@ -39,8 +35,6 @@ void SolskjærBullet::render(DWORD dt, D3DCOLOR colorBrush)
 
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
-	if (!isClone && clone != NULL) 
-		clone->render(dt);
 }
 
 void SolskjærBullet::setPosition(float x, float y)
@@ -121,15 +115,14 @@ void SolskjærBullet::collisionStatic(unordered_map<int, GameObject*>* staticObje
 		x += min_tx * dx + nx * 1.f;
 		y += min_ty * dy + ny * 1.f;
 
-		//isDelete = true;
 		speed.vy = 0;
-		if (!clone) {
-			if (isOnly) {
-				clone = new SolskjærBullet(x, y);
-				clone->isClone = true;
-				clone->setState(SOLSKJÆR_BULLET_STATE_ONLY);
-				isOnly = false;
-			}
+		isCreateClone = true;
+		if (!isClone) {
+			speed.vx = SOLSKJÆR_BULLET_SPEED_X;
+		}
+		else
+		{
+			speed.vx = -SOLSKJÆR_BULLET_SPEED_X;
 		}
 	}
 	UINT size = coEvents.size();
