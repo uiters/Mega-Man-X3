@@ -17,6 +17,7 @@ CarryArm::CarryArm(float x, float y, bool isNext)
 	this->isInjure = false;
 	this->isComplete = false;
 	this->isCompleteHalf = false;
+	this->isDamage = false;
 
 	this->loadResources();
 	this->setState(CARRY_ARM_STATE_FLY);
@@ -24,7 +25,7 @@ CarryArm::CarryArm(float x, float y, bool isNext)
 	box = new Box(this->x - 6, this->y + 59);
 	box->isNext = this->isNext;
 	box->isLeft = this->isLeft;
-	initHP = _hp = 4.0f;
+	initHP = _hp = 2.0f;
 	initDamage = 2.0f;
 }
 
@@ -35,6 +36,8 @@ CarryArm::~CarryArm()
 void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
 	this->dt = dt;
+	box->update(dt);
+
 	if (*isDie) {
 		generatePosition2();
 		return;
@@ -199,7 +202,6 @@ void CarryArm::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 	}
 	
 
-	box->update(dt);
 }
 
 void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
@@ -213,7 +215,7 @@ void CarryArm::render(DWORD dt, D3DCOLOR colorBrush)
 	auto center = cameraGlobal->transform(x, y);
 	_animations[state]->render(center.x, center.y);
 
-	if (this->isDamage || this->isInjure) {
+	if (this->isDamage) {
 		renderDamage(dt);
 	}
 }
@@ -343,8 +345,9 @@ void CarryArm::receiveDamage(float damage)
 	if (_hp - damage > 0)
 	{
 		_hp -= damage;
-		if (_hp < 3.0f) this->isInjure = true;
-
+		if (_hp < 1.5f) {
+			this->isDamage = true;
+		}
 	}
 	else
 	{
