@@ -270,7 +270,11 @@ void Camera::state6(int cameraX, int cameraY)
 	}
 	else if (lockTop)
 	{
-		if (cameraY < 672 && viewport.y - cameraY > 0)
+		if (cameraX < 2816) {
+			lockTop = true;
+			return;
+		}
+		if ( cameraY < 672 && viewport.y - cameraY > 0)
 			viewport.y -= 5;
 		else if(cameraY >= 576)
 		lockTop = false;
@@ -426,7 +430,7 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//minValue = 2432;
 	//lockTop = true;
 	//lockLeft = true;
-	
+	//
 	//after shuriken
 	//nAnimation = 6;
 	//state = &Camera::state6;
@@ -450,84 +454,6 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//minValue = 7424;
 	//maxValue = 7552;
 	//state = &Camera::state10;
-
-	//nAnimation = 5;
-	//switch (nAnimation)
-	//{
-	//case 1:
-	//	//viewport.x = 0;
-	//	//viewport.y = 2 * 256;
-	//	state = &Camera::state1;
-	//	minValue = 0;
-	//	maxValue = 650;
-	//	break;
-	//case 2:
-	//	lockLeft = true;
-	//	lockTop = true;
-	//	minValue = 0;
-	//	maxValue = 512;
-	//	state = &Camera::state2;
-	//	break;
-	//case 3:
-	//	lockTop = true;
-	//	minValue = 768;
-	//	maxValue = 832;
-	//	state = &Camera::state3;
-	//	break;
-	//case 4:
-	//	lockTop = true;
-	//	lockLeft = true;
-	//	minValue = 1024;
-	//	maxValue = 2172;
-	//	state = &Camera::state4;
-	//	break;
-	//case 5:
-	//	lockTop = true;
-	//	lockLeft = true;
-	//	minValue = 2432;
-	//	maxValue = 2432;
-	//	state = &Camera::state5;
-	//	break;
-	//case 6:
-	//	lockTop = true;
-	//	lockLeft = true;
-	//	minValue = 2560;
-	//	maxValue = 5536;
-	//	state = &Camera::state6;
-	//	break;
-	//case 7:
-	//	lockTop = true;
-	//	lockLeft = true;
-	//	minValue = 5632;
-	//	maxValue = 5504;
-	//	state = &Camera::state7;
-	//	break;
-	//case 8:
-	//	lockTop = true;
-	//	lockLeft = true;
-	//	minValue = 5888;
-	//	maxValue = 7296;
-	//	state = &Camera::state8;
-	//	break;
-	//case 9:
-	//	lockTop = true;
-	//	lockLeft = true;
-	//	minValue = 7296;
-	//	maxValue = 7552;
-	//	state = &Camera::state9;
-	//	break;
-	//case 10:
-	//	lockTop = true;
-	//	lockLeft = true;
-	//	minValue = 7424;
-	//	maxValue = 7552;
-	//	state = &Camera::state10;
-	//	break;
-	//default:
-	//	break;
-	//}
-
-
 }
 
 void Camera::update(int x, int y) //center x, center y
@@ -561,3 +487,77 @@ const Point Camera::transform(const int& x, const int& y) const
 {
 	return { x - viewport.x, y - viewport.y };
 }
+
+void Camera::resetState()
+{
+	aniSwitchState = false;
+	if (nAnimation < 6)
+	{
+		nAnimation = 1;
+		state = &Camera::state1;
+		minValue = 0;
+		maxValue = 650;
+		lockTop = true;
+		lockLeft = false;
+		mainGlobal->x = viewport.x = 100;
+		mainGlobal->y = 512;
+		viewport.y = 512;
+		if(blockBackward)
+			delete blockBackward,
+			blockBackward = null;
+	}
+	else if (nAnimation <= 7)
+	{
+		nAnimation = 6;
+		state = &Camera::state6;
+		minValue = 2560;
+		maxValue = 5504;
+		lockTop = true;
+		lockLeft = false;
+		if (blockBackward)
+			delete blockBackward;
+
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 2546, 895, 22, 52);
+
+		mainGlobal->x = viewport.x = 2600;
+		mainGlobal->y = 760;
+		viewport.y = 768;
+	}
+	else if (nAnimation < 9)
+	{
+		nAnimation = 8;
+		lockTop = true;
+		lockLeft = true;
+		minValue = 5888;
+		maxValue = 7296;
+		state = &Camera::state8;
+
+
+		mainGlobal->x = 5910;
+		viewport.x = 5888;
+		mainGlobal->y = 760;
+		viewport.y = 768;
+		if (blockBackward)
+			delete blockBackward;
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 5890, 895, 10, 61);
+	}
+	else
+	{
+		nAnimation = 9;
+		lockTop = true;
+		lockLeft = true;
+		minValue = 7296;
+		maxValue = 7552;
+		state = &Camera::state9;
+
+		mainGlobal->x = 7450;
+		viewport.x = 7424;
+		mainGlobal->y = 1536;
+		viewport.y = 1536;
+
+		if (blockBackward)
+			delete blockBackward;
+		blockBackward = new Block(ID_BLOCK_BACK_WARD, 7412, 1663, 16, 66);
+	}
+}
+

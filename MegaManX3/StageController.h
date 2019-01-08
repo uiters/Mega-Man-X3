@@ -23,10 +23,9 @@ private:
 
 	bool* enableUpdateController;
 	static StageController* _instance;
-
+	bool isReset = false;
 private:
 	StageController();
-	void getEnemies(DWORD dt);
 public:
 	static StageController* getInstance();
 	~StageController();

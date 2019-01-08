@@ -74,8 +74,12 @@ void StageWaitBoss::render(DWORD dt, D3DCOLOR colorBrush)
 
 void StageWaitBoss::reset()
 {
-	gateLeft->state = GateOpen;
 	gateRight->state = GateLock;
-	ready = false;
 	gateLeftClose = false;
+	if (pointRevival)
+		ready = true,
+		gateLeft->state = GateLock;
+	else
+		ready = false,
+		gateLeft->state = GateOpen;
 }

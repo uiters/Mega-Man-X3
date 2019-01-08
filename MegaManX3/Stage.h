@@ -7,7 +7,7 @@ class Stage
 {
 protected:
 	MegamanX* main;
-
+	bool pointRevival;
 protected:
 	void updateMain(DWORD dt);
 public:
@@ -23,5 +23,7 @@ public:
 	virtual void render(DWORD dt, D3DCOLOR colorBrush = WHITE(255)) = 0;
 	virtual void reset() = 0;
 
+public:
+	void setPointRevival() { pointRevival = true; }
 };
 

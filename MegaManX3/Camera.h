@@ -49,7 +49,7 @@ public:
 public:
 	Block* getBlock() { return blockBackward; }
 	int getState() { return nAnimation; }
-
+	void resetState();
 public:
 	void setEnable(bool value) { this->enable = value; }
 };

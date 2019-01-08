@@ -7,10 +7,10 @@ void Game1::initGolbals()
 	spritesGlobal = CSprites::getInstance();
 	animationsGlobal = CAnimations::getInstance();
 
-	cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
+	//cameraGlobal = new Camera(0, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//start
 	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);//elevator
 	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);//surikein
-	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
+	cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
 	//cameraGlobal = new Camera(2288, 810, CAMERA_WIDTH, CAMERA_HEIGHT); before surikein
 	//cameraGlobal = new Camera(2560, 896, CAMERA_WIDTH, CAMERA_HEIGHT);// after  surikein
 	//cameraGlobal = new Camera(7324, 1664, CAMERA_WIDTH, CAMERA_HEIGHT);// after byte
@@ -50,7 +50,7 @@ void Game1::loadResource()
 	
 	//main = new MegamanX(Megaman, 2188, 810);//before shurikein
 	
-	//main = new MegamanX(Megaman, 2560, 896);//after shurikein
+	//main = new MegamanX(Megaman, 2500, 768);//after shurikein
 	//main = new MegamanX(Megaman, 4704, 896);//miniboss 2
 	//main = new MegamanX(Megaman, 5376, 896);//before bytes
 	//main = new MegamanX(Megaman, 7324, 1664);//before wait boss
@@ -75,12 +75,15 @@ void Game1::loadResource()
 
 	auto ani = new CAnimation(1000);
 	ani->add(appear, 1000);
-	for (int i = 1; i < 8; i++)
-	{
-		ani->add(appear + i, 100);
-	}
 	animationsGlobal->add(appear, ani);
 	main->addAnimation(appear);
+	ani = new AnimationOneTime(50);
+	for (int i = 1; i < 8; ++i)
+	{
+		ani->add(appear + i);
+	}
+	animationsGlobal->add(appear + 1, ani);
+	main->addAnimation(appear + 1);
 #pragma endregion
 
 #pragma region stand

@@ -12,8 +12,8 @@ Stage8::Stage8()
 	ready = false;
 	gateLeftClose = false;
 
-	ready = true;//test 
-	gateLeft->state = GateLock;//test
+	//ready = true;//test 
+	//gateLeft->state = GateLock;//test
 }
 
 
@@ -89,8 +89,13 @@ void Stage8::render(DWORD dt, D3DCOLOR colorBrush)
 
 void Stage8::reset()
 {
-	gateLeft->state = GateOpen;
+	
 	gateRight->state = GateLock;
-	ready = false;
 	gateLeftClose = false;
+	if (pointRevival)
+		ready = true,
+		gateLeft->state = GateLock;
+	else
+		ready = false,
+		gateLeft->state = GateOpen;
 }

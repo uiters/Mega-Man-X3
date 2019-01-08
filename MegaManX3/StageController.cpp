@@ -24,13 +24,6 @@ StageController * StageController::getInstance()
 	return _instance;
 }
 
-
-void StageController::getEnemies(DWORD dt)
-{
-
-}
-
-
 StageController::~StageController()
 {
 
@@ -38,9 +31,33 @@ StageController::~StageController()
 
 void StageController::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
+	if (!isReset && main->isRevivaling)
+	{
+		isReset = true;
+		cameraGlobal->resetState();
+		auto index = cameraGlobal->getState();
+		stage->setPointRevival();
+		index = index < 4 ? 3 : index;
+		for (index; index < 11; ++index)
+		{
+			stages[index]->reset();
+		}
+		main->speed.vx = 0;
+		main->speed.vy = 0.01f * dt;
+		//auto obj = staticObjects[0][ID_BLOCK_BACK_WARD];
+		//if (obj)
+		//	staticObjects[0].erase(ID_BLOCK_BACK_WARD);
+	}
+
 	auto index = cameraGlobal->getState();
 	stage = stages[index];
-	stagePre = stages[index  - 1];
+	stagePre = stages[index - 1];
+
+	if (isReset && !main->isRevivaling)
+	{
+		isReset = false;
+	}
+
 	if (stage)
 	{
 		stage->update(dt, staticObjects);
@@ -57,9 +74,12 @@ void StageController::render(DWORD dt, D3DCOLOR colorBrush)
 
 void StageController::getStaticObjects(unordered_map<int, GameObject*>& objs)
 {
-	auto block = camera->getBlock();
-	if (block)
-		objs[ID_BLOCK_BACK_WARD] = block;
+	if (!main->isRevivaling)
+	{
+		auto block = camera->getBlock();
+		if (block)
+			objs[ID_BLOCK_BACK_WARD] = block;
+	}
 	if (stage)
 	{
 		stage->getStaticObjects(&objs);

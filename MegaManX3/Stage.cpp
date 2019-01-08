@@ -9,6 +9,7 @@ void Stage::updateMain(DWORD dt)
 Stage::Stage()
 {
 	main = dynamic_cast<MegamanX*>(mainGlobal);
+	pointRevival = false;
 }
 
 

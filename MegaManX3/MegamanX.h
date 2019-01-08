@@ -49,6 +49,7 @@ public:
 	int  onWall = 0; //đang ở trên tường -1 left - 1 right
 	bool onAir = false; //đang ở trên không trung
 	bool enable = true;
+	bool isRevivaling = false;
 
 	bool hurt() { return isHurt; }
 	void setHurt();
@@ -58,6 +59,7 @@ private:
 	bool isProtect = false;
 	CTime timeHurt = (500); //animation hurt
 	CTime timeProtect = (3000); //animation flicker;
+	CTime timeRevival = (5000);
 	bool showblur = false; //for blur draw
 	int delay = 3;
 
@@ -83,5 +85,8 @@ public:
 private:
 	void dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects);
 	void bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);
+	void revival();
+	void reset() override;
+	void updateRevivaling(DWORD dt, unordered_map<int, GameObject*>* staticObjects);
 };
 #endif // !_MegamanX_H_

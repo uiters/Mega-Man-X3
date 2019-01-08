@@ -74,6 +74,7 @@ void StageElevator::reset()
 {
 	elevator->x = initX;
 	elevator->y = initY;
+	elevator->stopRun();
 	isResetLocation = false;
 	wait = 0;
 }

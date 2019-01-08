@@ -25,6 +25,6 @@ public:
 	void reset();
 
 public:
-	HPBar* getHPBar() { return hpBarBoss; }
+	HPBar* getHPBar() { if (ready) return hpBarBoss; else return null; }
 };
 
