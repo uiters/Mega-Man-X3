@@ -52,11 +52,11 @@ void StageMiniBoss2::update(DWORD dt, unordered_map<int, GameObject*>* staticObj
 				viewPortGlobal->x += 5;
 			else viewPortGlobal->x = 4856.f;
 			boss->update(dt, staticObjects, main);
-			//if (true)
-			//{
-			//	cameraGlobal->setEnable(true);
-			//	miniBoss = false;
-			//}
+			if (boss->getIsFinish())
+			{
+				cameraGlobal->setEnable(true);
+				miniBoss = false;
+			}
 		}
 
 		if (gateLeft->getBoundBox().intersectsWith(*viewPortGlobal))

@@ -9,6 +9,7 @@ BarrierSystem::BarrierSystem()
 	this->initX = 4856;
 	this->initY = this->y;
 	this->isHidden = false;
+	this->isFinish = false;
 		
 	this->setState(BARRIER_SYSTEM_SPEED_PART_1);
 	this->loadResources();
@@ -33,6 +34,7 @@ void BarrierSystem::update(DWORD dt, unordered_map<int, GameObject*>* staticObje
 			initY -= speed.vy * dt;
 			if (initY <= 680) {
 				initY = 680;
+				isFinish = true;
 			}
 		}
 		return;

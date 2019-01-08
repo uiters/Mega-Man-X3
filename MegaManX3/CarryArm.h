@@ -29,6 +29,7 @@ public:
 	float putBoxY;
 	bool* isDie = &_death;
 	bool isComplete;
+	bool isCompleteHalf;
 	bool isPutBox;
 	bool isLeft;
 	bool isNext;
@@ -44,7 +45,7 @@ public:
 	void getBoundingBox(float & left, float & top, float & right, float & bottom) override;
 	Box* getBox() { return box; }
 	void reset();
-	void receiveDamage(int damage);
+	void receiveDamage(float damage) override;
 private:
 	float initX;
 	float initY;
