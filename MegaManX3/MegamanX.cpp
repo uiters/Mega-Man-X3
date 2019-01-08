@@ -116,13 +116,15 @@ MegamanX::~MegamanX()
 
 void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	if (_death) return;
+	weapon->update(dt);
+
+	if (!enable || _death) return;
+
 	GameObject::update(dt);
 	speed.vy += 0.0012f * dt;
 
 	collisionStatic(staticObjects);
 	collisionDynamic(dynamicObjects);
-
 
 	if (isProtect)
 	{
@@ -137,14 +139,11 @@ void MegamanX::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects, 
 		delay -= 1;
 		if (timeProtect.isStop()) isProtect = false;
 	}
-
-	weapon->update(dt);
-
 }
 
 void MegamanX::updateStage(DWORD dt, unordered_map<int, GameObject*>* dynamicObjects)
 {
-	if (_death) return;
+	if (!enable || _death) return;
 	GameObject::update(dt);
 	collisionDynamic(dynamicObjects);
 }
@@ -179,7 +178,8 @@ void MegamanX::render(DWORD dt, D3DCOLOR colorBrush)
 		dissapear(dt, colorBrush);
 		return;
 	}
-	updateState(dt);
+	if(enable)
+		updateState(dt);
 	
 	if (!isHurt && isProtect)
 	{
@@ -377,6 +377,17 @@ void MegamanX::receiveDamage(float damage)
 		setAnimationDie();
 		timeHide.start();
 		_death = true;
+	}
+}
+
+void MegamanX::setEnable(bool value)
+{
+	if (value)
+	{
+		enable = true;
+		keyController->stopDashRunning();
+		keyController->stopJump();
+		keyController->stopRun();
 	}
 }
 

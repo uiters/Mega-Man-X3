@@ -411,13 +411,13 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//minValue = 0;
 	//maxValue = 512;
 	
-	//shuriken
-	nAnimation = 4;
-	state = &Camera::state4;
-	minValue = 1024;
-	maxValue = 2172;
-	lockTop = true;
-	lockLeft = true;
+	//before shuriken
+	//nAnimation = 4;
+	//state = &Camera::state4;
+	//minValue = 1024;
+	//maxValue = 2172;
+	//lockTop = true;
+	//lockLeft = true;
 
 	////shuriken
 	//nAnimation = 5;
@@ -427,6 +427,14 @@ Camera::Camera(int x, int y, int width, int height) : viewport(x, y, width, heig
 	//lockTop = true;
 	//lockLeft = true;
 	
+	//after shuriken
+	nAnimation = 6;
+	state = &Camera::state6;
+	minValue = 2560;
+	maxValue = 5536;
+	lockTop = true;
+	lockLeft = true;
+
 	////boss
 	//nAnimation = 10;
 	//lockTop = true;

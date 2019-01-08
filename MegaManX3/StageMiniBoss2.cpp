@@ -10,6 +10,14 @@ StageMiniBoss2::StageMiniBoss2()
 	gateLeft = new Gate(2560, 896, 16, 48, false);
 	gateLeft->state = GateOpen;
 	gateRight->state = GateLock;
+	ready = false;
+	gateLeftClose = false;
+
+	drawLeft = true;
+	drawRight = false;
+
+	ready = true;//test
+
 }
 
 
@@ -27,39 +35,65 @@ void StageMiniBoss2::getDynamicObjects(unordered_map<int, GameObject*>* dynamicO
 
 void StageMiniBoss2::update(DWORD dt, unordered_map<int, GameObject*>* staticObjects)
 {
-	if (!miniBoss)
+	if (ready)
 	{
-		if (!doneMiniBoss && viewPortGlobal->x >= 4864.f)
-			miniBoss = true,
-			doneMiniBoss = true,
-			viewPortGlobal->x = 4864,
-			cameraGlobal->setEnable(false);
-	}
-	else // in miniboss
-	{
-		boss->update(dt, staticObjects, main);
-		if (true)
+		if (!main->enable && gateLeft->state == GateLock)
+			main->setEnable(true);
+		if (!miniBoss)
 		{
-			cameraGlobal->setEnable(true);
-			miniBoss = false;
+			if (!doneMiniBoss && viewPortGlobal->x >= 4736.f && viewPortGlobal->x < 4960.f)
+				miniBoss = true,
+				doneMiniBoss = true,
+				cameraGlobal->setEnable(false);
 		}
-	}
-
-	if (gateLeft->getBoundBox().intersectsWith(*viewPortGlobal))
-	{
-		drawLeft = true;
-		if(gateLeft->state == GateOpen && !mainGlobal->getBoundBox().intersectsWith(gateLeft->getBoundBox()))
+		else // in miniboss
 		{
-			gateLeft->state = GateClose;
+			if (viewPortGlobal->x + 5 < 4864.f)
+				viewPortGlobal->x += 5;
+			else viewPortGlobal->x = 4864.f;
+			boss->update(dt, staticObjects, main);
+			//if (true)
+			//{
+			//	cameraGlobal->setEnable(true);
+			//	miniBoss = false;
+			//}
+		}
+
+		if (gateLeft->getBoundBox().intersectsWith(*viewPortGlobal))
+		{
+			drawLeft = true;
+		}
+		else
+		{
+			drawLeft = true;
+			if (gateRight->getBoundBox().intersectsWith(*viewPortGlobal))
+				drawRight = true;
+			else drawRight = false;
 		}
 	}
 	else
 	{
-		drawLeft = true;
-		if (gateRight->getBoundBox().intersectsWith(*viewPortGlobal))
-			drawRight = true;
-		else drawRight = false;
-	}	
+		if (gateRight->state == GateLock)
+		{
+			if (gateLeftClose && gateLeft->state == GateLock)
+				ready = true;
+			updateMain(dt);
+		}
+		else
+			if (!main->enable && gateRight->state == GateOpen)
+			{
+				updateMain(dt);
+			}
+		if (gateLeft->state == GateOpen && !mainGlobal->getBoundBox().intersectsWith(gateLeft->getBoundBox()))
+		{
+			gateLeft->state = GateClose;
+			gateLeftClose = true;
+			updateMain(dt);
+			main->speed.vx = 0.0f;
+			main->dx = 0;
+			main->state = stand;
+		}
+	}
 }
 
 void StageMiniBoss2::render(DWORD dt, D3DCOLOR colorBrush)
@@ -83,4 +117,8 @@ void StageMiniBoss2::reset()
 	gateRight->state = GateLock;
 	delete boss;
 	boss = new SolskjærController();
+	ready = false;
+	gateLeftClose = false;
+	drawLeft = true;
+	drawRight = false;
 }

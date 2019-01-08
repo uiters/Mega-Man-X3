@@ -9,6 +9,7 @@ private:
 	Gate* gate;
 	CRectangle gateBox;
 	bool draw = false;
+	bool alreadyOpenGate = false;
 public:
 	Stage4();
 	~Stage4();

@@ -5,10 +5,12 @@
 class StageMiniBoss1 : public Stage
 {
 private:
+	bool ready;
 	Gate* gateLeft;
 	Gate* gateRight;
 	Genjibo* genjibo;
 	Shurikein* shurikein;
+	bool gateLeftClose;
 public:
 	StageMiniBoss1();
 	~StageMiniBoss1();

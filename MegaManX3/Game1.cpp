@@ -11,7 +11,8 @@ void Game1::initGolbals()
 	//cameraGlobal = new Camera(800, 550, CAMERA_WIDTH, CAMERA_HEIGHT);
 	//cameraGlobal = new Camera(2344, 910, CAMERA_WIDTH, CAMERA_HEIGHT);//surikein
 	//cameraGlobal = new Camera(7715, 1681, CAMERA_WIDTH, CAMERA_HEIGHT);//boss
-	cameraGlobal = new Camera(2288, 810, CAMERA_WIDTH, CAMERA_HEIGHT);
+	//cameraGlobal = new Camera(2288, 810, CAMERA_WIDTH, CAMERA_HEIGHT); before surikein
+	cameraGlobal = new Camera(2560, 896, CAMERA_WIDTH, CAMERA_HEIGHT);// after surikein
 	viewPortGlobal = &cameraGlobal->viewport;
 }
 
@@ -45,13 +46,16 @@ void Game1::loadResource()
 
 
 	
-	main = new MegamanX(Megaman, 2188, 810);
+	//main = new MegamanX(Megaman, 2188, 810);//before shurikein
+	
+	//main = new MegamanX(Megaman, 2560, 896);//after shurikein
+	main = new MegamanX(Megaman, 4704, 896);//miniboss 2
 
-	//main = new MegamanX(Megaman, 100, 650);
-	//main = new MegamanX(Megaman, 768, 650);
+	//main = new MegamanX(Megaman, 100, 650); //start
+	//main = new MegamanX(Megaman, 768, 650); //elevator
 	//7715 1681
-	//main = new MegamanX(Megaman, 2344, 910);
-	//main = new MegamanX(Megaman, 7715, 1681);
+	//main = new MegamanX(Megaman, 2344, 910); // shuriken
+	//main = new MegamanX(Megaman, 7715, 1681); // bos
 	keyGlobal = main;
 
 	//Weapon *main_bullet = new Weapon(Megaman, main->x, main->y, 0.5, 0);
@@ -120,7 +124,7 @@ void Game1::loadResource()
 	ani = new CAnimation(450);
 	ani->add(jump, 10);
 	ani->add(jump + 1, 40);
-	ani->add(jump + 2, 400);
+	ani->add(jump + 2, 14000);
 	animationsGlobal->add(jump, ani);
 	main->addAnimation(jump);
 #pragma endregion
@@ -133,7 +137,7 @@ void Game1::loadResource()
 	ani = new CAnimation(450);
 	ani->add(fall, 400);
 	ani->add(fall + 1, 40);
-	ani->add(fall + 2, 10);
+	ani->add(fall + 2, 10000);
 	animationsGlobal->add(fall, ani);
 	main->addAnimation(fall);
 #pragma endregion
@@ -144,7 +148,7 @@ void Game1::loadResource()
 
 	ani = new CAnimation(600);
 	ani->add(dash, 20);
-	ani->add(dash + 1, 580);
+	ani->add(dash + 1, 11580);
 	animationsGlobal->add(dash, ani);
 	main->addAnimation(dash);
 #pragma endregion
@@ -471,8 +475,8 @@ void Game1::initOption()
 
 void Game1::update(DWORD dt)
 {
-	
-	keyGlobal->processKeyboard();
+	if(main->enable)
+		keyGlobal->processKeyboard();
 	controller->update(dt);	
 	cameraGlobal->update(main->x, main->y);
 }	

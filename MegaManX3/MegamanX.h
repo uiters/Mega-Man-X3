@@ -41,15 +41,19 @@ private:
 	PointF p7 = { 390, 310 };
 	PointF p8 = { 390, 290 };
 public:
+
 	MegamanX(UINT id, float x = 0, float y = 0, float vx = 0, float vy = 0);
 	~MegamanX();
 
 	bool isFlipX = false; //lật hình (mặc định hướng về phải)
 	int  onWall = 0; //đang ở trên tường -1 left - 1 right
 	bool onAir = false; //đang ở trên không trung
+	bool enable = true;
+
 	bool hurt() { return isHurt; }
 	void setHurt();
 private:
+	
 	bool isHurt = false;
 	bool isProtect = false;
 	CTime timeHurt = (500); //animation hurt
@@ -75,6 +79,7 @@ public:
 	void getBoundingBox(float& left, float& top, float& right, float &bottom) override;
 	void setFloor(StaticObject* obj) { keyController->setFloor(obj); }
 	void receiveDamage(float damage) override;
+	void setEnable(bool value);
 private:
 	void dynamicCollisionThis(unordered_map<int, GameObject*>* dynamicObjects);
 	void bulletCollisionDynamic(unordered_map<int, GameObject*>* dynamicObjects);

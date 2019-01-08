@@ -13,6 +13,8 @@ private:
 	MegamanX* main;
 	bool drawLeft;
 	bool drawRight;
+	bool ready;
+	bool gateLeftClose;
 public:
 	StageMiniBoss2();
 	~StageMiniBoss2();
