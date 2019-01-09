@@ -16,19 +16,20 @@
   </a>
 </p>
 
+<div align="center">
+  <h4>
+    <a href="#introduction">Iintroduction</a> |
+    <a href="#installation">Installation</a> |
+    <a href="#documents">Documents</a> |
+    <a href="##some-screens">Some Screens</a> |
+    <a href="#bugs-and-issues">Bugs and Issues</a> |
+    <a href="#license">License</a>
+  </h4>
+</div>
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/34389409/49020554-4eeef500-f1c3-11e8-823a-9fe46a35faf2.jpg" width="400"/>
 </p>
-
-## Contents
-
-* [Introduction](#introduction)
-* [Installation](#installation)
-* [Documents](#documents)
-* [Some Screens](#some-screens)
-* [Bugs and Issues](#bugs-and-issues)
-* [Team](#team)
-* [License](#license)
 
 ## Introduction
 
