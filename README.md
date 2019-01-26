@@ -3,12 +3,12 @@
 </h1>
 
 <h4 align="center">
-  <a href="https://github.com/jade28/ting-music" target="_blank"><code>Megaman X3 Clone</code></a> with C++.
+  <a href="https://github.com/tvc12/Mega-Man-X3" target="_blank"><code>Megaman X3 Clone</code></a> with C++.
 </h4>
 
 <p align="center">
   <a href="#">
-    <img src="https://travis-ci.org/jade28/dotfiles.svg?branch=master"/>
+    <img src="https://travis-ci.org/cuongw/dotfiles.svg?branch=master"/>
   </a>
   
   <a href="https://github.com/tvc12/Mega-Man-X3/blob/master/LICENSE">
@@ -21,7 +21,6 @@
     <a href="#introduction">Iintroduction</a> |
     <a href="#installation">Installation</a> |
     <a href="#documents">Documents</a> |
-    <a href="##some-screens">Some Screens</a> |
     <a href="#bugs-and-issues">Bugs and Issues</a> |
     <a href="#license">License</a>
   </h4>
@@ -45,17 +44,15 @@ Follow this [article](https://www.wikihow.com/Compile-CPP-File-to-EXE) to instal
 
 [gamedev-intro-tutorials](https://github.com/Dungdna2000/gamedev-intro-tutorials) by [Dungdna2000](https://github.com/Dungdna2000)
 
-## Some Screens
-
 ## Bugs and Issues
 
 Have a bug or an issue with this project? [Open a new issue](https://github.com/tvc12/Mega-Man-X3/issues) here on GitHub.
 
 ## Team
 
-| [![Thien Chi Vi](https://github.com/tvc12.png?size=100)](https://github.com/tvc12) | [![Cuong Nguyen](https://github.com/jade28.png?size=100)](https://github.com/jade28) | [![Phuoc Van Le](https://github.com/TokumeiShi.png?size=100)](https://github.com/TokumeiShi) |
+| [![Thien Chi Vi](https://github.com/tvc12.png?size=120)](https://github.com/tvc12) | [![Cuong Duy Nguyen](https://github.com/cuongw.png?size=100)](https://github.com/jade28) | [![Phuoc Van Le](https://github.com/TokumeiShi.png?size=120)](https://github.com/TokumeiShi) |
 | :---: | :---: | :---: |
-| [Thien Chi Vi](https://github.com/tvc12) | [Cuong Nguyen](https://github.com/jade28) | [Phuoc Van Le](https://github.com/TokumeiShi) |
+| [Thien Chi Vi](https://github.com/tvc12) | [Cuong Duy Nguyen](https://github.com/cuongw) | [Phuoc Van Le](https://github.com/TokumeiShi) |
 
 ## License
 
