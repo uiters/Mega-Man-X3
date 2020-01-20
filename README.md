@@ -50,9 +50,7 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## Team
 
-| [![Thien Chi Vi](https://github.com/tvc12.png?size=120)](https://github.com/tvc12) | [![Cuong Duy Nguyen](https://github.com/cuongw.png?size=100)](https://github.com/jade28) | [![Phuoc Van Le](https://github.com/TokumeiShi.png?size=120)](https://github.com/TokumeiShi) |
-| :---: | :---: | :---: |
-| [Thien Chi Vi](https://github.com/tvc12) | [Cuong Duy Nguyen](https://github.com/cuongw) | [Phuoc Van Le](https://github.com/TokumeiShi) |
+[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/0)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/0)[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/1)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/1)[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/2)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/2)[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/3)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/3)[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/4)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/4)[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/5)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/5)[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/6)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/6)[![](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/images/7)](https://sourcerer.io/fame/tvc12/tvc12/Mega-Man-X3/links/7)
 
 ## License
 
