@@ -32,8 +32,6 @@
 </p>
 
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3?ref=badge_large)
-
 ## Introduction
 
 Mega Man X3 is a video game released by Capcom for the Super Nintendo Entertainment System (SNES). The game was originally released in Japan on December 1, 1995 and later in North American and PAL regions in 1996. It is the third game in the Mega Man X series and the last to appear on the SNES.
@@ -58,4 +56,4 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## License
 
-MIT
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3?ref=badge_large)
