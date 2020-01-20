@@ -14,6 +14,7 @@
   <a href="https://github.com/tvc12/Mega-Man-X3/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/tvc12/Mega-Man-X3.svg"/>
   </a>
+<a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3.svg?type=shield"/></a>
 </p>
 
 <div align="center">
@@ -29,6 +30,9 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/34389409/49020554-4eeef500-f1c3-11e8-823a-9fe46a35faf2.jpg" width="400"/>
 </p>
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuiters%2FMega-Man-X3?ref=badge_large)
 
 ## Introduction
 
