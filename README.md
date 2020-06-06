@@ -3,7 +3,7 @@
 </h1>
 
 <h4 align="center">
-  <a href="https://github.com/tvc12/Mega-Man-X3" target="_blank"><code>Megaman X3 Clone</code></a> with C++.
+  🎮 Mega Man X3 clone version.
 </h4>
 
 <p align="center">
